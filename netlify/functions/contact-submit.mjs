@@ -90,7 +90,7 @@ function buildEmailHtml({ name, email, phone, interest, location, message }) {
 </html>`;
 }
 
-export default async function handler(event) {
+export async function handler(event) {
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method not allowed' };
   }
