@@ -18,18 +18,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section class="contact-form-section">
     <div class="form-container">
       <form
-        name="contact"
         method="POST"
-        action="/kontakt/"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
+        action="/.netlify/functions/contact-submit"
         class="contact-form"
       >
-        <input type="hidden" name="form-name" value="contact" />
-        <p class="hidden" aria-hidden="true">
-          <label for="bot-field">Nicht ausfüllen</label>
-          <input id="bot-field" name="bot-field" type="text" tabindex="-1" autocomplete="off" />
-        </p>
 
         <div class="form-row">
           <div class="form-group form-group-full">
