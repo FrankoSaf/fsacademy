@@ -149,6 +149,7 @@ const ldWebPage = {
     <script type="application/ld+json" set:html={JSON.stringify(ldOrganization)} />
     <script type="application/ld+json" set:html={JSON.stringify(ldWebSite)} />
     <script type="application/ld+json" set:html={JSON.stringify(ldWebPage)} />
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
@@ -160,6 +161,17 @@ const ldWebPage = {
     </main>
     <Footer />
     <CookieBanner />
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function(user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function() {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
   </body>
 </html>
 
