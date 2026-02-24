@@ -137,7 +137,7 @@
         "id": "ruben",
         "name": "Ruben",
         "role": "Gitarre, Bass",
-        "image": "public/uploads/img_0811-1920w.webp",
+        "image": "/uploads/img_0811-1920w.webp",
         "alt": "Gitarren und Basslehrer Ruben in Neuss und Düsseldorf",
         "locations": [
           "dusseldorf",
