@@ -267,8 +267,8 @@ collections:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
               - { label: Slug, name: slug, widget: string }
-                  - { label: Bild, name: image, widget: image }
-                  - { label: Beschreibung, name: description, widget: text }
+              - { label: Bild, name: image, widget: image }
+              - { label: Beschreibung, name: description, widget: text }
               - label: Highlights
                 name: highlights
                 widget: list
