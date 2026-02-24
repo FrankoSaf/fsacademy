@@ -532,7 +532,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     setLoading(true);
 
     try {
-      const res = await fetch('/', {
+      const res = await fetch(form.action || window.location.pathname, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(new FormData(form) as any).toString(),
