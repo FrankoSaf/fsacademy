@@ -2,13 +2,13 @@
   "about": {
     "title": "Deine Musikschule in Neuss: Wo Musik lebendig wird!",
     "paragraphs": [
-      "Willkommen bei der Fine Sound Academy in Neuss! Unsere Musikschule ist der perfekte Ort, um deine musikalischen Träume zu verwirklichen. Mit erfahrenen Lehrern, modernen Räumlichkeiten und einer inspirierenden Atmosphäre bieten wir dir alles, was du für deinen musikalischen Erfolg brauchst.",
-      "In Neuss legen wir besonderen Wert auf eine familiäre Atmosphäre und persönliche Betreuung. Unsere kleinen Gruppen und der individuelle Unterricht garantieren, dass jeder Schüler die Aufmerksamkeit bekommt, die er verdient.",
-      "Starte jetzt deine musikalische Reise in Neuss! Vereinbare eine kostenlose Probestunde und erlebe selbst, wie viel Spaß Musiklernen machen kann."
+      "Willkommen bei der Fine Sound Academy in Neuss! Unser Standort am Neumarkt 18 liegt direkt im Zentrum der Stadt — perfekt erreichbar und eingebettet in die lebendige Neusser Innenstadt. Hier bieten wir dir professionellen Musikunterricht in einer familiären Atmosphäre.",
+      "Was unsere Musikschule in Neuss besonders macht? Kleine Gruppen, persönliche Betreuung und Lehrer, die mit Herz und Kompetenz unterrichten. Jeder Schüler — ob Kind, Jugendlicher oder Erwachsener — bekommt die individuelle Aufmerksamkeit, die er verdient, um musikalisch zu wachsen.",
+      "Ob Klavier, Gitarre, Gesang, Bass oder Schlagzeug — bei uns am Neumarkt findest du das Unterrichtsangebot, das zu deinen Zielen passt. Vereinbare jetzt deine kostenlose Probestunde und erlebe selbst, wie viel Freude Musiklernen machen kann!"
     ],
-    "buttonText": "Erfahre mehr",
-    "buttonLink": "/about",
+    "buttonText": "Probestunde vereinbaren",
+    "buttonLink": "/kontakt",
     "image": "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae",
-    "imageAlt": "Musikschule Neuss"
+    "imageAlt": "Musikunterricht in der Fine Sound Academy Neuss"
   }
 }

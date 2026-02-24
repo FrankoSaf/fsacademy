@@ -1,25 +1,367 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import Instruments from '../components/Instruments.astro';
 import About from '../components/About.astro';
-import InfoCards from '../components/InfoCards.astro';
 import CTA from '../components/CTA.astro';
 import Team from '../components/Team.astro';
 import Pricing from '../components/Pricing.astro';
 import Contact from '../components/Contact.astro';
+
+const ldLocal = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicSchool',
+  name: 'Fine Sound Academy Düsseldorf',
+  description: 'Musikschule in Düsseldorf-Pempelfort: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Einzel- und Gruppenunterricht für alle Altersgruppen.',
+  url: 'https://www.finesoundacademy.com/duesseldorf',
+  telephone: '+49 176 77154511',
+  email: 'info@finesoundacademy.com',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Kaiserstr. 28',
+    addressLocality: 'Düsseldorf',
+    addressRegion: 'Nordrhein-Westfalen',
+    postalCode: '40479',
+    addressCountry: 'DE',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 51.23387, longitude: 6.77908 },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '20:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
+  ],
+  priceRange: '€€',
+  areaServed: { '@type': 'City', name: 'Düsseldorf' },
+};
+
+const faqItems = [
+  { question: 'Wo genau befindet sich die Musikschule in Düsseldorf?', answer: 'Unsere Musikschule befindet sich in der Kaiserstraße 28, 40479 Düsseldorf im Stadtteil Pempelfort. Die nächste U-Bahn-Haltestelle ist Nordstraße (U78, U79), nur 3 Gehminuten entfernt.' },
+  { question: 'Welche Instrumente kann ich in Düsseldorf lernen?', answer: 'In Düsseldorf bieten wir Unterricht für Klavier, Gitarre, Bass, Gesang und Schlagzeug an — für Anfänger bis Fortgeschrittene, Kinder und Erwachsene.' },
+  { question: 'Gibt es eine kostenlose Probestunde?', answer: 'Ja! Wir bieten eine kostenlose und unverbindliche Probestunde an. Kontaktiere uns einfach über unser Kontaktformular oder per Telefon.' },
+  { question: 'Gibt es Parkmöglichkeiten in der Nähe?', answer: 'Es gibt Straßenparkplätze in der Kaiserstraße und den angrenzenden Seitenstraßen. Das Parkhaus am Nordstraße-Platz ist ebenfalls nur wenige Minuten entfernt.' },
+  { question: 'Bietet ihr auch Gruppenunterricht an?', answer: 'Ja, neben Einzelunterricht bieten wir auch Gruppenunterricht in kleinen Gruppen an. Das ist besonders für Kinder und Einsteiger eine tolle Option.' },
+  { question: 'Ab welchem Alter kann mein Kind Unterricht nehmen?', answer: 'Wir unterrichten Schüler ab ca. 6 Jahren. Für jüngere Kinder empfehlen wir ein Gespräch, um die beste Option zu finden.' },
+];
+
+const ldFAQ = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
 ---
 
 <BaseLayout
-  title="Fine Sound Academy Düsseldorf"
-  description="Musikschule Düsseldorf: Klavier, Gitarre, Gesang, Bass, Schlagzeug. Unterricht in der Kaiserstraße. Kostenlose Probestunde buchen."
+  title="Musikschule Düsseldorf – Klavier, Gitarre, Gesang, Bass & Schlagzeug | Fine Sound Academy"
+  description="Musikschule in Düsseldorf-Pempelfort: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde. Einzel- und Gruppenunterricht für Kinder und Erwachsene."
 >
-  <Hero />
-  <Instruments />
+  <script type="application/ld+json" set:html={JSON.stringify(ldLocal)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(ldFAQ)} slot="head" />
+
+  <section class="location-hero" aria-labelledby="dusseldorf-heading">
+    <div class="hero-container">
+      <div class="accent-line"></div>
+      <h1 id="dusseldorf-heading">Musikschule in Düsseldorf</h1>
+      <p class="hero-subtitle">Fine Sound Academy — Kaiserstraße 28, Pempelfort</p>
+      <p class="hero-text">Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — mitten in Düsseldorf.</p>
+    </div>
+  </section>
+
+  <section class="location-intro" aria-label="Über den Standort Düsseldorf">
+    <div class="intro-container">
+      <div class="intro-grid">
+        <div class="intro-content">
+          <h2>Deine Musikschule im Herzen von Düsseldorf-Pempelfort</h2>
+          <p>Die Fine Sound Academy Düsseldorf liegt in der <strong>Kaiserstraße 28</strong>, im beliebten Stadtteil <strong>Pempelfort</strong> — einem der lebendigsten Viertel Düsseldorfs. Umgeben von Cafés, Kulturangeboten und einer jungen, kreativen Nachbarschaft ist unsere Musikschule der perfekte Ort, um Musik zu lernen und zu leben.</p>
+          <p>Unsere modern ausgestatteten Unterrichtsräume bieten eine inspirierende Atmosphäre für konzentriertes Lernen. Ob du zum ersten Mal ein Instrument in die Hand nimmst oder deine Fähigkeiten auf das nächste Level bringen willst — bei uns bist du richtig.</p>
+          <p>Wir unterrichten <strong>Kinder ab 6 Jahren, Jugendliche und Erwachsene</strong> — vom absoluten Anfänger bis zum fortgeschrittenen Musiker. Jeder Schüler bekommt einen individuellen Unterrichtsplan, der auf seine Ziele, sein Tempo und seinen Musikgeschmack abgestimmt ist.</p>
+        </div>
+        <div class="intro-details">
+          <div class="detail-card">
+            <h3>Anfahrt &amp; Lage</h3>
+            <p><strong>Adresse:</strong> Kaiserstr. 28, 40479 Düsseldorf</p>
+            <p><strong>Stadtteil:</strong> Pempelfort</p>
+            <p><strong>U-Bahn:</strong> Haltestelle Nordstraße (U78, U79) — 3 Min. Fußweg</p>
+            <p><strong>Straßenbahn:</strong> Haltestelle Nordstraße — direkt vor der Tür</p>
+            <p><strong>Parken:</strong> Straßenparkplätze in der Kaiserstraße und Umgebung</p>
+          </div>
+          <div class="detail-card">
+            <h3>Öffnungszeiten</h3>
+            <p>Montag – Freitag: 10:00 – 20:00 Uhr</p>
+            <p>Samstag: 09:00 – 12:00 Uhr</p>
+            <p>Sonntag: Geschlossen</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="instruments-overview" aria-labelledby="instruments-dusseldorf">
+    <div class="instruments-container">
+      <h2 id="instruments-dusseldorf">Unser Unterrichtsangebot in Düsseldorf</h2>
+      <p class="section-intro">An unserem Standort in der Kaiserstraße bieten wir professionellen Unterricht für fünf Instrumente an — jeweils als Einzel- oder Gruppenunterricht.</p>
+      <div class="instruments-grid">
+        <div class="instrument-item">
+          <h3>Klavierunterricht</h3>
+          <p>Vom ersten Akkord bis zur Konzertvorbereitung. Klassik, Pop, Jazz — dein Klavierlehrer passt den Unterricht an deinen Stil an. Perfekt für Kinder und Erwachsene.</p>
+        </div>
+        <div class="instrument-item">
+          <h3>Gitarrenunterricht</h3>
+          <p>Akustik oder E-Gitarre, Fingerpicking oder Riffs — lerne Gitarre von erfahrenen Musikern, die selbst aktiv auf der Bühne stehen.</p>
+        </div>
+        <div class="instrument-item">
+          <h3>Gesangsunterricht</h3>
+          <p>Entdecke deine Stimme. Atemtechnik, Stimmbildung und Interpretation — für Pop, Rock, Musical und klassischen Gesang.</p>
+        </div>
+        <div class="instrument-item">
+          <h3>Bassunterricht</h3>
+          <p>Das Fundament jeder Band. Lerne E-Bass oder Akustikbass mit Fokus auf Groove, Rhythmus und musikalisches Zusammenspiel.</p>
+        </div>
+        <div class="instrument-item">
+          <h3>Schlagzeugunterricht</h3>
+          <p>Rhythmus, Koordination und Energie. Von grundlegenden Beats bis zu komplexen Patterns — für alle Stilrichtungen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <About school="duesseldorf" />
   <CTA />
   <Team location="dusseldorf" showIntro={false} />
-  <InfoCards />
+
+  <section class="faq-section" aria-labelledby="faq-dusseldorf">
+    <div class="faq-container">
+      <h2 id="faq-dusseldorf">Häufige Fragen zur Musikschule Düsseldorf</h2>
+      <div class="faq-list">
+        {faqItems.map(item => (
+          <details class="faq-item">
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <Pricing showHeader={false} />
   <Contact location="dusseldorf" />
 </BaseLayout>
+
+<style>
+  .location-hero {
+    background: var(--color-bg-dark);
+    padding: calc(var(--nav-height) + var(--space-6xl)) var(--space-lg) var(--space-6xl);
+    text-align: center;
+  }
+
+  .hero-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin: 0 auto var(--space-lg);
+  }
+
+  .location-hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    color: var(--color-text-on-dark);
+    margin-bottom: var(--space-lg);
+    font-weight: 700;
+  }
+
+  .hero-subtitle {
+    color: var(--color-gold);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-text {
+    color: var(--color-white-alpha-85);
+    font-size: var(--text-base);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .location-intro {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .intro-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-5xl);
+    align-items: start;
+  }
+
+  .intro-content h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2xl);
+    font-weight: 600;
+  }
+
+  .intro-content p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+    font-size: var(--text-base);
+  }
+
+  .detail-card {
+    background: var(--color-bg-alt);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+    border-left: 3px solid var(--color-gold);
+  }
+
+  .detail-card h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .detail-card p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+    margin-bottom: var(--space-xs);
+  }
+
+  .instruments-overview {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+
+  .instruments-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .instruments-container h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .section-intro {
+    text-align: center;
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto var(--space-4xl);
+    line-height: 1.8;
+  }
+
+  .instruments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-2xl);
+  }
+
+  .instrument-item {
+    background: var(--color-surface);
+    padding: var(--space-2xl);
+    border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+  }
+
+  .instrument-item h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .instrument-item p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+
+  .faq-section {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-container h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: var(--space-4xl);
+    font-weight: 600;
+  }
+
+  .faq-item {
+    border-bottom: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    padding: var(--space-lg) 0;
+  }
+
+  .faq-item summary {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .faq-item summary::after {
+    content: '+';
+    font-size: var(--text-xl);
+    color: var(--color-gold);
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+  }
+
+  .faq-item[open] summary::after {
+    content: '−';
+  }
+
+  .faq-item p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    padding-top: var(--space-md);
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 767px) {
+    .intro-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-3xl);
+    }
+
+    .location-hero {
+      padding: calc(var(--nav-height) + var(--space-4xl)) var(--space-md) var(--space-4xl);
+    }
+  }
+</style>

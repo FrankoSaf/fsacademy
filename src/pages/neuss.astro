@@ -1,25 +1,367 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import Instruments from '../components/Instruments.astro';
 import About from '../components/About.astro';
-import InfoCards from '../components/InfoCards.astro';
 import CTA from '../components/CTA.astro';
 import Team from '../components/Team.astro';
 import Pricing from '../components/Pricing.astro';
 import Contact from '../components/Contact.astro';
+
+const ldLocal = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicSchool',
+  name: 'Fine Sound Academy Neuss',
+  description: 'Musikschule in Neuss am Neumarkt: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Einzel- und Gruppenunterricht für alle Altersgruppen.',
+  url: 'https://www.finesoundacademy.com/neuss',
+  telephone: '+49 176 77154511',
+  email: 'info@finesoundacademy.com',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Neumarkt 18',
+    addressLocality: 'Neuss',
+    addressRegion: 'Nordrhein-Westfalen',
+    postalCode: '41460',
+    addressCountry: 'DE',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 51.1985, longitude: 6.6929 },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '20:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
+  ],
+  priceRange: '€€',
+  areaServed: { '@type': 'City', name: 'Neuss' },
+};
+
+const faqItems = [
+  { question: 'Wo genau befindet sich die Musikschule in Neuss?', answer: 'Unsere Musikschule liegt zentral am Neumarkt 18 in 41460 Neuss — mitten in der Neusser Innenstadt. Die nächste Bushaltestelle „Neumarkt" ist nur wenige Schritte entfernt, und der Neusser Hauptbahnhof ist in ca. 8 Minuten zu Fuß erreichbar.' },
+  { question: 'Welche Instrumente kann ich in Neuss lernen?', answer: 'In Neuss bieten wir Unterricht für Klavier, Gitarre, Bass, Gesang und Schlagzeug an — für Anfänger bis Fortgeschrittene, Kinder und Erwachsene.' },
+  { question: 'Gibt es eine kostenlose Probestunde in Neuss?', answer: 'Ja! Vereinbare ganz einfach eine kostenlose und unverbindliche Probestunde über unser Kontaktformular oder rufe uns an.' },
+  { question: 'Wie komme ich am besten zur Musikschule am Neumarkt?', answer: 'Der Neumarkt ist das Zentrum der Neusser Innenstadt. Mit dem Bus erreichst du uns über die Haltestelle „Neumarkt". Mit dem Auto gibt es Parkmöglichkeiten in der Tiefgarage am Neumarkt und umliegende Parkplätze.' },
+  { question: 'Bietet ihr auch Unterricht für Erwachsene an?', answer: 'Ja, wir unterrichten Schüler jeden Alters — Kinder, Jugendliche und Erwachsene. Es ist nie zu spät, ein Instrument zu lernen!' },
+  { question: 'Kann ich den Unterrichtstag und die Uhrzeit frei wählen?', answer: 'Wir bieten flexible Unterrichtszeiten an. Gemeinsam finden wir einen Termin, der in deinen Alltag passt — auch am Samstag.' },
+];
+
+const ldFAQ = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
 ---
 
 <BaseLayout
-  title="Fine Sound Academy Neuss"
-  description="Musikschule Neuss: Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde."
+  title="Musikschule Neuss – Klavier, Gitarre, Gesang, Bass & Schlagzeug | Fine Sound Academy"
+  description="Musikschule in Neuss am Neumarkt: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde. Einzel- und Gruppenunterricht für Kinder und Erwachsene."
 >
-  <Hero />
-  <Instruments />
+  <script type="application/ld+json" set:html={JSON.stringify(ldLocal)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(ldFAQ)} slot="head" />
+
+  <section class="location-hero" aria-labelledby="neuss-heading">
+    <div class="hero-container">
+      <div class="accent-line"></div>
+      <h1 id="neuss-heading">Musikschule in Neuss</h1>
+      <p class="hero-subtitle">Fine Sound Academy — Neumarkt 18, Neusser Innenstadt</p>
+      <p class="hero-text">Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — zentral in Neuss.</p>
+    </div>
+  </section>
+
+  <section class="location-intro" aria-label="Über den Standort Neuss">
+    <div class="intro-container">
+      <div class="intro-grid">
+        <div class="intro-content">
+          <h2>Deine Musikschule im Zentrum von Neuss</h2>
+          <p>Die Fine Sound Academy Neuss liegt am <strong>Neumarkt 18</strong> — direkt im Herzen der <strong>Neusser Innenstadt</strong>. Der historische Neumarkt ist einer der zentralsten Plätze in Neuss, umgeben von Geschäften, Gastronomie und einer lebendigen Stadtkultur. Besser erreichbar geht es kaum.</p>
+          <p>Unser Standort in Neuss steht für eine <strong>familiäre Atmosphäre</strong> und persönliche Betreuung. In kleinen Gruppen oder im Einzelunterricht lernst du in hellen, modern ausgestatteten Räumen dein Wunschinstrument — von erfahrenen Musiklehrern, die selbst aktiv Musik machen.</p>
+          <p>Ob du als Anfänger deinen ersten Song lernen willst, oder als fortgeschrittener Musiker neue Techniken perfektionieren möchtest — wir holen dich genau dort ab, wo du gerade stehst. Für <strong>Kinder ab 6 Jahren, Jugendliche und Erwachsene</strong>.</p>
+        </div>
+        <div class="intro-details">
+          <div class="detail-card">
+            <h3>Anfahrt &amp; Lage</h3>
+            <p><strong>Adresse:</strong> Neumarkt 18, 41460 Neuss</p>
+            <p><strong>Lage:</strong> Neusser Innenstadt, direkt am Neumarkt</p>
+            <p><strong>Bus:</strong> Haltestelle Neumarkt — direkt vor der Tür</p>
+            <p><strong>Bahn:</strong> Neuss Hauptbahnhof — ca. 8 Min. Fußweg</p>
+            <p><strong>Parken:</strong> Tiefgarage Neumarkt und umliegende Parkplätze</p>
+          </div>
+          <div class="detail-card">
+            <h3>Öffnungszeiten</h3>
+            <p>Montag – Freitag: 10:00 – 20:00 Uhr</p>
+            <p>Samstag: 09:00 – 12:00 Uhr</p>
+            <p>Sonntag: Geschlossen</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="instruments-overview" aria-labelledby="instruments-neuss">
+    <div class="instruments-container">
+      <h2 id="instruments-neuss">Unser Unterrichtsangebot in Neuss</h2>
+      <p class="section-intro">Am Neumarkt bieten wir professionellen Musikunterricht für fünf Instrumente an — individuell abgestimmt auf dein Level und deine Ziele.</p>
+      <div class="instruments-grid">
+        <div class="instrument-item">
+          <h3>Klavierunterricht</h3>
+          <p>Klassik, Pop oder Jazz — lerne Klavier in deinem eigenen Tempo. Unsere Lehrer führen dich Schritt für Schritt, vom ersten Ton bis zum kompletten Stück.</p>
+        </div>
+        <div class="instrument-item">
+          <h3>Gitarrenunterricht</h3>
+          <p>Ob Lagerfeuer-Songs, Blues-Licks oder Metal-Riffs — lerne akustische oder elektrische Gitarre mit Methoden, die wirklich funktionieren.</p>
+        </div>
+        <div class="instrument-item">
+          <h3>Gesangsunterricht</h3>
+          <p>Entfalte dein stimmliches Potenzial. Von Atemtechnik über Stimmbildung bis zur Bühnenperformance — für jeden Musikstil.</p>
+        </div>
+        <div class="instrument-item">
+          <h3>Bassunterricht</h3>
+          <p>Groove ist alles. Lerne E-Bass oder Kontrabass mit Fokus auf Rhythmus, Timing und musikalisches Zusammenspiel in der Band.</p>
+        </div>
+        <div class="instrument-item">
+          <h3>Schlagzeugunterricht</h3>
+          <p>Beats, Fills und Koordination — unser Schlagzeugunterricht macht dich fit für jede musikalische Situation, von Rock bis Jazz.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <About school="neuss" />
   <CTA />
   <Team location="neuss" showIntro={false} />
-  <InfoCards />
+
+  <section class="faq-section" aria-labelledby="faq-neuss">
+    <div class="faq-container">
+      <h2 id="faq-neuss">Häufige Fragen zur Musikschule Neuss</h2>
+      <div class="faq-list">
+        {faqItems.map(item => (
+          <details class="faq-item">
+            <summary>{item.question}</summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <Pricing />
   <Contact location="neuss" />
 </BaseLayout>
+
+<style>
+  .location-hero {
+    background: var(--color-bg-dark);
+    padding: calc(var(--nav-height) + var(--space-6xl)) var(--space-lg) var(--space-6xl);
+    text-align: center;
+  }
+
+  .hero-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin: 0 auto var(--space-lg);
+  }
+
+  .location-hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    color: var(--color-text-on-dark);
+    margin-bottom: var(--space-lg);
+    font-weight: 700;
+  }
+
+  .hero-subtitle {
+    color: var(--color-gold);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-text {
+    color: var(--color-white-alpha-85);
+    font-size: var(--text-base);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .location-intro {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .intro-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-5xl);
+    align-items: start;
+  }
+
+  .intro-content h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2xl);
+    font-weight: 600;
+  }
+
+  .intro-content p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+    font-size: var(--text-base);
+  }
+
+  .detail-card {
+    background: var(--color-bg-alt);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+    border-left: 3px solid var(--color-gold);
+  }
+
+  .detail-card h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .detail-card p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+    margin-bottom: var(--space-xs);
+  }
+
+  .instruments-overview {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+
+  .instruments-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .instruments-container h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .section-intro {
+    text-align: center;
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto var(--space-4xl);
+    line-height: 1.8;
+  }
+
+  .instruments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-2xl);
+  }
+
+  .instrument-item {
+    background: var(--color-surface);
+    padding: var(--space-2xl);
+    border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+  }
+
+  .instrument-item h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .instrument-item p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+
+  .faq-section {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-container h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: var(--space-4xl);
+    font-weight: 600;
+  }
+
+  .faq-item {
+    border-bottom: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    padding: var(--space-lg) 0;
+  }
+
+  .faq-item summary {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .faq-item summary::after {
+    content: '+';
+    font-size: var(--text-xl);
+    color: var(--color-gold);
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+  }
+
+  .faq-item[open] summary::after {
+    content: '−';
+  }
+
+  .faq-item p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    padding-top: var(--space-md);
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 767px) {
+    .intro-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-3xl);
+    }
+
+    .location-hero {
+      padding: calc(var(--nav-height) + var(--space-4xl)) var(--space-md) var(--space-4xl);
+    }
+  }
+</style>
