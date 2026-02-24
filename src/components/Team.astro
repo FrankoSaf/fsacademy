@@ -51,11 +51,11 @@ const members = location
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 4 7 10 13 16"/></svg>
       </button>
 
-      <ul class="team-grid" tabindex="0">
+      <div class="team-grid" tabindex="0">
         {
           members &&
             members.map((member, i) => (
-              <li class="team-member" role="group" aria-roledescription="Folie" aria-label={`${i + 1} von ${members.length}: ${member.name}`}>
+              <div class="team-member" role="group" aria-roledescription="Folie" aria-label={`${i + 1} von ${members.length}: ${member.name}`}>
                 <figure class="member-image">
                   <picture>
                     <source
@@ -79,10 +79,10 @@ const members = location
                   <h3>{member.name}</h3>
                   <p>{member.role}</p>
                 </div>
-              </li>
+              </div>
             ))
         }
-      </ul>
+      </div>
 
       <button class="slider-btn slider-btn-next" type="button" aria-label="Nächstes Mitglied">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 4 13 10 7 16"/></svg>
