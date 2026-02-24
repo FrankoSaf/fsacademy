@@ -26,6 +26,7 @@ interface Content {
 }
 
 const content = contentRaw as Content;
+const allLinks = [...content.footer.navigation, ...content.footer.legal];
 ---
 
 <footer class="footer">
@@ -44,16 +45,15 @@ const content = contentRaw as Content;
       </a>
     </div>
 
-    <div class="footer-bottom">
+    <div class="footer-bottom desktop-footer">
       <nav class="footer-nav" aria-label="Footer-Navigation">
         <ul>
           {
-            content &&
-              content.footer.navigation.map((link) => (
-                <li>
-                  <a href={link.url}>{link.text}</a>
-                </li>
-              ))
+            content.footer.navigation.map((link) => (
+              <li>
+                <a href={link.url}>{link.text}</a>
+              </li>
+            ))
           }
         </ul>
       </nav>
@@ -61,27 +61,41 @@ const content = contentRaw as Content;
       <div class="footer-legal">
         <ul>
           {
-            content &&
-              content.footer.legal.map((link) => (
-                <li>
-                  <a
-                    href={link.url}
-                    class={link.highlight ? 'highlight' : ''}
-                    target={link.url.startsWith('http') ? '_blank' : undefined}
-                    rel={
-                      link.url.startsWith('http')
-                        ? 'noopener noreferrer'
-                        : undefined
-                    }
-                  >
-                    {link.text}
-                  </a>
-                </li>
-              ))
+            content.footer.legal.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  class={link.highlight ? 'highlight' : ''}
+                  target={link.url.startsWith('http') ? '_blank' : undefined}
+                  rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+                >
+                  {link.text}
+                </a>
+              </li>
+            ))
           }
         </ul>
       </div>
     </div>
+
+    <nav class="footer-bottom mobile-footer" aria-label="Footer-Navigation">
+      <ul>
+        {
+          allLinks.map((link) => (
+            <li>
+              <a
+                href={link.url}
+                class={link.highlight ? 'highlight' : ''}
+                target={link.url.startsWith('http') ? '_blank' : undefined}
+                rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                {link.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
   </div>
 </footer>
 
@@ -146,51 +160,49 @@ const content = contentRaw as Content;
     color: var(--color-gold-on-light);
   }
 
-  .footer-bottom {
+  .desktop-footer {
     display: flex;
     justify-content: space-between;
     align-items: start;
     gap: var(--space-4xl);
   }
 
+  .mobile-footer {
+    display: none;
+  }
+
   .footer-nav ul,
-  .footer-legal ul {
+  .footer-legal ul,
+  .mobile-footer ul {
     list-style: none;
     display: flex;
     gap: var(--space-2xl);
   }
 
   .footer-nav a,
-  .footer-legal a {
+  .footer-legal a,
+  .mobile-footer a {
     color: var(--color-text-primary);
     text-decoration: none;
     font-family: var(--font-sans);
     font-size: var(--text-sm);
     font-weight: 400;
     transition: color var(--transition-base);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .footer-nav a:hover,
-  .footer-legal a:hover {
+  .footer-legal a:hover,
+  .mobile-footer a:hover {
     color: var(--color-gold-on-light);
   }
 
-  .footer-legal a.highlight {
+  .footer-legal a.highlight,
+  .mobile-footer a.highlight {
     color: var(--color-gold-on-light);
     font-weight: 600;
-  }
-
-  @media (max-width: 991px) {
-    .footer-bottom {
-      flex-direction: column;
-      gap: var(--space-2xl);
-    }
-
-    .footer-nav ul,
-    .footer-legal ul {
-      flex-direction: column;
-      gap: var(--space-md);
-    }
   }
 
   @media (max-width: 767px) {
@@ -214,13 +226,23 @@ const content = contentRaw as Content;
       max-width: 160px;
     }
 
-    .footer-bottom {
+    .desktop-footer {
+      display: none;
+    }
+
+    .mobile-footer {
+      display: block;
       text-align: center;
     }
 
-    .footer-nav ul,
-    .footer-legal ul {
+    .mobile-footer ul {
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .mobile-footer a {
       justify-content: center;
+      padding: var(--space-xs) 0;
     }
   }
 </style>

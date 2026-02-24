@@ -203,8 +203,8 @@ const members = location
       top: 50%;
       transform: translateY(calc(-50% - 24px));
       z-index: 2;
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       border: var(--border-width-thin) solid var(--color-gold-alpha-20);
       background: var(--color-surface);
@@ -268,17 +268,31 @@ const members = location
     }
 
     .slider-dots .dot {
-      width: 10px;
-      height: 10px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: var(--color-gold-alpha-20);
+      background: none;
       border: none;
       padding: 0;
       transition: background var(--transition-base);
       cursor: pointer;
+      position: relative;
     }
 
-    .slider-dots .dot[aria-selected="true"] {
+    .slider-dots .dot::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-gold-alpha-20);
+      transition: background var(--transition-base);
+    }
+
+    .slider-dots .dot[aria-selected="true"]::after {
       background: var(--color-gold);
     }
   }

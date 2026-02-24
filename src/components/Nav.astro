@@ -132,22 +132,6 @@ const socialIcons: Record<string, string> = {
       />
     </a>
 
-    <div class="nav-social mobile-only">
-      {
-        content &&
-          content.navigation.socialMedia.map((social) => (
-            <a
-              href={social.url}
-              class="social-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.name}
-            >
-              <Fragment set:html={socialIcons[social.icon]} />
-            </a>
-          ))
-      }
-    </div>
   </div>
 
   <div class="mobile-menu" id="mobile-menu" role="region" aria-label="Mobiles Menü">
@@ -163,6 +147,22 @@ const socialIcons: Record<string, string> = {
     </ul>
     <div class="mobile-cta">
       <a href={content.navigation.cta.url}>{content.navigation.cta.text}</a>
+    </div>
+    <div class="mobile-social">
+      {
+        content &&
+          content.navigation.socialMedia.map((social) => (
+            <a
+              href={social.url}
+              class="social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.name}
+            >
+              <Fragment set:html={socialIcons[social.icon]} />
+            </a>
+          ))
+      }
     </div>
   </div>
 </nav>
@@ -290,7 +290,10 @@ const socialIcons: Record<string, string> = {
     transition: color var(--transition-base), opacity var(--transition-base);
     display: flex;
     align-items: center;
+    justify-content: center;
     opacity: 0.85;
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .social-link:hover {
@@ -313,6 +316,9 @@ const socialIcons: Record<string, string> = {
     text-transform: uppercase;
     transition: all var(--transition-base);
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 
   .nav-links a::after {
@@ -335,7 +341,8 @@ const socialIcons: Record<string, string> = {
   }
 
   .nav-cta a {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     padding: 0.85rem var(--space-lg);
     background: var(--color-gold);
     color: var(--color-black);
@@ -346,6 +353,7 @@ const socialIcons: Record<string, string> = {
     text-transform: uppercase;
     font-size: var(--text-xs);
     transition: all var(--transition-base);
+    min-height: 44px;
   }
 
   .nav-cta a:hover {
@@ -359,7 +367,11 @@ const socialIcons: Record<string, string> = {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0;
+    padding: 10px;
+    min-width: 44px;
+    min-height: 44px;
+    justify-content: center;
+    align-items: center;
   }
 
   .mobile-toggle span {
@@ -397,7 +409,7 @@ const socialIcons: Record<string, string> = {
   }
 
   .mobile-nav-links li {
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-xs);
   }
 
   .mobile-nav-links a {
@@ -409,6 +421,9 @@ const socialIcons: Record<string, string> = {
     text-transform: uppercase;
     font-family: var(--font-sans);
     transition: color var(--transition-base);
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 
   .mobile-nav-links a:hover {
@@ -427,6 +442,20 @@ const socialIcons: Record<string, string> = {
     letter-spacing: var(--tracking-tight);
     text-transform: uppercase;
     font-size: var(--text-sm);
+    min-height: 44px;
+  }
+
+  .mobile-social {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    padding-top: var(--space-lg);
+    border-top: var(--border-width-thin) solid var(--color-gold-alpha-20);
+  }
+
+  .mobile-social .social-link {
+    color: var(--color-text-primary);
   }
 
   .mobile-only {
@@ -447,7 +476,7 @@ const socialIcons: Record<string, string> = {
     }
 
     .nav-container {
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto 1fr;
       gap: var(--space-sm);
     }
 
@@ -467,10 +496,6 @@ const socialIcons: Record<string, string> = {
     .nav-logo-link.mobile-only .secondary-image {
       height: 1.85rem;
       max-width: 120px;
-    }
-
-    .nav-social {
-      justify-self: end;
     }
   }
 </style>
