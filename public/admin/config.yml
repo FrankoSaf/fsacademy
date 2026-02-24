@@ -17,6 +17,7 @@ display_url: "https://www.finesoundacademy.com"
 collections:
   - name: site
     label: Site & SEO
+    editor: { preview: false }
     files:
       - label: Globale Einstellungen
         name: globals
@@ -157,6 +158,7 @@ collections:
 
   - name: about
     label: Über uns
+    editor: { preview: false }
     files:
       - label: Über-uns-Seite
         name: about
@@ -193,6 +195,7 @@ collections:
 
   - name: pricing
     label: Preise
+    editor: { preview: false }
     files:
       - label: Preise-Seite (vollständig)
         name: pricing
@@ -243,6 +246,7 @@ collections:
 
   - name: unterricht
     label: Unterricht
+    editor: { preview: false }
     files:
       - label: Unterricht-Übersicht
         name: unterricht
@@ -276,6 +280,7 @@ collections:
 
   - name: locations
     label: Standorte
+    editor: { preview: false }
     files:
       - label: Düsseldorf (Block)
         name: duesseldorf
@@ -316,6 +321,7 @@ collections:
 
   - name: shared
     label: Gemeinsame Inhalte
+    editor: { preview: false }
     files:
       - label: Preise (Komponente)
         name: pricing
