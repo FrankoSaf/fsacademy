@@ -1,4 +1,57 @@
 {
+  "hero": {
+    "title": "Musikschule in Düsseldorf",
+    "subtitle": "Fine Sound Academy — Kaiserstraße 28, Pempelfort",
+    "text": "Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — mitten in Düsseldorf."
+  },
+  "intro": {
+    "heading": "Deine Musikschule im Herzen von Düsseldorf-Pempelfort",
+    "paragraphs": [
+      "Die Fine Sound Academy Düsseldorf liegt in der Kaiserstraße 28, im beliebten Stadtteil Pempelfort — einem der lebendigsten Viertel Düsseldorfs. Umgeben von Cafés, Kulturangeboten und einer jungen, kreativen Nachbarschaft ist unsere Musikschule der perfekte Ort, um Musik zu lernen und zu leben.",
+      "Unsere modern ausgestatteten Unterrichtsräume bieten eine inspirierende Atmosphäre für konzentriertes Lernen. Ob du zum ersten Mal ein Instrument in die Hand nimmst oder deine Fähigkeiten auf das nächste Level bringen willst — bei uns bist du richtig.",
+      "Wir unterrichten Kinder ab 6 Jahren, Jugendliche und Erwachsene — vom absoluten Anfänger bis zum fortgeschrittenen Musiker. Jeder Schüler bekommt einen individuellen Unterrichtsplan, der auf seine Ziele, sein Tempo und seinen Musikgeschmack abgestimmt ist."
+    ]
+  },
+  "directionsCard": {
+    "title": "Anfahrt & Lage",
+    "lines": [
+      "Adresse: Kaiserstr. 28, 40479 Düsseldorf",
+      "Stadtteil: Pempelfort",
+      "U-Bahn: Haltestelle Nordstraße (U78, U79) — 3 Min. Fußweg",
+      "Straßenbahn: Haltestelle Nordstraße — direkt vor der Tür",
+      "Parken: Straßenparkplätze in der Kaiserstraße und Umgebung"
+    ]
+  },
+  "hoursCard": {
+    "title": "Öffnungszeiten",
+    "lines": [
+      "Montag – Freitag: 10:00 – 20:00 Uhr",
+      "Samstag: 09:00 – 12:00 Uhr",
+      "Sonntag: Geschlossen"
+    ]
+  },
+  "instruments": {
+    "heading": "Unser Unterrichtsangebot in Düsseldorf",
+    "intro": "An unserem Standort in der Kaiserstraße bieten wir professionellen Unterricht für fünf Instrumente an — jeweils als Einzel- oder Gruppenunterricht.",
+    "items": [
+      { "title": "Klavierunterricht", "description": "Vom ersten Akkord bis zur Konzertvorbereitung. Klassik, Pop, Jazz — dein Klavierlehrer passt den Unterricht an deinen Stil an. Perfekt für Kinder und Erwachsene." },
+      { "title": "Gitarrenunterricht", "description": "Akustik oder E-Gitarre, Fingerpicking oder Riffs — lerne Gitarre von erfahrenen Musikern, die selbst aktiv auf der Bühne stehen." },
+      { "title": "Gesangsunterricht", "description": "Entdecke deine Stimme. Atemtechnik, Stimmbildung und Interpretation — für Pop, Rock, Musical und klassischen Gesang." },
+      { "title": "Bassunterricht", "description": "Das Fundament jeder Band. Lerne E-Bass oder Akustikbass mit Fokus auf Groove, Rhythmus und musikalisches Zusammenspiel." },
+      { "title": "Schlagzeugunterricht", "description": "Rhythmus, Koordination und Energie. Von grundlegenden Beats bis zu komplexen Patterns — für alle Stilrichtungen." }
+    ]
+  },
+  "faq": {
+    "heading": "Häufige Fragen zur Musikschule Düsseldorf",
+    "items": [
+      { "question": "Wo genau befindet sich die Musikschule in Düsseldorf?", "answer": "Unsere Musikschule befindet sich in der Kaiserstraße 28, 40479 Düsseldorf im Stadtteil Pempelfort. Die nächste U-Bahn-Haltestelle ist Nordstraße (U78, U79), nur 3 Gehminuten entfernt." },
+      { "question": "Welche Instrumente kann ich in Düsseldorf lernen?", "answer": "In Düsseldorf bieten wir Unterricht für Klavier, Gitarre, Bass, Gesang und Schlagzeug an — für Anfänger bis Fortgeschrittene, Kinder und Erwachsene." },
+      { "question": "Gibt es eine kostenlose Probestunde?", "answer": "Ja! Wir bieten eine kostenlose und unverbindliche Probestunde an. Kontaktiere uns einfach über unser Kontaktformular oder per Telefon." },
+      { "question": "Gibt es Parkmöglichkeiten in der Nähe?", "answer": "Es gibt Straßenparkplätze in der Kaiserstraße und den angrenzenden Seitenstraßen. Das Parkhaus am Nordstraße-Platz ist ebenfalls nur wenige Minuten entfernt." },
+      { "question": "Bietet ihr auch Gruppenunterricht an?", "answer": "Ja, neben Einzelunterricht bieten wir auch Gruppenunterricht in kleinen Gruppen an. Das ist besonders für Kinder und Einsteiger eine tolle Option." },
+      { "question": "Ab welchem Alter kann mein Kind Unterricht nehmen?", "answer": "Wir unterrichten Schüler ab ca. 6 Jahren. Für jüngere Kinder empfehlen wir ein Gespräch, um die beste Option zu finden." }
+    ]
+  },
   "about": {
     "title": "Deine Musikschule in Düsseldorf: Entdecke deine musikalische Leidenschaft und entfalte dein Talent!",
     "paragraphs": [

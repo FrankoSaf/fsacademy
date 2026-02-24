@@ -7,7 +7,20 @@ const { school } = Astro.props;
 
 // Dynamic import based on school
 const schoolData = await import(`../../content/${school}.json`);
-const content = schoolData.default;
+const raw = schoolData.default as { about: { title: string; paragraphs: unknown; buttonLink: string; buttonText: string; image: string; imageAlt: string } };
+const content = {
+  ...raw,
+  about: {
+    ...raw.about,
+    paragraphs: (() => {
+      const p = raw.about.paragraphs;
+      if (!Array.isArray(p)) return [];
+      return p.map((item: unknown) =>
+        typeof item === 'string' ? item : (item && (item as { paragraph?: string }).paragraph) || (item as { p?: string }).p || ''
+      );
+    })(),
+  },
+};
 ---
 
 <section class="about" aria-labelledby={`about-heading-${school}`}>

@@ -1,8 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import contentRaw from '../../content/about.json';
 
-const content = contentRaw as any;
+function normalizeParagraphs(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.map((item: unknown) =>
+    typeof item === 'string' ? item : (item && (item as { paragraph?: string }).paragraph) || (item as { p?: string }).p || ''
+  );
+}
+
+const contentRaw = await import('../../content/about.json');
+const content = contentRaw.default as {
+  hero: { title: string; subtitle: string };
+  content: { sections: Array<{ title: string; paragraphs: unknown }> };
+  cta: { title: string; description: string; buttonText: string; buttonLink: string };
+};
 ---
 
 <BaseLayout
@@ -20,14 +31,17 @@ const content = contentRaw as any;
   <section class="about-content" aria-label="Über uns Inhalt">
     <article class="content-container">
       {
-        content.content.sections.map((section: any) => (
-          <div class="content-section">
-            <h2>{section.title}</h2>
-            {section.paragraphs.map((paragraph: string) => (
-              <p>{paragraph}</p>
-            ))}
-          </div>
-        ))
+        content.content.sections.map((section: { title: string; paragraphs: unknown }) => {
+          const paragraphs = normalizeParagraphs(section.paragraphs);
+          return (
+            <div class="content-section">
+              <h2>{section.title}</h2>
+              {paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+          );
+        })
       }
     </article>
   </section>

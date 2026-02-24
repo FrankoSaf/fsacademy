@@ -1,5 +1,7 @@
 # Fine Sound Academy – Netlify CMS
 # Content is stored in content/ and used at build time.
+# Structure: one collection per "page" or section so you can fill every part of the site from the CMS.
+
 backend:
   name: git-gateway
   branch: master
@@ -15,8 +17,9 @@ site_url: "https://www.finesoundacademy.com"
 display_url: "https://www.finesoundacademy.com"
 
 collections:
+  # ─── Global ─────────────────────────────────────────────────────────────
   - name: site
-    label: Site & SEO
+    label: "🌐 Site & SEO"
     editor: { preview: false }
     files:
       - label: Globale Einstellungen
@@ -26,13 +29,15 @@ collections:
         fields:
           - { label: "Seitentitel (Standard)", name: siteTitle, widget: string, default: "Fine Sound Academy – Musikschule Düsseldorf & Neuss" }
           - { label: "Meta-Beschreibung (Standard)", name: defaultMetaDescription, widget: text, default: "Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde." }
-          - { label: "OG-Bild", name: ogImage, widget: image, required: false }
+          - { label: "OG-Bild (Social Sharing)", name: ogImage, widget: image, required: false }
           - { label: "Twitter @handle", name: twitterHandle, widget: string, required: false }
 
+  # ─── Startseite ──────────────────────────────────────────────────────────
   - name: landing
-    label: Startseite & Navigation
+    label: "🏠 Startseite & Navigation"
+    editor: { preview: false }
     files:
-      - label: Landing & Navigation
+      - label: Startseite & Navigation (Hero, Nav, Standorte, Instrumente, CTA, Team, Footer)
         name: landing
         file: "content/landing.json"
         format: json
@@ -54,8 +59,8 @@ collections:
                 name: logo
                 widget: object
                 fields:
-                  - { label: "Logo Farbe (für schwarze Nav)", name: primaryImage, widget: string }
-                  - { label: "Logo Schwarz (für weiße Nav nach Scroll)", name: secondaryImage, widget: string }
+                  - { label: "Logo Farbe (schwarze Nav)", name: primaryImage, widget: string }
+                  - { label: "Logo Schwarz (weiße Nav nach Scroll)", name: secondaryImage, widget: string }
                   - { label: Alt-Text, name: alt, widget: string }
                   - { label: Link (z. B. /), name: link, widget: string }
               - label: Social Media
@@ -77,7 +82,7 @@ collections:
                 fields:
                   - { label: Text, name: text, widget: string }
                   - { label: URL, name: url, widget: string }
-          - label: Standorte (Karten)
+          - label: Standorte (Karten auf Startseite)
             name: locations
             widget: object
             fields:
@@ -97,7 +102,7 @@ collections:
                   - { label: Bild, name: image, widget: image }
                   - { label: Button-Text, name: buttonText, widget: string }
                   - { label: Link, name: link, widget: string }
-          - label: Instrumente (Übersicht)
+          - label: Instrumente (Übersicht Startseite)
             name: instruments
             widget: object
             fields:
@@ -110,7 +115,7 @@ collections:
                   - { label: Name, name: name, widget: string }
                   - { label: Icon, name: icon, widget: select, options: [bass, guitar, piano, vocals, drums] }
                   - { label: Beschreibung, name: description, widget: text }
-          - label: CTA-Bereich
+          - label: CTA-Bereich (Startseite)
             name: cta
             widget: object
             fields:
@@ -118,7 +123,7 @@ collections:
               - { label: Untertitel, name: subtitle, widget: string }
               - { label: Button-Text, name: buttonText, widget: string }
               - { label: Button-Link, name: buttonLink, widget: string }
-          - label: Team
+          - label: Team (Startseite)
             name: team
             widget: object
             fields:
@@ -127,13 +132,14 @@ collections:
               - label: Mitglieder
                 name: members
                 widget: list
+                summary: "{{fields.name}}"
                 fields:
                   - { label: ID, name: id, widget: string }
                   - { label: Name, name: name, widget: string }
                   - { label: Rolle, name: role, widget: string }
                   - { label: Bild, name: image, widget: image }
                   - { label: Alt-Text, name: alt, widget: string }
-                  - { label: Standorte, name: locations, widget: list, summary: "{{fields.name}}", field: { label: Standort, name: location, widget: string } }
+                  - { label: Standorte, name: locations, widget: list, summary: "{{fields.location}}", field: { label: Standort, name: location, widget: string } }
           - label: Footer
             name: footer
             widget: object
@@ -165,11 +171,12 @@ collections:
                   - { label: Text, name: text, widget: string }
                   - { label: URL, name: url, widget: string }
 
+  # ─── Über uns ────────────────────────────────────────────────────────────
   - name: about
-    label: Über uns
+    label: "📖 Über uns (Seite)"
     editor: { preview: false }
     files:
-      - label: Über-uns-Seite
+      - label: Über-uns-Seite (Hero, Abschnitte, CTA)
         name: about
         file: "content/about.json"
         format: json
@@ -187,6 +194,7 @@ collections:
               - label: Abschnitte
                 name: sections
                 widget: list
+                summary: "{{fields.title}}"
                 fields:
                   - { label: Überschrift, name: title, widget: string }
                   - label: Absätze
@@ -202,11 +210,12 @@ collections:
               - { label: Button-Text, name: buttonText, widget: string }
               - { label: Button-Link, name: buttonLink, widget: string }
 
+  # ─── Preise (eigene Seite) ──────────────────────────────────────────────
   - name: pricing
-    label: Preise
+    label: "💰 Preise (Seite)"
     editor: { preview: false }
     files:
-      - label: Preise-Seite (vollständig)
+      - label: Preise-Seite (Hero, Tarife, Zusatz-Infos, FAQ, CTA)
         name: pricing
         file: "content/pricing.json"
         format: json
@@ -220,6 +229,7 @@ collections:
           - label: Tarife
             name: plans
             widget: list
+            summary: "{{fields.name}}"
             fields:
               - { label: Name, name: name, widget: string }
               - { label: Preis, name: price, widget: string }
@@ -235,12 +245,14 @@ collections:
           - label: Zusatz-Infos
             name: additionalInfo
             widget: list
+            summary: "{{fields.title}}"
             fields:
               - { label: Titel, name: title, widget: string }
               - { label: Beschreibung, name: description, widget: text }
           - label: FAQ
             name: faq
             widget: list
+            summary: "{{fields.question}}"
             fields:
               - { label: Frage, name: question, widget: string }
               - { label: Antwort, name: answer, widget: text }
@@ -253,11 +265,12 @@ collections:
               - { label: Button-Text, name: buttonText, widget: string }
               - { label: Button-Link, name: buttonLink, widget: string }
 
+  # ─── Unterricht (Übersicht + Instrumente) ───────────────────────────────
   - name: unterricht
-    label: Unterricht
+    label: "🎵 Unterricht (Seite)"
     editor: { preview: false }
     files:
-      - label: Unterricht-Übersicht
+      - label: Unterricht-Übersicht (Hero, Intro, Instrumente-Liste)
         name: unterricht
         file: "content/unterricht.json"
         format: json
@@ -276,6 +289,7 @@ collections:
           - label: Instrumente
             name: instruments
             widget: list
+            summary: "{{fields.name}}"
             fields:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
@@ -287,16 +301,76 @@ collections:
                 widget: list
                 field: { label: Punkt, name: highlight, widget: string }
 
+  # ─── Standorte (vollständige Seiteninhalte) ───────────────────────────────
   - name: locations
-    label: Standorte
+    label: "📍 Standorte (Seiten)"
     editor: { preview: false }
     files:
-      - label: Düsseldorf (Block)
+      - label: Standort Düsseldorf (komplette Seite)
         name: duesseldorf
         file: "content/duesseldorf.json"
         format: json
         fields:
-          - label: About-Block
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel (z. B. Adresse/Stadtteil), name: subtitle, widget: string }
+              - { label: Kurztext, name: text, widget: text }
+          - label: Intro (Über den Standort)
+            name: intro
+            widget: object
+            fields:
+              - { label: Überschrift, name: heading, widget: string }
+              - label: Absätze
+                name: paragraphs
+                widget: list
+                field: { label: Absatz, name: paragraph, widget: text }
+          - label: Karte „Anfahrt & Lage“
+            name: directionsCard
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - label: Zeilen (eine pro Zeile)
+                name: lines
+                widget: list
+                field: { label: Zeile, name: line, widget: string }
+          - label: Karte „Öffnungszeiten“
+            name: hoursCard
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - label: Zeilen
+                name: lines
+                widget: list
+                field: { label: Zeile, name: line, widget: string }
+          - label: Instrumente-Übersicht
+            name: instruments
+            widget: object
+            fields:
+              - { label: Überschrift, name: heading, widget: string }
+              - { label: Intro-Text, name: intro, widget: text }
+              - label: Einträge
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Titel, name: title, widget: string }
+                  - { label: Beschreibung, name: description, widget: text }
+          - label: FAQ
+            name: faq
+            widget: object
+            fields:
+              - { label: Überschrift, name: heading, widget: string }
+              - label: Fragen & Antworten
+                name: items
+                widget: list
+                summary: "{{fields.question}}"
+                fields:
+                  - { label: Frage, name: question, widget: string }
+                  - { label: Antwort, name: answer, widget: text }
+          - label: About-Block (mit Bild & CTA)
             name: about
             widget: object
             fields:
@@ -304,35 +378,96 @@ collections:
               - label: Absätze
                 name: paragraphs
                 widget: list
-                field: { label: Absatz, name: p, widget: text }
-              - { label: Button-Text, name: buttonText, widget: string }
-              - { label: Button-Link, name: buttonLink, widget: string }
-              - { label: Bild, name: image, widget: image }
-              - { label: Bild-Alt, name: imageAlt, widget: string }
-      - label: Neuss (Block)
-        name: neuss
-        file: "content/neuss.json"
-        format: json
-        fields:
-          - label: About-Block
-            name: about
-            widget: object
-            fields:
-              - { label: Titel, name: title, widget: string }
-              - label: Absätze
-                name: paragraphs
-                widget: list
-                field: { label: Absatz, name: p, widget: text }
+                field: { label: Absatz, name: paragraph, widget: text }
               - { label: Button-Text, name: buttonText, widget: string }
               - { label: Button-Link, name: buttonLink, widget: string }
               - { label: Bild, name: image, widget: image }
               - { label: Bild-Alt, name: imageAlt, widget: string }
 
+      - label: Standort Neuss (komplette Seite)
+        name: neuss
+        file: "content/neuss.json"
+        format: json
+        fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel (z. B. Adresse/Stadtteil), name: subtitle, widget: string }
+              - { label: Kurztext, name: text, widget: text }
+          - label: Intro (Über den Standort)
+            name: intro
+            widget: object
+            fields:
+              - { label: Überschrift, name: heading, widget: string }
+              - label: Absätze
+                name: paragraphs
+                widget: list
+                field: { label: Absatz, name: paragraph, widget: text }
+          - label: Karte „Anfahrt & Lage“
+            name: directionsCard
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - label: Zeilen (eine pro Zeile)
+                name: lines
+                widget: list
+                field: { label: Zeile, name: line, widget: string }
+          - label: Karte „Öffnungszeiten“
+            name: hoursCard
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - label: Zeilen
+                name: lines
+                widget: list
+                field: { label: Zeile, name: line, widget: string }
+          - label: Instrumente-Übersicht
+            name: instruments
+            widget: object
+            fields:
+              - { label: Überschrift, name: heading, widget: string }
+              - { label: Intro-Text, name: intro, widget: text }
+              - label: Einträge
+                name: items
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Titel, name: title, widget: string }
+                  - { label: Beschreibung, name: description, widget: text }
+          - label: FAQ
+            name: faq
+            widget: object
+            fields:
+              - { label: Überschrift, name: heading, widget: string }
+              - label: Fragen & Antworten
+                name: items
+                widget: list
+                summary: "{{fields.question}}"
+                fields:
+                  - { label: Frage, name: question, widget: string }
+                  - { label: Antwort, name: answer, widget: text }
+          - label: About-Block (mit Bild & CTA)
+            name: about
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - label: Absätze
+                name: paragraphs
+                widget: list
+                field: { label: Absatz, name: paragraph, widget: text }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+              - { label: Bild, name: image, widget: image }
+              - { label: Bild-Alt, name: imageAlt, widget: string }
+
+  # ─── Gemeinsame Inhalte (Komponenten auf mehreren Seiten) ─────────────────
   - name: shared
-    label: Gemeinsame Inhalte
+    label: "🔧 Gemeinsame Inhalte"
     editor: { preview: false }
     files:
-      - label: Preise (Komponente)
+      - label: Preise-Komponente (z. B. auf Startseite / Standort)
         name: pricing
         file: "content/shared/pricing.json"
         format: json
@@ -342,6 +477,7 @@ collections:
           - label: Tarife
             name: plans
             widget: list
+            summary: "{{fields.name}}"
             fields:
               - { label: Name, name: name, widget: string }
               - { label: Preis, name: price, widget: string }
@@ -354,7 +490,7 @@ collections:
               - { label: Button-Text, name: buttonText, widget: string }
               - { label: Button-Link, name: buttonLink, widget: string }
               - { label: Beliebt, name: popular, widget: boolean, default: false }
-      - label: Info-Karten
+      - label: Info-Karten (Startseite / Standorte)
         name: infocards
         file: "content/shared/infocards.json"
         format: json
@@ -362,6 +498,7 @@ collections:
           - label: Karten
             name: items
             widget: list
+            summary: "{{fields.title}}"
             fields:
               - { label: Titel, name: title, widget: string }
               - { label: Beschreibung, name: description, widget: text }

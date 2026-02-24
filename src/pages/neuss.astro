@@ -5,6 +5,22 @@ import CTA from '../components/CTA.astro';
 import Team from '../components/Team.astro';
 import Pricing from '../components/Pricing.astro';
 import Contact from '../components/Contact.astro';
+import { normalizeParagraphs, normalizeLines } from '../lib/cms';
+
+const data = (await import('../../content/neuss.json')).default as {
+  hero: { title: string; subtitle: string; text: string };
+  intro: { heading: string; paragraphs: unknown };
+  directionsCard: { title: string; lines: unknown };
+  hoursCard: { title: string; lines: unknown };
+  instruments: { heading: string; intro: string; items: Array<{ title: string; description: string }> };
+  faq: { heading: string; items: Array<{ question: string; answer: string }> };
+};
+
+const introParagraphs = normalizeParagraphs(data.intro?.paragraphs);
+const directionsLines = normalizeLines(data.directionsCard?.lines);
+const hoursLines = normalizeLines(data.hoursCard?.lines);
+const faqItems = Array.isArray(data.faq?.items) ? data.faq.items : [];
+const instrumentItems = Array.isArray(data.instruments?.items) ? data.instruments.items : [];
 
 const ldLocal = {
   '@context': 'https://schema.org',
@@ -31,15 +47,6 @@ const ldLocal = {
   areaServed: { '@type': 'City', name: 'Neuss' },
 };
 
-const faqItems = [
-  { question: 'Wo genau befindet sich die Musikschule in Neuss?', answer: 'Unsere Musikschule liegt zentral am Neumarkt 18 in 41460 Neuss — mitten in der Neusser Innenstadt. Die nächste Bushaltestelle „Neumarkt" ist nur wenige Schritte entfernt, und der Neusser Hauptbahnhof ist in ca. 8 Minuten zu Fuß erreichbar.' },
-  { question: 'Welche Instrumente kann ich in Neuss lernen?', answer: 'In Neuss bieten wir Unterricht für Klavier, Gitarre, Bass, Gesang und Schlagzeug an — für Anfänger bis Fortgeschrittene, Kinder und Erwachsene.' },
-  { question: 'Gibt es eine kostenlose Probestunde in Neuss?', answer: 'Ja! Vereinbare ganz einfach eine kostenlose und unverbindliche Probestunde über unser Kontaktformular oder rufe uns an.' },
-  { question: 'Wie komme ich am besten zur Musikschule am Neumarkt?', answer: 'Der Neumarkt ist das Zentrum der Neusser Innenstadt. Mit dem Bus erreichst du uns über die Haltestelle „Neumarkt". Mit dem Auto gibt es Parkmöglichkeiten in der Tiefgarage am Neumarkt und umliegende Parkplätze.' },
-  { question: 'Bietet ihr auch Unterricht für Erwachsene an?', answer: 'Ja, wir unterrichten Schüler jeden Alters — Kinder, Jugendliche und Erwachsene. Es ist nie zu spät, ein Instrument zu lernen!' },
-  { question: 'Kann ich den Unterrichtstag und die Uhrzeit frei wählen?', answer: 'Wir bieten flexible Unterrichtszeiten an. Gemeinsam finden wir einen Termin, der in deinen Alltag passt — auch am Samstag.' },
-];
-
 const ldFAQ = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -61,9 +68,9 @@ const ldFAQ = {
   <section class="location-hero" aria-labelledby="neuss-heading">
     <div class="hero-container">
       <div class="accent-line"></div>
-      <h1 id="neuss-heading">Musikschule in Neuss</h1>
-      <p class="hero-subtitle">Fine Sound Academy — Neumarkt 18, Neusser Innenstadt</p>
-      <p class="hero-text">Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — zentral in Neuss.</p>
+      <h1 id="neuss-heading">{data.hero?.title ?? 'Musikschule in Neuss'}</h1>
+      <p class="hero-subtitle">{data.hero?.subtitle ?? 'Fine Sound Academy — Neumarkt 18, Neusser Innenstadt'}</p>
+      <p class="hero-text">{data.hero?.text ?? 'Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — zentral in Neuss.'}</p>
     </div>
   </section>
 
@@ -71,25 +78,36 @@ const ldFAQ = {
     <div class="intro-container">
       <div class="intro-grid">
         <div class="intro-content">
-          <h2>Deine Musikschule im Zentrum von Neuss</h2>
-          <p>Die Fine Sound Academy Neuss liegt am <strong>Neumarkt 18</strong> — direkt im Herzen der <strong>Neusser Innenstadt</strong>. Der historische Neumarkt ist einer der zentralsten Plätze in Neuss, umgeben von Geschäften, Gastronomie und einer lebendigen Stadtkultur. Besser erreichbar geht es kaum.</p>
-          <p>Unser Standort in Neuss steht für eine <strong>familiäre Atmosphäre</strong> und persönliche Betreuung. In kleinen Gruppen oder im Einzelunterricht lernst du in hellen, modern ausgestatteten Räumen dein Wunschinstrument — von erfahrenen Musiklehrern, die selbst aktiv Musik machen.</p>
-          <p>Ob du als Anfänger deinen ersten Song lernen willst, oder als fortgeschrittener Musiker neue Techniken perfektionieren möchtest — wir holen dich genau dort ab, wo du gerade stehst. Für <strong>Kinder ab 6 Jahren, Jugendliche und Erwachsene</strong>.</p>
+          <h2>{data.intro?.heading ?? 'Deine Musikschule im Zentrum von Neuss'}</h2>
+          {introParagraphs.length > 0 ? introParagraphs.map((paragraph) => <p>{paragraph}</p>) : (
+            <>
+              <p>Die Fine Sound Academy Neuss liegt am <strong>Neumarkt 18</strong> — direkt im Herzen der <strong>Neusser Innenstadt</strong>.</p>
+              <p>Unser Standort in Neuss steht für eine <strong>familiäre Atmosphäre</strong> und persönliche Betreuung.</p>
+              <p>Für <strong>Kinder ab 6 Jahren, Jugendliche und Erwachsene</strong>.</p>
+            </>
+          )}
         </div>
         <div class="intro-details">
           <div class="detail-card">
-            <h3>Anfahrt &amp; Lage</h3>
-            <p><strong>Adresse:</strong> Neumarkt 18, 41460 Neuss</p>
-            <p><strong>Lage:</strong> Neusser Innenstadt, direkt am Neumarkt</p>
-            <p><strong>Bus:</strong> Haltestelle Neumarkt — direkt vor der Tür</p>
-            <p><strong>Bahn:</strong> Neuss Hauptbahnhof — ca. 8 Min. Fußweg</p>
-            <p><strong>Parken:</strong> Tiefgarage Neumarkt und umliegende Parkplätze</p>
+            <h3>{data.directionsCard?.title ?? 'Anfahrt &amp; Lage'}</h3>
+            {directionsLines.length > 0 ? directionsLines.map((line) => <p>{line}</p>) : (
+              <>
+                <p><strong>Adresse:</strong> Neumarkt 18, 41460 Neuss</p>
+                <p><strong>Bus:</strong> Haltestelle Neumarkt</p>
+                <p><strong>Bahn:</strong> Neuss Hauptbahnhof — ca. 8 Min. Fußweg</p>
+                <p><strong>Parken:</strong> Tiefgarage Neumarkt</p>
+              </>
+            )}
           </div>
           <div class="detail-card">
-            <h3>Öffnungszeiten</h3>
-            <p>Montag – Freitag: 10:00 – 20:00 Uhr</p>
-            <p>Samstag: 09:00 – 12:00 Uhr</p>
-            <p>Sonntag: Geschlossen</p>
+            <h3>{data.hoursCard?.title ?? 'Öffnungszeiten'}</h3>
+            {hoursLines.length > 0 ? hoursLines.map((line) => <p>{line}</p>) : (
+              <>
+                <p>Montag – Freitag: 10:00 – 20:00 Uhr</p>
+                <p>Samstag: 09:00 – 12:00 Uhr</p>
+                <p>Sonntag: Geschlossen</p>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -98,29 +116,23 @@ const ldFAQ = {
 
   <section class="instruments-overview" aria-labelledby="instruments-neuss">
     <div class="instruments-container">
-      <h2 id="instruments-neuss">Unser Unterrichtsangebot in Neuss</h2>
-      <p class="section-intro">Am Neumarkt bieten wir professionellen Musikunterricht für fünf Instrumente an — individuell abgestimmt auf dein Level und deine Ziele.</p>
+      <h2 id="instruments-neuss">{data.instruments?.heading ?? 'Unser Unterrichtsangebot in Neuss'}</h2>
+      <p class="section-intro">{data.instruments?.intro ?? 'Am Neumarkt bieten wir professionellen Musikunterricht für fünf Instrumente an.'}</p>
       <div class="instruments-grid">
-        <div class="instrument-item">
-          <h3>Klavierunterricht</h3>
-          <p>Klassik, Pop oder Jazz — lerne Klavier in deinem eigenen Tempo. Unsere Lehrer führen dich Schritt für Schritt, vom ersten Ton bis zum kompletten Stück.</p>
-        </div>
-        <div class="instrument-item">
-          <h3>Gitarrenunterricht</h3>
-          <p>Ob Lagerfeuer-Songs, Blues-Licks oder Metal-Riffs — lerne akustische oder elektrische Gitarre mit Methoden, die wirklich funktionieren.</p>
-        </div>
-        <div class="instrument-item">
-          <h3>Gesangsunterricht</h3>
-          <p>Entfalte dein stimmliches Potenzial. Von Atemtechnik über Stimmbildung bis zur Bühnenperformance — für jeden Musikstil.</p>
-        </div>
-        <div class="instrument-item">
-          <h3>Bassunterricht</h3>
-          <p>Groove ist alles. Lerne E-Bass oder Kontrabass mit Fokus auf Rhythmus, Timing und musikalisches Zusammenspiel in der Band.</p>
-        </div>
-        <div class="instrument-item">
-          <h3>Schlagzeugunterricht</h3>
-          <p>Beats, Fills und Koordination — unser Schlagzeugunterricht macht dich fit für jede musikalische Situation, von Rock bis Jazz.</p>
-        </div>
+        {instrumentItems.length > 0 ? instrumentItems.map((item) => (
+          <div class="instrument-item">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+        )) : (
+          <>
+            <div class="instrument-item"><h3>Klavierunterricht</h3><p>Klassik, Pop oder Jazz — lerne Klavier in deinem eigenen Tempo.</p></div>
+            <div class="instrument-item"><h3>Gitarrenunterricht</h3><p>Akustik oder E-Gitarre mit Methoden, die wirklich funktionieren.</p></div>
+            <div class="instrument-item"><h3>Gesangsunterricht</h3><p>Entfalte dein stimmliches Potenzial für jeden Musikstil.</p></div>
+            <div class="instrument-item"><h3>Bassunterricht</h3><p>E-Bass oder Kontrabass — Groove und Zusammenspiel.</p></div>
+            <div class="instrument-item"><h3>Schlagzeugunterricht</h3><p>Beats, Fills und Koordination von Rock bis Jazz.</p></div>
+          </>
+        )}
       </div>
     </div>
   </section>
@@ -131,14 +143,16 @@ const ldFAQ = {
 
   <section class="faq-section" aria-labelledby="faq-neuss">
     <div class="faq-container">
-      <h2 id="faq-neuss">Häufige Fragen zur Musikschule Neuss</h2>
+      <h2 id="faq-neuss">{data.faq?.heading ?? 'Häufige Fragen zur Musikschule Neuss'}</h2>
       <div class="faq-list">
-        {faqItems.map(item => (
+        {faqItems.length > 0 ? faqItems.map((item) => (
           <details class="faq-item">
             <summary>{item.question}</summary>
             <p>{item.answer}</p>
           </details>
-        ))}
+        )) : (
+          <p class="faq-empty">Keine FAQ-Einträge vorhanden.</p>
+        )}
       </div>
     </div>
   </section>
@@ -352,6 +366,11 @@ const ldFAQ = {
     line-height: 1.8;
     padding-top: var(--space-md);
     font-size: var(--text-sm);
+  }
+
+  .faq-empty {
+    color: var(--color-text-secondary);
+    font-style: italic;
   }
 
   @media (max-width: 767px) {

@@ -5,6 +5,22 @@ import CTA from '../components/CTA.astro';
 import Team from '../components/Team.astro';
 import Pricing from '../components/Pricing.astro';
 import Contact from '../components/Contact.astro';
+import { normalizeParagraphs, normalizeLines } from '../lib/cms';
+
+const data = (await import('../../content/duesseldorf.json')).default as {
+  hero: { title: string; subtitle: string; text: string };
+  intro: { heading: string; paragraphs: unknown };
+  directionsCard: { title: string; lines: unknown };
+  hoursCard: { title: string; lines: unknown };
+  instruments: { heading: string; intro: string; items: Array<{ title: string; description: string }> };
+  faq: { heading: string; items: Array<{ question: string; answer: string }> };
+};
+
+const introParagraphs = normalizeParagraphs(data.intro?.paragraphs);
+const directionsLines = normalizeLines(data.directionsCard?.lines);
+const hoursLines = normalizeLines(data.hoursCard?.lines);
+const faqItems = Array.isArray(data.faq?.items) ? data.faq.items : [];
+const instrumentItems = Array.isArray(data.instruments?.items) ? data.instruments.items : [];
 
 const ldLocal = {
   '@context': 'https://schema.org',
@@ -31,15 +47,6 @@ const ldLocal = {
   areaServed: { '@type': 'City', name: 'Düsseldorf' },
 };
 
-const faqItems = [
-  { question: 'Wo genau befindet sich die Musikschule in Düsseldorf?', answer: 'Unsere Musikschule befindet sich in der Kaiserstraße 28, 40479 Düsseldorf im Stadtteil Pempelfort. Die nächste U-Bahn-Haltestelle ist Nordstraße (U78, U79), nur 3 Gehminuten entfernt.' },
-  { question: 'Welche Instrumente kann ich in Düsseldorf lernen?', answer: 'In Düsseldorf bieten wir Unterricht für Klavier, Gitarre, Bass, Gesang und Schlagzeug an — für Anfänger bis Fortgeschrittene, Kinder und Erwachsene.' },
-  { question: 'Gibt es eine kostenlose Probestunde?', answer: 'Ja! Wir bieten eine kostenlose und unverbindliche Probestunde an. Kontaktiere uns einfach über unser Kontaktformular oder per Telefon.' },
-  { question: 'Gibt es Parkmöglichkeiten in der Nähe?', answer: 'Es gibt Straßenparkplätze in der Kaiserstraße und den angrenzenden Seitenstraßen. Das Parkhaus am Nordstraße-Platz ist ebenfalls nur wenige Minuten entfernt.' },
-  { question: 'Bietet ihr auch Gruppenunterricht an?', answer: 'Ja, neben Einzelunterricht bieten wir auch Gruppenunterricht in kleinen Gruppen an. Das ist besonders für Kinder und Einsteiger eine tolle Option.' },
-  { question: 'Ab welchem Alter kann mein Kind Unterricht nehmen?', answer: 'Wir unterrichten Schüler ab ca. 6 Jahren. Für jüngere Kinder empfehlen wir ein Gespräch, um die beste Option zu finden.' },
-];
-
 const ldFAQ = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -61,9 +68,9 @@ const ldFAQ = {
   <section class="location-hero" aria-labelledby="dusseldorf-heading">
     <div class="hero-container">
       <div class="accent-line"></div>
-      <h1 id="dusseldorf-heading">Musikschule in Düsseldorf</h1>
-      <p class="hero-subtitle">Fine Sound Academy — Kaiserstraße 28, Pempelfort</p>
-      <p class="hero-text">Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — mitten in Düsseldorf.</p>
+      <h1 id="dusseldorf-heading">{data.hero?.title ?? 'Musikschule in Düsseldorf'}</h1>
+      <p class="hero-subtitle">{data.hero?.subtitle ?? 'Fine Sound Academy — Kaiserstraße 28, Pempelfort'}</p>
+      <p class="hero-text">{data.hero?.text ?? 'Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — mitten in Düsseldorf.'}</p>
     </div>
   </section>
 
@@ -71,25 +78,36 @@ const ldFAQ = {
     <div class="intro-container">
       <div class="intro-grid">
         <div class="intro-content">
-          <h2>Deine Musikschule im Herzen von Düsseldorf-Pempelfort</h2>
-          <p>Die Fine Sound Academy Düsseldorf liegt in der <strong>Kaiserstraße 28</strong>, im beliebten Stadtteil <strong>Pempelfort</strong> — einem der lebendigsten Viertel Düsseldorfs. Umgeben von Cafés, Kulturangeboten und einer jungen, kreativen Nachbarschaft ist unsere Musikschule der perfekte Ort, um Musik zu lernen und zu leben.</p>
-          <p>Unsere modern ausgestatteten Unterrichtsräume bieten eine inspirierende Atmosphäre für konzentriertes Lernen. Ob du zum ersten Mal ein Instrument in die Hand nimmst oder deine Fähigkeiten auf das nächste Level bringen willst — bei uns bist du richtig.</p>
-          <p>Wir unterrichten <strong>Kinder ab 6 Jahren, Jugendliche und Erwachsene</strong> — vom absoluten Anfänger bis zum fortgeschrittenen Musiker. Jeder Schüler bekommt einen individuellen Unterrichtsplan, der auf seine Ziele, sein Tempo und seinen Musikgeschmack abgestimmt ist.</p>
+          <h2>{data.intro?.heading ?? 'Deine Musikschule im Herzen von Düsseldorf-Pempelfort'}</h2>
+          {introParagraphs.length > 0 ? introParagraphs.map((paragraph) => <p>{paragraph}</p>) : (
+            <>
+              <p>Die Fine Sound Academy Düsseldorf liegt in der <strong>Kaiserstraße 28</strong>, im beliebten Stadtteil <strong>Pempelfort</strong> — einem der lebendigsten Viertel Düsseldorfs.</p>
+              <p>Unsere modern ausgestatteten Unterrichtsräume bieten eine inspirierende Atmosphäre für konzentriertes Lernen.</p>
+              <p>Wir unterrichten <strong>Kinder ab 6 Jahren, Jugendliche und Erwachsene</strong> — vom absoluten Anfänger bis zum fortgeschrittenen Musiker.</p>
+            </>
+          )}
         </div>
         <div class="intro-details">
           <div class="detail-card">
-            <h3>Anfahrt &amp; Lage</h3>
-            <p><strong>Adresse:</strong> Kaiserstr. 28, 40479 Düsseldorf</p>
-            <p><strong>Stadtteil:</strong> Pempelfort</p>
-            <p><strong>U-Bahn:</strong> Haltestelle Nordstraße (U78, U79) — 3 Min. Fußweg</p>
-            <p><strong>Straßenbahn:</strong> Haltestelle Nordstraße — direkt vor der Tür</p>
-            <p><strong>Parken:</strong> Straßenparkplätze in der Kaiserstraße und Umgebung</p>
+            <h3>{data.directionsCard?.title ?? 'Anfahrt &amp; Lage'}</h3>
+            {directionsLines.length > 0 ? directionsLines.map((line) => <p>{line}</p>) : (
+              <>
+                <p><strong>Adresse:</strong> Kaiserstr. 28, 40479 Düsseldorf</p>
+                <p><strong>Stadtteil:</strong> Pempelfort</p>
+                <p><strong>U-Bahn:</strong> Haltestelle Nordstraße (U78, U79) — 3 Min. Fußweg</p>
+                <p><strong>Parken:</strong> Straßenparkplätze in der Kaiserstraße und Umgebung</p>
+              </>
+            )}
           </div>
           <div class="detail-card">
-            <h3>Öffnungszeiten</h3>
-            <p>Montag – Freitag: 10:00 – 20:00 Uhr</p>
-            <p>Samstag: 09:00 – 12:00 Uhr</p>
-            <p>Sonntag: Geschlossen</p>
+            <h3>{data.hoursCard?.title ?? 'Öffnungszeiten'}</h3>
+            {hoursLines.length > 0 ? hoursLines.map((line) => <p>{line}</p>) : (
+              <>
+                <p>Montag – Freitag: 10:00 – 20:00 Uhr</p>
+                <p>Samstag: 09:00 – 12:00 Uhr</p>
+                <p>Sonntag: Geschlossen</p>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -98,29 +116,23 @@ const ldFAQ = {
 
   <section class="instruments-overview" aria-labelledby="instruments-dusseldorf">
     <div class="instruments-container">
-      <h2 id="instruments-dusseldorf">Unser Unterrichtsangebot in Düsseldorf</h2>
-      <p class="section-intro">An unserem Standort in der Kaiserstraße bieten wir professionellen Unterricht für fünf Instrumente an — jeweils als Einzel- oder Gruppenunterricht.</p>
+      <h2 id="instruments-dusseldorf">{data.instruments?.heading ?? 'Unser Unterrichtsangebot in Düsseldorf'}</h2>
+      <p class="section-intro">{data.instruments?.intro ?? 'An unserem Standort in der Kaiserstraße bieten wir professionellen Unterricht für fünf Instrumente an.'}</p>
       <div class="instruments-grid">
-        <div class="instrument-item">
-          <h3>Klavierunterricht</h3>
-          <p>Vom ersten Akkord bis zur Konzertvorbereitung. Klassik, Pop, Jazz — dein Klavierlehrer passt den Unterricht an deinen Stil an. Perfekt für Kinder und Erwachsene.</p>
-        </div>
-        <div class="instrument-item">
-          <h3>Gitarrenunterricht</h3>
-          <p>Akustik oder E-Gitarre, Fingerpicking oder Riffs — lerne Gitarre von erfahrenen Musikern, die selbst aktiv auf der Bühne stehen.</p>
-        </div>
-        <div class="instrument-item">
-          <h3>Gesangsunterricht</h3>
-          <p>Entdecke deine Stimme. Atemtechnik, Stimmbildung und Interpretation — für Pop, Rock, Musical und klassischen Gesang.</p>
-        </div>
-        <div class="instrument-item">
-          <h3>Bassunterricht</h3>
-          <p>Das Fundament jeder Band. Lerne E-Bass oder Akustikbass mit Fokus auf Groove, Rhythmus und musikalisches Zusammenspiel.</p>
-        </div>
-        <div class="instrument-item">
-          <h3>Schlagzeugunterricht</h3>
-          <p>Rhythmus, Koordination und Energie. Von grundlegenden Beats bis zu komplexen Patterns — für alle Stilrichtungen.</p>
-        </div>
+        {instrumentItems.length > 0 ? instrumentItems.map((item) => (
+          <div class="instrument-item">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </div>
+        )) : (
+          <>
+            <div class="instrument-item"><h3>Klavierunterricht</h3><p>Vom ersten Akkord bis zur Konzertvorbereitung. Klassik, Pop, Jazz.</p></div>
+            <div class="instrument-item"><h3>Gitarrenunterricht</h3><p>Akustik oder E-Gitarre, Fingerpicking oder Riffs.</p></div>
+            <div class="instrument-item"><h3>Gesangsunterricht</h3><p>Entdecke deine Stimme. Atemtechnik, Stimmbildung und Interpretation.</p></div>
+            <div class="instrument-item"><h3>Bassunterricht</h3><p>Das Fundament jeder Band. E-Bass oder Akustikbass.</p></div>
+            <div class="instrument-item"><h3>Schlagzeugunterricht</h3><p>Rhythmus, Koordination und Energie für alle Stilrichtungen.</p></div>
+          </>
+        )}
       </div>
     </div>
   </section>
@@ -131,14 +143,16 @@ const ldFAQ = {
 
   <section class="faq-section" aria-labelledby="faq-dusseldorf">
     <div class="faq-container">
-      <h2 id="faq-dusseldorf">Häufige Fragen zur Musikschule Düsseldorf</h2>
+      <h2 id="faq-dusseldorf">{data.faq?.heading ?? 'Häufige Fragen zur Musikschule Düsseldorf'}</h2>
       <div class="faq-list">
-        {faqItems.map(item => (
+        {faqItems.length > 0 ? faqItems.map((item) => (
           <details class="faq-item">
             <summary>{item.question}</summary>
             <p>{item.answer}</p>
           </details>
-        ))}
+        )) : (
+          <p class="faq-empty">Keine FAQ-Einträge vorhanden.</p>
+        )}
       </div>
     </div>
   </section>
@@ -352,6 +366,11 @@ const ldFAQ = {
     line-height: 1.8;
     padding-top: var(--space-md);
     font-size: var(--text-sm);
+  }
+
+  .faq-empty {
+    color: var(--color-text-secondary);
+    font-style: italic;
   }
 
   @media (max-width: 767px) {
