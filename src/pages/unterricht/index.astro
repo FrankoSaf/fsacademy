@@ -9,10 +9,10 @@ const content = contentRaw as any;
   title="Unterricht - Fine Sound Academy"
   description="Musikunterricht in Düsseldorf und Neuss: Klavier, Gitarre, Bass, Gesang, Schlagzeug. Entdecke dein Instrument und starte deine musikalische Reise."
 >
-  <section class="unterricht-hero">
+  <section class="unterricht-hero" aria-labelledby="unterricht-heading">
     <div class="hero-container">
       <div class="accent-line"></div>
-      <h1>{content.hero.title}</h1>
+      <h1 id="unterricht-heading">{content.hero.title}</h1>
       <p class="hero-subtitle">{content.hero.subtitle}</p>
     </div>
   </section>
@@ -23,7 +23,7 @@ const content = contentRaw as any;
     </div>
   </section>
 
-  <section class="instruments-list">
+  <section class="instruments-list" aria-label="Instrumente">
     <div class="list-container">
       {
         content.instruments.map((instrument: any, index: number) => (

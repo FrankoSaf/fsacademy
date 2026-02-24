@@ -9,15 +9,15 @@ const content = contentRaw as any;
   title="Über Uns - Fine Sound Academy"
   description="Über die Fine Sound Academy: Unsere Geschichte, Mission und dein Musikunterricht in Düsseldorf und Neuss. Erfahre mehr über unser Team und unsere Philosophie."
 >
-  <section class="about-hero">
+  <section class="about-hero" aria-labelledby="about-heading">
     <div class="hero-container">
       <div class="accent-line"></div>
-      <h1>{content.hero.title}</h1>
+      <h1 id="about-heading">{content.hero.title}</h1>
       <p class="hero-subtitle">{content.hero.subtitle}</p>
     </div>
   </section>
 
-  <section class="about-content">
+  <section class="about-content" aria-label="Über uns Inhalt">
     <article class="content-container">
       {
         content.content.sections.map((section: any) => (
@@ -32,9 +32,9 @@ const content = contentRaw as any;
     </article>
   </section>
 
-  <section class="about-cta">
+  <section class="about-cta" aria-labelledby="about-cta-heading">
     <div class="cta-container">
-      <h2>{content.cta.title}</h2>
+      <h2 id="about-cta-heading">{content.cta.title}</h2>
       <p>{content.cta.description}</p>
       <a href={content.cta.buttonLink} class="cta-button">
         {content.cta.buttonText}

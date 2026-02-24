@@ -37,11 +37,11 @@ const instrumentIcons: Record<string, string> = {
 };
 ---
 
-<section id="instruments" class="instruments">
+<section id="instruments" class="instruments" aria-labelledby="instruments-heading">
   <div class="instruments-container">
     <div class="instruments-header">
       <div class="accent-line"></div>
-      <h2>{content.instruments.title}</h2>
+      <h2 id="instruments-heading">{content.instruments.title}</h2>
       <p class="subtitle">{content.instruments.subtitle}</p>
     </div>
 
@@ -50,7 +50,7 @@ const instrumentIcons: Record<string, string> = {
         content &&
           content.instruments.items.map((instrument) => (
             <div class="instrument-card">
-              <div class="instrument-icon">
+              <div class="instrument-icon" aria-hidden="true">
                 <Fragment set:html={instrumentIcons[instrument.icon]} />
               </div>
               <h3>{instrument.name}</h3>

@@ -10,10 +10,10 @@ const schoolData = await import(`../../content/${school}.json`);
 const content = schoolData.default;
 ---
 
-<section class="about">
+<section class="about" aria-labelledby={`about-heading-${school}`}>
   <div class="about-container">
     <div class="about-content">
-      <h2>{content.about.title}</h2>
+      <h2 id={`about-heading-${school}`}>{content.about.title}</h2>
       <div class="about-text">
         {
           content.about.paragraphs.map((paragraph: string) => (

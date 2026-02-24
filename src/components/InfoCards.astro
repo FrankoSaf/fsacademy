@@ -6,7 +6,7 @@ const cards = Array.isArray(infoCardsData)
   : (infoCardsData as { items: { title: string; description: string }[] }).items ?? [];
 ---
 
-<section class="info-cards">
+<section class="info-cards" aria-label="Vorteile">
   <div class="info-container">
     <div class="cards-grid">
       {

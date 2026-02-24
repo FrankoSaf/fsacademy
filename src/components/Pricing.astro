@@ -8,13 +8,13 @@ interface Props {
 const { showHeader = true } = Astro.props;
 ---
 
-<section id="pricing" class="pricing">
+<section id="pricing" class="pricing" aria-labelledby="pricing-heading">
   <div class="pricing-container">
     {
       showHeader && (
         <header class="pricing-header">
           <div class="accent-line" />
-          <h2>{pricingData.title}</h2>
+          <h2 id="pricing-heading">{pricingData.title}</h2>
           <p class="pricing-subtitle">{pricingData.subtitle}</p>
         </header>
       )

@@ -34,13 +34,13 @@ const members = location
   : content.team.members;
 ---
 
-<section id="team" class="team">
+<section id="team" class="team" aria-labelledby="team-heading">
   <div class="team-container">
     {
       showIntro && (
         <header class="team-header">
           <div class="accent-line" />
-          <h2>{content.team.title}</h2>
+          <h2 id="team-heading">{content.team.title}</h2>
           <p class="team-intro">{content.team.intro}</p>
         </header>
       )

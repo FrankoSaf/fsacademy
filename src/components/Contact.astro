@@ -47,10 +47,10 @@ const locations = {
 const contact = locations[location];
 ---
 
-<section class="contact">
+<section class="contact" aria-labelledby={`contact-heading-${location}`}>
   <div class="contact-container">
     <div class="contact-info">
-      <h2>{contact.title}</h2>
+      <h2 id={`contact-heading-${location}`}>{contact.title}</h2>
       <p class="subtitle">{contact.subtitle}</p>
 
       <div class="info-group">

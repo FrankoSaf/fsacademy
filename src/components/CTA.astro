@@ -15,9 +15,9 @@ interface Content {
 const content = contentRaw as Content;
 ---
 
-<section class="cta">
+<section class="cta" aria-labelledby="cta-heading">
   <div class="cta-container">
-    <h2>{content.cta.title}</h2>
+    <h2 id="cta-heading">{content.cta.title}</h2>
     <p>{content.cta.subtitle}</p>
     <a href={content.cta.buttonLink} class="cta-button">
       {content.cta.buttonText}

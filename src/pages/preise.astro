@@ -4,6 +4,16 @@ import contentRaw from '../../content/pricing.json';
 import Pricing from '../components/Pricing.astro';
 
 const content = contentRaw as any;
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: (content.faq ?? []).map((item: any) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
 ---
 
 <BaseLayout
@@ -11,7 +21,7 @@ const content = contentRaw as any;
   description="Preise für Musikunterricht in Düsseldorf und Neuss: Solo 30, Solo 45, Gruppenunterricht. Transparente Tarife, kostenlose Probestunde, Familienrabatt."
 >
   <Pricing />
-  <section class="info-section">
+  <section class="info-section" aria-label="Zusätzliche Informationen">
     <div class="info-container">
       <div class="info-grid">
         {
@@ -26,9 +36,9 @@ const content = contentRaw as any;
     </div>
   </section>
 
-  <section class="faq-section">
+  <section class="faq-section" aria-labelledby="faq-heading">
     <div class="faq-container">
-      <h2>Häufig gestellte Fragen</h2>
+      <h2 id="faq-heading">Häufig gestellte Fragen</h2>
       <div class="faq-list">
         {
           content.faq.map((item: any) => (
@@ -42,9 +52,11 @@ const content = contentRaw as any;
     </div>
   </section>
 
-  <section class="pricing-cta">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="pricing-cta" aria-labelledby="pricing-cta-heading">
     <div class="cta-container">
-      <h2>{content.cta.title}</h2>
+      <h2 id="pricing-cta-heading">{content.cta.title}</h2>
       <p>{content.cta.description}</p>
       <a href={content.cta.buttonLink} class="cta-button">
         {content.cta.buttonText}

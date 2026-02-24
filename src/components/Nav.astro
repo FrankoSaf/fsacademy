@@ -48,9 +48,9 @@ const socialIcons: Record<string, string> = {
 };
 ---
 
-<nav id="mainNav" class="nav-dark">
+<nav id="mainNav" class="nav-dark" aria-label="Hauptnavigation">
   <div class="nav-container">
-    <button class="mobile-toggle" aria-label="Toggle menu">
+    <button class="mobile-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
       <span></span>
       <span></span>
       <span></span>
@@ -150,7 +150,7 @@ const socialIcons: Record<string, string> = {
     </div>
   </div>
 
-  <div class="mobile-menu">
+  <div class="mobile-menu" id="mobile-menu" role="region" aria-label="Mobiles Menü">
     <ul class="mobile-nav-links">
       {
         content &&
@@ -476,22 +476,32 @@ const socialIcons: Record<string, string> = {
 </style>
 
 <script>
-  const toggle = document.querySelector('.mobile-toggle');
+  const toggle = document.querySelector('.mobile-toggle') as HTMLButtonElement | null;
   const mobileMenu = document.querySelector('.mobile-menu');
 
+  function setMenuOpen(open: boolean) {
+    if (!toggle || !mobileMenu) return;
+    toggle.classList.toggle('active', open);
+    mobileMenu.classList.toggle('active', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+  }
+
   toggle?.addEventListener('click', () => {
-    toggle.classList.toggle('active');
-    mobileMenu?.classList.toggle('active');
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    setMenuOpen(!isOpen);
   });
 
-  const mobileLinks = document.querySelectorAll(
-    '.mobile-nav-links a, .mobile-cta a'
-  );
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      setMenuOpen(false);
+      toggle.focus();
+    }
+  });
+
+  const mobileLinks = document.querySelectorAll('.mobile-nav-links a, .mobile-cta a');
   mobileLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      toggle?.classList.remove('active');
-      mobileMenu?.classList.remove('active');
-    });
+    link.addEventListener('click', () => setMenuOpen(false));
   });
 
   const nav = document.getElementById('mainNav');

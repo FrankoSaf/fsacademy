@@ -6,16 +6,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="Kontakt & Probestunde – Fine Sound Academy"
   description="Kontaktieren Sie die Fine Sound Academy in Düsseldorf und Neuss. Probestunde vereinbaren für Klavier, Gitarre, Gesang, Bass oder Schlagzeug."
 >
-  <section class="contact-hero">
+  <section class="contact-hero" aria-labelledby="kontakt-heading">
     <div class="hero-container">
       <div class="accent-line"></div>
-      <h1>Kontakt</h1>
+      <h1 id="kontakt-heading">Kontakt</h1>
       <p class="hero-subtitle">Probestunde vereinbaren</p>
       <p class="hero-text">Füllen Sie das Formular aus – wir melden uns schnellstmöglich bei Ihnen.</p>
     </div>
   </section>
 
-  <section class="contact-form-section">
+  <section class="contact-form-section" aria-label="Kontaktformular">
     <div class="form-container">
       <form
         method="POST"

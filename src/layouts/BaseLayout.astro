@@ -9,13 +9,9 @@ import globals from '../../content/globals.json';
 
 interface Props {
   title: string;
-  /** Meta description for SEO and social. Falls back to globals.defaultMetaDescription. */
   description?: string;
-  /** Canonical URL. If not set, uses current page URL with Astro.site. */
   canonicalUrl?: string;
-  /** OG/Twitter image URL. Falls back to globals.ogImage. */
   ogImage?: string;
-  /** Set to true for legal pages that should not be indexed. */
   noindex?: boolean;
 }
 
@@ -28,26 +24,90 @@ const image = ogImage ?? (globals as { ogImage?: string }).ogImage ?? '';
 const twitterHandle = (globals as { twitterHandle?: string }).twitterHandle ?? '';
 const imageUrl = image ? (image.startsWith('http') ? image : new URL(image, site).href) : null;
 
-const ldJson = {
+const ldOrganization = {
   '@context': 'https://schema.org',
   '@type': 'MusicSchool',
+  '@id': `${site}#organization`,
   name: 'Fine Sound Academy',
   description: metaDescription,
   url: site,
   ...(imageUrl && { image: imageUrl }),
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Kaiserstr. 28',
-    addressLocality: 'Düsseldorf',
-    postalCode: '40479',
-    addressCountry: 'DE',
+  telephone: '+49 176 77154511',
+  email: 'info@finesoundacademy.com',
+  sameAs: [
+    'https://facebook.com/yourpage',
+    'https://instagram.com/yourpage',
+  ],
+  areaServed: [
+    { '@type': 'City', name: 'Düsseldorf' },
+    { '@type': 'City', name: 'Neuss' },
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Musikunterricht',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Klavierunterricht' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Gitarrenunterricht' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Gesangsunterricht' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Bassunterricht' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Schlagzeugunterricht' } },
+    ],
   },
-  areaServed: [{ '@type': 'City', name: 'Düsseldorf' }, { '@type': 'City', name: 'Neuss' }],
+  location: [
+    {
+      '@type': 'MusicSchool',
+      name: 'Fine Sound Academy Düsseldorf',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Kaiserstr. 28',
+        addressLocality: 'Düsseldorf',
+        postalCode: '40479',
+        addressCountry: 'DE',
+      },
+      geo: { '@type': 'GeoCoordinates', latitude: 51.23387, longitude: 6.77908 },
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '20:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
+      ],
+    },
+    {
+      '@type': 'MusicSchool',
+      name: 'Fine Sound Academy Neuss',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Musterstraße 123',
+        addressLocality: 'Neuss',
+        postalCode: '41460',
+        addressCountry: 'DE',
+      },
+      geo: { '@type': 'GeoCoordinates', latitude: 51.1986, longitude: 6.6854 },
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '20:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
+      ],
+    },
+  ],
+};
+
+const ldWebSite = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Fine Sound Academy',
+  url: site,
+};
+
+const ldWebPage = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description: metaDescription,
+  url: canonical,
+  isPartOf: { '@id': `${site}#website` },
 };
 ---
 
 <!doctype html>
-<html lang="de">
+<html lang="de" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -58,9 +118,12 @@ const ldJson = {
     ) : (
       <>
         <link rel="canonical" href={canonical} />
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       </>
     )}
+
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="de_DE" />
@@ -83,14 +146,38 @@ const ldJson = {
       rel="stylesheet"
     />
 
-    <script type="application/ld+json" set:html={JSON.stringify(ldJson)} />
+    <script type="application/ld+json" set:html={JSON.stringify(ldOrganization)} />
+    <script type="application/ld+json" set:html={JSON.stringify(ldWebSite)} />
+    <script type="application/ld+json" set:html={JSON.stringify(ldWebPage)} />
   </head>
   <body>
-    <Nav />
-    <main class="content">
+    <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
+    <header>
+      <Nav />
+    </header>
+    <main id="main-content" class="content">
       <slot />
     </main>
     <Footer />
     <CookieBanner />
   </body>
 </html>
+
+<style is:global>
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    z-index: 10000;
+    padding: 12px 24px;
+    background: var(--color-gold);
+    color: var(--color-black);
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0 0 4px 4px;
+    transition: top 0.2s;
+  }
+  .skip-link:focus {
+    top: 0;
+  }
+</style>
