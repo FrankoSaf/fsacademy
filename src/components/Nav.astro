@@ -510,6 +510,11 @@ const socialIcons: Record<string, string> = {
     mobileMenu.classList.toggle('active', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+
+    if (open) {
+      const firstLink = mobileMenu.querySelector('a, button') as HTMLElement | null;
+      firstLink?.focus();
+    }
   }
 
   toggle?.addEventListener('click', () => {
@@ -518,9 +523,27 @@ const socialIcons: Record<string, string> = {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+    if (!toggle || !mobileMenu) return;
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+
+    if (e.key === 'Escape' && isOpen) {
       setMenuOpen(false);
       toggle.focus();
+      return;
+    }
+
+    if (e.key === 'Tab' && isOpen) {
+      const focusable = [toggle, ...mobileMenu.querySelectorAll<HTMLElement>('a, button')];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
     }
   });
 

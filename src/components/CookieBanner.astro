@@ -136,40 +136,42 @@
     document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
   }
 
+  const banner = document.getElementById('cookie-banner');
+  const acceptButton = document.getElementById('cookie-accept');
+  const declineButton = document.getElementById('cookie-decline');
+
   function showBanner(): void {
-    const banner = document.getElementById('cookie-banner');
     if (banner) {
       banner.classList.add('show');
+      acceptButton?.focus();
     }
   }
 
   function hideBanner(): void {
-    const banner = document.getElementById('cookie-banner');
     if (banner) {
       banner.classList.remove('show');
     }
   }
 
-  // Check if user has already made a choice
   const consent = getCookie(COOKIE_NAME);
   if (!consent) {
     showBanner();
   }
 
-  // Accept button
-  const acceptButton = document.getElementById('cookie-accept');
   acceptButton?.addEventListener('click', () => {
     setCookie(COOKIE_NAME, 'accepted', COOKIE_EXPIRY_DAYS);
     hideBanner();
-    // Here you can load analytics scripts, etc.
-    console.log('Cookies accepted');
   });
 
-  // Decline button
-  const declineButton = document.getElementById('cookie-decline');
   declineButton?.addEventListener('click', () => {
     setCookie(COOKIE_NAME, 'declined', COOKIE_EXPIRY_DAYS);
     hideBanner();
-    console.log('Cookies declined');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && banner?.classList.contains('show')) {
+      setCookie(COOKIE_NAME, 'declined', COOKIE_EXPIRY_DAYS);
+      hideBanner();
+    }
   });
 </script>

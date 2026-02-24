@@ -20,6 +20,10 @@ const hero = content.hero;
 <section class="hero" aria-labelledby="hero-heading">
   <img
     src={hero.image}
+    srcset={`${hero.image}?w=640&q=75 640w, ${hero.image}?w=960&q=75 960w, ${hero.image}?w=1280&q=80 1280w, ${hero.image}?w=1920&q=80 1920w`}
+    sizes="100vw"
+    width="1920"
+    height="1080"
     alt=""
     role="presentation"
     class="hero-image"

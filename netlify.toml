@@ -1,13 +1,25 @@
-# Fine Sound Academy – Netlify
-# For CMS: enable Netlify Identity and Git Gateway in Site settings.
-
 [build]
-  publish = "dist"
   command = "npm run build"
-  functions = "netlify/functions"
+  publish = "dist"
 
-# Admin app (Netlify CMS) – allow client-side routing under /admin
-[[redirects]]
-  from = "/admin/*"
-  to = "/admin/index.html"
-  status = 200
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/uploads/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
