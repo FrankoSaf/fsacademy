@@ -37,6 +37,15 @@ collections:
         file: "content/landing.json"
         format: json
         fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+              - { label: Hintergrundbild, name: image, widget: image }
           - label: Navigation
             name: navigation
             widget: object
