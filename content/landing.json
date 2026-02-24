@@ -23,7 +23,6 @@
         "icon": "linkedin"
       }
     ],
-
     "links": [
       {
         "text": "Home",
@@ -108,7 +107,10 @@
         "role": "Schulleitung, Gesang und Klavier",
         "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
         "alt": "Schulleiter, Gesangs und Klavierlehrer Toni in Neuss und Düsseldorf",
-        "locations": ["dusseldorf", "neuss"]
+        "locations": [
+          "dusseldorf",
+          "neuss"
+        ]
       },
       {
         "id": "anastasija",
@@ -116,7 +118,10 @@
         "role": "Gesang",
         "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
         "alt": "Gesangslehrerin Anastasija in Neuss und Düsseldorf",
-        "locations": ["dusseldorf", "neuss"]
+        "locations": [
+          "dusseldorf",
+          "neuss"
+        ]
       },
       {
         "id": "adrian",
@@ -124,7 +129,9 @@
         "role": "Gitarre",
         "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
         "alt": "Gitarrenlehrer Adrian in Düsseldorf",
-        "locations": ["dusseldorf"]
+        "locations": [
+          "dusseldorf"
+        ]
       },
       {
         "id": "ruben",
@@ -132,7 +139,10 @@
         "role": "Gitarre, Bass",
         "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
         "alt": "Gitarren und Basslehrer Ruben in Neuss und Düsseldorf",
-        "locations": ["dusseldorf", "neuss"]
+        "locations": [
+          "dusseldorf",
+          "neuss"
+        ]
       },
       {
         "id": "yannik",
@@ -140,7 +150,9 @@
         "role": "Schlagzeug",
         "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
         "alt": "Schlagzeuglehrer Yannik in Düsseldorf",
-        "locations": ["dusseldorf"]
+        "locations": [
+          "dusseldorf"
+        ]
       },
       {
         "id": "jack",
@@ -148,7 +160,9 @@
         "role": "Gitarre, Bass, Songwriting",
         "image": "https://images.unsplash.com/photo-1519345182560-3f2917c472ef",
         "alt": "Gitarren und Basslehrer Jack in Düsseldorf",
-        "locations": ["dusseldorf"]
+        "locations": [
+          "dusseldorf"
+        ]
       },
       {
         "id": "ivana",
@@ -156,15 +170,20 @@
         "role": "Schulleitung, Klavier",
         "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
         "alt": "Schulleiterin und Klavierlehrerin Ivana in Neuss und Düsseldorf",
-        "locations": ["dusseldorf", "neuss"]
+        "locations": [
+          "dusseldorf",
+          "neuss"
+        ]
       },
       {
         "id": "thor",
         "name": "Thor",
-        "role": "Gitarre, Bass und Klavier",
+        "role": "Gitarre, Bass und Klaviers",
         "image": "https://images.unsplash.com/photo-1463453091185-61582044d556",
         "alt": "Gitarrenlehrer in Düsseldorf Thor",
-        "locations": ["dusseldorf"]
+        "locations": [
+          "dusseldorf"
+        ]
       },
       {
         "id": "maria",
@@ -172,7 +191,9 @@
         "role": "Violine",
         "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f",
         "alt": "Violinlehrerin Maria in Neuss",
-        "locations": ["neuss"]
+        "locations": [
+          "neuss"
+        ]
       }
     ]
   },
@@ -202,12 +223,14 @@
     ],
     "legal": [
       {
-"text": "Datenschutz",
-      "url": "/datenschutz"
+        "text": "Datenschutz",
+        "url": "/datenschutz",
+        "highlight": true
       },
       {
         "text": "Impressum",
-        "url": "/impressum"
+        "url": "/impressum",
+        "highlight": true
       },
       {
         "text": "Vertrag kündigen",
