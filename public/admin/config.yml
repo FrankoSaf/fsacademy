@@ -25,7 +25,7 @@ collections:
         fields:
           - { label: "Seitentitel (Standard)", name: siteTitle, widget: string, default: "Fine Sound Academy – Musikschule Düsseldorf & Neuss" }
           - { label: "Meta-Beschreibung (Standard)", name: defaultMetaDescription, widget: text, default: "Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde." }
-          - { label: "OG-Bild (URL)", name: ogImage, widget: string, required: false }
+          - { label: "OG-Bild", name: ogImage, widget: image, required: false }
           - { label: "Twitter @handle", name: twitterHandle, widget: string, required: false }
 
   - name: landing
@@ -76,7 +76,7 @@ collections:
                 widget: object
                 fields:
                   - { label: Name, name: name, widget: string }
-                  - { label: Bild-URL, name: image, widget: string }
+                  - { label: Bild, name: image, widget: image }
                   - { label: Button-Text, name: buttonText, widget: string }
                   - { label: Link, name: link, widget: string }
               - label: Neuss
@@ -84,7 +84,7 @@ collections:
                 widget: object
                 fields:
                   - { label: Name, name: name, widget: string }
-                  - { label: Bild-URL, name: image, widget: string }
+                  - { label: Bild, name: image, widget: image }
                   - { label: Button-Text, name: buttonText, widget: string }
                   - { label: Link, name: link, widget: string }
           - label: Instrumente (Übersicht)
@@ -121,7 +121,7 @@ collections:
                   - { label: ID, name: id, widget: string }
                   - { label: Name, name: name, widget: string }
                   - { label: Rolle, name: role, widget: string }
-                  - { label: Bild-URL, name: image, widget: string }
+                  - { label: Bild, name: image, widget: image }
                   - { label: Alt-Text, name: alt, widget: string }
                   - { label: Standorte, name: locations, widget: list, summary: "{{fields.name}}", field: { label: Standort, name: location, widget: string } }
           - label: Footer
@@ -132,7 +132,7 @@ collections:
                 name: logo
                 widget: object
                 fields:
-                  - { label: Bild-URL, name: image, widget: string }
+                  - { label: Bild, name: image, widget: image }
                   - { label: Alt, name: alt, widget: string }
                   - { label: Link, name: link, widget: string }
               - label: Navigation
@@ -267,8 +267,8 @@ collections:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
               - { label: Slug, name: slug, widget: string }
-              - { label: Bild-URL, name: image, widget: string }
-              - { label: Beschreibung, name: description, widget: text }
+                  - { label: Bild, name: image, widget: image }
+                  - { label: Beschreibung, name: description, widget: text }
               - label: Highlights
                 name: highlights
                 widget: list
@@ -293,7 +293,7 @@ collections:
                 field: { label: Absatz, name: p, widget: text }
               - { label: Button-Text, name: buttonText, widget: string }
               - { label: Button-Link, name: buttonLink, widget: string }
-              - { label: Bild-URL, name: image, widget: string }
+              - { label: Bild, name: image, widget: image }
               - { label: Bild-Alt, name: imageAlt, widget: string }
       - label: Neuss (Block)
         name: neuss
@@ -311,7 +311,7 @@ collections:
                 field: { label: Absatz, name: p, widget: text }
               - { label: Button-Text, name: buttonText, widget: string }
               - { label: Button-Link, name: buttonLink, widget: string }
-              - { label: Bild-URL, name: image, widget: string }
+              - { label: Bild, name: image, widget: image }
               - { label: Bild-Alt, name: imageAlt, widget: string }
 
   - name: shared
