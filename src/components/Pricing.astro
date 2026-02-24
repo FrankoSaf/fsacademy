@@ -1,0 +1,199 @@
+---
+import pricingData from '../data/shared/pricing.json';
+
+interface Props {
+  showHeader?: boolean;
+}
+
+const { showHeader = true } = Astro.props;
+---
+
+<section id="pricing" class="pricing">
+  <div class="pricing-container">
+    {
+      showHeader && (
+        <header class="pricing-header">
+          <div class="accent-line" />
+          <h2>{pricingData.title}</h2>
+          <p class="pricing-subtitle">{pricingData.subtitle}</p>
+        </header>
+      )
+    }
+
+    <div class="pricing-grid">
+      {
+        pricingData.plans.map((plan) => (
+          <article class={`pricing-card ${plan.popular ? 'popular' : ''}`}>
+            {plan.popular && <div class="popular-badge">Beliebteste Wahl</div>}
+            <h3>{plan.name}</h3>
+            <div class="price">
+              <span class="amount">{plan.price}</span>
+              <span class="period">/{plan.period}</span>
+            </div>
+            <p class="plan-description">{plan.description}</p>
+            <ul class="features">
+              {plan.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <a href={plan.buttonLink} class="pricing-button">
+              {plan.buttonText}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+
+  .pricing-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .pricing-header {
+    text-align: center;
+    margin-bottom: var(--space-5xl);
+  }
+
+  .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin: 0 auto var(--space-lg);
+  }
+
+  .pricing-header h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .pricing-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-gold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3xl);
+  }
+
+  .pricing-card {
+    background: var(--color-surface);
+    border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    padding: var(--space-3xl) var(--space-2xl);
+    text-align: center;
+    transition: all var(--transition-base);
+    position: relative;
+  }
+
+  .pricing-card.popular {
+    border-color: var(--color-gold);
+    transform: scale(1.05);
+    background: var(--color-gold-alpha-10);
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-gold);
+    color: var(--color-black);
+    padding: var(--space-xs) var(--space-lg);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .pricing-card h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .price {
+    margin-bottom: var(--space-md);
+  }
+
+  .amount {
+    font-family: var(--font-serif);
+    font-size: var(--text-4xl);
+    color: var(--color-gold);
+    font-weight: 700;
+  }
+
+  .period {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .plan-description {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2xl);
+    font-size: var(--text-sm);
+  }
+
+  .features {
+    list-style: none;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .features li {
+    padding: var(--space-sm) 0;
+    color: var(--color-text-primary);
+    border-bottom: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    font-size: var(--text-sm);
+  }
+
+  .features li:last-child {
+    border-bottom: none;
+  }
+
+  .pricing-button {
+    display: inline-block;
+    padding: var(--space-md) var(--space-2xl);
+    background: var(--color-gold);
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-size: var(--text-sm);
+    transition: all var(--transition-base);
+    border: var(--border-width-medium) solid var(--color-gold);
+  }
+
+  .pricing-button:hover {
+    background: transparent;
+    color: var(--color-gold);
+  }
+
+  @media (max-width: 991px) {
+    .pricing-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .pricing-card.popular {
+      transform: scale(1);
+    }
+  }
+</style>

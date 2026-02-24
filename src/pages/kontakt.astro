@@ -1,0 +1,559 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Kontakt & Probestunde – Fine Sound Academy"
+  description="Kontaktieren Sie die Fine Sound Academy in Düsseldorf und Neuss. Probestunde vereinbaren für Klavier, Gitarre, Gesang, Bass oder Schlagzeug."
+>
+  <section class="contact-hero">
+    <div class="hero-container">
+      <div class="accent-line"></div>
+      <h1>Kontakt</h1>
+      <p class="hero-subtitle">Probestunde vereinbaren</p>
+      <p class="hero-text">Füllen Sie das Formular aus – wir melden uns schnellstmöglich bei Ihnen.</p>
+    </div>
+  </section>
+
+  <section class="contact-form-section">
+    <div class="form-container">
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="contact-form"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hidden" aria-hidden="true">
+          <label for="bot-field">Nicht ausfüllen</label>
+          <input id="bot-field" name="bot-field" type="text" tabindex="-1" autocomplete="off" />
+        </p>
+
+        <div class="form-row">
+          <div class="form-group form-group-full">
+            <label for="name">Vollständiger Name <span class="required">*</span></label>
+            <input type="text" id="name" name="name" required autocomplete="name" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group-full">
+            <label for="email">E-Mail-Adresse <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group-full">
+            <label for="phone">Telefonnummer <span class="required">*</span></label>
+            <input type="tel" id="phone" name="phone" required pattern="^[0-9\s+\-().]+$" autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="form-row form-row-half">
+          <div class="form-group">
+            <label for="interest">Ich interessiere mich für <span class="required">*</span></label>
+            <select id="interest" name="interest" required>
+              <option value="" disabled hidden selected></option>
+              <option value="Gesang">Gesang</option>
+              <option value="Klavier">Klavier</option>
+              <option value="Gitarre">Gitarre</option>
+              <option value="Bass">Bass</option>
+              <option value="Schlagzeug">Schlagzeug</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="location">Standort <span class="required">*</span></label>
+            <select id="location" name="location" required>
+              <option value="" disabled hidden selected></option>
+              <option value="Neuss">Neuss</option>
+              <option value="Düsseldorf">Düsseldorf</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group-full">
+            <label for="message">Ihre Nachricht</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Terminwünsche, Vorkenntnisse, weitere Anmerkungen..."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="form-row form-row-consent">
+          <div class="form-group form-group-checkbox">
+            <label class="checkbox-label">
+              <input type="checkbox" name="consent" value="true" required />
+              <span>Ich stimme der Übermittlung und Verarbeitung meiner Nachricht zu. <span class="required">*</span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-status" aria-live="polite"></div>
+
+        <div class="form-submit">
+          <button type="submit" class="submit-btn">
+            <span class="btn-text">Senden</span>
+            <span class="btn-loading" aria-hidden="true">
+              <svg class="spinner" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="2" stroke-dasharray="35 12" stroke-linecap="round"/></svg>
+              Wird gesendet&hellip;
+            </span>
+          </button>
+        </div>
+      </form>
+
+      <div class="form-success" hidden>
+        <div class="success-icon" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="var(--color-gold)" stroke-width="2.5"/><path d="M14 25l7 7 13-14" stroke="var(--color-gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2>Vielen Dank!</h2>
+        <p>Ihre Nachricht wurde erfolgreich gesendet. Wir melden uns in Kürze bei Ihnen.</p>
+        <button type="button" class="reset-btn">Weitere Nachricht senden</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-info-section">
+    <div class="info-container">
+      <h2>Standorte</h2>
+      <div class="info-cards">
+        <div class="info-card">
+          <h3>Düsseldorf</h3>
+          <p>Kaiserstr. 28</p>
+          <p>40479 Düsseldorf</p>
+          <p><a href="tel:017677154511">0176 77154511</a></p>
+          <p><a href="mailto:info@finesoundacademy.com">info@finesoundacademy.com</a></p>
+        </div>
+        <div class="info-card">
+          <h3>Neuss</h3>
+          <p>Musterstraße 123</p>
+          <p>41460 Neuss</p>
+          <p><a href="tel:017677154511">0176 77154511</a></p>
+          <p><a href="mailto:info@finesoundacademy.com">info@finesoundacademy.com</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-hero {
+    padding: var(--space-6xl) var(--space-lg) var(--space-5xl);
+    background: var(--color-bg-dark);
+    text-align: center;
+  }
+
+  .hero-container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .contact-hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    color: var(--color-text-on-dark);
+    margin-bottom: var(--space-md);
+    font-weight: 700;
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-gold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-text {
+    color: var(--color-white-alpha-70);
+    font-size: var(--text-base);
+  }
+
+  .contact-form-section {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .form-container {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+  }
+
+  .form-row-half {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
+  }
+
+  .form-group {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .form-group-full {
+    flex: 1 1 100%;
+  }
+
+  .form-group label,
+  .checkbox-label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    background: var(--color-bg-default);
+    border: var(--border-width-thin) solid var(--color-border-input);
+    border-radius: 4px;
+    transition: border-color var(--transition-base);
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--color-border-input-focus);
+    outline: none;
+  }
+
+  .form-group input:focus-visible,
+  .form-group select:focus-visible,
+  .form-group textarea:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: var(--focus-visible-offset);
+    box-shadow: var(--focus-visible-ring);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .required {
+    color: var(--color-gold);
+  }
+
+  .form-group-checkbox {
+    flex: 1 1 100%;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    cursor: pointer;
+    font-weight: 400;
+  }
+
+  .checkbox-label input {
+    margin-top: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    accent-color: var(--color-gold);
+  }
+
+  .form-submit {
+    margin-top: var(--space-md);
+  }
+
+  .form-status {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 4px;
+    display: none;
+  }
+
+  .form-status.is-error {
+    display: block;
+    background: #fef2f2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+  }
+
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xs);
+    padding: 0.85rem var(--space-3xl);
+    background: var(--color-gold);
+    color: var(--color-black);
+    border: none;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background var(--transition-base), opacity var(--transition-base);
+  }
+
+  .submit-btn:hover {
+    background: var(--color-gold-light);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .submit-btn:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: var(--focus-visible-offset);
+    box-shadow: var(--focus-visible-ring);
+  }
+
+  .btn-loading {
+    display: none;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .submit-btn.is-loading .btn-text {
+    display: none;
+  }
+
+  .submit-btn.is-loading .btn-loading {
+    display: inline-flex;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .spinner {
+    animation: spin 0.8s linear infinite;
+  }
+
+  .form-success {
+    text-align: center;
+    padding: var(--space-3xl) 0;
+  }
+
+  .form-success[hidden] {
+    display: none;
+  }
+
+  .success-icon {
+    margin-bottom: var(--space-xl);
+  }
+
+  .form-success h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .form-success p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-base);
+    margin-bottom: var(--space-2xl);
+    line-height: 1.7;
+  }
+
+  .reset-btn {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-2xl);
+    background: none;
+    color: var(--color-gold);
+    border: var(--border-width-thin) solid var(--color-gold);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background var(--transition-base), color var(--transition-base);
+  }
+
+  .reset-btn:hover {
+    background: var(--color-gold);
+    color: var(--color-black);
+  }
+
+  .reset-btn:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: var(--focus-visible-offset);
+    box-shadow: var(--focus-visible-ring);
+  }
+
+  .contact-info-section {
+    padding: var(--space-5xl) var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+
+  .info-container {
+    max-width: var(--container-wide-max-width);
+    margin: 0 auto;
+  }
+
+  .contact-info-section h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2xl);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-xl);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .info-card {
+    background: var(--color-surface);
+    padding: var(--space-xl);
+    border-radius: 6px;
+    border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+  }
+
+  .info-card h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .info-card p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-xs);
+  }
+
+  .info-card a {
+    color: var(--color-gold);
+    text-decoration: none;
+  }
+
+  .info-card a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .form-row-half {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-hero {
+      padding: var(--space-4xl) var(--space-md) var(--space-3xl);
+    }
+
+    .contact-form-section {
+      padding: var(--space-4xl) var(--space-md);
+    }
+
+    .contact-info-section {
+      padding: var(--space-4xl) var(--space-md);
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector('.contact-form') as HTMLFormElement;
+  const btn = form?.querySelector('.submit-btn') as HTMLButtonElement;
+  const status = form?.querySelector('.form-status') as HTMLElement;
+  const successEl = document.querySelector('.form-success') as HTMLElement;
+  const resetBtn = successEl?.querySelector('.reset-btn') as HTMLButtonElement;
+
+  function setLoading(loading: boolean) {
+    btn.disabled = loading;
+    btn.classList.toggle('is-loading', loading);
+  }
+
+  function showError(msg: string) {
+    status.textContent = msg;
+    status.classList.add('is-error');
+    status.style.display = '';
+  }
+
+  function clearError() {
+    status.textContent = '';
+    status.classList.remove('is-error');
+    status.style.display = 'none';
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError();
+    setLoading(true);
+
+    try {
+      const res = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form) as any).toString(),
+      });
+
+      if (!res.ok) throw new Error(`${res.status}`);
+
+      form.hidden = true;
+      successEl.hidden = false;
+      successEl.focus();
+    } catch {
+      showError('Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    successEl.hidden = true;
+    form.hidden = false;
+    form.reset();
+    clearError();
+  });
+</script>

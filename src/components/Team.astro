@@ -1,0 +1,454 @@
+---
+import contentRaw from '../data/landing.json';
+
+interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  image: string;
+  alt: string;
+  locations: string[];
+}
+
+interface TeamContent {
+  title: string;
+  intro: string;
+  members: TeamMember[];
+}
+
+interface Content {
+  team: TeamContent;
+}
+
+interface Props {
+  location?: string;
+  showIntro?: boolean;
+}
+
+const { location, showIntro = true } = Astro.props;
+
+const content = contentRaw as Content;
+
+const members = location
+  ? content.team.members.filter((member) => member.locations.includes(location))
+  : content.team.members;
+---
+
+<section id="team" class="team">
+  <div class="team-container">
+    {
+      showIntro && (
+        <header class="team-header">
+          <div class="accent-line" />
+          <h2>{content.team.title}</h2>
+          <p class="team-intro">{content.team.intro}</p>
+        </header>
+      )
+    }
+
+    <div class="slider-wrap" role="region" aria-label="Team-Mitglieder" aria-roledescription="Karussell">
+      <button class="slider-btn slider-btn-prev" type="button" aria-label="Vorheriges Mitglied">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 4 7 10 13 16"/></svg>
+      </button>
+
+      <ul class="team-grid" tabindex="0">
+        {
+          members &&
+            members.map((member, i) => (
+              <li class="team-member" role="group" aria-roledescription="Folie" aria-label={`${i + 1} von ${members.length}: ${member.name}`}>
+                <figure class="member-image">
+                  <picture>
+                    <source
+                      media="(min-width: 768px)"
+                      srcset={`${member.image}?w=400 400w, ${member.image}?w=600 600w`}
+                      sizes="(min-width: 1200px) 280px, (min-width: 768px) 25vw, 100vw"
+                    />
+                    <source
+                      media="(max-width: 767px)"
+                      srcset={`${member.image}?w=300 300w, ${member.image}?w=600 600w`}
+                      sizes="100vw"
+                    />
+                    <img
+                      src={`${member.image}?w=400`}
+                      alt={member.alt}
+                      loading="lazy"
+                    />
+                  </picture>
+                </figure>
+                <div class="member-info">
+                  <h3>{member.name}</h3>
+                  <p>{member.role}</p>
+                </div>
+              </li>
+            ))
+        }
+      </ul>
+
+      <button class="slider-btn slider-btn-next" type="button" aria-label="Nächstes Mitglied">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 4 13 10 7 16"/></svg>
+      </button>
+    </div>
+
+    <div class="slider-dots" role="tablist" aria-label="Folienauswahl"></div>
+  </div>
+</section>
+
+<style>
+  .team {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+
+  .team-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .team-header {
+    text-align: center;
+    margin-bottom: var(--space-5xl);
+  }
+
+  .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin: 0 auto var(--space-lg);
+  }
+
+  .team-header h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2xl);
+    font-weight: 600;
+  }
+
+  .team-intro {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .slider-wrap {
+    position: relative;
+  }
+
+  .slider-btn {
+    display: none;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-2xl);
+    list-style: none;
+  }
+
+  .team-member {
+    text-align: center;
+  }
+
+  .member-image {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    margin: 0 0 var(--space-md) 0;
+    border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    background: var(--color-surface);
+  }
+
+  .member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .member-info h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+    font-weight: 600;
+  }
+
+  .member-info p {
+    font-size: var(--text-sm);
+    color: var(--color-gold);
+    font-weight: 400;
+  }
+
+  .slider-dots {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .team {
+      padding: var(--space-4xl) 0;
+    }
+
+    .team-header {
+      padding: 0 var(--space-md);
+    }
+
+    .slider-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      transform: translateY(calc(-50% - 24px));
+      z-index: 2;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+      background: var(--color-surface);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: background var(--transition-base), color var(--transition-base), opacity var(--transition-base);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .slider-btn:hover {
+      background: var(--color-gold);
+      color: var(--color-black);
+    }
+
+    .slider-btn:disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .slider-btn-prev {
+      left: 6px;
+    }
+
+    .slider-btn-next {
+      right: 6px;
+    }
+
+    .team-grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: var(--space-md);
+      padding: 0 var(--space-md);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      cursor: grab;
+    }
+
+    .team-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .team-grid.is-dragging {
+      cursor: grabbing;
+      scroll-snap-type: none;
+      user-select: none;
+    }
+
+    .team-member {
+      flex: 0 0 calc(100% - 80px);
+      scroll-snap-align: center;
+      padding: 0;
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-sm);
+      margin-top: var(--space-2xl);
+      padding: 0 var(--space-md);
+    }
+
+    .slider-dots .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-gold-alpha-20);
+      border: none;
+      padding: 0;
+      transition: background var(--transition-base);
+      cursor: pointer;
+    }
+
+    .slider-dots .dot[aria-selected="true"] {
+      background: var(--color-gold);
+    }
+  }
+</style>
+
+<script>
+  function initTeamSlider() {
+    const grid = document.querySelector('.team-grid') as HTMLElement;
+    const dotsContainer = document.querySelector('.slider-dots') as HTMLElement;
+    const prevBtn = document.querySelector('.slider-btn-prev') as HTMLButtonElement;
+    const nextBtn = document.querySelector('.slider-btn-next') as HTMLButtonElement;
+    const members = document.querySelectorAll('.team-member') as NodeListOf<HTMLElement>;
+
+    if (!grid || !dotsContainer || !prevBtn || !nextBtn || members.length === 0) return;
+
+    const mq = window.matchMedia('(max-width: 767px)');
+    let active = 0;
+    let isDragging = false;
+    let startX = 0;
+    let scrollStart = 0;
+    let dragDelta = 0;
+    let dotsBuilt = false;
+
+    function getClosestIndex() {
+      const center = grid.scrollLeft + grid.offsetWidth / 2;
+      let closest = 0;
+      let minDist = Infinity;
+      members.forEach((m, i) => {
+        const d = Math.abs(m.offsetLeft + m.offsetWidth / 2 - center);
+        if (d < minDist) { minDist = d; closest = i; }
+      });
+      return closest;
+    }
+
+    function scrollToIndex(idx: number, behavior: ScrollBehavior = 'smooth') {
+      const member = members[idx];
+      if (!member) return;
+      const pos = member.offsetLeft - grid.offsetLeft - (grid.offsetWidth - member.offsetWidth) / 2;
+      grid.scrollTo({ left: pos, behavior });
+    }
+
+    function updateUI() {
+      active = getClosestIndex();
+      prevBtn.disabled = active === 0;
+      nextBtn.disabled = active === members.length - 1;
+      dotsContainer.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.setAttribute('aria-selected', i === active ? 'true' : 'false');
+        dot.setAttribute('tabindex', i === active ? '0' : '-1');
+      });
+    }
+
+    function buildDots() {
+      if (dotsBuilt) return;
+      dotsBuilt = true;
+      dotsContainer.innerHTML = '';
+      members.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', `Folie ${i + 1} von ${members.length}`);
+        dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+        dot.setAttribute('tabindex', i === 0 ? '0' : '-1');
+        dot.addEventListener('click', () => {
+          scrollToIndex(i);
+        });
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function teardownDots() {
+      dotsBuilt = false;
+      dotsContainer.innerHTML = '';
+    }
+
+    // Pointer drag
+    function onPointerDown(e: PointerEvent) {
+      if (e.button !== 0) return;
+      isDragging = false;
+      startX = e.clientX;
+      scrollStart = grid.scrollLeft;
+      dragDelta = 0;
+      grid.setPointerCapture(e.pointerId);
+      grid.classList.add('is-dragging');
+    }
+
+    function onPointerMove(e: PointerEvent) {
+      if (!grid.hasPointerCapture(e.pointerId)) return;
+      dragDelta = e.clientX - startX;
+      if (Math.abs(dragDelta) > 5) isDragging = true;
+      grid.scrollLeft = scrollStart - dragDelta;
+    }
+
+    function onPointerUp(e: PointerEvent) {
+      grid.releasePointerCapture(e.pointerId);
+      grid.classList.remove('is-dragging');
+      if (isDragging) {
+        grid.style.scrollSnapType = 'x mandatory';
+        void grid.offsetHeight;
+        const idx = getClosestIndex();
+        scrollToIndex(idx);
+        setTimeout(() => updateUI(), 350);
+      }
+      isDragging = false;
+    }
+
+    function onClickCapture(e: MouseEvent) {
+      if (isDragging) { e.preventDefault(); e.stopPropagation(); }
+    }
+
+    // Scroll sync
+    let scrollRaf = 0;
+    function onScroll() {
+      cancelAnimationFrame(scrollRaf);
+      scrollRaf = requestAnimationFrame(() => updateUI());
+    }
+
+    // Keyboard navigation on grid
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); if (active > 0) scrollToIndex(active - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); if (active < members.length - 1) scrollToIndex(active + 1); }
+    }
+
+    // Keyboard navigation on dots (arrow keys move between dots)
+    function onDotsKeyDown(e: KeyboardEvent) {
+      const dots = [...dotsContainer.querySelectorAll('.dot')] as HTMLElement[];
+      const idx = dots.indexOf(e.target as HTMLElement);
+      if (idx < 0) return;
+      let next = idx;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); next = Math.min(idx + 1, dots.length - 1); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); next = Math.max(idx - 1, 0); }
+      if (next !== idx) { dots[next].focus(); dots[next].click(); }
+    }
+
+    function activate() {
+      buildDots();
+      grid.addEventListener('pointerdown', onPointerDown);
+      grid.addEventListener('pointermove', onPointerMove);
+      grid.addEventListener('pointerup', onPointerUp);
+      grid.addEventListener('pointercancel', onPointerUp);
+      grid.addEventListener('click', onClickCapture, true);
+      grid.addEventListener('scroll', onScroll, { passive: true });
+      grid.addEventListener('keydown', onKeyDown);
+      dotsContainer.addEventListener('keydown', onDotsKeyDown);
+      prevBtn.addEventListener('click', () => { if (active > 0) scrollToIndex(active - 1); });
+      nextBtn.addEventListener('click', () => { if (active < members.length - 1) scrollToIndex(active + 1); });
+      updateUI();
+    }
+
+    function deactivate() {
+      teardownDots();
+      grid.removeEventListener('pointerdown', onPointerDown);
+      grid.removeEventListener('pointermove', onPointerMove);
+      grid.removeEventListener('pointerup', onPointerUp);
+      grid.removeEventListener('pointercancel', onPointerUp);
+      grid.removeEventListener('click', onClickCapture, true);
+      grid.removeEventListener('scroll', onScroll);
+      grid.removeEventListener('keydown', onKeyDown);
+      dotsContainer.removeEventListener('keydown', onDotsKeyDown);
+    }
+
+    function toggle(matches: boolean) {
+      if (matches) activate();
+      else deactivate();
+    }
+
+    toggle(mq.matches);
+    mq.addEventListener('change', (e) => toggle(e.matches));
+  }
+
+  document.addEventListener('DOMContentLoaded', initTeamSlider);
+  // Also run if DOM is already loaded (Astro client scripts)
+  if (document.readyState !== 'loading') initTeamSlider();
+</script>

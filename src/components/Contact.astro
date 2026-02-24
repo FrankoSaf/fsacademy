@@ -1,0 +1,349 @@
+---
+interface Props {
+  location: 'dusseldorf' | 'neuss';
+}
+
+const { location } = Astro.props;
+
+const GOOGLE_MAPS_API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || 'AIzaSyBWfVlEwLKClNW6xqX6YKk27v-nG1RVKMY';
+
+const locations = {
+  dusseldorf: {
+    title: 'Fine Sound Academy Düsseldorf',
+    subtitle: 'Musikschule Düsseldorf',
+    address: 'Kaiserstr. 28',
+    city: '40479 Düsseldorf',
+    hours: [
+      { days: 'Mo - Fr', time: '10:00 - 20:00' },
+      { days: 'Samstag', time: '9:00 - 12:00' },
+      { days: 'Sonntag', time: 'Geschlossen' },
+    ],
+    phone: '0176 77154511',
+    email: 'info@finesoundacademy.com',
+    coordinates: {
+      lat: 51.23387,
+      lng: 6.77908,
+    },
+  },
+  neuss: {
+    title: 'Fine Sound Academy Neuss',
+    subtitle: 'Musikschule Neuss',
+    address: 'Musterstraße 123',
+    city: '41460 Neuss',
+    hours: [
+      { days: 'Mo - Fr', time: '10:00 - 20:00' },
+      { days: 'Samstag', time: '9:00 - 12:00' },
+      { days: 'Sonntag', time: 'Geschlossen' },
+    ],
+    phone: '0176 77154511',
+    email: 'info@finesoundacademy.com',
+    coordinates: {
+      lat: 51.1986,
+      lng: 6.6854,
+    },
+  },
+};
+
+const contact = locations[location];
+---
+
+<section class="contact">
+  <div class="contact-container">
+    <div class="contact-info">
+      <h2>{contact.title}</h2>
+      <p class="subtitle">{contact.subtitle}</p>
+
+      <div class="info-group">
+        <h3>Adresse</h3>
+        <p>{contact.address}</p>
+        <p>{contact.city}</p>
+      </div>
+
+      <div class="info-group">
+        <h3>Öffnungszeiten</h3>
+        {
+          contact.hours.map((hour) => (
+            <p>
+              <strong>{hour.days}:</strong> {hour.time}
+            </p>
+          ))
+        }
+      </div>
+
+      <div class="info-group">
+        <h3>Kontakt</h3>
+        <p><a href={`tel:${contact.phone}`}>{contact.phone}</a></p>
+        <p><a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+      </div>
+
+      <div class="info-group">
+        <a
+          href={`https://www.google.com/maps/dir/?api=1&destination=${contact.coordinates.lat},${contact.coordinates.lng}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="directions-button"
+        >
+          Route planen
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-map">
+      <div
+        id="map"
+        data-lat={contact.coordinates.lat}
+        data-lng={contact.coordinates.lng}
+      >
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .contact-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4xl);
+  }
+
+  .contact-info h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+    font-weight: 600;
+  }
+
+  .subtitle {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .info-group {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .info-group h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+    font-weight: 600;
+  }
+
+  .info-group p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .info-group a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+
+  .info-group a:hover {
+    color: var(--color-gold);
+  }
+
+  .directions-button {
+    display: inline-block;
+    padding: var(--space-sm) var(--space-2xl);
+    background: var(--color-gold);
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-size: var(--text-sm);
+    transition: all var(--transition-base);
+    border: var(--border-width-medium) solid var(--color-gold);
+  }
+
+  .directions-button:hover {
+    background: transparent;
+    color: var(--color-gold);
+  }
+
+  .contact-map {
+    width: 100%;
+    height: 500px;
+    position: relative;
+  }
+
+  #map {
+    width: 100%;
+    height: 100%;
+    border: var(--border-width-thin) solid rgba(212, 175, 55, 0.2);
+  }
+
+  @media (max-width: 767px) {
+    .contact {
+      padding: var(--space-4xl) var(--space-md);
+    }
+
+    .contact-container {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .contact-map {
+      height: 350px;
+    }
+  }
+</style>
+
+<script is:inline define:vars={{ GOOGLE_MAPS_API_KEY }}>
+  function initMap() {
+    const mapElement = document.getElementById('map');
+    if (!mapElement) return;
+
+    const lat = parseFloat(mapElement.dataset.lat);
+    const lng = parseFloat(mapElement.dataset.lng);
+
+    // Dark/Gray map style
+    const mapStyles = [
+      { elementType: 'geometry', stylers: [{ color: '#1d1d1d' }] },
+      { elementType: 'labels.text.stroke', stylers: [{ color: '#0a0a0a' }] },
+      { elementType: 'labels.text.fill', stylers: [{ color: '#8a8a8a' }] },
+      {
+        featureType: 'administrative.locality',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#d4af37' }],
+      },
+      {
+        featureType: 'poi',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#757575' }],
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'geometry',
+        stylers: [{ color: '#2a2a2a' }],
+      },
+      {
+        featureType: 'poi.park',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#6b6b6b' }],
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [{ color: '#2c2c2c' }],
+      },
+      {
+        featureType: 'road',
+        elementType: 'geometry.stroke',
+        stylers: [{ color: '#1a1a1a' }],
+      },
+      {
+        featureType: 'road',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#8a8a8a' }],
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry',
+        stylers: [{ color: '#3a3a3a' }],
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [{ color: '#1f1f1f' }],
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#b0b0b0' }],
+      },
+      {
+        featureType: 'transit',
+        elementType: 'geometry',
+        stylers: [{ color: '#2a2a2a' }],
+      },
+      {
+        featureType: 'transit.station',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#757575' }],
+      },
+      {
+        featureType: 'water',
+        elementType: 'geometry',
+        stylers: [{ color: '#0f0f0f' }],
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [{ color: '#4e4e4e' }],
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [{ color: '#0a0a0a' }],
+      },
+    ];
+
+    const map = new google.maps.Map(mapElement, {
+      center: { lat, lng },
+      zoom: 15,
+      styles: mapStyles,
+      disableDefaultUI: false,
+      zoomControl: true,
+      mapTypeControl: false,
+      scaleControl: true,
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: true,
+    });
+
+    // Custom golden marker
+    const marker = new google.maps.Marker({
+      position: { lat, lng },
+      map: map,
+      title: 'Fine Sound Academy',
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: '#d4af37',
+        fillOpacity: 1,
+        strokeColor: '#f4d47f',
+        strokeWeight: 3,
+        scale: 12,
+      },
+      animation: google.maps.Animation.DROP,
+    });
+
+    // Optional: Add info window
+    const infoWindow = new google.maps.InfoWindow({
+      content: `
+        <div style="padding: 10px; font-family: 'Montserrat', sans-serif;">
+          <h3 style="margin: 0 0 5px 0; color: #0a0a0a; font-size: 16px;">Fine Sound Academy</h3>
+          <p style="margin: 0; color: #666; font-size: 14px;">${mapElement.dataset.address || 'Musikschule'}</p>
+        </div>
+      `,
+    });
+
+    marker.addListener('click', () => {
+      infoWindow.open(map, marker);
+    });
+  }
+
+  // Load Google Maps API
+  if (GOOGLE_MAPS_API_KEY) {
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    window.initMap = initMap;
+    document.head.appendChild(script);
+  } else {
+    console.error('Google Maps API key is missing');
+  }
+</script>

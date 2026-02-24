@@ -1,0 +1,51 @@
+{
+  "title": "Unsere Preise",
+  "subtitle": "Entdecke die Vielfalt der musikalischen Möglichkeiten und wähle deinen passenden Tarif, der zu deinen Bedürfnissen passt.",
+  "plans": [
+    {
+      "name": "Solo 30",
+      "price": "ab €89",
+      "period": "Monat",
+      "description": "Perfekt für Einsteiger",
+      "features": [
+        "30 min wöchentlich",
+        "3, 6 oder 12 Monate Mindestlaufzeit",
+        "Kostenlose Probestunde",
+        "Einzelunterricht"
+      ],
+      "buttonText": "Jetzt anmelden",
+      "buttonLink": "/kontakt",
+      "popular": false
+    },
+    {
+      "name": "Solo 45",
+      "price": "ab €132",
+      "period": "Monat",
+      "description": "Ideal für kontinuierlichen Fortschritt",
+      "features": [
+        "45 min wöchentlich",
+        "3, 6 oder 12 Monate Mindestlaufzeit",
+        "Kostenlose Probestunde",
+        "Einzelunterricht"
+      ],
+      "buttonText": "Jetzt anmelden",
+      "buttonLink": "/kontakt",
+      "popular": true
+    },
+    {
+      "name": "Gruppe",
+      "price": "ab €79",
+      "period": "Monat",
+      "description": "Gemeinsam Musik lernen",
+      "features": [
+        "45 min wöchentlich",
+        "6 Monate Mindestlaufzeit",
+        "Kostenlose Probestunde",
+        "Gruppenunterricht"
+      ],
+      "buttonText": "Jetzt anmelden",
+      "buttonLink": "/kontakt",
+      "popular": false
+    }
+  ]
+}

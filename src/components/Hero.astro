@@ -1,0 +1,117 @@
+<style>
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.55);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+  }
+
+  .hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-on-dark);
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: var(--color-gold);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    background: var(--color-gold);
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    font-size: var(--text-sm);
+    transition: all var(--transition-base);
+    border: var(--border-width-medium) solid var(--color-gold);
+  }
+
+  .hero-cta:hover {
+    background: transparent;
+    color: var(--color-gold);
+  }
+
+  .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin: 0 auto 2rem;
+  }
+</style>
+
+<section class="hero">
+  <picture>
+    <source
+      type="image/webp"
+      srcset="https://cdn.looka.com/assets-db/industry_photos/music/1.jpg?w=400&fm=webp 400w,
+              https://cdn.looka.com/assets-db/industry_photos/music/1.jpg?w=800&fm=webp 800w,
+              https://cdn.looka.com/assets-db/industry_photos/music/1.jpg?w=1200&fm=webp 1200w,
+              https://cdn.looka.com/assets-db/industry_photos/music/1.jpg?w=1920&fm=webp 1920w"
+      sizes="100vw"
+    />
+    <source
+      type="image/jpeg"
+      srcset="https://cdn.looka.com/assets-db/industry_photos/music/1.jpg?w=400 400w,
+              https://cdn.looka.com/assets-db/industry_photos/music/1.jpg?w=800 800w,
+              https://cdn.looka.com/assets-db/industry_photos/music/1.jpg?w=1200 1200w,
+              https://cdn.looka.com/assets-db/industry_photos/music/1.jpg?w=1920 1920w"
+      sizes="100vw"
+    />
+    <img
+      src="https://cdn.looka.com/assets-db/industry_photos/music/1.jpg"
+      alt="Luxury background"
+      class="hero-image"
+      loading="eager"
+    />
+  </picture>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="accent-line"></div>
+    <h1>Luxury Redefined</h1>
+    <p>Experience Excellence Beyond Compare</p>
+    <a href="#contact" class="hero-cta">Discover More</a>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+{
+  "about": {
+    "title": "Deine Musikschule in Düsseldorf: Entdecke deine musikalische Leidenschaft und entfalte dein Talent!",
+    "paragraphs": [
+      "Entdecke deine musikalische Leidenschaft und entfalte dein musikalisches Talent an unserer Musikschule in Düsseldorf! Hier kannst du deine musikalischen Fähigkeiten unter professioneller Anleitung weiterentwickeln und eine vielfältige Auswahl an Instrumenten erlernen. Egal, ob du Anfänger bist oder bereits Erfahrungen in der Musikwelt gesammelt hast, unsere Musikschule bietet Kurse für jedes Level und jedes Alter. In unseren modern ausgestatteten Räumlichkeiten erwarten dich engagierte Musiklehrer, die ihre Expertise mit Begeisterung und Leidenschaft teilen.",
+      "In unserer Musikschule in Düsseldorf legen wir großen Wert auf eine individuelle Förderung unserer Schüler. Unser flexibles Unterrichtsangebot ermöglicht es dir, deinen Unterrichtsplan optimal an deine Bedürfnisse anzupassen. Außerdem bieten wir regelmäßige Auftrittsmöglichkeiten, um dein Selbstbewusstsein und deine Bühnenpräsenz zu stärken.",
+      "Entdecke die Faszination der Musik und mache den ersten Schritt, um deine musikalische Leidenschaft zu verwirklichen. Besuche unsere Musikschule in Düsseldorf und lass dich von unseren professionellen Musiklehrern inspirieren. Melde dich noch heute an und beginne deine musikalische Reise!"
+    ],
+    "buttonText": "Erfahre mehr",
+    "buttonLink": "/über-uns-düsseldorf",
+    "image": "https://images.unsplash.com/photo-1511379938547-c1f69419868d",
+    "imageAlt": "Musikschule Düsseldorf"
+  }
+}

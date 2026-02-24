@@ -1,0 +1,13 @@
+# Fine Sound Academy – Netlify
+# For CMS: enable Netlify Identity and Git Gateway in Site settings.
+
+[build]
+  publish = "dist"
+  command = "npm run build"
+  functions = "netlify/functions"
+
+# Admin app (Netlify CMS) – allow client-side routing under /admin
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200

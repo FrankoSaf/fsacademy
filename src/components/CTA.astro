@@ -1,0 +1,94 @@
+---
+import contentRaw from '../data/landing.json';
+
+interface CTAContent {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  buttonLink: string;
+}
+
+interface Content {
+  cta: CTAContent;
+}
+
+const content = contentRaw as Content;
+---
+
+<section class="cta">
+  <div class="cta-container">
+    <h2>{content.cta.title}</h2>
+    <p>{content.cta.subtitle}</p>
+    <a href={content.cta.buttonLink} class="cta-button">
+      {content.cta.buttonText}
+    </a>
+  </div>
+</section>
+
+<style>
+  .cta {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-gold);
+  }
+
+  .cta-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .cta h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 5vw, var(--text-3xl));
+    color: var(--color-black);
+    font-weight: 400;
+    margin-bottom: var(--space-2xl);
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .cta p {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-lg), 3vw, var(--text-xl));
+    color: var(--color-black);
+    font-weight: 400;
+    margin-bottom: var(--space-3xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: var(--space-md) var(--space-3xl);
+    background: var(--color-black);
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-size: var(--text-base);
+    transition: all var(--transition-base);
+    border: var(--border-width-medium) solid var(--color-black);
+  }
+
+  .cta-button:hover {
+    background: transparent;
+    color: var(--color-black);
+  }
+
+  @media (max-width: 768px) {
+    .cta {
+      padding: var(--space-4xl) var(--space-md);
+    }
+
+    .cta h2 {
+      margin-bottom: var(--space-lg);
+    }
+
+    .cta p {
+      margin-bottom: var(--space-2xl);
+    }
+  }
+</style>

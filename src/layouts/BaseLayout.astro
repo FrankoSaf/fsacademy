@@ -1,0 +1,96 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import '../styles/variables.css';
+import '../styles/global.css';
+
+import globals from '../data/globals.json';
+
+interface Props {
+  title: string;
+  /** Meta description for SEO and social. Falls back to globals.defaultMetaDescription. */
+  description?: string;
+  /** Canonical URL. If not set, uses current page URL with Astro.site. */
+  canonicalUrl?: string;
+  /** OG/Twitter image URL. Falls back to globals.ogImage. */
+  ogImage?: string;
+  /** Set to true for legal pages that should not be indexed. */
+  noindex?: boolean;
+}
+
+const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.props;
+
+const site = Astro.site?.href ?? 'https://www.finesoundacademy.com';
+const canonical = canonicalUrl ?? new URL(Astro.url.pathname, site).href;
+const metaDescription = description ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription ?? 'Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
+const image = ogImage ?? (globals as { ogImage?: string }).ogImage ?? '';
+const twitterHandle = (globals as { twitterHandle?: string }).twitterHandle ?? '';
+const imageUrl = image ? (image.startsWith('http') ? image : new URL(image, site).href) : null;
+
+const ldJson = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicSchool',
+  name: 'Fine Sound Academy',
+  description: metaDescription,
+  url: site,
+  ...(imageUrl && { image: imageUrl }),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Kaiserstr. 28',
+    addressLocality: 'Düsseldorf',
+    postalCode: '40479',
+    addressCountry: 'DE',
+  },
+  areaServed: [{ '@type': 'City', name: 'Düsseldorf' }, { '@type': 'City', name: 'Neuss' }],
+};
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={metaDescription} />
+    {noindex ? (
+      <meta name="robots" content="noindex, follow" />
+    ) : (
+      <>
+        <link rel="canonical" href={canonical} />
+        <meta name="robots" content="index, follow" />
+      </>
+    )}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Fine Sound Academy" />
+    {imageUrl && <meta property="og:image" content={imageUrl} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={metaDescription} />
+    {imageUrl && <meta name="twitter:image" content={imageUrl} />}
+    {twitterHandle && <meta name="twitter:site" content={twitterHandle} />}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(ldJson)} />
+  </head>
+  <body>
+    <Nav />
+    <main class="content">
+      <slot />
+    </main>
+    <Footer />
+    <CookieBanner />
+  </body>
+</html>

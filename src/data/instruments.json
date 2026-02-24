@@ -1,0 +1,136 @@
+{
+  "klavier": {
+    "title": "Klavierunterricht",
+    "subtitle": "Lerne Klavier spielen bei der Fine Sound Academy",
+    "sections": [
+      {
+        "heading": "Das vielseitigste Instrument",
+        "content": "Das Klavier ist eines der beliebtesten und vielseitigsten Instrumente überhaupt. Bei der Fine Sound Academy bieten wir professionellen Klavierunterricht für alle Altersgruppen und Niveaus an."
+      },
+      {
+        "heading": "Was du lernen wirst",
+        "content": "Unser Klavierunterricht deckt alle wichtigen Aspekte ab – von grundlegenden Techniken bis hin zu fortgeschrittenen Interpretationen. Du lernst Noten lesen, Fingerübungen, Tonleitern, Akkorde und vieles mehr. Von Klassik über Jazz bis hin zu Pop und Film-Musik."
+      },
+      {
+        "heading": "Technik und Musikalität",
+        "content": "Wir legen großen Wert auf eine solide technische Grundlage: richtige Handhaltung, Anschlagtechnik und Pedaleinsatz. Gleichzeitig fördern wir von Anfang an musikalischen Ausdruck und Interpretation. Das Klavier soll nicht nur gespielt, sondern gefühlt werden."
+      },
+      {
+        "heading": "Für wen ist der Unterricht geeignet?",
+        "content": "Egal ob du 5 oder 75 Jahre alt bist, Anfänger oder Fortgeschrittener – unser Klavierunterricht ist für jeden geeignet. Wir passen den Unterricht individuell an deine Bedürfnisse und Ziele an. Kinder lernen spielerisch, Erwachsene können ihre musikalischen Träume verwirklichen."
+      },
+      {
+        "heading": "Equipment",
+        "content": "Für den Unterricht stehen professionelle Klaviere und Digitalpianos zur Verfügung. Für das Üben zu Hause beraten wir dich gerne bei der Auswahl eines geeigneten Instruments – ob akustisches Klavier oder digitale Alternative."
+      }
+    ]
+  },
+  "gitarre": {
+    "title": "Gitarrenunterricht",
+    "subtitle": "Entdecke die Vielseitigkeit der Gitarre",
+    "sections": [
+      {
+        "heading": "Das beliebteste Instrument der Welt",
+        "content": "Die Gitarre gehört zu den beliebtesten Instrumenten weltweit – und das aus gutem Grund. Ob akustisch am Lagerfeuer oder elektrisch auf der Bühne, die Gitarre bietet unendliche musikalische Möglichkeiten."
+      },
+      {
+        "heading": "Akustikgitarre und E-Gitarre",
+        "content": "Bei uns lernst du beide Welten kennen: Die warmen, natürlichen Klänge der Akustikgitarre und die kraftvollen, vielseitigen Sounds der E-Gitarre. Wir helfen dir, das richtige Instrument für deine musikalischen Ziele zu finden."
+      },
+      {
+        "heading": "Was du lernen wirst",
+        "content": "Von den ersten Akkorden über Barré-Griffe bis hin zu komplexen Soli – unser Gitarrenunterricht deckt alle Aspekte ab. Du lernst Rhythmusgitarre für Liedbegleitung, Melodiespiel, Fingerpicking, Plektrum-Technik und vieles mehr."
+      },
+      {
+        "heading": "Musikstile und Genres",
+        "content": "Rock, Pop, Blues, Jazz, Metal, Folk – die Gitarre ist in jedem Genre zu Hause. Wir zeigen dir die charakteristischen Spielweisen verschiedener Stile und helfen dir, deinen eigenen Sound zu entwickeln. Lerne die Riffs deiner Lieblingsbands oder schreibe deine eigenen Songs."
+      },
+      {
+        "heading": "Für wen ist der Unterricht geeignet?",
+        "content": "Unser Gitarrenunterricht ist für absolute Anfänger sowie erfahrene Gitarristen geeignet. Ob du deine ersten Songs lernen oder deine Solo-Technik perfektionieren möchtest – wir holen dich dort ab, wo du stehst."
+      }
+    ]
+  },
+  "bass": {
+    "title": "Bassunterricht",
+    "subtitle": "Werde zum Fundament der Band",
+    "sections": [
+      {
+        "heading": "Das rhythmische Fundament",
+        "content": "Der Bass ist das rhythmische und harmonische Fundament jeder Band. Bei der Fine Sound Academy lernst du, wie du mit präzisen Grooves und kraftvollen Basslines den Sound einer Band trägst und formst."
+      },
+      {
+        "heading": "Was du lernen wirst",
+        "content": "Unser Bassunterricht umfasst alle wichtigen Techniken: Fingerstyle, Plektrum-Spiel, Slap-Technik, Walking Bass und mehr. Du lernst, wie du Rhythmus und Harmonie perfekt kombinierst und dabei deinen eigenen Groove entwickelst."
+      },
+      {
+        "heading": "Verschiedene Stile und Techniken",
+        "content": "Ob Rock, Funk, Jazz, Metal oder Pop – der Bass ist in jedem Genre zu Hause. Wir zeigen dir die charakteristischen Spielweisen verschiedener Musikstile und helfen dir, deinen persönlichen Sound zu finden. Von klassischen Motown-Grooves bis zu modernen Slap-Basslines."
+      },
+      {
+        "heading": "Für wen ist der Unterricht geeignet?",
+        "content": "Unser Bassunterricht richtet sich an Anfänger ohne Vorkenntnisse sowie an fortgeschrittene Bassisten, die ihre Technik verfeinern möchten. Egal ob du in einer Band spielen oder solo performen möchtest – wir begleiten dich auf deinem Weg."
+      },
+      {
+        "heading": "Equipment und Ausstattung",
+        "content": "Du benötigst zu Beginn keinen eigenen Bass. In unseren Unterrichtsräumen stehen professionelle Instrumente und Verstärker zur Verfügung. Wir beraten dich auch gerne beim Kauf deines ersten eigenen Basses."
+      }
+    ]
+  },
+  "gesang": {
+    "title": "Gesangsunterricht",
+    "subtitle": "Entdecke die Kraft deiner Stimme",
+    "sections": [
+      {
+        "heading": "Dein persönlichstes Instrument",
+        "content": "Deine Stimme ist dein persönlichstes und ausdrucksstärkstes Instrument. Im Gesangsunterricht bei der Fine Sound Academy entwickelst du deine stimmlichen Fähigkeiten und lernst, deine Stimme gesund und kraftvoll einzusetzen."
+      },
+      {
+        "heading": "Gesunde Gesangstechnik",
+        "content": "Wir legen großen Wert auf eine gesunde Gesangstechnik. Du lernst richtige Atemtechnik, Stimmbildung, Tonbildung und wie du deine Stimme pflegst und schützt. Eine solide technische Basis ist die Grundlage für langfristigen Erfolg als Sänger oder Sängerin."
+      },
+      {
+        "heading": "Verschiedene Gesangsstile",
+        "content": "Ob Pop, Rock, Musical, Jazz, Soul oder R&B – wir decken alle modernen Gesangsstile ab. Du lernst die charakteristischen Techniken verschiedener Genres kennen und entwickelst deinen eigenen stimmlichen Stil."
+      },
+      {
+        "heading": "Bühnenpräsenz und Performance",
+        "content": "Singen ist mehr als nur Töne treffen. Wir arbeiten auch an deiner Bühnenpräsenz, deinem Ausdruck und deiner Performance. Mikrofontraining und Bewegung auf der Bühne sind ebenfalls Teil des Unterrichts."
+      },
+      {
+        "heading": "Für wen ist der Unterricht geeignet?",
+        "content": "Unser Gesangsunterricht ist für Anfänger und Fortgeschrittene jeden Alters geeignet. Ob du gerade erst anfängst zu singen oder bereits Erfahrung hast – wir fördern dein stimmliches Potential individuell."
+      }
+    ]
+  },
+  "schlagzeug": {
+    "title": "Schlagzeugunterricht",
+    "subtitle": "Werde zum Motor der Band",
+    "sections": [
+      {
+        "heading": "Das Herzstück jeder Band",
+        "content": "Das Schlagzeug ist das pulsierende Herz jeder Band. Bei der Fine Sound Academy lernst du, wie du mit präzisen Rhythmen und kraftvollen Grooves den Beat vorgibst und die Band zusammenhältst."
+      },
+      {
+        "heading": "Was du lernen wirst",
+        "content": "Von grundlegenden Schlagtechniken über Koordination bis hin zu komplexen Rhythmen – unser Schlagzeugunterricht deckt alle Aspekte ab. Du lernst verschiedene Griffe, Rudiments, Fills, Groove-Patterns und wie du das Metronom zu deinem besten Freund machst."
+      },
+      {
+        "heading": "Verschiedene Musikstile",
+        "content": "Rock, Pop, Jazz, Funk, Metal, Latin – jeder Stil hat seine eigenen charakteristischen Rhythmen und Grooves. Wir zeigen dir die Besonderheiten verschiedener Genres und helfen dir, deinen eigenen Stil zu entwickeln."
+      },
+      {
+        "heading": "Technik und Koordination",
+        "content": "Schlagzeugspielen erfordert die unabhängige Koordination von Händen und Füßen. Wir entwickeln systematisch deine Technik und Koordination durch gezielte Übungen und spielerisches Lernen. Auch Themen wie Timing, Dynamik und Soundgestaltung sind wichtige Bestandteile."
+      },
+      {
+        "heading": "Für wen ist der Unterricht geeignet?",
+        "content": "Unser Schlagzeugunterricht richtet sich an Anfänger und Fortgeschrittene. Ob du gerade erst anfängst oder deine Technik perfektionieren möchtest – wir passen den Unterricht an dein Level an. Auch E-Drum-Spieler sind herzlich willkommen."
+      },
+      {
+        "heading": "Equipment",
+        "content": "Professionelle Schlagzeug-Sets stehen in unseren schallisolierten Unterrichtsräumen bereit. Für das Üben zu Hause beraten wir dich gerne bei der Auswahl – ob akustisches Schlagzeug, E-Drums oder Practice Pads."
+      }
+    ]
+  }
+}

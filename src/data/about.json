@@ -1,0 +1,59 @@
+{
+  "hero": {
+    "title": "Über Uns",
+    "subtitle": "Unsere Geschichte, Mission und Vision"
+  },
+  "content": {
+    "sections": [
+      {
+        "title": "Unsere Geschichte",
+        "paragraphs": [
+          "Die Fine Sound Academy wurde aus einer tiefen Leidenschaft für Musik und dem Wunsch gegründet, diese Begeisterung mit anderen zu teilen. Was als kleines Musikstudio in Düsseldorf begann, hat sich zu einer der führenden Musikschulen in der Region entwickelt.",
+          "Seit unserer Gründung haben wir hunderte von Schülern dabei unterstützt, ihre musikalischen Träume zu verwirklichen. Von Anfängern, die ihre ersten Töne spielen, bis hin zu fortgeschrittenen Musikern, die ihre Fähigkeiten perfektionieren möchten – wir bieten jedem die Möglichkeit, sein volles musikalisches Potential zu entfalten."
+        ]
+      },
+      {
+        "title": "Unsere Mission",
+        "paragraphs": [
+          "Unsere Mission ist es, eine inspirierende und unterstützende Umgebung zu schaffen, in der Schüler jeden Alters und jeder Erfahrungsstufe ihre Liebe zur Musik entdecken und entwickeln können. Wir glauben fest daran, dass Musik eine universelle Sprache ist, die Menschen verbindet und bereichert.",
+          "Durch professionellen Unterricht, moderne Lehrmethoden und individuell angepasste Lehrpläne ermöglichen wir es unseren Schülern, nicht nur technische Fähigkeiten zu erlernen, sondern auch kreative Ausdruckskraft und musikalisches Verständnis zu entwickeln."
+        ]
+      },
+      {
+        "title": "Unser Team",
+        "paragraphs": [
+          "Das Herzstück der Fine Sound Academy sind unsere engagierten und erfahrenen Musiklehrer. Jeder Lehrer bringt nicht nur umfassende musikalische Expertise mit, sondern auch eine echte Leidenschaft für das Unterrichten und die Förderung junger Talente.",
+          "Unsere Lehrer sind professionelle Musiker mit jahrelanger Bühnenerfahrung und pädagogischer Ausbildung. Sie verstehen es, ihre Schüler zu motivieren, herauszufordern und dabei stets eine positive und ermutigende Lernatmosphäre zu schaffen."
+        ]
+      },
+      {
+        "title": "Unsere Philosophie",
+        "paragraphs": [
+          "Wir glauben an einen ganzheitlichen Ansatz zum Musikunterricht. Es geht nicht nur darum, ein Instrument zu beherrschen, sondern auch darum, musikalisches Verständnis, Kreativität und Selbstvertrauen zu entwickeln. Jeder Schüler ist einzigartig, und deshalb passen wir unseren Unterricht individuell an die Bedürfnisse, Ziele und das Lerntempo jedes Einzelnen an.",
+          "Regelmäßige Auftrittsmöglichkeiten bei Konzerten und Veranstaltungen geben unseren Schülern die Chance, das Gelernte zu präsentieren und wertvolle Bühnenerfahrung zu sammeln. Diese Auftritte sind wichtige Meilensteine in der musikalischen Entwicklung und stärken das Selbstbewusstsein."
+        ]
+      },
+      {
+        "title": "Unsere Standorte",
+        "paragraphs": [
+          "Mit Standorten in Düsseldorf und Neuss sind wir für Schüler aus der gesamten Region leicht erreichbar. Beide Schulen verfügen über moderne, professionell ausgestattete Unterrichtsräume, die eine optimale Lernumgebung bieten.",
+          "Unsere zentrale Lage und die ausgezeichneten Parkmöglichkeiten machen den Besuch bei uns besonders komfortabel. Ob nach der Schule, der Arbeit oder am Wochenende – wir bieten flexible Unterrichtszeiten, die sich Ihrem Alltag anpassen."
+        ]
+      },
+      {
+        "title": "Warum Fine Sound Academy?",
+        "paragraphs": [
+          "Bei der Fine Sound Academy erhalten Sie mehr als nur Musikunterricht. Sie werden Teil einer lebendigen musikalischen Gemeinschaft, in der Kreativität gefördert, Talente entwickelt und Erfolge gefeiert werden. Unsere Schüler profitieren von:",
+          "Professionellem Unterricht durch erfahrene Musiklehrer • Individuell angepassten Lehrplänen • Modernen, gut ausgestatteten Unterrichtsräumen • Flexiblen Unterrichtszeiten • Regelmäßigen Auftrittsmöglichkeiten • Einer unterstützenden und inspirierenden Gemeinschaft",
+          "Egal ob Sie gerade erst anfangen oder bereits fortgeschritten sind, ob Sie ein neues Hobby entdecken oder eine professionelle Musikkarriere anstreben möchten – bei der Fine Sound Academy finden Sie die richtige Unterstützung und Förderung."
+        ]
+      }
+    ]
+  },
+  "cta": {
+    "title": "Bereit, deine musikalische Reise zu beginnen?",
+    "description": "Vereinbare jetzt deine kostenlose Probestunde und erlebe selbst, wie wir dich auf deinem musikalischen Weg begleiten können.",
+    "buttonText": "Probestunde vereinbaren",
+    "buttonLink": "/kontakt"
+  }
+}

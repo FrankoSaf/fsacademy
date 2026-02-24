@@ -1,0 +1,318 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import contentRaw from '../data/pricing.json';
+import Pricing from '../components/Pricing.astro';
+
+const content = contentRaw as any;
+---
+
+<BaseLayout
+  title="Preise - Fine Sound Academy"
+  description="Preise für Musikunterricht in Düsseldorf und Neuss: Solo 30, Solo 45, Gruppenunterricht. Transparente Tarife, kostenlose Probestunde, Familienrabatt."
+>
+  <Pricing />
+  <section class="info-section">
+    <div class="info-container">
+      <div class="info-grid">
+        {
+          content.additionalInfo.map((info: any) => (
+            <article class="info-card">
+              <h3>{info.title}</h3>
+              <p>{info.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="faq-container">
+      <h2>Häufig gestellte Fragen</h2>
+      <div class="faq-list">
+        {
+          content.faq.map((item: any) => (
+            <article class="faq-item">
+              <h3>{item.question}</h3>
+              <p>{item.answer}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-cta">
+    <div class="cta-container">
+      <h2>{content.cta.title}</h2>
+      <p>{content.cta.description}</p>
+      <a href={content.cta.buttonLink} class="cta-button">
+        {content.cta.buttonText}
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Pricing Section */
+  .pricing-section {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+
+  .pricing-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3xl);
+  }
+
+  .pricing-card {
+    background: var(--color-surface);
+    border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    padding: var(--space-3xl) var(--space-2xl);
+    text-align: center;
+    transition: all var(--transition-base);
+    position: relative;
+  }
+
+  .pricing-card.popular {
+    border-color: var(--color-gold);
+    transform: scale(1.05);
+    background: var(--color-gold-alpha-10);
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--color-gold);
+    color: var(--color-black);
+    padding: var(--space-xs) var(--space-lg);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .pricing-card h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .price {
+    margin-bottom: var(--space-md);
+  }
+
+  .amount {
+    font-family: var(--font-serif);
+    font-size: var(--text-4xl);
+    color: var(--color-gold);
+    font-weight: 700;
+  }
+
+  .period {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .plan-description {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2xl);
+    font-size: var(--text-sm);
+  }
+
+  .features {
+    list-style: none;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .features li {
+    padding: var(--space-sm) 0;
+    color: var(--color-text-primary);
+    border-bottom: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    font-size: var(--text-sm);
+  }
+
+  .features li:last-child {
+    border-bottom: none;
+  }
+
+  .pricing-button {
+    display: inline-block;
+    padding: var(--space-md) var(--space-2xl);
+    background: var(--color-gold);
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-size: var(--text-sm);
+    transition: all var(--transition-base);
+    border: var(--border-width-medium) solid var(--color-gold);
+  }
+
+  .pricing-button:hover {
+    background: transparent;
+    color: var(--color-gold);
+  }
+
+  .info-section {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .info-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3xl);
+  }
+
+  .info-card {
+    text-align: center;
+  }
+
+  .info-card h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 700;
+  }
+
+  .info-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+  }
+
+  .faq-section {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .faq-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .faq-container h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3xl);
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .faq-item {
+    padding-bottom: var(--space-2xl);
+    border-bottom: var(--border-width-thin) solid var(--color-gold-alpha-20);
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-item h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .faq-item p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+  }
+
+  .pricing-cta {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-gold);
+    text-align: center;
+  }
+
+  .cta-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .pricing-cta h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-black);
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .pricing-cta p {
+    color: var(--color-black);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3xl);
+    line-height: 1.7;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: var(--space-md) var(--space-3xl);
+    background: var(--color-black);
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-size: var(--text-base);
+    transition: all var(--transition-base);
+    border: var(--border-width-medium) solid var(--color-black);
+  }
+
+  .cta-button:hover {
+    background: transparent;
+    color: var(--color-black);
+  }
+
+  @media (max-width: 991px) {
+    .pricing-grid,
+    .info-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .pricing-card.popular {
+      transform: scale(1);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .pricing-section,
+    .info-section,
+    .faq-section {
+      padding: var(--space-4xl) var(--space-md);
+    }
+
+    .pricing-cta {
+      padding: var(--space-4xl) var(--space-md);
+    }
+  }
+</style>

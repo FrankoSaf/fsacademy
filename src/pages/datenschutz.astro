@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Datenschutzerklärung - Fine Sound Academy"
+  description="Datenschutzerklärung der Fine Sound Academy: Informationen zur Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten."
+  noindex
+>
+  <section class="legal-page">
+    <div class="legal-container">
+      <div class="accent-line"></div>
+      <h1>Datenschutzerklärung</h1>
+
+      <div class="legal-content">
+        <p class="intro">
+          Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen.
+          Wir verarbeiten Ihre Daten daher ausschließlich auf Grundlage der
+          gesetzlichen Bestimmungen (DSGVO, TKG 2003).
+        </p>
+
+        <h2>1. Verantwortlicher</h2>
+        <p>
+          Verantwortlich für die Datenverarbeitung auf dieser Website ist:
+        </p>
+        <p>
+          <strong>Fine Sound Academy GmbH</strong><br>
+          Kaiserstr. 28<br>
+          40479 Düsseldorf<br>
+          Deutschland<br>
+          E-Mail: info@finesoundacademy.com<br>
+          Telefon: 0176 77154511
+        </p>
+
+        <h2>2. Erhebung und Speicherung personenbezogener Daten</h2>
+
+        <h3>Bei Besuch der Website</h3>
+        <p>
+          Beim Aufrufen unserer Website werden durch den auf Ihrem Endgerät zum Einsatz
+          kommenden Browser automatisch Informationen an den Server unserer Website gesendet.
+          Diese Informationen werden temporär in einem sogenannten Logfile gespeichert.
+        </p>
+        <p>Folgende Informationen werden dabei erfasst:</p>
+        <ul>
+          <li>IP-Adresse des anfragenden Rechners</li>
+          <li>Datum und Uhrzeit des Zugriffs</li>
+          <li>Name und URL der abgerufenen Datei</li>
+          <li>Website, von der aus der Zugriff erfolgt (Referrer-URL)</li>
+          <li>Verwendeter Browser und ggf. das Betriebssystem Ihres Rechners</li>
+        </ul>
+
+        <h3>Bei Nutzung unseres Kontaktformulars</h3>
+        <p>
+          Bei Fragen jeglicher Art bieten wir Ihnen die Möglichkeit, mit uns über ein auf
+          der Website bereitgestelltes Formular Kontakt aufzunehmen. Dabei sind folgende
+          Angaben erforderlich:
+        </p>
+        <ul>
+          <li>Name</li>
+          <li>E-Mail-Adresse</li>
+          <li>Telefonnummer (optional)</li>
+          <li>Ihre Nachricht</li>
+        </ul>
+
+        <h2>3. Cookies</h2>
+        <p>
+          Unsere Website verwendet Cookies. Cookies sind kleine Textdateien, die auf Ihrem
+          Endgerät gespeichert werden. Ihr Browser greift auf diese Dateien zu. Durch den
+          Einsatz von Cookies erhöht sich die Benutzerfreundlichkeit und Sicherheit dieser
+          Website.
+        </p>
+        <p>
+          Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies
+          informiert werden und einzeln über deren Annahme entscheiden oder die Annahme von
+          Cookies für bestimmte Fälle oder generell ausschließen können.
+        </p>
+
+        <h2>4. Ihre Rechte</h2>
+        <p>Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung,
+        Einschränkung, Datenübertragbarkeit, Widerruf und Widerspruch zu. Wenn Sie glauben,
+        dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt oder Ihre
+        datenschutzrechtlichen Ansprüche sonst in einer Weise verletzt worden sind, können
+        Sie sich bei der Aufsichtsbehörde beschweren.</p>
+
+        <h2>5. Kontaktdaten des Datenschutzbeauftragten</h2>
+        <p>
+          Bei Fragen zur Erhebung, Verarbeitung oder Nutzung Ihrer personenbezogenen Daten,
+          bei Auskünften, Berichtigung, Sperrung oder Löschung von Daten wenden Sie sich
+          bitte an:
+        </p>
+        <p>
+          Fine Sound Academy GmbH<br>
+          Datenschutzbeauftragter<br>
+          Kaiserstr. 28<br>
+          40479 Düsseldorf<br>
+          E-Mail: datenschutz@finesoundacademy.com
+        </p>
+
+        <p class="last-updated">Stand: Dezember 2024</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-page {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+    min-height: 80vh;
+  }
+
+  .legal-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .legal-page h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3xl);
+    font-weight: 700;
+  }
+
+  .intro {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-3xl);
+    font-weight: 500;
+  }
+
+  .legal-content h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    color: var(--color-text-primary);
+    margin-top: var(--space-3xl);
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .legal-content h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-text-primary);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .legal-content p,
+  .legal-content li {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+    line-height: 1.9;
+  }
+
+  .legal-content ul {
+    margin-left: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+  }
+
+  .legal-content li {
+    margin-bottom: var(--space-sm);
+  }
+
+  .legal-content strong {
+    font-weight: 600;
+  }
+
+  .last-updated {
+    margin-top: var(--space-4xl);
+    font-style: italic;
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 767px) {
+    .legal-page {
+      padding: var(--space-4xl) var(--space-md);
+    }
+  }
+</style>

@@ -1,0 +1,223 @@
+{
+  "navigation": {
+    "logo": {
+      "primaryImage": "https://irp.cdn-website.com/3931cdaa/dms3rep/multi/Color+logo+-+no+background.svg",
+      "secondaryImage": "https://irp.cdn-website.com/3931cdaa/dms3rep/multi/Black+logo+-+no+background.svg",
+      "alt": "Logo der Musikschule",
+      "link": "/"
+    },
+    "socialMedia": [
+      {
+        "name": "Facebook",
+        "url": "https://facebook.com/yourpage",
+        "icon": "facebook"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://instagram.com/yourpage",
+        "icon": "instagram"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://linkedin.com/company/yourcompany",
+        "icon": "linkedin"
+      }
+    ],
+
+    "links": [
+      {
+        "text": "Home",
+        "url": "/"
+      },
+      {
+        "text": "Instruments",
+        "url": "/unterricht"
+      },
+      {
+        "text": "About",
+        "url": "/about"
+      },
+      {
+        "text": "Contact",
+        "url": "/kontakt"
+      }
+    ],
+    "cta": {
+      "text": "Get Started",
+      "url": "/kontakt"
+    }
+  },
+  "locations": {
+    "dusseldorf": {
+      "name": "Düsseldorf",
+      "image": "https://images.unsplash.com/photo-1533629153391-c597036c5843",
+      "buttonText": "Zur Schule Düsseldorf",
+      "link": "/duesseldorf"
+    },
+    "neuss": {
+      "name": "Neuss",
+      "image": "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0",
+      "buttonText": "Zur Schule Neuss",
+      "link": "/neuss"
+    }
+  },
+  "instruments": {
+    "title": "Our Instruments",
+    "subtitle": "Master Your Craft",
+    "items": [
+      {
+        "name": "Bass Guitar",
+        "icon": "bass",
+        "description": "Deep, rhythmic foundation that drives the groove and connects melody with percussion."
+      },
+      {
+        "name": "Guitar",
+        "icon": "guitar",
+        "description": "Versatile six-string expression from delicate fingerpicking to powerful riffs."
+      },
+      {
+        "name": "Piano",
+        "icon": "piano",
+        "description": "88 keys of harmonic possibilities, from classical elegance to modern improvisation."
+      },
+      {
+        "name": "Vocals",
+        "icon": "vocals",
+        "description": "The ultimate instrument - your voice, capable of infinite emotion and expression."
+      },
+      {
+        "name": "Drums",
+        "icon": "drums",
+        "description": "Heartbeat of the band, commanding rhythm and dynamic energy through percussion."
+      }
+    ]
+  },
+  "cta": {
+    "title": "MUSIKSCHULE IN NEUSS UND DÜSSELDORF",
+    "subtitle": "Buche jetzt deine kostenlose Probestunde und lerne uns kennen!",
+    "buttonText": "Termin vereinbaren",
+    "buttonLink": "/kontakt"
+  },
+  "team": {
+    "title": "Unser Team",
+    "intro": "Unsere Musiklehrer sind das kreative Herz unserer Musikschule in Düsseldorf und Neuss, und wir sind stolz darauf, eine Umgebung zu schaffen, die das musikalische Potential eines jeden Schülers entfaltet. Mit wöchentlichem Unterricht von 30 oder 45 Minuten, sowohl in Gruppen- als auch im Einzelunterricht, bieten wir eine flexible Lernstruktur in unserer Musikschule an, die sich den individuellen Bedürfnissen jedes Schülers anpasst.",
+    "members": [
+      {
+        "id": "toni",
+        "name": "Toni",
+        "role": "Schulleitung, Gesang und Klavier",
+        "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
+        "alt": "Schulleiter, Gesangs und Klavierlehrer Toni in Neuss und Düsseldorf",
+        "locations": ["dusseldorf", "neuss"]
+      },
+      {
+        "id": "anastasija",
+        "name": "Anastasija",
+        "role": "Gesang",
+        "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+        "alt": "Gesangslehrerin Anastasija in Neuss und Düsseldorf",
+        "locations": ["dusseldorf", "neuss"]
+      },
+      {
+        "id": "adrian",
+        "name": "Adrian",
+        "role": "Gitarre",
+        "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+        "alt": "Gitarrenlehrer Adrian in Düsseldorf",
+        "locations": ["dusseldorf"]
+      },
+      {
+        "id": "ruben",
+        "name": "Ruben",
+        "role": "Gitarre, Bass",
+        "image": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
+        "alt": "Gitarren und Basslehrer Ruben in Neuss und Düsseldorf",
+        "locations": ["dusseldorf", "neuss"]
+      },
+      {
+        "id": "yannik",
+        "name": "Yannik",
+        "role": "Schlagzeug",
+        "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
+        "alt": "Schlagzeuglehrer Yannik in Düsseldorf",
+        "locations": ["dusseldorf"]
+      },
+      {
+        "id": "jack",
+        "name": "Jack",
+        "role": "Gitarre, Bass, Songwriting",
+        "image": "https://images.unsplash.com/photo-1519345182560-3f2917c472ef",
+        "alt": "Gitarren und Basslehrer Jack in Düsseldorf",
+        "locations": ["dusseldorf"]
+      },
+      {
+        "id": "ivana",
+        "name": "Ivana",
+        "role": "Schulleitung, Klavier",
+        "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+        "alt": "Schulleiterin und Klavierlehrerin Ivana in Neuss und Düsseldorf",
+        "locations": ["dusseldorf", "neuss"]
+      },
+      {
+        "id": "thor",
+        "name": "Thor",
+        "role": "Gitarre, Bass und Klavier",
+        "image": "https://images.unsplash.com/photo-1463453091185-61582044d556",
+        "alt": "Gitarrenlehrer in Düsseldorf Thor",
+        "locations": ["dusseldorf"]
+      },
+      {
+        "id": "maria",
+        "name": "Maria",
+        "role": "Violine",
+        "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f",
+        "alt": "Violinlehrerin Maria in Neuss",
+        "locations": ["neuss"]
+      }
+    ]
+  },
+  "footer": {
+    "logo": {
+      "image": "https://s3.ca-central-1.amazonaws.com/logojoy/logos/112675843/noBgColor.png",
+      "alt": "Logo der Musikschule",
+      "link": "/"
+    },
+    "navigation": [
+      {
+        "text": "Startseite",
+        "url": "/"
+      },
+      {
+        "text": "Über uns",
+        "url": "/about"
+      },
+      {
+        "text": "Unterricht",
+        "url": "/unterricht"
+      },
+      {
+        "text": "Preise",
+        "url": "/preise"
+      }
+    ],
+    "legal": [
+      {
+"text": "Datenschutz",
+      "url": "/datenschutz"
+      },
+      {
+        "text": "Impressum",
+        "url": "/impressum"
+      },
+      {
+        "text": "Vertrag kündigen",
+        "url": "https://www.axinio.app/booking/forms/termination/ebc793bf-3f17-4c16-a315-e9b045bf954b/",
+        "highlight": true
+      }
+    ],
+    "cta": {
+      "text": "Probestunde vereinbaren",
+      "url": "/kontakt"
+    }
+  }
+}

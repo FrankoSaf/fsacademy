@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Instruments from '../components/Instruments.astro';
+import About from '../components/About.astro';
+import InfoCards from '../components/InfoCards.astro';
+import CTA from '../components/CTA.astro';
+import Team from '../components/Team.astro';
+import Pricing from '../components/Pricing.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<BaseLayout
+  title="Fine Sound Academy Düsseldorf"
+  description="Musikschule Düsseldorf: Klavier, Gitarre, Gesang, Bass, Schlagzeug. Unterricht in der Kaiserstraße. Kostenlose Probestunde buchen."
+>
+  <Hero />
+  <Instruments />
+  <About school="duesseldorf" />
+  <CTA />
+  <Team location="dusseldorf" showIntro={false} />
+  <InfoCards />
+  <Pricing showHeader={false} />
+  <Contact location="dusseldorf" />
+</BaseLayout>

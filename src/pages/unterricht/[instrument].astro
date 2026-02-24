@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import instrumentsData from '../../data/instruments.json';
+
+export function getStaticPaths() {
+  return [
+    { params: { instrument: 'klavier' } },
+    { params: { instrument: 'gitarre' } },
+    { params: { instrument: 'bass' } },
+    { params: { instrument: 'gesang' } },
+    { params: { instrument: 'schlagzeug' } },
+  ];
+}
+
+const { instrument } = Astro.params;
+const data = instrumentsData[instrument as keyof typeof instrumentsData];
+
+if (!data) {
+  return Astro.redirect('/404');
+}
+---
+
+<BaseLayout
+  title={`${data.title} - Fine Sound Academy`}
+  description={data.subtitle ?? `${data.title} bei der Fine Sound Academy in Düsseldorf und Neuss. Professioneller Unterricht für alle Level.`}
+>
+  <section class="instrument-detail">
+    <div class="detail-container">
+      <div class="accent-line"></div>
+      <h1>{data.title}</h1>
+
+      <div class="detail-content">
+        <h2>{data.subtitle}</h2>
+
+        {
+          data.sections.map((section) => (
+            <>
+              <h3>{section.heading}</h3>
+              <p>{section.content}</p>
+            </>
+          ))
+        }
+
+        <a href="/kontakt" class="cta-button">Jetzt Probestunde buchen</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .instrument-detail {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+    min-height: 80vh;
+  }
+
+  .detail-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .instrument-detail h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-3xl), 5vw, var(--text-4xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3xl);
+    font-weight: 700;
+  }
+
+  .detail-content h2,
+  .detail-content h3 {
+    font-family: var(--font-serif);
+    color: var(--color-text-primary);
+    margin-top: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .detail-content h2 {
+    font-size: var(--text-2xl);
+  }
+
+  .detail-content h3 {
+    font-size: var(--text-xl);
+  }
+
+  .detail-content p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+    line-height: 1.9;
+  }
+
+  .cta-button {
+    display: inline-block;
+    margin-top: var(--space-3xl);
+    padding: var(--space-md) var(--space-3xl);
+    background: var(--color-gold);
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-size: var(--text-base);
+    transition: all var(--transition-base);
+    border: var(--border-width-medium) solid var(--color-gold);
+  }
+
+  .cta-button:hover {
+    background: transparent;
+    color: var(--color-gold);
+  }
+
+  @media (max-width: 767px) {
+    .instrument-detail {
+      padding: var(--space-4xl) var(--space-md);
+    }
+  }
+</style>

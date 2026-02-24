@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: var(--focus-visible-offset);
+  box-shadow: var(--focus-visible-ring);
+}
+
+body {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+}
+
+.content {
+  padding-top: var(--nav-height);
+}

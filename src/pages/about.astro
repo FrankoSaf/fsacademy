@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import contentRaw from '../data/about.json';
+
+const content = contentRaw as any;
+---
+
+<BaseLayout
+  title="Über Uns - Fine Sound Academy"
+  description="Über die Fine Sound Academy: Unsere Geschichte, Mission und dein Musikunterricht in Düsseldorf und Neuss. Erfahre mehr über unser Team und unsere Philosophie."
+>
+  <section class="about-hero">
+    <div class="hero-container">
+      <div class="accent-line"></div>
+      <h1>{content.hero.title}</h1>
+      <p class="hero-subtitle">{content.hero.subtitle}</p>
+    </div>
+  </section>
+
+  <section class="about-content">
+    <article class="content-container">
+      {
+        content.content.sections.map((section: any) => (
+          <div class="content-section">
+            <h2>{section.title}</h2>
+            {section.paragraphs.map((paragraph: string) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        ))
+      }
+    </article>
+  </section>
+
+  <section class="about-cta">
+    <div class="cta-container">
+      <h2>{content.cta.title}</h2>
+      <p>{content.cta.description}</p>
+      <a href={content.cta.buttonLink} class="cta-button">
+        {content.cta.buttonText}
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero {
+    padding: var(--space-6xl) var(--space-lg) var(--space-5xl);
+    background: var(--color-bg-dark);
+    text-align: center;
+  }
+
+  .hero-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .about-hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    color: var(--color-text-on-dark);
+    margin-bottom: var(--space-lg);
+    font-weight: 700;
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-gold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  .about-content {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .content-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .content-section {
+    margin-bottom: var(--space-5xl);
+  }
+
+  .content-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .content-section h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xl);
+    font-weight: 600;
+    position: relative;
+    padding-bottom: var(--space-sm);
+  }
+
+  .content-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--color-gold);
+  }
+
+  .content-section p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+    line-height: 1.9;
+    font-size: var(--text-base);
+  }
+
+  .content-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .about-cta {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-gold);
+    text-align: center;
+  }
+
+  .cta-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .about-cta h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-black);
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .about-cta p {
+    color: var(--color-black);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3xl);
+    line-height: 1.7;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: var(--space-md) var(--space-3xl);
+    background: var(--color-black);
+    color: var(--color-gold);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-size: var(--text-base);
+    transition: all var(--transition-base);
+    border: var(--border-width-medium) solid var(--color-black);
+  }
+
+  .cta-button:hover {
+    background: transparent;
+    color: var(--color-black);
+  }
+
+  @media (max-width: 767px) {
+    .about-hero {
+      padding: var(--space-4xl) var(--space-md) var(--space-3xl);
+    }
+
+    .about-content {
+      padding: var(--space-4xl) var(--space-md);
+    }
+
+    .content-section {
+      margin-bottom: var(--space-3xl);
+    }
+
+    .about-cta {
+      padding: var(--space-4xl) var(--space-md);
+    }
+  }
+</style>

@@ -1,0 +1,81 @@
+/* Design Tokens */
+:root {
+  /* Colors */
+  --color-black: #0a0a0a;
+  --color-white: #ffffff;
+  --color-gold: #d4af37;
+  --color-gold-light: #f4d47f;
+  --color-gold-alpha-10: rgba(212, 175, 55, 0.1);
+  --color-gold-alpha-20: rgba(212, 175, 55, 0.2);
+  --color-white-alpha-70: rgba(255, 255, 255, 0.7);
+
+  /* Backgrounds & surfaces */
+  --color-bg-default: #ffffff;
+  --color-bg-alt: #f8f8f8;
+  --color-bg-dark: #0a0a0a;
+  --color-surface: #ffffff;
+
+  /* Text (semantic, WCAG AA) */
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4a4a4a;
+  --color-text-on-dark: #ffffff;
+
+  /* Borders (visible on light backgrounds) */
+  --color-border-input: #9a9a9a;
+  --color-border-input-focus: var(--color-gold);
+
+  /* Typography */
+  --font-serif: 'Fraunces', serif;
+  --font-sans: 'DM Sans', sans-serif;
+
+  /* Font Sizes */
+  --text-xs: 0.85rem;
+  --text-sm: 0.95rem;
+  --text-base: 1rem;
+  --text-lg: 1.2rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2.5rem;
+  --text-3xl: 3rem;
+  --text-4xl: 4rem;
+  --text-5xl: 5rem;
+  --text-6xl: 6rem;
+
+  /* Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 5rem;
+  --space-5xl: 6rem;
+  --space-6xl: 8rem;
+
+  /* Layout */
+  --container-max-width: 1200px;
+  --container-wide-max-width: 1400px;
+  --nav-height: 90px;
+
+  /* Borders */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.4s ease;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 15px rgba(212, 175, 55, 0.3);
+  --shadow-lg: 0 6px 20px rgba(212, 175, 55, 0.5);
+
+  /* Letter Spacing */
+  --tracking-tight: 1px;
+  --tracking-wide: 2px;
+
+  /* Focus (WCAG 2.4.7 – visible on light and dark) */
+  --focus-visible-ring: 0 0 0 2px #fff, 0 0 0 4px #0a0a0a;
+  --focus-visible-offset: 0;
+}

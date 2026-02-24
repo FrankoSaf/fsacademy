@@ -1,0 +1,226 @@
+---
+import contentRaw from '../data/landing.json';
+
+interface FooterLink {
+  text: string;
+  url: string;
+  highlight?: boolean;
+}
+
+interface FooterContent {
+  logo: {
+    image: string;
+    alt: string;
+    link: string;
+  };
+  navigation: FooterLink[];
+  legal: FooterLink[];
+  cta: {
+    text: string;
+    url: string;
+  };
+}
+
+interface Content {
+  footer: FooterContent;
+}
+
+const content = contentRaw as Content;
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <a href={content.footer.logo.link} class="footer-logo-wrap" aria-label={content.footer.logo.alt}>
+        <img
+          src={content.footer.logo.image}
+          alt={content.footer.logo.alt}
+          loading="lazy"
+          class="footer-logo"
+        />
+      </a>
+      <a href={content.footer.cta.url} class="footer-cta">
+        {content.footer.cta.text}
+      </a>
+    </div>
+
+    <div class="footer-bottom">
+      <nav class="footer-nav" aria-label="Footer Navigation">
+        <ul>
+          {
+            content &&
+              content.footer.navigation.map((link) => (
+                <li>
+                  <a href={link.url}>{link.text}</a>
+                </li>
+              ))
+          }
+        </ul>
+      </nav>
+
+      <div class="footer-legal">
+        <ul>
+          {
+            content &&
+              content.footer.legal.map((link) => (
+                <li>
+                  <a
+                    href={link.url}
+                    class={link.highlight ? 'highlight' : ''}
+                    target={link.url.startsWith('http') ? '_blank' : undefined}
+                    rel={
+                      link.url.startsWith('http')
+                        ? 'noopener noreferrer'
+                        : undefined
+                    }
+                  >
+                    {link.text}
+                  </a>
+                </li>
+              ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-bg-alt);
+    padding: var(--space-5xl) var(--space-lg) var(--space-2xl);
+    border-top: var(--border-width-thin) solid var(--color-gold-alpha-20);
+  }
+
+  .footer-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: var(--space-4xl);
+    margin-bottom: var(--space-4xl);
+    border-bottom: var(--border-width-thin) solid var(--color-gold-alpha-20);
+  }
+
+  .footer-logo-wrap {
+    display: inline-block;
+    background: var(--color-bg-dark);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 8px;
+    transition: opacity var(--transition-base);
+  }
+
+  .footer-logo-wrap:hover {
+    opacity: 0.9;
+  }
+
+  .footer-logo {
+    display: block;
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+  }
+
+  .footer-cta {
+    display: inline-block;
+    padding: var(--space-md) var(--space-2xl);
+    background: var(--color-gold);
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-size: var(--text-sm);
+    transition: all var(--transition-base);
+    border: var(--border-width-medium) solid var(--color-gold);
+  }
+
+  .footer-cta:hover {
+    background: transparent;
+    color: var(--color-gold);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: var(--space-4xl);
+  }
+
+  .footer-nav ul,
+  .footer-legal ul {
+    list-style: none;
+    display: flex;
+    gap: var(--space-2xl);
+  }
+
+  .footer-nav a,
+  .footer-legal a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 400;
+    transition: color var(--transition-base);
+  }
+
+  .footer-nav a:hover,
+  .footer-legal a:hover {
+    color: var(--color-gold);
+  }
+
+  .footer-legal a.highlight {
+    color: var(--color-gold);
+    font-weight: 600;
+  }
+
+  @media (max-width: 991px) {
+    .footer-bottom {
+      flex-direction: column;
+      gap: var(--space-2xl);
+    }
+
+    .footer-nav ul,
+    .footer-legal ul {
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .footer {
+      padding: var(--space-4xl) var(--space-md) var(--space-2xl);
+    }
+
+    .footer-top {
+      flex-direction: column;
+      gap: var(--space-2xl);
+      text-align: center;
+      padding-bottom: var(--space-2xl);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .footer-logo-wrap {
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      max-width: 160px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+    }
+
+    .footer-nav ul,
+    .footer-legal ul {
+      justify-content: center;
+    }
+  }
+</style>

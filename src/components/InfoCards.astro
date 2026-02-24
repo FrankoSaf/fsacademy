@@ -1,0 +1,69 @@
+---
+import infoCardsData from '../data/shared/infocards.json';
+
+const cards = Array.isArray(infoCardsData)
+  ? infoCardsData
+  : (infoCardsData as { items: { title: string; description: string }[] }).items ?? [];
+---
+
+<section class="info-cards">
+  <div class="info-container">
+    <div class="cards-grid">
+      {
+        cards.map((card) => (
+          <article class="info-card">
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .info-cards {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .info-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3xl);
+  }
+
+  .info-card {
+    text-align: center;
+    padding: var(--space-2xl);
+  }
+
+  .info-card h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 700;
+  }
+
+  .info-card p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 767px) {
+    .info-cards {
+      padding: var(--space-4xl) var(--space-md);
+    }
+
+    .cards-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+  }
+</style>

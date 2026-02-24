@@ -1,0 +1,352 @@
+# Fine Sound Academy – Netlify CMS
+# Content is stored in src/data/ and used at build time.
+backend:
+  name: git-gateway
+  branch: master
+
+local_backend: true
+
+locale: de
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+site_url: "https://www.finesoundacademy.com"
+display_url: "https://www.finesoundacademy.com"
+
+collections:
+  - name: site
+    label: Site & SEO
+    files:
+      - label: Globale Einstellungen
+        name: globals
+        file: "src/data/globals.json"
+        format: json
+        fields:
+          - { label: "Seitentitel (Standard)", name: siteTitle, widget: string, default: "Fine Sound Academy – Musikschule Düsseldorf & Neuss" }
+          - { label: "Meta-Beschreibung (Standard)", name: defaultMetaDescription, widget: text, default: "Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde." }
+          - { label: "OG-Bild (URL)", name: ogImage, widget: string, required: false }
+          - { label: "Twitter @handle", name: twitterHandle, widget: string, required: false }
+
+  - name: landing
+    label: Startseite & Navigation
+    files:
+      - label: Landing & Navigation
+        name: landing
+        file: "src/data/landing.json"
+        format: json
+        fields:
+          - label: Navigation
+            name: navigation
+            widget: object
+            fields:
+              - label: Logo
+                name: logo
+                widget: object
+                fields:
+                  - { label: "Logo Farbe (für schwarze Nav)", name: primaryImage, widget: string }
+                  - { label: "Logo Schwarz (für weiße Nav nach Scroll)", name: secondaryImage, widget: string }
+                  - { label: Alt-Text, name: alt, widget: string }
+                  - { label: Link (z. B. /), name: link, widget: string }
+              - label: Social Media
+                name: socialMedia
+                widget: list
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: URL, name: url, widget: string }
+                  - { label: Icon, name: icon, widget: select, options: [facebook, instagram, linkedin] }
+              - label: Menü-Links
+                name: links
+                widget: list
+                fields:
+                  - { label: Text, name: text, widget: string }
+                  - { label: URL, name: url, widget: string }
+              - label: CTA-Button
+                name: cta
+                widget: object
+                fields:
+                  - { label: Text, name: text, widget: string }
+                  - { label: URL, name: url, widget: string }
+          - label: Standorte (Karten)
+            name: locations
+            widget: object
+            fields:
+              - label: Düsseldorf
+                name: dusseldorf
+                widget: object
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: Bild-URL, name: image, widget: string }
+                  - { label: Button-Text, name: buttonText, widget: string }
+                  - { label: Link, name: link, widget: string }
+              - label: Neuss
+                name: neuss
+                widget: object
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: Bild-URL, name: image, widget: string }
+                  - { label: Button-Text, name: buttonText, widget: string }
+                  - { label: Link, name: link, widget: string }
+          - label: Instrumente (Übersicht)
+            name: instruments
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - label: Einträge
+                name: items
+                widget: list
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: Icon, name: icon, widget: select, options: [bass, guitar, piano, vocals, drums] }
+                  - { label: Beschreibung, name: description, widget: text }
+          - label: CTA-Bereich
+            name: cta
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+          - label: Team
+            name: team
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Intro-Text, name: intro, widget: text }
+              - label: Mitglieder
+                name: members
+                widget: list
+                fields:
+                  - { label: ID, name: id, widget: string }
+                  - { label: Name, name: name, widget: string }
+                  - { label: Rolle, name: role, widget: string }
+                  - { label: Bild-URL, name: image, widget: string }
+                  - { label: Alt-Text, name: alt, widget: string }
+                  - { label: Standorte, name: locations, widget: list, summary: "{{fields.name}}", field: { label: Standort, name: location, widget: string } }
+          - label: Footer
+            name: footer
+            widget: object
+            fields:
+              - label: Logo
+                name: logo
+                widget: object
+                fields:
+                  - { label: Bild-URL, name: image, widget: string }
+                  - { label: Alt, name: alt, widget: string }
+                  - { label: Link, name: link, widget: string }
+              - label: Navigation
+                name: navigation
+                widget: list
+                fields:
+                  - { label: Text, name: text, widget: string }
+                  - { label: URL, name: url, widget: string }
+              - label: Rechtliches
+                name: legal
+                widget: list
+                fields:
+                  - { label: Text, name: text, widget: string }
+                  - { label: URL, name: url, widget: string }
+                  - { label: Hervorheben, name: highlight, widget: boolean, default: false }
+              - label: CTA
+                name: cta
+                widget: object
+                fields:
+                  - { label: Text, name: text, widget: string }
+                  - { label: URL, name: url, widget: string }
+
+  - name: about
+    label: Über uns
+    files:
+      - label: Über-uns-Seite
+        name: about
+        file: "src/data/about.json"
+        format: json
+        fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+          - label: Inhalts-Blöcke
+            name: content
+            widget: object
+            fields:
+              - label: Abschnitte
+                name: sections
+                widget: list
+                fields:
+                  - { label: Überschrift, name: title, widget: string }
+                  - label: Absätze
+                    name: paragraphs
+                    widget: list
+                    field: { label: Absatz, name: paragraph, widget: text }
+          - label: CTA
+            name: cta
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Beschreibung, name: description, widget: text }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+
+  - name: pricing
+    label: Preise
+    files:
+      - label: Preise-Seite (vollständig)
+        name: pricing
+        file: "src/data/pricing.json"
+        format: json
+        fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+          - label: Tarife
+            name: plans
+            widget: list
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Preis, name: price, widget: string }
+              - { label: Zeitraum, name: period, widget: string }
+              - { label: Kurzbeschreibung, name: description, widget: string }
+              - label: Features
+                name: features
+                widget: list
+                field: { label: Feature, name: feature, widget: string }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+              - { label: Beliebt, name: popular, widget: boolean, default: false }
+          - label: Zusatz-Infos
+            name: additionalInfo
+            widget: list
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Beschreibung, name: description, widget: text }
+          - label: FAQ
+            name: faq
+            widget: list
+            fields:
+              - { label: Frage, name: question, widget: string }
+              - { label: Antwort, name: answer, widget: text }
+          - label: CTA
+            name: cta
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Beschreibung, name: description, widget: string }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+
+  - name: unterricht
+    label: Unterricht
+    files:
+      - label: Unterricht-Übersicht
+        name: unterricht
+        file: "src/data/unterricht.json"
+        format: json
+        fields:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+          - label: Intro
+            name: intro
+            widget: object
+            fields:
+              - { label: Text, name: text, widget: text }
+          - label: Instrumente
+            name: instruments
+            widget: list
+            fields:
+              - { label: ID, name: id, widget: string }
+              - { label: Name, name: name, widget: string }
+              - { label: Slug, name: slug, widget: string }
+              - { label: Bild-URL, name: image, widget: string }
+              - { label: Beschreibung, name: description, widget: text }
+              - label: Highlights
+                name: highlights
+                widget: list
+                field: { label: Punkt, name: highlight, widget: string }
+
+  - name: locations
+    label: Standorte
+    files:
+      - label: Düsseldorf (Block)
+        name: duesseldorf
+        file: "src/data/duesseldorf.json"
+        format: json
+        fields:
+          - label: About-Block
+            name: about
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - label: Absätze
+                name: paragraphs
+                widget: list
+                field: { label: Absatz, name: p, widget: text }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+              - { label: Bild-URL, name: image, widget: string }
+              - { label: Bild-Alt, name: imageAlt, widget: string }
+      - label: Neuss (Block)
+        name: neuss
+        file: "src/data/neuss.json"
+        format: json
+        fields:
+          - label: About-Block
+            name: about
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - label: Absätze
+                name: paragraphs
+                widget: list
+                field: { label: Absatz, name: p, widget: text }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+              - { label: Bild-URL, name: image, widget: string }
+              - { label: Bild-Alt, name: imageAlt, widget: string }
+
+  - name: shared
+    label: Gemeinsame Inhalte
+    files:
+      - label: Preise (Komponente)
+        name: pricing
+        file: "src/data/shared/pricing.json"
+        format: json
+        fields:
+          - { label: Titel, name: title, widget: string }
+          - { label: Untertitel, name: subtitle, widget: string }
+          - label: Tarife
+            name: plans
+            widget: list
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Preis, name: price, widget: string }
+              - { label: Zeitraum, name: period, widget: string }
+              - { label: Kurzbeschreibung, name: description, widget: string }
+              - label: Features
+                name: features
+                widget: list
+                field: { label: Feature, name: feature, widget: string }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+              - { label: Beliebt, name: popular, widget: boolean, default: false }
+      - label: Info-Karten
+        name: infocards
+        file: "src/data/shared/infocards.json"
+        format: json
+        fields:
+          - label: Karten
+            name: items
+            widget: list
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Beschreibung, name: description, widget: text }
