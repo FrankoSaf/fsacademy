@@ -1,5 +1,5 @@
 # Fine Sound Academy – Netlify CMS
-# Content is stored in src/data/ and used at build time.
+# Content is stored in content/ and used at build time.
 backend:
   name: git-gateway
   branch: master
@@ -20,7 +20,7 @@ collections:
     files:
       - label: Globale Einstellungen
         name: globals
-        file: "src/data/globals.json"
+        file: "content/globals.json"
         format: json
         fields:
           - { label: "Seitentitel (Standard)", name: siteTitle, widget: string, default: "Fine Sound Academy – Musikschule Düsseldorf & Neuss" }
@@ -33,7 +33,7 @@ collections:
     files:
       - label: Landing & Navigation
         name: landing
-        file: "src/data/landing.json"
+        file: "content/landing.json"
         format: json
         fields:
           - label: Navigation
@@ -160,7 +160,7 @@ collections:
     files:
       - label: Über-uns-Seite
         name: about
-        file: "src/data/about.json"
+        file: "content/about.json"
         format: json
         fields:
           - label: Hero
@@ -196,7 +196,7 @@ collections:
     files:
       - label: Preise-Seite (vollständig)
         name: pricing
-        file: "src/data/pricing.json"
+        file: "content/pricing.json"
         format: json
         fields:
           - label: Hero
@@ -246,7 +246,7 @@ collections:
     files:
       - label: Unterricht-Übersicht
         name: unterricht
-        file: "src/data/unterricht.json"
+        file: "content/unterricht.json"
         format: json
         fields:
           - label: Hero
@@ -279,7 +279,7 @@ collections:
     files:
       - label: Düsseldorf (Block)
         name: duesseldorf
-        file: "src/data/duesseldorf.json"
+        file: "content/duesseldorf.json"
         format: json
         fields:
           - label: About-Block
@@ -297,7 +297,7 @@ collections:
               - { label: Bild-Alt, name: imageAlt, widget: string }
       - label: Neuss (Block)
         name: neuss
-        file: "src/data/neuss.json"
+        file: "content/neuss.json"
         format: json
         fields:
           - label: About-Block
@@ -319,7 +319,7 @@ collections:
     files:
       - label: Preise (Komponente)
         name: pricing
-        file: "src/data/shared/pricing.json"
+        file: "content/shared/pricing.json"
         format: json
         fields:
           - { label: Titel, name: title, widget: string }
@@ -341,7 +341,7 @@ collections:
               - { label: Beliebt, name: popular, widget: boolean, default: false }
       - label: Info-Karten
         name: infocards
-        file: "src/data/shared/infocards.json"
+        file: "content/shared/infocards.json"
         format: json
         fields:
           - label: Karten

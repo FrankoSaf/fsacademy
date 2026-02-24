@@ -6,7 +6,7 @@ interface Props {
 const { school } = Astro.props;
 
 // Dynamic import based on school
-const schoolData = await import(`../data/${school}.json`);
+const schoolData = await import(`../../content/${school}.json`);
 const content = schoolData.default;
 ---
 
