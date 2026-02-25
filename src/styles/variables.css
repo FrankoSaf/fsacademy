@@ -3,11 +3,11 @@
   /* Colors */
   --color-black: #0a0a0a;
   --color-white: #ffffff;
-  --color-gold: #d4af37;
-  --color-gold-light: #f4d47f;
-  --color-gold-on-light: #826800;
-  --color-gold-alpha-10: rgba(212, 175, 55, 0.1);
-  --color-gold-alpha-20: rgba(212, 175, 55, 0.2);
+  --color-gold: #cdb287;
+  --color-gold-light: #c9ad80;
+  --color-gold-on-light: #7a6542;
+  --color-gold-alpha-10: rgba(205, 178, 135, 0.1);
+  --color-gold-alpha-20: rgba(205, 178, 135, 0.2);
   --color-white-alpha-85: rgba(255, 255, 255, 0.85);
 
   /* Backgrounds & surfaces */
@@ -69,8 +69,8 @@
 
   /* Shadows */
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 15px rgba(212, 175, 55, 0.3);
-  --shadow-lg: 0 6px 20px rgba(212, 175, 55, 0.5);
+  --shadow-md: 0 4px 15px rgba(205, 178, 135, 0.3);
+  --shadow-lg: 0 6px 20px rgba(205, 178, 135, 0.5);
 
   /* Letter Spacing */
   --tracking-tight: 1px;

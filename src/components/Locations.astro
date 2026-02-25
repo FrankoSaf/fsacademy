@@ -20,7 +20,9 @@ interface Content {
 const content = contentRaw as Content;
 ---
 
-<section class="locations" aria-label="Standorte">
+<section class="locations" aria-labelledby="locations-heading">
+  <h2 id="locations-heading" class="locations-title">Unsere Standorte</h2>
+  <p class="locations-intro">Düsseldorf und Neuss — professioneller Musikunterricht an zwei Orten in der Region.</p>
   <div class="locations-grid">
     <article class="location-card">
       <picture>
@@ -74,18 +76,41 @@ const content = contentRaw as Content;
 
 <style>
   .locations {
-    background: var(--color-bg-alt);
+    background: var(--color-bg-default);
+    padding: var(--space-6xl) var(--space-lg);
+  }
+
+  .locations-title {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: var(--space-sm);
+    font-weight: 600;
+  }
+
+  .locations-intro {
+    text-align: center;
+    color: var(--color-text-secondary);
+    max-width: 540px;
+    margin: 0 auto var(--space-4xl);
+    line-height: 1.7;
+    font-size: var(--text-base);
   }
 
   .locations-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-xl);
+    max-width: var(--container-max-width);
+    margin: 0 auto;
   }
 
   .location-card {
     position: relative;
-    aspect-ratio: 1;
+    aspect-ratio: 16/10;
     overflow: hidden;
+    border-radius: 4px;
   }
 
   .location-image {
@@ -100,31 +125,33 @@ const content = contentRaw as Content;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(10, 10, 10, 0.6);
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.85) 0%, rgba(10, 10, 10, 0.3) 60%);
   }
 
   .location-content {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 2;
-    width: 100%;
-    padding: var(--space-lg);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .location-content h2 {
     font-family: var(--font-serif);
-    font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+    font-size: var(--text-2xl);
     color: var(--color-text-on-dark);
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-md);
     font-weight: 600;
   }
 
   .location-button {
     display: inline-block;
-    padding: var(--space-md) var(--space-2xl);
+    padding: var(--space-sm) var(--space-xl);
     background: var(--color-gold);
     color: var(--color-black);
     text-decoration: none;
@@ -132,9 +159,13 @@ const content = contentRaw as Content;
     font-family: var(--font-sans);
     letter-spacing: var(--tracking-tight);
     text-transform: uppercase;
-    font-size: var(--text-sm);
+    font-size: var(--text-xs);
     transition: all var(--transition-base);
     border: var(--border-width-medium) solid var(--color-gold);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .location-button:hover {
@@ -144,16 +175,21 @@ const content = contentRaw as Content;
   }
 
   @media (max-width: 767px) {
+    .locations {
+      padding: var(--space-4xl) var(--space-md);
+    }
+
     .locations-grid {
       grid-template-columns: 1fr;
+      gap: var(--space-lg);
     }
 
     .location-card {
-      aspect-ratio: 4/3;
+      aspect-ratio: 3/2;
     }
 
     .location-content h2 {
-      margin-bottom: var(--space-lg);
+      font-size: var(--text-xl);
     }
   }
 </style>
