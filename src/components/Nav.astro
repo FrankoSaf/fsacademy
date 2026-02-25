@@ -462,8 +462,13 @@ const socialIcons: Record<string, string> = {
     border-top: var(--border-width-thin) solid var(--color-gold-alpha-20);
   }
 
-  .mobile-social .social-link {
+  /* Mobile menu always has light bg – icons must stay dark (nav-dark uses white) */
+  nav .mobile-menu .mobile-social .social-link {
     color: var(--color-text-primary);
+  }
+
+  nav .mobile-menu .mobile-social .social-link:hover {
+    color: var(--color-gold-on-light);
   }
 
   .mobile-only {
