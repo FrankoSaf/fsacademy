@@ -16,12 +16,12 @@
     "socialMedia": [
       {
         "name": "Facebook",
-        "url": "https://facebook.com/yourpage",
+        "url": "https://www.facebook.com/profile.php?id=100092728897727",
         "icon": "facebook"
       },
       {
         "name": "Instagram",
-        "url": "https://instagram.com/yourpage",
+        "url": "https://www.instagram.com/finesoundacademy/",
         "icon": "instagram"
       },
       {
@@ -31,25 +31,25 @@
       },
       {
         "name": "TikTok",
-        "url": "https://tiktok.com/@yourpage",
+        "url": "https://www.tiktok.com/@tonivocalcoach",
         "icon": "tiktok"
       }
     ],
     "links": [
       {
-        "text": "Home",
+        "text": "Startseite",
         "url": "/"
       },
       {
-        "text": "Instruments",
+        "text": "Instrumente",
         "url": "/unterricht"
       },
       {
-        "text": "About",
+        "text": "Über uns",
         "url": "/about"
       },
       {
-        "text": "Contact",
+        "text": "Kontakt",
         "url": "/kontakt"
       }
     ],
@@ -77,29 +77,29 @@
     "subtitle": "Entdecke dein Instrument",
     "items": [
       {
-        "name": "Bass Guitar",
+        "name": "Bass",
         "icon": "bass",
-        "description": "Deep, rhythmic foundation that drives the groove and connects melody with percussion."
+        "description": "Die tiefe, rhythmische Basis – verbindet Melodie und Perkussion und gibt dem Groove seine Kraft."
       },
       {
-        "name": "Guitar",
+        "name": "Gitarre",
         "icon": "guitar",
-        "description": "Versatile six-string expression from delicate fingerpicking to powerful riffs."
+        "description": "Vielseitiges sechssaitiges Instrument – von zartem Fingerpicking bis zu kraftvollen Riffs."
       },
       {
-        "name": "Piano",
+        "name": "Klavier",
         "icon": "piano",
-        "description": "88 keys of harmonic possibilities, from classical elegance to modern improvisation."
+        "description": "88 Tasten voller harmonischer Möglichkeiten – von klassischer Eleganz bis zur modernen Improvisation."
       },
       {
-        "name": "Vocals",
+        "name": "Gesang",
         "icon": "vocals",
-        "description": "The ultimate instrument - your voice, capable of infinite emotion and expression."
+        "description": "Dein natürlichstes Instrument – die Stimme, fähig zu unendlicher Emotion und Ausdruck."
       },
       {
-        "name": "Drums",
+        "name": "Schlagzeug",
         "icon": "drums",
-        "description": "Heartbeat of the band, commanding rhythm and dynamic energy through percussion."
+        "description": "Der Herzschlag der Band – Rhythmus und Dynamik mit kraftvollem Percussion-Sound."
       }
     ]
   },
@@ -190,9 +190,9 @@
       {
         "id": "thor",
         "name": "Thor",
-        "role": "Gitarre, Bass und Klaviers",
+        "role": "Gitarre, Bass und Klavier",
         "image": "https://images.unsplash.com/photo-1463453091185-61582044d556",
-        "alt": "Gitarrenlehrer in Düsseldorf Thor",
+        "alt": "Gitarren- und Basslehrer Thor in Düsseldorf",
         "locations": [
           "dusseldorf"
         ]
