@@ -98,17 +98,19 @@ const { showHeader = true } = Astro.props;
     text-align: center;
     transition: all var(--transition-base);
     position: relative;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
   }
 
   .pricing-card.popular {
     border-color: var(--color-gold);
-    transform: scale(1.05);
     background: var(--color-gold-alpha-10);
+    box-shadow: var(--shadow-md);
   }
 
   .popular-badge {
     position: absolute;
-    top: -15px;
+    top: -12px;
     left: 50%;
     transform: translateX(-50%);
     background: var(--color-gold);
@@ -118,6 +120,7 @@ const { showHeader = true } = Astro.props;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: var(--tracking-tight);
+    border-radius: var(--radius-sm);
   }
 
   .pricing-card h3 {
@@ -167,7 +170,9 @@ const { showHeader = true } = Astro.props;
   }
 
   .pricing-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--space-md) var(--space-2xl);
     background: var(--color-gold);
     color: var(--color-black);
@@ -179,6 +184,8 @@ const { showHeader = true } = Astro.props;
     font-size: var(--text-sm);
     transition: all var(--transition-base);
     border: var(--border-width-medium) solid var(--color-gold);
+    min-height: 48px;
+    border-radius: var(--radius-sm);
   }
 
   .pricing-button:hover {
@@ -186,14 +193,16 @@ const { showHeader = true } = Astro.props;
     color: var(--color-gold-on-light);
   }
 
+  @media (min-width: 992px) {
+    .pricing-card.popular {
+      transform: scale(1.03);
+    }
+  }
+
   @media (max-width: 991px) {
     .pricing-grid {
       grid-template-columns: 1fr;
       gap: var(--space-2xl);
-    }
-
-    .pricing-card.popular {
-      transform: scale(1);
     }
   }
 </style>

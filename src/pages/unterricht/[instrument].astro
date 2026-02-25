@@ -55,7 +55,7 @@ if (!data) {
   }
 
   .detail-container {
-    max-width: 900px;
+    max-width: 65ch;
     margin: 0 auto;
   }
 
@@ -98,7 +98,9 @@ if (!data) {
   }
 
   .cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     margin-top: var(--space-3xl);
     padding: var(--space-md) var(--space-3xl);
     background: var(--color-gold);
@@ -111,6 +113,9 @@ if (!data) {
     font-size: var(--text-base);
     transition: all var(--transition-base);
     border: var(--border-width-medium) solid var(--color-gold);
+    min-height: 48px;
+    min-width: 200px;
+    border-radius: var(--radius-md);
   }
 
   .cta-button:hover {

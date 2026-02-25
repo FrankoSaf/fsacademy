@@ -153,6 +153,7 @@ const content = contentRaw as any;
     height: 400px;
     overflow: hidden;
     border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    border-radius: var(--radius-md);
   }
 
   .instrument-image img {
@@ -200,7 +201,9 @@ const content = contentRaw as any;
   }
 
   .read-more {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--space-sm) var(--space-2xl);
     background: var(--color-gold);
     color: var(--color-black);
@@ -212,6 +215,8 @@ const content = contentRaw as any;
     font-size: var(--text-sm);
     transition: all var(--transition-base);
     border: var(--border-width-medium) solid var(--color-gold);
+    min-height: 48px;
+    border-radius: var(--radius-sm);
   }
 
   .read-more:hover {

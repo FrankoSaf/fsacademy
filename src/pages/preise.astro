@@ -196,6 +196,10 @@ const faqSchema = {
 
   .info-card {
     text-align: center;
+    padding: var(--space-2xl);
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-md);
+    border: var(--border-width-thin) solid var(--color-gold-alpha-20);
   }
 
   .info-card h3 {
@@ -217,7 +221,7 @@ const faqSchema = {
   }
 
   .faq-container {
-    max-width: 900px;
+    max-width: 65ch;
     margin: 0 auto;
   }
 
@@ -285,7 +289,9 @@ const faqSchema = {
   }
 
   .cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--space-md) var(--space-3xl);
     background: var(--color-black);
     color: var(--color-gold);
@@ -297,6 +303,9 @@ const faqSchema = {
     font-size: var(--text-base);
     transition: all var(--transition-base);
     border: var(--border-width-medium) solid var(--color-black);
+    min-height: 48px;
+    min-width: 180px;
+    border-radius: var(--radius-md);
   }
 
   .cta-button:hover {

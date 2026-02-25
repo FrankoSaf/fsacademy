@@ -109,9 +109,16 @@ const instrumentIcons: Record<string, string> = {
 
   .instrument-card {
     text-align: center;
-    padding: var(--space-xl) var(--space-md);
+    padding: var(--space-2xl) var(--space-lg);
     background: var(--color-surface);
     border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow var(--transition-base);
+  }
+
+  .instrument-card:hover {
+    box-shadow: var(--shadow-md);
   }
 
   .instrument-icon {

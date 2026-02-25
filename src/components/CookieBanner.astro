@@ -77,10 +77,11 @@
     font-size: var(--text-sm);
     letter-spacing: var(--tracking-tight);
     text-transform: uppercase;
-    min-height: 44px;
+    min-height: 48px;
     cursor: pointer;
     transition: all var(--transition-base);
     border: var(--border-width-medium) solid var(--color-gold);
+    border-radius: var(--radius-sm);
   }
 
   .cookie-button.accept {
@@ -98,7 +99,7 @@
   }
 
   .cookie-button.decline:hover {
-    background: rgba(212, 175, 55, 0.1);
+    background: var(--color-gold-alpha-10);
   }
 
   @media (max-width: 767px) {

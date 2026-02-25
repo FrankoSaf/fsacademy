@@ -154,7 +154,9 @@ const contact = locations[location];
   }
 
   .directions-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--space-sm) var(--space-2xl);
     background: var(--color-gold);
     color: var(--color-black);
@@ -166,6 +168,8 @@ const contact = locations[location];
     font-size: var(--text-sm);
     transition: all var(--transition-base);
     border: var(--border-width-medium) solid var(--color-gold);
+    min-height: 48px;
+    border-radius: var(--radius-sm);
   }
 
   .directions-button:hover {
@@ -177,12 +181,14 @@ const contact = locations[location];
     width: 100%;
     height: 500px;
     position: relative;
+    border-radius: var(--radius-md);
+    overflow: hidden;
   }
 
   #map {
     width: 100%;
     height: 100%;
-    border: var(--border-width-thin) solid rgba(212, 175, 55, 0.2);
+    border-radius: var(--radius-md);
   }
 
   @media (max-width: 767px) {

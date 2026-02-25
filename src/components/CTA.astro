@@ -59,7 +59,9 @@ const content = contentRaw as Content;
   }
 
   .cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--space-md) var(--space-3xl);
     background: var(--color-black);
     color: var(--color-gold);
@@ -71,11 +73,15 @@ const content = contentRaw as Content;
     font-size: var(--text-base);
     transition: all var(--transition-base);
     border: var(--border-width-medium) solid var(--color-black);
+    min-height: 48px;
+    min-width: 180px;
+    border-radius: var(--radius-md);
   }
 
   .cta-button:hover {
     background: transparent;
     color: var(--color-black);
+    border-color: var(--color-black);
   }
 
   @media (max-width: 768px) {

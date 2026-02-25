@@ -67,10 +67,15 @@
   --transition-base: 0.3s ease;
   --transition-slow: 0.4s ease;
 
-  /* Shadows */
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 15px rgba(205, 178, 135, 0.3);
-  --shadow-lg: 0 6px 20px rgba(205, 178, 135, 0.5);
+  /* Radius (modern 2024) */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Shadows (softer, modern) */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
 
   /* Letter Spacing */
   --tracking-tight: 1px;

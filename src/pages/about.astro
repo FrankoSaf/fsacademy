@@ -168,7 +168,9 @@ const content = contentRaw.default as {
   }
 
   .cta-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: var(--space-md) var(--space-3xl);
     background: var(--color-black);
     color: var(--color-gold);
@@ -180,6 +182,9 @@ const content = contentRaw.default as {
     font-size: var(--text-base);
     transition: all var(--transition-base);
     border: var(--border-width-medium) solid var(--color-black);
+    min-height: 48px;
+    min-width: 180px;
+    border-radius: var(--radius-md);
   }
 
   .cta-button:hover {
