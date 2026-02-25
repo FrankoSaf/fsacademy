@@ -192,7 +192,9 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
       <Nav />
     </header>
     <main id="main-content" class="content">
-      <slot />
+      <div class="page-width">
+        <slot />
+      </div>
     </main>
     <Footer />
     <WhatsAppButton />
