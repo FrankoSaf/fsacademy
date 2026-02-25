@@ -58,6 +58,11 @@
   .cookie-content a {
     color: var(--color-gold);
     text-decoration: underline;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 var(--space-sm);
+    margin: 0 calc(-1 * var(--space-sm));
   }
 
   .cookie-content a:hover {
@@ -121,6 +126,8 @@
 </style>
 
 <script>
+  (function() {
+    function initCookieBanner() {
   const COOKIE_NAME = 'cookie-consent';
   const COOKIE_EXPIRY_DAYS = 365;
 
@@ -175,4 +182,12 @@
       hideBanner();
     }
   });
+    }
+
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initCookieBanner, { timeout: 2000 });
+    } else {
+      setTimeout(initCookieBanner, 1);
+    }
+  })();
 </script>

@@ -286,6 +286,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     gap: var(--space-sm);
     cursor: pointer;
     font-weight: 400;
+    min-height: 44px;
+    padding: var(--space-xs) 0;
   }
 
   .checkbox-label input {
@@ -482,6 +484,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .info-card a {
     color: var(--color-gold-on-light);
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--space-xs) 0;
   }
 
   .info-card a:hover {
