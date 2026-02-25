@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import Locations from '../components/Locations.astro';
+import TrustBlock from '../components/TrustBlock.astro';
 import Instruments from '../components/Instruments.astro';
 import CTA from '../components/CTA.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Locations from '../components/Locations.astro';
 import Team from '../components/Team.astro';
 ---
 
@@ -12,8 +14,10 @@ import Team from '../components/Team.astro';
   description="Musikschule in Düsseldorf und Neuss: Klavier, Gitarre, Gesang, Bass, Schlagzeug. Kostenlose Probestunde. Professioneller Unterricht für alle Altersstufen."
 >
   <Hero />
+  <TrustBlock />
   <Instruments />
   <CTA />
+  <Testimonials />
   <Locations />
   <Team />
 </BaseLayout>

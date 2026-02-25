@@ -1,6 +1,6 @@
 {
   "hero": {
-    "title": "Kako smo",
+    "title": "Fine Sound Academy",
     "subtitle": "Musikschule in Düsseldorf und Neuss",
     "buttonText": "Probestunde vereinbaren",
     "buttonLink": "/kontakt",
@@ -25,9 +25,14 @@
         "icon": "instagram"
       },
       {
-        "name": "LinkedIn",
-        "url": "https://linkedin.com/company/yourcompany",
-        "icon": "linkedin"
+        "name": "WhatsApp",
+        "url": "https://wa.me/4917677154511",
+        "icon": "whatsapp"
+      },
+      {
+        "name": "TikTok",
+        "url": "https://tiktok.com/@yourpage",
+        "icon": "tiktok"
       }
     ],
     "links": [
@@ -49,7 +54,7 @@
       }
     ],
     "cta": {
-      "text": "Get Started",
+      "text": "Probestunde",
       "url": "/kontakt"
     }
   },
@@ -68,8 +73,8 @@
     }
   },
   "instruments": {
-    "title": "Test",
-    "subtitle": "Master Your Craft",
+    "title": "Unsere Instrumente",
+    "subtitle": "Entdecke dein Instrument",
     "items": [
       {
         "name": "Bass Guitar",
@@ -203,6 +208,30 @@
         ]
       }
     ]
+  },
+  "testimonials": {
+    "title": "Was unsere Schüler sagen",
+    "items": [
+      {
+        "name": "Sarah M.",
+        "text": "Mein Sohn hat in nur einem Jahr enorme Fortschritte am Klavier gemacht. Die Lehrer sind geduldig und motivierend.",
+        "instrument": "Klavier"
+      },
+      {
+        "name": "Thomas K.",
+        "text": "Endlich Gitarre spielen gelernt – genau so, wie ich es mir vorgestellt habe. Top Unterricht in Neuss!",
+        "instrument": "Gitarre"
+      },
+      {
+        "name": "Lisa R.",
+        "text": "Die Probestunde hat mich überzeugt. Professionell, freundlich und ein echtes Musikgefühl.",
+        "instrument": "Gesang"
+      }
+    ]
+  },
+  "trustBlock": {
+    "text": "Kostenlose Probestunde – unverbindlich",
+    "subtext": "Über 500 Schüler vertrauen uns an beiden Standorten"
   },
   "footer": {
     "logo": {

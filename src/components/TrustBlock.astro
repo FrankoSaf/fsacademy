@@ -1,0 +1,51 @@
+---
+import contentRaw from '../../content/landing.json';
+
+interface Content {
+  trustBlock?: {
+    text?: string;
+    subtext?: string;
+  };
+}
+
+const content = contentRaw as Content;
+const trust = content.trustBlock;
+---
+
+{trust?.text && (
+  <section class="trust-block" aria-label="Vertrauen">
+    <div class="trust-container">
+      <p class="trust-text">{trust.text}</p>
+      {trust.subtext && <p class="trust-subtext">{trust.subtext}</p>}
+    </div>
+  </section>
+)}
+
+<style>
+  .trust-block {
+    padding: var(--space-2xl) var(--space-lg);
+    background: var(--color-gold-alpha-10);
+    border-top: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    border-bottom: var(--border-width-thin) solid var(--color-gold-alpha-20);
+  }
+
+  .trust-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .trust-text {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    font-weight: 600;
+    margin: 0 0 var(--space-xs);
+  }
+
+  .trust-subtext {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+</style>

@@ -31,6 +31,7 @@ collections:
           - { label: "Meta-Beschreibung (Standard)", name: defaultMetaDescription, widget: text, default: "Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde." }
           - { label: "OG-Bild (Social Sharing)", name: ogImage, widget: image, required: false }
           - { label: "Twitter @handle", name: twitterHandle, widget: string, required: false }
+          - { label: "WhatsApp-URL (floating Button)", name: whatsappUrl, widget: string, required: false, hint: "z.B. https://wa.me/4917677154511" }
 
   # ─── Startseite ──────────────────────────────────────────────────────────
   - name: landing
@@ -69,7 +70,7 @@ collections:
                 fields:
                   - { label: Name, name: name, widget: string }
                   - { label: URL, name: url, widget: string }
-                  - { label: Icon, name: icon, widget: select, options: [facebook, instagram, linkedin] }
+                  - { label: Icon, name: icon, widget: select, options: [facebook, instagram, linkedin, whatsapp, tiktok] }
               - label: Menü-Links
                 name: links
                 widget: list
@@ -115,6 +116,25 @@ collections:
                   - { label: Name, name: name, widget: string }
                   - { label: Icon, name: icon, widget: select, options: [bass, guitar, piano, vocals, drums] }
                   - { label: Beschreibung, name: description, widget: text }
+          - label: Trust-Block (Vertrauenszeile)
+            name: trustBlock
+            widget: object
+            fields:
+              - { label: Text (z.B. "Kostenlose Probestunde"), name: text, widget: string }
+              - { label: Untertitel (z.B. "Über 500 Schüler"), name: subtext, widget: string }
+          - label: Testimonials (Kundenstimmen)
+            name: testimonials
+            widget: object
+            fields:
+              - { label: Überschrift, name: title, widget: string }
+              - label: Einträge
+                name: items
+                widget: list
+                summary: "{{fields.name}}"
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: Zitat, name: text, widget: text }
+                  - { label: Instrument, name: instrument, widget: string }
           - label: CTA-Bereich (Startseite)
             name: cta
             widget: object
