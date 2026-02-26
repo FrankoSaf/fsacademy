@@ -35,6 +35,8 @@ body {
   }
 }
 
+@import './animations.css';
+
 .content {
   padding-top: var(--nav-height);
 }

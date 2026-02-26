@@ -18,7 +18,8 @@ const hero = content.hero;
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
-  <picture>
+  <div class="hero-parallax-wrap">
+    <picture class="hero-parallax">
     <source
       type="image/webp"
       srcset={`${hero.image}?w=640&q=75&fm=webp 640w, ${hero.image}?w=960&q=75&fm=webp 960w, ${hero.image}?w=1280&q=80&fm=webp 1280w, ${hero.image}?w=1440&q=80&fm=webp 1440w`}
@@ -35,7 +36,8 @@ const hero = content.hero;
       loading="eager"
       fetchpriority="high"
     />
-  </picture>
+    </picture>
+  </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="accent-line"></div>
@@ -56,6 +58,24 @@ const hero = content.hero;
     overflow: hidden;
   }
 
+  .hero-parallax-wrap {
+    position: absolute;
+    top: -10%;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .hero-parallax {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   .hero-image {
     position: absolute;
     top: 0;
@@ -63,7 +83,7 @@ const hero = content.hero;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0;
+    will-change: transform;
   }
 
   .hero-overlay {

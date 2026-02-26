@@ -222,6 +222,47 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
         }
       })();
     </script>
+    <script is:inline>
+      (function() {
+        if (typeof window === 'undefined') return;
+        var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReduced) return;
+
+        function initParallax() {
+          var hero = document.querySelector('.hero');
+          var heroImg = document.querySelector('.hero .hero-image');
+          if (!hero || !heroImg) return;
+          function update() {
+            var rect = hero.getBoundingClientRect();
+            var h = window.innerHeight;
+            if (rect.bottom < 0 || rect.top > h) return;
+            var scrolled = -rect.top;
+            var rate = scrolled * 0.15;
+            heroImg.style.transform = 'translate3d(0, ' + rate + 'px, 0)';
+          }
+          window.addEventListener('scroll', update, { passive: true });
+          update();
+        }
+
+        function initReveal() {
+          var els = document.querySelectorAll('.reveal');
+          if (els.length === 0) return;
+          var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+              if (e.isIntersecting) e.target.classList.add('revealed');
+            });
+          }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+          els.forEach(function(el) { io.observe(el); });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function() { initParallax(); initReveal(); });
+        } else {
+          initParallax();
+          initReveal();
+        }
+      })();
+    </script>
   </body>
 </html>
 

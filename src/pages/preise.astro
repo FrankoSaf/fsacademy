@@ -20,9 +20,17 @@ const faqSchema = {
   title="Preise - Fine Sound Academy"
   description="Preise Fine Sound Academy: Musikunterricht in Düsseldorf & Neuss. Solo 30 min, Solo 45 min, Gruppenunterricht. Transparente Tarife, kostenlose Probestunde, Familienrabatt. Jetzt vergleichen."
 >
-  <Pricing />
-  <section class="info-section" aria-label="Zusätzliche Informationen">
+  <section class="preise-hero" aria-labelledby="preise-heading">
+    <div class="hero-container">
+      <div class="accent-line"></div>
+      <h1 id="preise-heading">Preise</h1>
+      <p class="hero-subtitle">{content.hero?.subtitle ?? content.hero?.title ?? 'Transparente Preise für qualitativ hochwertigen Musikunterricht'}</p>
+    </div>
+  </section>
+  <Pricing headingLevel="h2" />
+  <section class="info-section" aria-labelledby="info-heading">
     <div class="info-container">
+      <h2 id="info-heading" class="info-heading">Zusätzliche Informationen</h2>
       <div class="info-grid">
         {
           content.additionalInfo.map((info: any) => (
@@ -66,6 +74,40 @@ const faqSchema = {
 </BaseLayout>
 
 <style>
+  .preise-hero {
+    padding: var(--space-6xl) var(--space-lg) var(--space-5xl);
+    background: var(--color-bg-dark);
+    text-align: center;
+  }
+
+  .preise-hero .hero-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .preise-hero .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin: 0 auto var(--space-2xl);
+  }
+
+  .preise-hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    color: var(--color-text-on-dark);
+    margin-bottom: var(--space-lg);
+    font-weight: 700;
+  }
+
+  .preise-hero .hero-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-gold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
   /* Pricing Section */
   .pricing-section {
     padding: var(--space-6xl) var(--space-lg);
@@ -176,6 +218,15 @@ const faqSchema = {
   .pricing-button:hover {
     background: transparent;
     color: var(--color-gold-on-light);
+  }
+
+  .info-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+    font-weight: 600;
   }
 
   .info-section {
@@ -326,6 +377,10 @@ const faqSchema = {
   }
 
   @media (max-width: 767px) {
+    .preise-hero {
+      padding: var(--space-4xl) var(--space-md) var(--space-3xl);
+    }
+
     .pricing-section,
     .info-section,
     .faq-section {

@@ -3,18 +3,21 @@ import pricingData from '../../content/shared/pricing.json';
 
 interface Props {
   showHeader?: boolean;
+  headingLevel?: 'h1' | 'h2';
 }
 
-const { showHeader = true } = Astro.props;
+const { showHeader = true, headingLevel = 'h2' } = Astro.props;
+const HeadingTag = headingLevel;
 ---
 
-<section id="pricing" class="pricing" aria-labelledby="pricing-heading">
+<section id="pricing" class="pricing" aria-labelledby={showHeader ? "pricing-heading" : "pricing-section-heading"}>
   <div class="pricing-container">
+    {!showHeader && <h2 id="pricing-section-heading" class="visually-hidden">Unsere Tarife</h2>}
     {
       showHeader && (
         <header class="pricing-header">
           <div class="accent-line" />
-          <h2 id="pricing-heading">{pricingData.title}</h2>
+          <HeadingTag id="pricing-heading" class="pricing-heading">{pricingData.title}</HeadingTag>
           <p class="pricing-subtitle">{pricingData.subtitle}</p>
         </header>
       )
@@ -47,6 +50,18 @@ const { showHeader = true } = Astro.props;
 </section>
 
 <style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .pricing {
     padding: var(--space-6xl) var(--space-lg);
     background: var(--color-bg-alt);
@@ -69,6 +84,7 @@ const { showHeader = true } = Astro.props;
     margin: 0 auto var(--space-lg);
   }
 
+  .pricing-header .pricing-heading,
   .pricing-header h2 {
     font-family: var(--font-serif);
     font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl));

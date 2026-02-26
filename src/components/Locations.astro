@@ -20,7 +20,7 @@ interface Content {
 const content = contentRaw as Content;
 ---
 
-<section class="locations" aria-labelledby="locations-heading">
+<section class="locations reveal" aria-labelledby="locations-heading">
   <h2 id="locations-heading" class="locations-title">Unsere Standorte</h2>
   <p class="locations-intro">Düsseldorf und Neuss — professioneller Musikunterricht an zwei Orten in der Region.</p>
   <div class="locations-grid">
@@ -41,7 +41,7 @@ const content = contentRaw as Content;
       </picture>
       <div class="location-overlay"></div>
       <div class="location-content">
-        <h2>{content.locations.dusseldorf.name}</h2>
+        <h3>{content.locations.dusseldorf.name}</h3>
         <a href={content.locations.dusseldorf.link} class="location-button">
           {content.locations.dusseldorf.buttonText}
         </a>
@@ -65,7 +65,7 @@ const content = contentRaw as Content;
       </picture>
       <div class="location-overlay"></div>
       <div class="location-content">
-        <h2>{content.locations.neuss.name}</h2>
+        <h3>{content.locations.neuss.name}</h3>
         <a href={content.locations.neuss.link} class="location-button">
           {content.locations.neuss.buttonText}
         </a>
@@ -118,6 +118,11 @@ const content = contentRaw as Content;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .location-card:hover .location-image {
+    transform: scale(1.06);
   }
 
   .location-overlay {
@@ -142,7 +147,7 @@ const content = contentRaw as Content;
     text-align: left;
   }
 
-  .location-content h2 {
+  .location-content h3 {
     font-family: var(--font-serif);
     font-size: var(--text-2xl);
     color: var(--color-text-on-dark);
@@ -190,7 +195,7 @@ const content = contentRaw as Content;
       aspect-ratio: 3/2;
     }
 
-    .location-content h2 {
+    .location-content h3 {
       font-size: var(--text-xl);
     }
   }

@@ -28,16 +28,15 @@ if (!data) {
     <div class="detail-container">
       <div class="accent-line"></div>
       <h1>{data.title}</h1>
+      {data.subtitle && <p class="instrument-subtitle">{data.subtitle}</p>}
 
       <div class="detail-content">
-        <h2>{data.subtitle}</h2>
-
         {
           data.sections.map((section) => (
-            <>
-              <h3>{section.heading}</h3>
+            <section>
+              <h2>{section.heading}</h2>
               <p>{section.content}</p>
-            </>
+            </section>
           ))
         }
 
@@ -74,21 +73,20 @@ if (!data) {
     font-weight: 700;
   }
 
-  .detail-content h2,
-  .detail-content h3 {
+  .detail-content h2 {
     font-family: var(--font-serif);
+    font-size: var(--text-xl);
     color: var(--color-text-primary);
     margin-top: var(--space-2xl);
     margin-bottom: var(--space-lg);
     font-weight: 600;
   }
 
-  .detail-content h2 {
-    font-size: var(--text-2xl);
-  }
-
-  .detail-content h3 {
-    font-size: var(--text-xl);
+  .instrument-subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-3xl);
+    line-height: 1.6;
   }
 
   .detail-content p {
