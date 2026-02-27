@@ -25,28 +25,28 @@ export type ImagePreset = 'teacher' | 'hero' | 'instrument' | 'location' | 'abou
 
 const PRESETS: Record<ImagePreset, { widths: number[]; sizes: string; q?: number }> = {
   teacher: {
-    widths: [320, 480, 640, 800],
-    sizes: '(min-width: 1200px) 400px, (min-width: 768px) 40vw, 100vw',
+    widths: [280, 400, 560],
+    sizes: '(min-width: 1200px) 300px, (min-width: 768px) 30vw, 90vw',
     q: 75,
   },
   hero: {
-    widths: [768, 1024, 1280, 1536, 1920],
-    sizes: '100vw',
+    widths: [640, 960, 1280, 1440],
+    sizes: '(min-width: 1440px) 1440px, 100vw',
     q: 80,
   },
   instrument: {
-    widths: [480, 720, 960, 1200],
-    sizes: '(min-width: 768px) 50vw, 100vw',
+    widths: [400, 600, 800],
+    sizes: '(min-width: 768px) 45vw, 100vw',
     q: 80,
   },
   location: {
-    widths: [640, 960, 1280, 1600],
-    sizes: '(min-width: 768px) 50vw, 100vw',
+    widths: [600, 800, 1000],
+    sizes: '(min-width: 768px) 45vw, 100vw',
     q: 80,
   },
   about: {
-    widths: [480, 720, 960, 1200],
-    sizes: '(min-width: 768px) 50vw, 100vw',
+    widths: [500, 700, 900],
+    sizes: '(min-width: 768px) 45vw, 100vw',
     q: 80,
   },
 };
