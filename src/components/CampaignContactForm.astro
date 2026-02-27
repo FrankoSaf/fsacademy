@@ -23,11 +23,17 @@ const locations = [
 <section class="campaign-contact" aria-label="Kontaktformular">
   <div class="form-container">
     <h2 id="campaign-contact-heading">Kontaktieren Sie uns</h2>
+    <p class="form-trust-line">Kostenlos und unverbindlich – wir melden uns schnellstmöglich.</p>
     <form
       method="POST"
       action="/.netlify/functions/contact-submit"
       class="contact-form"
     >
+      <div class="honeypot-wrap" aria-hidden="true">
+        <label for="campaign-website-hp">Website</label>
+        <input type="text" id="campaign-website-hp" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
       <div class="form-row">
         <div class="form-group form-group-full">
           <label for="campaign-name">Vollständiger Name <span class="required">*</span></label>
@@ -96,6 +102,7 @@ const locations = [
             Wird gesendet&hellip;
           </span>
         </button>
+        <p class="form-reassurance">Wir melden uns in der Regel innerhalb von 24 Stunden.</p>
       </div>
     </form>
   </div>
@@ -114,8 +121,27 @@ const locations = [
     font-family: var(--font-serif);
     font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
     color: var(--color-text-primary);
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-lg);
     font-weight: 600;
+  }
+  .form-trust-line {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary, #666);
+    margin-bottom: var(--space-xl);
+  }
+  .honeypot-wrap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .form-reassurance {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary, #666);
+    margin-top: var(--space-md);
   }
   .contact-form {
     display: flex;

@@ -104,19 +104,33 @@ export async function handler(event) {
   try {
     const params = new URLSearchParams(event.body);
     fields = {
-      name: params.get('name') || '',
-      email: params.get('email') || '',
-      phone: params.get('phone') || '',
-      interest: params.get('interest') || '',
-      location: params.get('location') || '',
-      message: params.get('message') || '',
+      name: (params.get('name') || '').trim(),
+      email: (params.get('email') || '').trim(),
+      phone: (params.get('phone') || '').trim(),
+      interest: (params.get('interest') || '').trim(),
+      location: (params.get('location') || '').trim(),
+      message: (params.get('message') || '').trim(),
+      website: (params.get('website') || '').trim(),
     };
   } catch {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid form data' }) };
   }
 
+  if (fields.website) {
+    return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
+  }
+
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const maxLen = { name: 200, email: 254, phone: 30, interest: 50, location: 50, message: 2000 };
   if (!fields.name || !fields.email) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Name and email are required' }) };
+  }
+  if (!emailRe.test(fields.email)) {
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid email address' }) };
+  }
+  if (fields.name.length > maxLen.name || fields.email.length > maxLen.email || fields.phone.length > maxLen.phone
+      || fields.interest.length > maxLen.interest || fields.location.length > maxLen.location || fields.message.length > maxLen.message) {
+    return { statusCode: 400, headers, body: JSON.stringify({ error: 'One or more fields exceed maximum length' }) };
   }
 
   const RESEND_API_KEY = process.env.RESEND_API_KEY;

@@ -1,0 +1,53 @@
+---
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const hideOnContact = pathname === '/kontakt' || pathname.startsWith('/kontakt/');
+if (hideOnContact) {
+  return null;
+}
+---
+<div class="sticky-cta-bar" aria-label="Call-to-Action">
+  <a href="/kontakt" class="sticky-cta-link">
+    <span class="sticky-cta-text">Probestunde vereinbaren</span>
+    <span class="sticky-cta-arrow" aria-hidden="true">→</span>
+  </a>
+</div>
+
+<style>
+  .sticky-cta-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9997;
+    background: var(--color-black);
+    border-top: 1px solid var(--color-border-input, rgba(255,255,255,0.1));
+    padding: var(--space-md) var(--space-lg);
+    padding-right: calc(var(--space-lg) + 72px);
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+  }
+  .sticky-cta-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: var(--space-md) var(--space-xl);
+    background: var(--color-gold);
+    color: var(--color-black);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: var(--text-base);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-base), transform var(--transition-base);
+  }
+  .sticky-cta-link:hover {
+    background: var(--color-gold-light);
+    transform: translateY(-1px);
+  }
+  .sticky-cta-arrow {
+    font-size: 1.2em;
+  }
+</style>

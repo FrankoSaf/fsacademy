@@ -17,11 +17,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   <section class="contact-form-section" aria-label="Kontaktformular">
     <div class="form-container">
+      <p class="form-trust-line">Kostenlos und unverbindlich – wir melden uns schnellstmöglich.</p>
       <form
         method="POST"
         action="/.netlify/functions/contact-submit"
         class="contact-form"
       >
+        <div class="honeypot-wrap" aria-hidden="true">
+          <label for="website-hp">Website</label>
+          <input type="text" id="website-hp" name="website" tabindex="-1" autocomplete="off" />
+        </div>
 
         <div class="form-row">
           <div class="form-group form-group-full">
@@ -91,12 +96,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         <div class="form-submit">
           <button type="submit" class="submit-btn">
-            <span class="btn-text">Senden</span>
+            <span class="btn-text">Probestunde anfragen</span>
             <span class="btn-loading" aria-hidden="true">
               <svg class="spinner" width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7.5" stroke="currentColor" stroke-width="2" stroke-dasharray="35 12" stroke-linecap="round"/></svg>
               Wird gesendet&hellip;
             </span>
           </button>
+          <p class="form-reassurance">Wir melden uns in der Regel innerhalb von 24 Stunden.</p>
         </div>
       </form>
 
@@ -175,6 +181,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   .form-container {
     max-width: 560px;
     margin: 0 auto;
+  }
+
+  .form-trust-line {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary, #666);
+    margin-bottom: var(--space-xl);
+  }
+
+  .honeypot-wrap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-reassurance {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary, #666);
+    margin-top: var(--space-md);
   }
 
   .contact-form {
