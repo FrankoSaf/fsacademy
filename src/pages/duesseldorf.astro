@@ -129,6 +129,7 @@ const ldFAQ = {
     <div class="instruments-container">
       <h2 id="instruments-dusseldorf">{data.instruments?.heading ?? 'Unser Unterrichtsangebot in Düsseldorf'}</h2>
       <p class="section-intro">{data.instruments?.intro ?? 'An unserem Standort in der Kaiserstraße bieten wir professionellen Unterricht für fünf Instrumente an.'}</p>
+      <p><a href="/duesseldorf/unterricht" class="instruments-cta">Alle Instrumente in Düsseldorf →</a></p>
       <div class="instruments-grid">
         {instrumentItems.length > 0 ? instrumentItems.map((item) => (
           <div class="instrument-item">
@@ -293,8 +294,18 @@ const ldFAQ = {
     text-align: center;
     color: var(--color-text-secondary);
     max-width: 700px;
-    margin: 0 auto var(--space-4xl);
+    margin: 0 auto var(--space-lg);
     line-height: 1.8;
+  }
+  .instruments-cta {
+    display: inline-block;
+    color: var(--color-gold-on-light);
+    font-weight: 600;
+    text-decoration: none;
+    margin-bottom: var(--space-4xl);
+  }
+  .instruments-cta:hover {
+    text-decoration: underline;
   }
 
   .instruments-grid {

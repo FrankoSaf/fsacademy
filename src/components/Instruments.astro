@@ -19,6 +19,14 @@ interface Content {
 
 const content = contentRaw as Content;
 
+const iconToSlug: Record<string, string> = {
+  piano: 'klavier',
+  guitar: 'gitarre',
+  bass: 'bass',
+  vocals: 'gesang',
+  drums: 'schlagzeug',
+};
+
 // Recognizable instrument icons – clean, elegant silhouettes
 const instrumentIcons: Record<string, string> = {
   piano:
@@ -49,15 +57,18 @@ const instrumentIcons: Record<string, string> = {
     <div class="instruments-grid">
       {
         content &&
-          content.instruments.items.map((instrument) => (
-            <div class="instrument-card">
-              <div class="instrument-icon" aria-hidden="true">
-                <Fragment set:html={instrumentIcons[instrument.icon]} />
-              </div>
-              <h3>{instrument.name}</h3>
-              <p>{instrument.description}</p>
-            </div>
-          ))
+          content.instruments.items.map((instrument) => {
+            const slug = iconToSlug[instrument.icon] ?? instrument.icon;
+            return (
+              <a href={`/unterricht/${slug}`} class="instrument-card">
+                <div class="instrument-icon" aria-hidden="true">
+                  <Fragment set:html={instrumentIcons[instrument.icon]} />
+                </div>
+                <h3>{instrument.name}</h3>
+                <p>{instrument.description}</p>
+              </a>
+            );
+          })
       }
     </div>
   </div>
@@ -103,23 +114,30 @@ const instrumentIcons: Record<string, string> = {
   }
 
   .instruments-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-3xl);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-lg);
   }
 
   .instrument-card {
+    display: block;
     text-align: center;
     padding: var(--space-2xl) var(--space-lg);
     background: var(--color-surface);
     border: var(--border-width-thin) solid var(--color-gold-alpha-20);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-card);
-    transition: box-shadow var(--transition-base);
+    transition: box-shadow var(--transition-base), border-color var(--transition-base);
+    text-decoration: none;
+    color: inherit;
+    flex: 1 1 180px;
+    max-width: 220px;
   }
 
   .instrument-card:hover {
     box-shadow: var(--shadow-md);
+    border-color: var(--color-gold-alpha-40);
   }
 
   .instrument-icon {
@@ -147,8 +165,13 @@ const instrumentIcons: Record<string, string> = {
     }
 
     .instruments-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-lg);
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .instrument-card {
+      flex: 1 1 140px;
+      max-width: none;
     }
   }
 </style>

@@ -1,0 +1,251 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import CTA from '../../../components/CTA.astro';
+import Pricing from '../../../components/Pricing.astro';
+import CampaignContactForm from '../../../components/CampaignContactForm.astro';
+import {
+  getTeachers,
+  getCities,
+  getTeachersForInstrumentAndCity,
+} from '../../../lib/cms';
+
+export function getStaticPaths() {
+  const instruments = [
+    { slug: 'klavier', name: 'Klavier' },
+    { slug: 'gitarre', name: 'Gitarre' },
+    { slug: 'bass', name: 'Bass' },
+    { slug: 'gesang', name: 'Gesang' },
+    { slug: 'schlagzeug', name: 'Schlagzeug' },
+  ];
+  const locations = ['duesseldorf', 'neuss'];
+  const paths: Array<{ params: { location: string; instrument: string } }> = [];
+  for (const loc of locations) {
+    for (const inst of instruments) {
+      paths.push({ params: { location: loc, instrument: inst.slug } });
+    }
+  }
+  return paths;
+}
+
+const { location: city, instrument } = Astro.params;
+
+const [teachers, cities, unterrichtData, instrumentsData, duesseldorfData, neussData] = await Promise.all([
+  getTeachers(),
+  getCities(),
+  import('../../../../content/unterricht.json'),
+  import('../../../../content/instruments.json'),
+  import('../../../../content/duesseldorf.json'),
+  import('../../../../content/neuss.json'),
+]);
+
+const instrumentInfo = (unterrichtData as { instruments?: Array<{ slug: string; name: string; description: string; highlights: string[] }> }).instruments?.find((i) => i.slug === instrument);
+const instrumentsDataTyped = (instrumentsData as { default: Record<string, { title: string; subtitle: string; sections?: Array<{ heading: string; content: string }> }> }).default;
+const instrumentDetail = instrumentsDataTyped[instrument];
+const cityInfo = cities.find((c) => c.slug === city);
+const teachersForPage = getTeachersForInstrumentAndCity(teachers, instrument!, city!);
+
+const locationPage = city === 'duesseldorf' ? (duesseldorfData as { default: { faq?: { items?: Array<{ question: string; answer: string }> } } }).default : (neussData as { default: { faq?: { items?: Array<{ question: string; answer: string }> } } }).default;
+const faqItems = locationPage?.faq?.items ?? [];
+
+const instrumentName = instrumentInfo?.name ?? instrument;
+const cityName = cityInfo?.name ?? city;
+
+const displayName = instrumentDetail?.title ?? `${instrumentName}unterricht`;
+const metaTitle = `${displayName} ${cityName} | Fine Sound Academy`;
+const metaDescription = `${displayName} in ${cityName} – Fine Sound Academy. Professioneller Unterricht für Kinder, Jugendliche und Erwachsene. Kostenlose Probestunde.`;
+
+const cityIntroParagraph = cityInfo?.intro?.paragraphs?.[0];
+const cityIntroText = typeof cityIntroParagraph === 'string' ? cityIntroParagraph : (cityIntroParagraph as { paragraph?: string })?.paragraph ?? '';
+
+const extraSections = (instrumentDetail?.sections ?? []).slice(1, 3);
+
+const ldLocal = cityInfo ? {
+  '@context': 'https://schema.org',
+  '@type': 'MusicSchool',
+  name: `Fine Sound Academy ${cityName}`,
+  description: metaDescription,
+  url: `https://www.finesoundacademy.com/${city}/unterricht/${instrument}`,
+  telephone: '+49 176 77154511',
+  email: 'info@finesoundacademy.com',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: city === 'duesseldorf' ? 'Kaiserstr. 28' : 'Neumarkt 18',
+    addressLocality: cityName,
+    addressRegion: 'Nordrhein-Westfalen',
+    postalCode: city === 'duesseldorf' ? '40479' : '41460',
+    addressCountry: 'DE',
+  },
+  geo: city === 'duesseldorf' ? { '@type': 'GeoCoordinates', latitude: 51.23387, longitude: 6.77908 } : { '@type': 'GeoCoordinates', latitude: 51.1985, longitude: 6.6929 },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '20:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
+  ],
+  areaServed: { '@type': 'City', name: cityName },
+  priceRange: '€€',
+} : null;
+
+const ldFAQ = faqItems.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.slice(0, 5).map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+} : null;
+---
+
+<BaseLayout title={metaTitle} description={metaDescription}>
+  {ldLocal && <script type="application/ld+json" set:html={JSON.stringify(ldLocal)} slot="head" />}
+  {ldFAQ && <script type="application/ld+json" set:html={JSON.stringify(ldFAQ)} slot="head" />}
+  <section class="campaign-hero" aria-labelledby="campaign-heading">
+    <div class="hero-container">
+      <div class="accent-line"></div>
+      <h1 id="campaign-heading">{displayName} {cityName}</h1>
+      <p class="hero-subtitle">Für Kinder, Jugendliche und Erwachsene</p>
+      <a href="#contact" class="hero-cta">Kostenlose Probestunde</a>
+      <p><a href={`/${city}/unterricht`} class="back-link">← Alle Instrumente in {cityName}</a></p>
+    </div>
+  </section>
+
+  <section class="campaign-overview" aria-label="Überblick">
+    <div class="overview-container">
+      <h2>{displayName} in {cityName}</h2>
+      {cityIntroText && (
+        <p class="overview-text overview-city">{cityIntroText}</p>
+      )}
+      <p class="overview-text">
+        {instrumentDetail?.sections?.[0]?.content ?? instrumentInfo?.description ?? `Professioneller ${displayName} bei der Fine Sound Academy in ${cityName}.`}
+      </p>
+      {extraSections.length > 0 && extraSections.map((section) => (
+        <div class="overview-section">
+          <h3>{section.heading}</h3>
+          <p>{section.content}</p>
+        </div>
+      ))}
+      <ul class="highlights">
+        {(instrumentInfo?.highlights ?? ['Einzel- oder Gruppenunterricht', 'Kostenlose Probestunde', 'Keine Wartezeit', 'Qualifizierte Lehrkräfte']).map((h) => (
+          <li>{h}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {teachersForPage.length > 0 && (
+    <section class="campaign-teachers" aria-labelledby="teachers-heading">
+      <div class="teachers-container">
+        <h2 id="teachers-heading">Unsere {instrumentName}lehrer in {cityName}</h2>
+        <p class="teachers-intro">
+          Unsere Lehrkräfte sind das kreative Herz unserer Musikschule und begleiten dich auf deinem musikalischen Weg.
+        </p>
+        <div class="teachers-grid">
+          {teachersForPage.map((t) => (
+            <div class="teacher-card">
+              <figure class="teacher-image">
+                <img src={t.image} alt={t.alt} loading="lazy" />
+              </figure>
+              <div class="teacher-info">
+                <h3>{t.name}</h3>
+                <p>{t.role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="campaign-how" aria-label="So geht's">
+    <div class="how-container">
+      <h2>Wie kann ich anfangen?</h2>
+      <div class="how-steps">
+        <div class="how-step"><span class="step-num">1</span><h3>Formular ausfüllen</h3></div>
+        <div class="how-step"><span class="step-num">2</span><h3>Termin vereinbaren</h3></div>
+        <div class="how-step"><span class="step-num">3</span><h3>Kostenlos ausprobieren</h3></div>
+        <div class="how-step"><span class="step-num">4</span><h3>Danach entscheiden</h3></div>
+      </div>
+      <a href="#contact" class="how-cta">Probestunde vereinbaren</a>
+    </div>
+  </section>
+
+  <Pricing showHeader={true} headingLevel="h2" />
+
+  {faqItems.length > 0 && (
+    <section class="campaign-faq" aria-labelledby="faq-heading">
+      <div class="faq-container">
+        <h2 id="faq-heading">Häufige Fragen zu {displayName} in {cityName}</h2>
+        <div class="faq-list">
+          {faqItems.slice(0, 5).map((item) => (
+            <details class="faq-item">
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section id="contact" class="campaign-contact-section">
+    <CampaignContactForm
+      instrumentValue={instrumentName}
+      cityValue={cityName}
+    />
+  </section>
+
+  <CTA />
+</BaseLayout>
+
+<style>
+  .campaign-hero {
+    background: var(--color-bg-dark);
+    padding: calc(var(--nav-height) + var(--space-6xl)) var(--space-lg) var(--space-6xl);
+    text-align: center;
+  }
+  .hero-container { max-width: var(--container-max-width); margin: 0 auto; }
+  .accent-line { width: 60px; height: var(--border-width-medium); background: var(--color-gold); margin: 0 auto var(--space-lg); }
+  .campaign-hero h1 { font-family: var(--font-serif); font-size: clamp(var(--text-2xl), 5vw, var(--text-4xl)); color: var(--color-text-on-dark); margin-bottom: var(--space-md); font-weight: 700; }
+  .hero-subtitle { color: var(--color-gold); font-size: var(--text-lg); margin-bottom: var(--space-2xl); }
+  .back-link { color: var(--color-gold); font-size: var(--text-sm); text-decoration: none; display: inline-block; margin-top: var(--space-md); }
+  .back-link:hover { text-decoration: underline; }
+  .hero-cta { display: inline-flex; align-items: center; justify-content: center; padding: var(--space-md) var(--space-2xl); background: var(--color-gold); color: var(--color-black); font-weight: 600; text-decoration: none; text-transform: uppercase; letter-spacing: var(--tracking-tight); border-radius: var(--radius-sm); transition: background var(--transition-base); }
+  .hero-cta:hover { background: var(--color-gold-light); }
+  .campaign-overview { padding: var(--space-6xl) var(--space-lg); background: var(--color-bg-default); }
+  .overview-container { max-width: 800px; margin: 0 auto; }
+  .overview-container h2 { font-family: var(--font-serif); font-size: clamp(var(--text-xl), 3vw, var(--text-2xl)); color: var(--color-text-primary); margin-bottom: var(--space-xl); font-weight: 600; }
+  .overview-text { color: var(--color-text-secondary); line-height: 1.8; margin-bottom: var(--space-2xl); }
+  .overview-section { margin-bottom: var(--space-2xl); }
+  .overview-section h3 { font-family: var(--font-serif); font-size: var(--text-lg); color: var(--color-text-primary); margin-bottom: var(--space-md); font-weight: 600; }
+  .overview-section p { color: var(--color-text-secondary); line-height: 1.8; font-size: var(--text-base); }
+  .highlights { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); }
+  .highlights li { display: flex; align-items: center; gap: var(--space-sm); color: var(--color-text-primary); font-size: var(--text-sm); }
+  .highlights li::before { content: '✓'; color: var(--color-gold); font-weight: 700; }
+  .campaign-teachers { padding: var(--space-6xl) var(--space-lg); background: var(--color-bg-alt); }
+  .teachers-container { max-width: var(--container-max-width); margin: 0 auto; }
+  .campaign-teachers h2 { font-family: var(--font-serif); font-size: clamp(var(--text-xl), 3vw, var(--text-2xl)); color: var(--color-text-primary); text-align: center; margin-bottom: var(--space-md); font-weight: 600; }
+  .teachers-intro { text-align: center; color: var(--color-text-secondary); max-width: 700px; margin: 0 auto var(--space-4xl); line-height: 1.8; }
+  .teachers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-2xl); }
+  .teacher-card { text-align: center; }
+  .teacher-image { aspect-ratio: 1; overflow: hidden; margin: 0 0 var(--space-md) 0; border: var(--border-width-thin) solid var(--color-gold-alpha-20); background: var(--color-surface); }
+  .teacher-image img { width: 100%; height: 100%; object-fit: cover; }
+  .teacher-info h3 { font-family: var(--font-serif); font-size: var(--text-lg); color: var(--color-text-primary); margin-bottom: var(--space-xs); font-weight: 600; }
+  .teacher-info p { font-size: var(--text-sm); color: var(--color-gold-on-light); }
+  .campaign-how { padding: var(--space-6xl) var(--space-lg); background: var(--color-bg-default); }
+  .how-container { max-width: 800px; margin: 0 auto; text-align: center; }
+  .campaign-how h2 { font-family: var(--font-serif); font-size: clamp(var(--text-xl), 3vw, var(--text-2xl)); color: var(--color-text-primary); margin-bottom: var(--space-4xl); font-weight: 600; }
+  .how-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-2xl); margin-bottom: var(--space-3xl); }
+  .how-step { display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); }
+  .step-num { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--color-gold); color: var(--color-black); font-weight: 700; font-size: var(--text-lg); border-radius: 50%; }
+  .how-step h3 { font-size: var(--text-sm); color: var(--color-text-primary); font-weight: 600; }
+  .how-cta { display: inline-flex; align-items: center; justify-content: center; padding: var(--space-md) var(--space-2xl); background: var(--color-gold); color: var(--color-black); font-weight: 600; text-decoration: none; text-transform: uppercase; letter-spacing: var(--tracking-tight); border-radius: var(--radius-sm); transition: background var(--transition-base); }
+  .how-cta:hover { background: var(--color-gold-light); }
+  .campaign-faq { padding: var(--space-6xl) var(--space-lg); background: var(--color-bg-default); }
+  .campaign-faq .faq-container { max-width: 800px; margin: 0 auto; }
+  .campaign-faq .faq-container h2 { font-family: var(--font-serif); font-size: clamp(var(--text-xl), 3vw, var(--text-2xl)); color: var(--color-text-primary); text-align: center; margin-bottom: var(--space-4xl); font-weight: 600; }
+  .campaign-faq .faq-item { border-bottom: var(--border-width-thin) solid var(--color-gold-alpha-20); padding: var(--space-lg) 0; }
+  .campaign-faq .faq-item summary { font-family: var(--font-sans); font-size: var(--text-base); font-weight: 600; color: var(--color-text-primary); cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; min-height: 44px; }
+  .campaign-faq .faq-item summary::after { content: '+'; font-size: var(--text-xl); color: var(--color-gold); flex-shrink: 0; margin-left: var(--space-md); }
+  .campaign-faq .faq-item[open] summary::after { content: '−'; }
+  .campaign-faq .faq-item p { color: var(--color-text-secondary); line-height: 1.8; padding-top: var(--space-md); font-size: var(--text-sm); }
+  .campaign-contact-section { scroll-margin-top: var(--nav-height); }
+</style>

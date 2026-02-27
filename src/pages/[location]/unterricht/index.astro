@@ -1,19 +1,32 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import contentRaw from '../../../content/unterricht.json';
-import ResponsiveImage from '../../components/ResponsiveImage.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import contentRaw from '../../../../content/unterricht.json';
+import ResponsiveImage from '../../../components/ResponsiveImage.astro';
+import { getCities } from '../../../lib/cms';
 
-const content = contentRaw as any;
+export function getStaticPaths() {
+  return [
+    { params: { location: 'duesseldorf' } },
+    { params: { location: 'neuss' } },
+  ];
+}
+
+const { location } = Astro.params;
+const cities = await getCities();
+const cityInfo = cities.find((c) => c.slug === location);
+const cityName = cityInfo?.name ?? location;
+
+const content = contentRaw as { hero: { title: string; subtitle: string }; intro: { text: string }; instruments: Array<{ name: string; slug: string; image: string; description: string; highlights: string[] }> };
+
+const metaTitle = `Unterricht ${cityName} – Fine Sound Academy`;
+const metaDescription = `Musikunterricht in ${cityName}: Klavier, Gitarre, Bass, Gesang, Schlagzeug. Kostenlose Probestunde bei der Fine Sound Academy.`;
 ---
 
-<BaseLayout
-  title="Unterricht - Fine Sound Academy"
-  description="Musikunterricht Düsseldorf & Neuss: Klavier, Gitarre, Bass, Gesang, Schlagzeug, Violine. Entdecke dein Instrument – kostenlose Probestunde bei der Fine Sound Academy."
->
+<BaseLayout title={metaTitle} description={metaDescription}>
   <section class="unterricht-hero" aria-labelledby="unterricht-heading">
     <div class="hero-container">
       <div class="accent-line"></div>
-      <h1 id="unterricht-heading">{content.hero.title}</h1>
+      <h1 id="unterricht-heading">Unterricht in {cityName}</h1>
       <p class="hero-subtitle">{content.hero.subtitle}</p>
     </div>
   </section>
@@ -21,10 +34,7 @@ const content = contentRaw as any;
   <section class="unterricht-intro">
     <div class="intro-container">
       <p>{content.intro.text}</p>
-      <div class="location-links">
-        <a href="/duesseldorf/unterricht" class="location-link">Instrumente in Düsseldorf</a>
-        <a href="/neuss/unterricht" class="location-link">Instrumente in Neuss</a>
-      </div>
+      <p><a href={`/${location}`} class="back-link">← Zurück zu {cityName}</a></p>
     </div>
   </section>
 
@@ -51,7 +61,7 @@ const content = contentRaw as any;
                   <li>{highlight}</li>
                 ))}
               </ul>
-              <a href={`/duesseldorf/unterricht/${instrument.slug}`} class="read-more">
+              <a href={`/${location}/unterricht/${instrument.slug}`} class="read-more">
                 Mehr erfahren
               </a>
             </div>
@@ -68,19 +78,16 @@ const content = contentRaw as any;
     background: var(--color-bg-dark);
     text-align: center;
   }
-
   .hero-container {
     max-width: 800px;
     margin: 0 auto;
   }
-
   .accent-line {
     width: 60px;
     height: var(--border-width-medium);
     background: var(--color-gold);
     margin: 0 auto var(--space-2xl);
   }
-
   .unterricht-hero h1 {
     font-family: var(--font-serif);
     font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
@@ -88,7 +95,6 @@ const content = contentRaw as any;
     margin-bottom: var(--space-lg);
     font-weight: 700;
   }
-
   .hero-subtitle {
     font-size: var(--text-lg);
     color: var(--color-gold);
@@ -96,53 +102,37 @@ const content = contentRaw as any;
     text-transform: uppercase;
     font-weight: 300;
   }
-
   .unterricht-intro {
     padding: var(--space-4xl) var(--space-lg);
     background: var(--color-bg-default);
     text-align: center;
   }
-
   .intro-container {
     max-width: 900px;
     margin: 0 auto;
   }
-
   .unterricht-intro p {
     font-size: var(--text-lg);
     color: var(--color-text-secondary);
     line-height: 1.8;
+    margin-bottom: var(--space-md);
   }
-  .location-links {
-    display: flex;
-    gap: var(--space-lg);
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: var(--space-2xl);
-  }
-  .location-link {
-    padding: var(--space-md) var(--space-xl);
-    background: var(--color-gold);
-    color: var(--color-black);
+  .back-link {
+    color: var(--color-gold-on-light);
     text-decoration: none;
-    font-weight: 600;
-    border-radius: var(--radius-sm);
-    transition: background var(--transition-base);
+    font-size: var(--text-sm);
   }
-  .location-link:hover {
-    background: var(--color-gold-light);
+  .back-link:hover {
+    text-decoration: underline;
   }
-
   .instruments-list {
     padding: var(--space-6xl) var(--space-lg);
     background: var(--color-bg-default);
   }
-
   .list-container {
     max-width: var(--container-max-width);
     margin: 0 auto;
   }
-
   .instrument-item {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -152,21 +142,17 @@ const content = contentRaw as any;
     padding-bottom: var(--space-6xl);
     border-bottom: var(--border-width-thin) solid var(--color-gold-alpha-20);
   }
-
   .instrument-item:last-child {
     margin-bottom: 0;
     padding-bottom: 0;
     border-bottom: none;
   }
-
   .instrument-item.image-right {
     direction: rtl;
   }
-
   .instrument-item.image-right > * {
     direction: ltr;
   }
-
   .instrument-image {
     width: 100%;
     height: 400px;
@@ -174,13 +160,11 @@ const content = contentRaw as any;
     border: var(--border-width-thin) solid var(--color-gold-alpha-20);
     border-radius: var(--radius-md);
   }
-
   .instrument-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-
   .instrument-content h2 {
     font-family: var(--font-serif);
     font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
@@ -188,25 +172,21 @@ const content = contentRaw as any;
     margin-bottom: var(--space-lg);
     font-weight: 600;
   }
-
   .description {
     color: var(--color-text-secondary);
     margin-bottom: var(--space-xl);
     line-height: 1.8;
   }
-
   .highlights {
     list-style: none;
     margin-bottom: var(--space-2xl);
   }
-
   .highlights li {
     color: var(--color-text-primary);
     padding: var(--space-xs) 0;
     padding-left: var(--space-lg);
     position: relative;
   }
-
   .highlights li::before {
     content: '';
     position: absolute;
@@ -218,7 +198,6 @@ const content = contentRaw as any;
     background: var(--color-gold);
     border-radius: 50%;
   }
-
   .read-more {
     display: inline-flex;
     align-items: center;
@@ -237,25 +216,14 @@ const content = contentRaw as any;
     min-height: 48px;
     border-radius: var(--radius-sm);
   }
-
   .read-more:hover {
     background: transparent;
     color: var(--color-gold-on-light);
   }
-
   @media (max-width: 767px) {
-    .unterricht-hero {
-      padding: var(--space-4xl) var(--space-md) var(--space-3xl);
-    }
-
-    .unterricht-intro {
-      padding: var(--space-3xl) var(--space-md);
-    }
-
-    .instruments-list {
-      padding: var(--space-4xl) var(--space-md);
-    }
-
+    .unterricht-hero { padding: var(--space-4xl) var(--space-md) var(--space-3xl); }
+    .unterricht-intro { padding: var(--space-3xl) var(--space-md); }
+    .instruments-list { padding: var(--space-4xl) var(--space-md); }
     .instrument-item,
     .instrument-item.image-right {
       grid-template-columns: 1fr;
@@ -264,9 +232,6 @@ const content = contentRaw as any;
       padding-bottom: var(--space-4xl);
       direction: ltr;
     }
-
-    .instrument-image {
-      height: 300px;
-    }
+    .instrument-image { height: 300px; }
   }
 </style>
