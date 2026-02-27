@@ -1,4 +1,6 @@
 {
+  "name": "Düsseldorf",
+  "slug": "duesseldorf",
   "card": {
     "image": "/uploads/d_medienhafen.jpg",
     "buttonText": "Zur Schule Düsseldorf"
