@@ -1,0 +1,80 @@
+{
+  "cities": [
+    {
+      "id": "duesseldorf",
+      "name": "Düsseldorf",
+      "slug": "duesseldorf",
+      "address": "Kaiserstr. 28, 40479 Düsseldorf",
+      "subtitle": "Pempelfort",
+      "hero": {
+        "title": "Musikschule in Düsseldorf",
+        "subtitle": "Fine Sound Academy — Kaiserstraße 28, Pempelfort",
+        "text": "Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — mitten in Düsseldorf."
+      },
+      "directionsCard": {
+        "title": "Anfahrt & Lage",
+        "lines": [
+          { "line": "Adresse: Kaiserstr. 28, 40479 Düsseldorf" },
+          { "line": "Stadtteil: Pempelfort" },
+          { "line": "U-Bahn: Haltestelle Nordstraße (U78, U79) — 3 Min. Fußweg" },
+          { "line": "Straßenbahn: Haltestelle Nordstraße — direkt vor der Tür" },
+          { "line": "Parken: Straßenparkplätze in der Kaiserstraße und Umgebung" }
+        ]
+      },
+      "hoursCard": {
+        "title": "Öffnungszeiten",
+        "lines": [
+          { "line": "Montag – Freitag: 10:00 – 20:00 Uhr" },
+          { "line": "Samstag: 09:00 – 12:00 Uhr" },
+          { "line": "Sonntag: Geschlossen" }
+        ]
+      },
+      "intro": {
+        "heading": "Deine Musikschule im Herzen von Düsseldorf-Pempelfort",
+        "paragraphs": [
+          { "paragraph": "Die Fine Sound Academy Düsseldorf liegt in der Kaiserstraße 28, im beliebten Stadtteil Pempelfort — einem der lebendigsten Viertel Düsseldorfs. Umgeben von Cafés, Kulturangeboten und einer jungen, kreativen Nachbarschaft ist unsere Musikschule der perfekte Ort, um Musik zu lernen und zu leben." },
+          { "paragraph": "Unsere modern ausgestatteten Unterrichtsräume bieten eine inspirierende Atmosphäre für konzentriertes Lernen. Ob du zum ersten Mal ein Instrument in die Hand nimmst oder deine Fähigkeiten auf das nächste Level bringen willst — bei uns bist du richtig." },
+          { "paragraph": "Wir unterrichten Kinder ab 6 Jahren, Jugendliche und Erwachsene — vom absoluten Anfänger bis zum fortgeschrittenen Musiker. Jeder Schüler bekommt einen individuellen Unterrichtsplan, der auf seine Ziele, sein Tempo und seinen Musikgeschmack abgestimmt ist." }
+        ]
+      }
+    },
+    {
+      "id": "neuss",
+      "name": "Neuss",
+      "slug": "neuss",
+      "address": "Neumarkt 18, 41460 Neuss",
+      "subtitle": "Neusser Innenstadt",
+      "hero": {
+        "title": "Musikschule in Neuss",
+        "subtitle": "Fine Sound Academy — Neumarkt 18, Neusser Innenstadt",
+        "text": "Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — zentral in Neuss."
+      },
+      "directionsCard": {
+        "title": "Anfahrt & Lage",
+        "lines": [
+          { "line": "Adresse: Neumarkt 18, 41460 Neuss" },
+          { "line": "Lage: Neusser Innenstadt, direkt am Neumarkt" },
+          { "line": "Bus: Haltestelle Neumarkt — direkt vor der Tür" },
+          { "line": "Bahn: Neuss Hauptbahnhof — ca. 8 Min. Fußweg" },
+          { "line": "Parken: Tiefgarage Neumarkt und umliegende Parkplätze" }
+        ]
+      },
+      "hoursCard": {
+        "title": "Öffnungszeiten",
+        "lines": [
+          { "line": "Montag – Freitag: 10:00 – 20:00 Uhr" },
+          { "line": "Samstag: 09:00 – 12:00 Uhr" },
+          { "line": "Sonntag: Geschlossen" }
+        ]
+      },
+      "intro": {
+        "heading": "Deine Musikschule im Zentrum von Neuss",
+        "paragraphs": [
+          { "paragraph": "Die Fine Sound Academy Neuss liegt am Neumarkt 18 — direkt im Herzen der Neusser Innenstadt. Der historische Neumarkt ist einer der zentralsten Plätze in Neuss, umgeben von Geschäften, Gastronomie und einer lebendigen Stadtkultur. Besser erreichbar geht es kaum." },
+          { "paragraph": "Unser Standort in Neuss steht für eine familiäre Atmosphäre und persönliche Betreuung. In kleinen Gruppen oder im Einzelunterricht lernst du in hellen, modern ausgestatteten Räumen dein Wunschinstrument — von erfahrenen Musiklehrern, die selbst aktiv Musik machen." },
+          { "paragraph": "Ob du als Anfänger deinen ersten Song lernen willst, oder als fortgeschrittener Musiker neue Techniken perfektionieren möchtest — wir holen dich genau dort ab, wo du gerade stehst. Für Kinder ab 6 Jahren, Jugendliche und Erwachsene." }
+        ]
+      }
+    }
+  ]
+}

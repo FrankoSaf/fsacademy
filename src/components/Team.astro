@@ -1,19 +1,10 @@
 ---
 import contentRaw from '../../content/landing.json';
-
-interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  image: string;
-  alt: string;
-  locations: string[];
-}
+import { getTeachers } from '../lib/cms';
 
 interface TeamContent {
   title: string;
   intro: string;
-  members: TeamMember[];
 }
 
 interface Content {
@@ -28,10 +19,14 @@ interface Props {
 const { location, showIntro = true } = Astro.props;
 
 const content = contentRaw as Content;
+const teachers = await getTeachers();
 
-const members = location
-  ? content.team.members.filter((member) => member.locations.includes(location))
-  : content.team.members;
+// Normalize location for filter: "dusseldorf" -> "duesseldorf"
+const locationNorm = location === 'dusseldorf' ? 'duesseldorf' : location;
+
+const members = locationNorm
+  ? teachers.filter((t) => t.cities.includes(locationNorm))
+  : teachers;
 ---
 
 <section id="team" class="team" aria-labelledby="team-heading">

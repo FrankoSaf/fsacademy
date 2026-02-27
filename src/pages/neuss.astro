@@ -5,15 +5,26 @@ import CTA from '../components/CTA.astro';
 import Team from '../components/Team.astro';
 import Pricing from '../components/Pricing.astro';
 import Contact from '../components/Contact.astro';
-import { normalizeParagraphs, normalizeLines } from '../lib/cms';
+import { normalizeParagraphs, normalizeLines, getCities } from '../lib/cms';
 
-const data = (await import('../../content/neuss.json')).default as {
-  hero: { title: string; subtitle: string; text: string };
-  intro: { heading: string; paragraphs: unknown };
-  directionsCard: { title: string; lines: unknown };
-  hoursCard: { title: string; lines: unknown };
+const cities = await getCities();
+const city = cities.find((c) => c.slug === 'neuss');
+const pageData = (await import('../../content/neuss.json')).default as {
+  hero?: { title: string; subtitle: string; text: string };
+  intro?: { heading: string; paragraphs: unknown };
+  directionsCard?: { title: string; lines: unknown };
+  hoursCard?: { title: string; lines: unknown };
   instruments: { heading: string; intro: string; items: Array<{ title: string; description: string }> };
   faq: { heading: string; items: Array<{ question: string; answer: string }> };
+};
+
+const data = {
+  hero: city?.hero ?? pageData.hero ?? { title: '', subtitle: '', text: '' },
+  intro: city?.intro ?? pageData.intro ?? { heading: '', paragraphs: [] },
+  directionsCard: city?.directionsCard ?? pageData.directionsCard ?? { title: '', lines: [] },
+  hoursCard: city?.hoursCard ?? pageData.hoursCard ?? { title: '', lines: [] },
+  instruments: pageData.instruments,
+  faq: pageData.faq,
 };
 
 const introParagraphs = normalizeParagraphs(data.intro?.paragraphs);

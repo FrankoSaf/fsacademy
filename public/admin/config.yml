@@ -482,6 +482,92 @@ collections:
               - { label: Bild, name: image, widget: image }
               - { label: Bild-Alt, name: imageAlt, widget: string }
 
+  # ─── Lehrer (wiederverwendbar) ─────────────────────────────────────────────
+  - name: teachers
+    label: "👩‍🏫 Lehrer"
+    editor: { preview: false }
+    files:
+      - label: Lehrer (für Startseite, Standorte, Kampagnen)
+        name: teachers
+        file: "content/teachers.json"
+        format: json
+        fields:
+          - label: Lehrer
+            name: teachers
+            widget: list
+            summary: "{{fields.name}} ({{fields.role}})"
+            fields:
+              - { label: ID, name: id, widget: string }
+              - { label: Name, name: name, widget: string }
+              - { label: Rolle, name: role, widget: string }
+              - { label: Bild, name: image, widget: image }
+              - { label: Alt-Text, name: alt, widget: string }
+              - label: Instrumente (Slugs)
+                name: instruments
+                widget: list
+                field: { label: Slug, name: slug, widget: string }
+                hint: "z.B. gesang, klavier, gitarre, bass, schlagzeug, violine"
+              - label: Standorte (Slugs)
+                name: cities
+                widget: list
+                field: { label: Slug, name: slug, widget: string }
+                hint: "duesseldorf, neuss"
+
+  # ─── Städte (wiederverwendbar) ────────────────────────────────────────────
+  - name: cities
+    label: "📍 Städte"
+    editor: { preview: false }
+    files:
+      - label: Städte (Düsseldorf, Neuss)
+        name: cities
+        file: "content/cities.json"
+        format: json
+        fields:
+          - label: Städte
+            name: cities
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { label: ID, name: id, widget: string }
+              - { label: Name, name: name, widget: string }
+              - { label: Slug, name: slug, widget: string }
+              - { label: Adresse, name: address, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - label: Hero
+                name: hero
+                widget: object
+                fields:
+                  - { label: Titel, name: title, widget: string }
+                  - { label: Untertitel, name: subtitle, widget: string }
+                  - { label: Kurztext, name: text, widget: text }
+              - label: Anfahrt & Lage
+                name: directionsCard
+                widget: object
+                fields:
+                  - { label: Titel, name: title, widget: string }
+                  - label: Zeilen
+                    name: lines
+                    widget: list
+                    field: { label: Zeile, name: line, widget: string }
+              - label: Öffnungszeiten
+                name: hoursCard
+                widget: object
+                fields:
+                  - { label: Titel, name: title, widget: string }
+                  - label: Zeilen
+                    name: lines
+                    widget: list
+                    field: { label: Zeile, name: line, widget: string }
+              - label: Intro
+                name: intro
+                widget: object
+                fields:
+                  - { label: Überschrift, name: heading, widget: string }
+                  - label: Absätze
+                    name: paragraphs
+                    widget: list
+                    field: { label: Absatz, name: paragraph, widget: text }
+
   # ─── Gemeinsame Inhalte (Komponenten auf mehreren Seiten) ─────────────────
   - name: shared
     label: "🔧 Gemeinsame Inhalte"
