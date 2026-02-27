@@ -1,11 +1,6 @@
 {
-  "id": "duesseldorf",
-  "name": "Düsseldorf",
-  "slug": "duesseldorf",
-  "address": "Kaiserstr. 28, 40479 Düsseldorf",
-  "subtitle": "Pempelfort",
   "card": {
-    "image": "/uploads/9a5c3e9e97ea5b10591ffd4ae299b4faf13cc3d2-1600x1066.jpg",
+    "image": "/uploads/d_medienhafen.jpg",
     "buttonText": "Zur Schule Düsseldorf"
   },
   "hero": {
@@ -43,22 +38,55 @@
     "heading": "Unser Unterrichtsangebot in Düsseldorf",
     "intro": "An unserem Standort in der Kaiserstraße bieten wir professionellen Unterricht für fünf Instrumente an — jeweils als Einzel- oder Gruppenunterricht.",
     "items": [
-      { "title": "Klavierunterricht", "description": "Vom ersten Akkord bis zur Konzertvorbereitung. Klassik, Pop, Jazz — dein Klavierlehrer passt den Unterricht an deinen Stil an. Perfekt für Kinder und Erwachsene." },
-      { "title": "Gitarrenunterricht", "description": "Akustik oder E-Gitarre, Fingerpicking oder Riffs — lerne Gitarre von erfahrenen Musikern, die selbst aktiv auf der Bühne stehen." },
-      { "title": "Gesangsunterricht", "description": "Entdecke deine Stimme. Atemtechnik, Stimmbildung und Interpretation — für Pop, Rock, Musical und klassischen Gesang." },
-      { "title": "Bassunterricht", "description": "Das Fundament jeder Band. Lerne E-Bass oder Akustikbass mit Fokus auf Groove, Rhythmus und musikalisches Zusammenspiel." },
-      { "title": "Schlagzeugunterricht", "description": "Rhythmus, Koordination und Energie. Von grundlegenden Beats bis zu komplexen Patterns — für alle Stilrichtungen." }
+      {
+        "title": "Klavierunterricht",
+        "description": "Vom ersten Akkord bis zur Konzertvorbereitung. Klassik, Pop, Jazz — dein Klavierlehrer passt den Unterricht an deinen Stil an. Perfekt für Kinder und Erwachsene."
+      },
+      {
+        "title": "Gitarrenunterricht",
+        "description": "Akustik oder E-Gitarre, Fingerpicking oder Riffs — lerne Gitarre von erfahrenen Musikern, die selbst aktiv auf der Bühne stehen."
+      },
+      {
+        "title": "Gesangsunterricht",
+        "description": "Entdecke deine Stimme. Atemtechnik, Stimmbildung und Interpretation — für Pop, Rock, Musical und klassischen Gesang."
+      },
+      {
+        "title": "Bassunterricht",
+        "description": "Das Fundament jeder Band. Lerne E-Bass oder Akustikbass mit Fokus auf Groove, Rhythmus und musikalisches Zusammenspiel."
+      },
+      {
+        "title": "Schlagzeugunterricht",
+        "description": "Rhythmus, Koordination und Energie. Von grundlegenden Beats bis zu komplexen Patterns — für alle Stilrichtungen."
+      }
     ]
   },
   "faq": {
     "heading": "Häufige Fragen zur Musikschule Düsseldorf",
     "items": [
-      { "question": "Wo genau befindet sich die Musikschule in Düsseldorf?", "answer": "Unsere Musikschule befindet sich in der Kaiserstraße 28, 40479 Düsseldorf im Stadtteil Pempelfort. Die nächste U-Bahn-Haltestelle ist Nordstraße (U78, U79), nur 3 Gehminuten entfernt." },
-      { "question": "Welche Instrumente kann ich in Düsseldorf lernen?", "answer": "In Düsseldorf bieten wir Unterricht für Klavier, Gitarre, Bass, Gesang und Schlagzeug an — für Anfänger bis Fortgeschrittene, Kinder und Erwachsene." },
-      { "question": "Gibt es eine kostenlose Probestunde?", "answer": "Ja! Wir bieten eine kostenlose und unverbindliche Probestunde an. Kontaktiere uns einfach über unser Kontaktformular oder per Telefon." },
-      { "question": "Gibt es Parkmöglichkeiten in der Nähe?", "answer": "Es gibt Straßenparkplätze in der Kaiserstraße und den angrenzenden Seitenstraßen. Das Parkhaus am Nordstraße-Platz ist ebenfalls nur wenige Minuten entfernt." },
-      { "question": "Bietet ihr auch Gruppenunterricht an?", "answer": "Ja, neben Einzelunterricht bieten wir auch Gruppenunterricht in kleinen Gruppen an. Das ist besonders für Kinder und Einsteiger eine tolle Option." },
-      { "question": "Ab welchem Alter kann mein Kind Unterricht nehmen?", "answer": "Wir unterrichten Schüler ab ca. 6 Jahren. Für jüngere Kinder empfehlen wir ein Gespräch, um die beste Option zu finden." }
+      {
+        "question": "Wo genau befindet sich die Musikschule in Düsseldorf?",
+        "answer": "Unsere Musikschule befindet sich in der Kaiserstraße 28, 40479 Düsseldorf im Stadtteil Pempelfort. Die nächste U-Bahn-Haltestelle ist Nordstraße (U78, U79), nur 3 Gehminuten entfernt."
+      },
+      {
+        "question": "Welche Instrumente kann ich in Düsseldorf lernen?",
+        "answer": "In Düsseldorf bieten wir Unterricht für Klavier, Gitarre, Bass, Gesang und Schlagzeug an — für Anfänger bis Fortgeschrittene, Kinder und Erwachsene."
+      },
+      {
+        "question": "Gibt es eine kostenlose Probestunde?",
+        "answer": "Ja! Wir bieten eine kostenlose und unverbindliche Probestunde an. Kontaktiere uns einfach über unser Kontaktformular oder per Telefon."
+      },
+      {
+        "question": "Gibt es Parkmöglichkeiten in der Nähe?",
+        "answer": "Es gibt Straßenparkplätze in der Kaiserstraße und den angrenzenden Seitenstraßen. Das Parkhaus am Nordstraße-Platz ist ebenfalls nur wenige Minuten entfernt."
+      },
+      {
+        "question": "Bietet ihr auch Gruppenunterricht an?",
+        "answer": "Ja, neben Einzelunterricht bieten wir auch Gruppenunterricht in kleinen Gruppen an. Das ist besonders für Kinder und Einsteiger eine tolle Option."
+      },
+      {
+        "question": "Ab welchem Alter kann mein Kind Unterricht nehmen?",
+        "answer": "Wir unterrichten Schüler ab ca. 6 Jahren. Für jüngere Kinder empfehlen wir ein Gespräch, um die beste Option zu finden."
+      }
     ]
   },
   "about": {
