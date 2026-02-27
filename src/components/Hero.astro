@@ -1,5 +1,6 @@
 ---
 import contentRaw from '../../content/landing.json';
+import ResponsiveImage from './ResponsiveImage.astro';
 
 interface HeroContent {
   title: string;
@@ -18,24 +19,16 @@ const hero = content.hero;
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
-  <picture>
-    <source
-      type="image/webp"
-      srcset={`${hero.image}?w=640&q=75&fm=webp 640w, ${hero.image}?w=960&q=75&fm=webp 960w, ${hero.image}?w=1280&q=80&fm=webp 1280w, ${hero.image}?w=1440&q=80&fm=webp 1440w`}
-      sizes="(min-width: 1440px) 1440px, 100vw"
-    />
-    <img
-      src={`${hero.image}?w=960&q=80`}
-      srcset={`${hero.image}?w=640&q=75 640w, ${hero.image}?w=960&q=75 960w, ${hero.image}?w=1280&q=80 1280w, ${hero.image}?w=1440&q=80 1440w`}
-      sizes="(min-width: 1440px) 1440px, 100vw"
-      width="1440"
-      height="810"
+  <div class="hero-picture-wrap">
+    <ResponsiveImage
+      src={hero.image}
       alt="Fine Sound Academy Musikschule – Klavier, Gitarre, Gesang, Bass und Schlagzeug in Düsseldorf und Neuss"
-      class="hero-image"
+      preset="hero"
       loading="eager"
       fetchpriority="high"
+      class="hero-image"
     />
-  </picture>
+  </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="accent-line"></div>
@@ -46,7 +39,7 @@ const hero = content.hero;
 </section>
 
 <style>
-  .hero picture {
+  .hero-picture-wrap {
     position: absolute;
     top: 0;
     left: 0;
@@ -65,7 +58,8 @@ const hero = content.hero;
     overflow: hidden;
   }
 
-  .hero-image {
+  .hero-picture-wrap :global(picture),
+  .hero-picture-wrap :global(img) {
     position: absolute;
     top: 0;
     left: 0;
@@ -88,7 +82,9 @@ const hero = content.hero;
   .hero-content {
     position: relative;
     z-index: 2;
-    padding: var(--space-2xl);
+    padding: clamp(var(--space-md), 5vw, var(--space-2xl));
+    max-width: 100%;
+    min-width: 0;
   }
 
   .hero h1 {

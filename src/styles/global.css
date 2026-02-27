@@ -16,6 +16,7 @@
 
 html {
   font-size: 16px;
+  overflow-x: hidden;
 }
 
 body {
@@ -26,6 +27,20 @@ body {
   color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Prevent H1 overflow on small screens: long words wrap instead of causing horizontal scroll */
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* Hero-style containers: prevent width overflow on small screens */
+.hero-container {
+  max-width: 100%;
+  min-width: 0;
 }
 
 /* Mobile: ensure 16px minimum for readable text */
@@ -46,6 +61,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
+  min-width: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

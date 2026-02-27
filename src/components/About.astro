@@ -1,4 +1,6 @@
 ---
+import ResponsiveImage from './ResponsiveImage.astro';
+
 interface Props {
   school: 'duesseldorf' | 'neuss';
 }
@@ -39,17 +41,12 @@ const content = {
       </a>
     </div>
     <div class="about-image">
-      <picture>
-        <source
-          srcset={`${content.about.image}?w=600&q=80 600w, ${content.about.image}?w=900&q=80 900w`}
-          sizes="(min-width: 768px) 50vw, 100vw"
-        />
-        <img
-          src={`${content.about.image}?w=600&q=80`}
-          alt={content.about.imageAlt}
-          loading="lazy"
-        />
-      </picture>
+      <ResponsiveImage
+        src={content.about.image}
+        alt={content.about.imageAlt}
+        preset="about"
+        loading="lazy"
+      />
     </div>
   </div>
 </section>

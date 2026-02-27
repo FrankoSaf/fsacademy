@@ -1,5 +1,6 @@
 ---
 import contentRaw from '../../content/landing.json';
+import ResponsiveImage from './ResponsiveImage.astro';
 
 interface Location {
   name: string;
@@ -25,20 +26,13 @@ const content = contentRaw as Content;
   <p class="locations-intro">Düsseldorf und Neuss — professioneller Musikunterricht an zwei Orten in der Region.</p>
   <div class="locations-grid">
     <article class="location-card">
-      <picture>
-        <source
-          srcset={`${content.locations.dusseldorf.image}?w=800&q=80 800w, ${content.locations.dusseldorf.image}?w=1200&q=80 1200w`}
-          sizes="(min-width: 768px) 50vw, 100vw"
-        />
-        <img
-          src={`${content.locations.dusseldorf.image}?w=800&q=80`}
-          alt={`Musikschule ${content.locations.dusseldorf.name}`}
-          class="location-image"
-          loading="lazy"
-          width="800"
-          height="800"
-        />
-      </picture>
+      <ResponsiveImage
+        src={content.locations.dusseldorf.image}
+        alt={`Musikschule ${content.locations.dusseldorf.name}`}
+        preset="location"
+        class="location-image"
+        loading="lazy"
+      />
       <div class="location-overlay"></div>
       <div class="location-content">
         <h3>{content.locations.dusseldorf.name}</h3>
@@ -49,20 +43,13 @@ const content = contentRaw as Content;
     </article>
 
     <article class="location-card">
-      <picture>
-        <source
-          srcset={`${content.locations.neuss.image}?w=800&q=80 800w, ${content.locations.neuss.image}?w=1200&q=80 1200w`}
-          sizes="(min-width: 768px) 50vw, 100vw"
-        />
-        <img
-          src={`${content.locations.neuss.image}?w=800&q=80`}
-          alt={`Musikschule ${content.locations.neuss.name}`}
-          class="location-image"
-          loading="lazy"
-          width="800"
-          height="800"
-        />
-      </picture>
+      <ResponsiveImage
+        src={content.locations.neuss.image}
+        alt={`Musikschule ${content.locations.neuss.name}`}
+        preset="location"
+        class="location-image"
+        loading="lazy"
+      />
       <div class="location-overlay"></div>
       <div class="location-content">
         <h3>{content.locations.neuss.name}</h3>
@@ -112,6 +99,11 @@ const content = contentRaw as Content;
     overflow: hidden;
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-card);
+  }
+
+  .location-card picture {
+    position: absolute;
+    inset: 0;
   }
 
   .location-image {

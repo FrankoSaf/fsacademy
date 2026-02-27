@@ -1,6 +1,7 @@
 ---
 import contentRaw from '../../content/landing.json';
 import { getTeachers } from '../lib/cms';
+import ResponsiveImage from './ResponsiveImage.astro';
 
 interface TeamContent {
   title: string;
@@ -52,23 +53,12 @@ const members = locationNorm
             members.map((member, i) => (
               <div class="team-member" role="group" aria-roledescription="Folie" aria-label={`${i + 1} von ${members.length}: ${member.name}`}>
                 <figure class="member-image">
-                  <picture>
-                    <source
-                      media="(min-width: 768px)"
-                      srcset={`${member.image}?w=400 400w, ${member.image}?w=600 600w`}
-                      sizes="(min-width: 1200px) 280px, (min-width: 768px) 25vw, 100vw"
-                    />
-                    <source
-                      media="(max-width: 767px)"
-                      srcset={`${member.image}?w=300 300w, ${member.image}?w=600 600w`}
-                      sizes="100vw"
-                    />
-                    <img
-                      src={`${member.image}?w=400`}
-                      alt={member.alt}
-                      loading="lazy"
-                    />
-                  </picture>
+                  <ResponsiveImage
+                    src={member.image}
+                    alt={member.alt}
+                    preset="teacher"
+                    loading="lazy"
+                  />
                 </figure>
                 <div class="member-info">
                   <h3>{member.name}</h3>

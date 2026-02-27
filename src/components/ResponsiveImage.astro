@@ -1,0 +1,45 @@
+---
+import { getNetlifyImageUrl, getPreset, type ImagePreset } from '../lib/images';
+
+interface Props {
+  src: string;
+  alt: string;
+  preset?: ImagePreset;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  class?: string;
+  position?: string;
+  widths?: number[];
+  sizes?: string;
+}
+
+const { src, alt, preset = 'hero', loading = 'lazy', fetchpriority, class: className, position = 'center' } = Astro.props;
+const p = getPreset(preset);
+const widths = Astro.props.widths ?? p.widths;
+const sizes = Astro.props.sizes ?? p.sizes;
+const q = p.q ?? 80;
+
+function buildUrl(w: number, fm?: string) {
+  return getNetlifyImageUrl(src, { w, q, fit: 'cover', position, fm });
+}
+---
+
+<picture>
+  <source
+    type="image/webp"
+    srcset={widths.map((w) => `${buildUrl(w, 'webp')} ${w}w`).join(', ')}
+    sizes={sizes}
+  />
+  <img
+    src={buildUrl(widths[0])}
+    srcset={widths.map((w) => `${buildUrl(w)} ${w}w`).join(', ')}
+    sizes={sizes}
+    alt={alt}
+    width={widths[widths.length - 1]}
+    height={Math.round((widths[widths.length - 1] * 9) / 16)}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    class:list={[className]}
+    decoding="async"
+  />
+</picture>

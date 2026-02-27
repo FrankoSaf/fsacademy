@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import contentRaw from '../../../content/unterricht.json';
+import ResponsiveImage from '../../components/ResponsiveImage.astro';
 
 const content = contentRaw as any;
 ---
@@ -31,17 +32,12 @@ const content = contentRaw as any;
             class={`instrument-item ${index % 2 === 0 ? 'image-left' : 'image-right'}`}
           >
             <div class="instrument-image">
-              <picture>
-                <source
-                  srcset={`${instrument.image}?w=600&q=80 600w, ${instrument.image}?w=900&q=80 900w`}
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                />
-                <img
-                  src={`${instrument.image}?w=600&q=80`}
-                  alt={`${instrument.name} Unterricht`}
-                  loading="lazy"
-                />
-              </picture>
+              <ResponsiveImage
+                src={instrument.image}
+                alt={`${instrument.name} Unterricht`}
+                preset="instrument"
+                loading="lazy"
+              />
             </div>
             <div class="instrument-content">
               <h2>{instrument.name}</h2>
