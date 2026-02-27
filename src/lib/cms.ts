@@ -64,11 +64,14 @@ export async function getTeachers(): Promise<Teacher[]> {
   }));
 }
 
-/** Load and normalize cities from content/cities.json */
+/** Load locations (Standorte) from duesseldorf.json and neuss.json – single source for location data */
 export async function getCities(): Promise<City[]> {
-  const data = (await import('../../content/cities.json')).default as { cities?: Array<Record<string, unknown>> };
-  const raw = data.cities ?? [];
-  return raw.map((c) => ({
+  const [duesseldorf, neuss] = await Promise.all([
+    import('../../content/duesseldorf.json'),
+    import('../../content/neuss.json'),
+  ]);
+  const locations = [duesseldorf.default, neuss.default] as Array<Record<string, unknown>>;
+  return locations.map((c) => ({
     id: String(c.id ?? ''),
     name: String(c.name ?? ''),
     slug: String(c.slug ?? ''),

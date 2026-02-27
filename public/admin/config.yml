@@ -315,6 +315,9 @@ collections:
         file: "content/duesseldorf.json"
         format: json
         fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Adresse, name: address, widget: string }
+          - { label: "Untertitel (z. B. Stadtteil)", name: subtitle, widget: string }
           - label: "Startseite-Karte (Bild & Button)"
             name: card
             widget: object
@@ -401,6 +404,9 @@ collections:
         file: "content/neuss.json"
         format: json
         fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Adresse, name: address, widget: string }
+          - { label: "Untertitel (z. B. Stadtteil)", name: subtitle, widget: string }
           - label: "Startseite-Karte (Bild & Button)"
             name: card
             widget: object
@@ -520,66 +526,6 @@ collections:
                 options:
                   - { label: "Düsseldorf", value: "duesseldorf" }
                   - { label: "Neuss", value: "neuss" }
-
-  # ─── Städte (wiederverwendbar) ────────────────────────────────────────────
-  - name: cities
-    label: "📍 Städte"
-    editor: { preview: false }
-    files:
-      - label: Städte (Düsseldorf, Neuss)
-        name: cities
-        file: "content/cities.json"
-        format: json
-        fields:
-          - label: Städte
-            name: cities
-            widget: list
-            summary: "{{fields.name}}"
-            fields:
-              - { label: ID, name: id, widget: string }
-              - { label: Name, name: name, widget: string }
-              - label: Slug (URL-Kennung)
-                name: slug
-                widget: select
-                options:
-                  - { label: "Düsseldorf", value: "duesseldorf" }
-                  - { label: "Neuss", value: "neuss" }
-              - { label: Adresse, name: address, widget: string }
-              - { label: Untertitel, name: subtitle, widget: string }
-              - label: Hero
-                name: hero
-                widget: object
-                fields:
-                  - { label: Titel, name: title, widget: string }
-                  - { label: Untertitel, name: subtitle, widget: string }
-                  - { label: Kurztext, name: text, widget: text }
-              - label: Anfahrt & Lage
-                name: directionsCard
-                widget: object
-                fields:
-                  - { label: Titel, name: title, widget: string }
-                  - label: Zeilen
-                    name: lines
-                    widget: list
-                    field: { label: Zeile, name: line, widget: string }
-              - label: Öffnungszeiten
-                name: hoursCard
-                widget: object
-                fields:
-                  - { label: Titel, name: title, widget: string }
-                  - label: Zeilen
-                    name: lines
-                    widget: list
-                    field: { label: Zeile, name: line, widget: string }
-              - label: Intro
-                name: intro
-                widget: object
-                fields:
-                  - { label: Überschrift, name: heading, widget: string }
-                  - label: Absätze
-                    name: paragraphs
-                    widget: list
-                    field: { label: Absatz, name: paragraph, widget: text }
 
   # ─── Gemeinsame Inhalte (Komponenten auf mehreren Seiten) ─────────────────
   - name: shared

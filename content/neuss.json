@@ -1,4 +1,9 @@
 {
+  "id": "neuss",
+  "name": "Neuss",
+  "slug": "neuss",
+  "address": "Neumarkt 18, 41460 Neuss",
+  "subtitle": "Neusser Innenstadt",
   "card": {
     "image": "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0",
     "buttonText": "Zur Schule Neuss"
