@@ -29,7 +29,8 @@ collections:
         fields:
           - { label: "Seitentitel (Standard)", name: siteTitle, widget: string, default: "Fine Sound Academy – Musikschule Düsseldorf & Neuss" }
           - { label: "Meta-Beschreibung (Standard)", name: defaultMetaDescription, widget: text, default: "Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde." }
-          - { label: "OG-Bild (Social Sharing)", name: ogImage, widget: image, required: false }
+          - { label: "OG-Bild (Social Sharing)", name: ogImage, widget: image, required: false, hint: "1200×630 empfohlen. Logo oder Custom Share Image." }
+          - { label: "OG-Bild Alt-Text", name: ogImageAlt, widget: string, required: false, default: "Fine Sound Academy – Musikschule Düsseldorf & Neuss" }
           - { label: "Twitter @handle", name: twitterHandle, widget: string, required: false }
           - { label: "WhatsApp-URL (floating Button)", name: whatsappUrl, widget: string, required: false, hint: "z.B. https://wa.me/4917677154511" }
 
