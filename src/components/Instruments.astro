@@ -27,22 +27,13 @@ const iconToSlug: Record<string, string> = {
   drums: 'schlagzeug',
 };
 
-// Recognizable instrument icons – clean, elegant silhouettes
-const instrumentIcons: Record<string, string> = {
-  piano:
-    '<svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="22" width="52" height="28" rx="2"/><line x1="14" y1="22" x2="14" y2="50"/><line x1="22" y1="22" x2="22" y2="50"/><line x1="30" y1="22" x2="30" y2="50"/><line x1="38" y1="22" x2="38" y2="50"/><line x1="46" y1="22" x2="46" y2="50"/><line x1="54" y1="22" x2="54" y2="50"/><rect x="10" y="22" width="5" height="18" fill="currentColor" opacity="0.35"/><rect x="26" y="22" width="5" height="18" fill="currentColor" opacity="0.35"/><rect x="42" y="22" width="5" height="18" fill="currentColor" opacity="0.35"/></svg>',
-
-  guitar:
-    '<svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M32 8v8l-4 4"/><path d="M32 8v8l4 4"/><path d="M32 16c-8 0-16 6-16 14v14c0 4 4 8 16 8s16-4 16-8V30c0-8-8-14-16-14z"/><ellipse cx="32" cy="30" rx="10" ry="6"/><circle cx="32" cy="38" r="2.5" fill="currentColor" opacity="0.5"/><path d="M28 12h8"/></svg>',
-
-  bass:
-    '<svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 54V18c0-2 2-4 4-4h20c2 0 4 2 4 4v36"/><path d="M18 54h28v4H18z"/><rect x="22" y="22" width="20" height="26" rx="2"/><line x1="28" y1="20" x2="28" y2="50"/><line x1="32" y1="20" x2="32" y2="50"/><line x1="36" y1="20" x2="36" y2="50"/><circle cx="32" cy="34" r="3" fill="currentColor" opacity="0.4"/></svg>',
-
-  vocals:
-    '<svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="22" rx="10" ry="14"/><path d="M32 36v14"/><path d="M22 50h20"/><path d="M30 50v6h4v-6"/><path d="M24 18c2 2 6 4 8 4s6-2 8-4" opacity="0.6"/><path d="M22 26c3 2 7 4 10 4s7-2 10-4" opacity="0.4"/></svg>',
-
-  drums:
-    '<svg width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="32" cy="40" rx="16" ry="10"/><path d="M16 40v6c0 2 7 4 16 4s16-2 16-4v-6"/><circle cx="24" cy="34" r="8"/><path d="M16 34h16"/><path d="M24 26v16"/><circle cx="40" cy="34" r="5" opacity="0.85"/><path d="M35 34h10"/><path d="M40 29v10"/></svg>',
+// Map slug to SVG filename (schlagzeug → schalgzeug.svg due to filename typo)
+const slugToIconFile: Record<string, string> = {
+  klavier: 'klavier.svg',
+  gitarre: 'gitarre.svg',
+  bass: 'bass.svg',
+  gesang: 'gesang.svg',
+  schlagzeug: 'schalgzeug.svg',
 };
 ---
 
@@ -59,10 +50,11 @@ const instrumentIcons: Record<string, string> = {
         content &&
           content.instruments.items.map((instrument) => {
             const slug = iconToSlug[instrument.icon] ?? instrument.icon;
+            const iconFile = slugToIconFile[slug] ?? `${slug}.svg`;
             return (
               <a href={`/unterricht/${slug}`} class="instrument-card">
                 <div class="instrument-icon" aria-hidden="true">
-                  <Fragment set:html={instrumentIcons[instrument.icon]} />
+                  <img src={`/instrument-icons/${iconFile}`} alt="" width="64" height="64" loading="lazy" />
                 </div>
                 <h3>{instrument.name}</h3>
                 <p>{instrument.description}</p>
