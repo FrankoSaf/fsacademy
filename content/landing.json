@@ -58,20 +58,6 @@
       "url": "/kontakt"
     }
   },
-  "locations": {
-    "dusseldorf": {
-      "name": "Düsseldorf",
-      "image": "/uploads/9a5c3e9e97ea5b10591ffd4ae299b4faf13cc3d2-1600x1066.jpg",
-      "buttonText": "Zur Schule Düsseldorf",
-      "link": "/duesseldorf"
-    },
-    "neuss": {
-      "name": "Neuss",
-      "image": "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0",
-      "buttonText": "Zur Schule Neuss",
-      "link": "/neuss"
-    }
-  },
   "instruments": {
     "title": "Unsere Instrumente",
     "subtitle": "Entdecke dein Instrument",

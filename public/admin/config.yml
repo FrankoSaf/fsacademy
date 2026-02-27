@@ -42,7 +42,7 @@ collections:
     label: "🏠 Startseite & Navigation"
     editor: { preview: false }
     files:
-      - label: Startseite & Navigation (Hero, Nav, Standorte, Instrumente, CTA, Team, Footer)
+      - label: Startseite & Navigation (Hero, Nav, Instrumente, CTA, Team, Footer)
         name: landing
         file: "content/landing.json"
         format: json
@@ -87,26 +87,6 @@ collections:
                 fields:
                   - { label: Text, name: text, widget: string }
                   - { label: URL, name: url, widget: string }
-          - label: Standorte (Karten auf Startseite)
-            name: locations
-            widget: object
-            fields:
-              - label: Düsseldorf
-                name: dusseldorf
-                widget: object
-                fields:
-                  - { label: Name, name: name, widget: string }
-                  - { label: Bild, name: image, widget: image }
-                  - { label: Button-Text, name: buttonText, widget: string }
-                  - { label: Link, name: link, widget: string }
-              - label: Neuss
-                name: neuss
-                widget: object
-                fields:
-                  - { label: Name, name: name, widget: string }
-                  - { label: Bild, name: image, widget: image }
-                  - { label: Button-Text, name: buttonText, widget: string }
-                  - { label: Link, name: link, widget: string }
           - label: Instrumente (Übersicht Startseite)
             name: instruments
             widget: object
@@ -335,6 +315,14 @@ collections:
         file: "content/duesseldorf.json"
         format: json
         fields:
+          - label: "Startseite-Karte (Bild & Button)"
+            name: card
+            widget: object
+            required: false
+            hint: "Erscheint auf der Startseite im Bereich „Unsere Standorte“."
+            fields:
+              - { label: Bild, name: image, widget: image }
+              - { label: Button-Text, name: buttonText, widget: string, default: "Zur Schule Düsseldorf" }
           - label: Hero
             name: hero
             widget: object
@@ -413,6 +401,14 @@ collections:
         file: "content/neuss.json"
         format: json
         fields:
+          - label: "Startseite-Karte (Bild & Button)"
+            name: card
+            widget: object
+            required: false
+            hint: "Erscheint auf der Startseite im Bereich „Unsere Standorte“."
+            fields:
+              - { label: Bild, name: image, widget: image }
+              - { label: Button-Text, name: buttonText, widget: string, default: "Zur Schule Neuss" }
           - label: Hero
             name: hero
             widget: object

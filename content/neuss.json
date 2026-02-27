@@ -1,4 +1,8 @@
 {
+  "card": {
+    "image": "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0",
+    "buttonText": "Zur Schule Neuss"
+  },
   "hero": {
     "title": "Musikschule in Neuss",
     "subtitle": "Fine Sound Academy — Neumarkt 18, Neusser Innenstadt",

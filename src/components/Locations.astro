@@ -1,24 +1,44 @@
 ---
-import contentRaw from '../../content/landing.json';
 import ResponsiveImage from './ResponsiveImage.astro';
 
-interface Location {
-  name: string;
+const [duesseldorfData, neussData] = await Promise.all([
+  import('../../content/duesseldorf.json'),
+  import('../../content/neuss.json'),
+]);
+
+interface LocationCard {
   image: string;
   buttonText: string;
-  link: string;
 }
 
-interface LocationsContent {
-  dusseldorf: Location;
-  neuss: Location;
+interface LocationData {
+  card?: LocationCard;
+  hero?: { title: string };
 }
 
-interface Content {
-  locations: LocationsContent;
+const slugToName: Record<string, string> = {
+  duesseldorf: 'Düsseldorf',
+  neuss: 'Neuss',
+};
+
+function toLocation(
+  data: { default: LocationData },
+  slug: 'duesseldorf' | 'neuss'
+): { name: string; image: string; buttonText: string; link: string } {
+  const d = data.default;
+  const card = d.card ?? {};
+  return {
+    name: slugToName[slug],
+    image: card.image ?? '',
+    buttonText: card.buttonText ?? `Zur Schule ${slugToName[slug]}`,
+    link: `/${slug === 'duesseldorf' ? 'duesseldorf' : 'neuss'}`,
+  };
 }
 
-const content = contentRaw as Content;
+const locations = {
+  dusseldorf: toLocation(duesseldorfData, 'duesseldorf'),
+  neuss: toLocation(neussData, 'neuss'),
+};
 ---
 
 <section class="locations" aria-labelledby="locations-heading">
@@ -27,34 +47,34 @@ const content = contentRaw as Content;
   <div class="locations-grid">
     <article class="location-card">
       <ResponsiveImage
-        src={content.locations.dusseldorf.image}
-        alt={`Musikschule ${content.locations.dusseldorf.name}`}
+        src={locations.dusseldorf.image}
+        alt={`Musikschule ${locations.dusseldorf.name}`}
         preset="location"
         class="location-image"
         loading="lazy"
       />
       <div class="location-overlay"></div>
       <div class="location-content">
-        <h3>{content.locations.dusseldorf.name}</h3>
-        <a href={content.locations.dusseldorf.link} class="location-button">
-          {content.locations.dusseldorf.buttonText}
+        <h3>{locations.dusseldorf.name}</h3>
+        <a href={locations.dusseldorf.link} class="location-button">
+          {locations.dusseldorf.buttonText}
         </a>
       </div>
     </article>
 
     <article class="location-card">
       <ResponsiveImage
-        src={content.locations.neuss.image}
-        alt={`Musikschule ${content.locations.neuss.name}`}
+        src={locations.neuss.image}
+        alt={`Musikschule ${locations.neuss.name}`}
         preset="location"
         class="location-image"
         loading="lazy"
       />
       <div class="location-overlay"></div>
       <div class="location-content">
-        <h3>{content.locations.neuss.name}</h3>
-        <a href={content.locations.neuss.link} class="location-button">
-          {content.locations.neuss.buttonText}
+        <h3>{locations.neuss.name}</h3>
+        <a href={locations.neuss.link} class="location-button">
+          {locations.neuss.buttonText}
         </a>
       </div>
     </article>
