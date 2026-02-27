@@ -26,6 +26,9 @@ interface Props {
 
 const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.props;
 
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const hasStickyCta = pathname !== '/kontakt' && !pathname.startsWith('/kontakt/');
+
 const site = Astro.site?.href ?? 'https://www.finesoundacademy.com';
 const canonical = canonicalUrl ?? new URL(Astro.url.pathname, site).href;
 const metaDescription = description ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription ?? 'Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
@@ -234,7 +237,7 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
       </>
     )}
   </head>
-  <body>
+  <body class:list={[hasStickyCta && 'has-sticky-cta']}>
     <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
     <header>
       <Nav />
@@ -274,6 +277,9 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
 </html>
 
 <style is:global>
+  body.has-sticky-cta {
+    padding-bottom: 88px;
+  }
   .skip-link {
     position: absolute;
     top: -100%;
