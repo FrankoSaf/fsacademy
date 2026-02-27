@@ -115,6 +115,19 @@
       ]
     },
     {
+      "id": "michaela",
+      "name": "Michaela",
+      "role": "Michaela",
+      "image": "/uploads/img_9166-1920w.webp",
+      "alt": "Gesang  Lehrerin Michaela in Düsseldorf",
+      "instruments": [
+        "gesang"
+      ],
+      "cities": [
+        "duesseldorf"
+      ]
+    },
+    {
       "id": "sujin",
       "name": "Sujin",
       "role": "Gesang und Klavier ",
