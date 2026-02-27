@@ -6,8 +6,22 @@
       "role": "Schulleitung, Gesang und Klavier",
       "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
       "alt": "Schulleiter, Gesangs und Klavierlehrer Toni in Neuss und Düsseldorf",
-      "instruments": [{ "slug": "gesang" }, { "slug": "klavier" }],
-      "cities": [{ "slug": "duesseldorf" }, { "slug": "neuss" }]
+      "instruments": [
+        {
+          "slug": "gesang"
+        },
+        {
+          "slug": "klavier"
+        }
+      ],
+      "cities": [
+        {
+          "slug": "duesseldorf"
+        },
+        {
+          "slug": "neuss"
+        }
+      ]
     },
     {
       "id": "anastasija",
@@ -15,8 +29,19 @@
       "role": "Gesang",
       "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
       "alt": "Gesangslehrerin Anastasija in Neuss und Düsseldorf",
-      "instruments": [{ "slug": "gesang" }],
-      "cities": [{ "slug": "duesseldorf" }, { "slug": "neuss" }]
+      "instruments": [
+        {
+          "slug": "gesang"
+        }
+      ],
+      "cities": [
+        {
+          "slug": "duesseldorf"
+        },
+        {
+          "slug": "neuss"
+        }
+      ]
     },
     {
       "id": "adrian",
@@ -24,8 +49,16 @@
       "role": "Gitarre",
       "image": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
       "alt": "Gitarrenlehrer Adrian in Düsseldorf",
-      "instruments": [{ "slug": "gitarre" }],
-      "cities": [{ "slug": "duesseldorf" }]
+      "instruments": [
+        {
+          "slug": "gitarre"
+        }
+      ],
+      "cities": [
+        {
+          "slug": "duesseldorf"
+        }
+      ]
     },
     {
       "id": "ruben",
@@ -33,8 +66,22 @@
       "role": "Gitarre, Bass",
       "image": "/uploads/img_0811-1920w.webp",
       "alt": "Gitarren und Basslehrer Ruben in Neuss und Düsseldorf",
-      "instruments": [{ "slug": "gitarre" }, { "slug": "bass" }],
-      "cities": [{ "slug": "duesseldorf" }, { "slug": "neuss" }]
+      "instruments": [
+        {
+          "slug": "gitarre"
+        },
+        {
+          "slug": "bass"
+        }
+      ],
+      "cities": [
+        {
+          "slug": "duesseldorf"
+        },
+        {
+          "slug": "neuss"
+        }
+      ]
     },
     {
       "id": "yannik",
@@ -42,8 +89,16 @@
       "role": "Schlagzeug",
       "image": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
       "alt": "Schlagzeuglehrer Yannik in Düsseldorf",
-      "instruments": [{ "slug": "schlagzeug" }],
-      "cities": [{ "slug": "duesseldorf" }]
+      "instruments": [
+        {
+          "slug": "schlagzeug"
+        }
+      ],
+      "cities": [
+        {
+          "slug": "duesseldorf"
+        }
+      ]
     },
     {
       "id": "jack",
@@ -51,8 +106,19 @@
       "role": "Gitarre, Bass, Songwriting",
       "image": "https://images.unsplash.com/photo-1519345182560-3f2917c472ef",
       "alt": "Gitarren und Basslehrer Jack in Düsseldorf",
-      "instruments": [{ "slug": "gitarre" }, { "slug": "bass" }],
-      "cities": [{ "slug": "duesseldorf" }]
+      "instruments": [
+        {
+          "slug": "gitarre"
+        },
+        {
+          "slug": "bass"
+        }
+      ],
+      "cities": [
+        {
+          "slug": "duesseldorf"
+        }
+      ]
     },
     {
       "id": "ivana",
@@ -60,8 +126,19 @@
       "role": "Schulleitung, Klavier",
       "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
       "alt": "Schulleiterin und Klavierlehrerin Ivana in Neuss und Düsseldorf",
-      "instruments": [{ "slug": "klavier" }],
-      "cities": [{ "slug": "duesseldorf" }, { "slug": "neuss" }]
+      "instruments": [
+        {
+          "slug": "klavier"
+        }
+      ],
+      "cities": [
+        {
+          "slug": "duesseldorf"
+        },
+        {
+          "slug": "neuss"
+        }
+      ]
     },
     {
       "id": "thor",
@@ -69,8 +146,22 @@
       "role": "Gitarre, Bass und Klavier",
       "image": "https://images.unsplash.com/photo-1463453091185-61582044d556",
       "alt": "Gitarren- und Basslehrer Thor in Düsseldorf",
-      "instruments": [{ "slug": "gitarre" }, { "slug": "bass" }, { "slug": "klavier" }],
-      "cities": [{ "slug": "duesseldorf" }]
+      "instruments": [
+        {
+          "slug": "gitarre"
+        },
+        {
+          "slug": "bass"
+        },
+        {
+          "slug": "klavier"
+        }
+      ],
+      "cities": [
+        {
+          "slug": "duesseldorf"
+        }
+      ]
     },
     {
       "id": "maria",
@@ -78,8 +169,14 @@
       "role": "Violine",
       "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f",
       "alt": "Violinlehrerin Maria in Neuss",
-      "instruments": [{ "slug": "violine" }],
-      "cities": [{ "slug": "neuss" }]
+      "instruments": [
+        "gesang"
+      ],
+      "cities": [
+        {
+          "slug": "neuss"
+        }
+      ]
     }
   ]
 }
