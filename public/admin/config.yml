@@ -502,16 +502,24 @@ collections:
               - { label: Rolle, name: role, widget: string }
               - { label: Bild, name: image, widget: image }
               - { label: Alt-Text, name: alt, widget: string }
-              - label: Instrumente (Slugs)
+              - label: Instrumente
                 name: instruments
-                widget: list
-                field: { label: Slug, name: slug, widget: string }
-                hint: "z.B. gesang, klavier, gitarre, bass, schlagzeug, violine"
-              - label: Standorte (Slugs)
+                widget: select
+                multiple: true
+                options:
+                  - { label: "Gesang", value: "gesang" }
+                  - { label: "Klavier", value: "klavier" }
+                  - { label: "Gitarre", value: "gitarre" }
+                  - { label: "Bass", value: "bass" }
+                  - { label: "Schlagzeug", value: "schlagzeug" }
+                  - { label: "Violine", value: "violine" }
+              - label: Standorte
                 name: cities
-                widget: list
-                field: { label: Slug, name: slug, widget: string }
-                hint: "duesseldorf, neuss"
+                widget: select
+                multiple: true
+                options:
+                  - { label: "Düsseldorf", value: "duesseldorf" }
+                  - { label: "Neuss", value: "neuss" }
 
   # ─── Städte (wiederverwendbar) ────────────────────────────────────────────
   - name: cities
@@ -530,7 +538,12 @@ collections:
             fields:
               - { label: ID, name: id, widget: string }
               - { label: Name, name: name, widget: string }
-              - { label: Slug, name: slug, widget: string }
+              - label: Slug (URL-Kennung)
+                name: slug
+                widget: select
+                options:
+                  - { label: "Düsseldorf", value: "duesseldorf" }
+                  - { label: "Neuss", value: "neuss" }
               - { label: Adresse, name: address, widget: string }
               - { label: Untertitel, name: subtitle, widget: string }
               - label: Hero

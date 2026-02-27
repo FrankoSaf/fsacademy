@@ -86,3 +86,10 @@
   --focus-visible-ring: 0 0 0 2px #fff, 0 0 0 4px #0a0a0a;
   --focus-visible-offset: 0;
 }
+
+/* Reduce section spacing on desktop (128+128=256px is too large) */
+@media (min-width: 1024px) {
+  :root {
+    --space-6xl: 5rem; /* 80px → 160px gap between sections */
+  }
+}
