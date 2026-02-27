@@ -1,7 +1,6 @@
 /**
  * Build Netlify Image CDN URLs for on-demand resize/optimization.
- * Local /uploads/ and remote (allowlisted) images are transformed at the edge.
- * In local dev without Netlify, returns original src for static images.
+ * Presets match component layout dimensions (width, height, aspect ratio).
  */
 const NETLIFY_IMAGES = '/.netlify/images';
 
@@ -23,30 +22,64 @@ export function getNetlifyImageUrl(
 
 export type ImagePreset = 'teacher' | 'hero' | 'instrument' | 'location' | 'about';
 
-const PRESETS: Record<ImagePreset, { widths: number[]; sizes: string; q?: number }> = {
+/** { w, h } pairs for srcset; sizes for slot; q for quality */
+export interface ImagePresetConfig {
+  dimensions: { w: number; h: number }[];
+  sizes: string;
+  q?: number;
+}
+
+const PRESETS: Record<ImagePreset, ImagePresetConfig> = {
+  /** Team: .member-image aspect-ratio 1:1, grid minmax(280px,1fr), container 1200px → max ~600x600 */
   teacher: {
-    widths: [280, 400, 560],
-    sizes: '(min-width: 1200px) 300px, (min-width: 768px) 30vw, 90vw',
+    dimensions: [
+      { w: 280, h: 280 },
+      { w: 400, h: 400 },
+      { w: 560, h: 560 },
+    ],
+    sizes: '(min-width: 1200px) 300px, (min-width: 900px) 400px, (min-width: 768px) 280px, 90vw',
     q: 75,
   },
+  /** Hero: full viewport, 16:9 typical */
   hero: {
-    widths: [640, 960, 1280, 1440],
-    sizes: '(min-width: 1440px) 1440px, 100vw',
+    dimensions: [
+      { w: 640, h: 360 },
+      { w: 960, h: 540 },
+      { w: 1280, h: 720 },
+      { w: 1440, h: 810 },
+      { w: 1920, h: 1080 },
+    ],
+    sizes: '(min-width: 1920px) 1920px, (min-width: 1440px) 1440px, 100vw',
     q: 80,
   },
+  /** Unterricht instruments: .instrument-image 600x400 (3:2) desktop, ~375x300 mobile */
   instrument: {
-    widths: [400, 600, 800],
-    sizes: '(min-width: 768px) 45vw, 100vw',
+    dimensions: [
+      { w: 360, h: 240 },
+      { w: 540, h: 360 },
+      { w: 600, h: 400 },
+    ],
+    sizes: '(min-width: 768px) 600px, 100vw',
     q: 80,
   },
+  /** Locations: .location-card aspect-ratio 16:10 desktop, 3:2 mobile; 2-col → max ~580x362 */
   location: {
-    widths: [600, 800, 1000],
-    sizes: '(min-width: 768px) 45vw, 100vw',
+    dimensions: [
+      { w: 400, h: 250 },
+      { w: 580, h: 362 },
+      { w: 720, h: 450 },
+    ],
+    sizes: '(min-width: 768px) 580px, 100vw',
     q: 80,
   },
+  /** About: .about-image 1fr in 2-col, ~560x420 (4:3), min-height 400px */
   about: {
-    widths: [500, 700, 900],
-    sizes: '(min-width: 768px) 45vw, 100vw',
+    dimensions: [
+      { w: 400, h: 300 },
+      { w: 560, h: 420 },
+      { w: 640, h: 480 },
+    ],
+    sizes: '(min-width: 768px) 560px, 100vw',
     q: 80,
   },
 };

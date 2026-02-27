@@ -9,34 +9,36 @@ interface Props {
   fetchpriority?: 'high' | 'low' | 'auto';
   class?: string;
   position?: string;
-  widths?: number[];
+  dimensions?: { w: number; h: number }[];
   sizes?: string;
 }
 
 const { src, alt, preset = 'hero', loading = 'lazy', fetchpriority, class: className, position = 'center' } = Astro.props;
 const p = getPreset(preset);
-const widths = Astro.props.widths ?? p.widths;
+const dimensions = Astro.props.dimensions ?? p.dimensions;
 const sizes = Astro.props.sizes ?? p.sizes;
 const q = p.q ?? 80;
 
-function buildUrl(w: number, fm?: string) {
-  return getNetlifyImageUrl(src, { w, q, fit: 'cover', position, fm });
+function buildUrl(w: number, h: number, fm?: string) {
+  return getNetlifyImageUrl(src, { w, h, q, fit: 'cover', position, fm });
 }
+
+const [lastW, lastH] = [dimensions[dimensions.length - 1].w, dimensions[dimensions.length - 1].h];
 ---
 
 <picture class="responsive-image">
   <source
     type="image/webp"
-    srcset={widths.map((w) => `${buildUrl(w, 'webp')} ${w}w`).join(', ')}
+    srcset={dimensions.map((d) => `${buildUrl(d.w, d.h, 'webp')} ${d.w}w`).join(', ')}
     sizes={sizes}
   />
   <img
-    src={buildUrl(widths[0])}
-    srcset={widths.map((w) => `${buildUrl(w)} ${w}w`).join(', ')}
+    src={buildUrl(dimensions[0].w, dimensions[0].h)}
+    srcset={dimensions.map((d) => `${buildUrl(d.w, d.h)} ${d.w}w`).join(', ')}
     sizes={sizes}
     alt={alt}
-    width={widths[widths.length - 1]}
-    height={Math.round((widths[widths.length - 1] * 9) / 16)}
+    width={lastW}
+    height={lastH}
     loading={loading}
     fetchpriority={fetchpriority}
     class:list={[className]}
