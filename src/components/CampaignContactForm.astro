@@ -98,14 +98,6 @@ const locations = [
         </button>
       </div>
     </form>
-    <div class="form-success" hidden>
-      <div class="success-icon" aria-hidden="true">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="var(--color-gold)" stroke-width="2.5"/><path d="M14 25l7 7 13-14" stroke="var(--color-gold)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h2>Vielen Dank!</h2>
-      <p>Ihre Nachricht wurde erfolgreich gesendet. Wir setzen uns so schnell wie möglich mit Ihnen in Verbindung.</p>
-      <button type="button" class="reset-btn">Weitere Nachricht senden</button>
-    </div>
   </div>
 </section>
 
@@ -225,37 +217,6 @@ const locations = [
   .submit-btn.is-loading .btn-text { display: none; }
   .submit-btn.is-loading .btn-loading { display: inline-flex; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .spinner { animation: spin 0.8s linear infinite; }
-  .form-success { text-align: center; padding: var(--space-3xl) 0; }
-  .form-success[hidden] { display: none; }
-  .success-icon { margin-bottom: var(--space-xl); }
-  .form-success h2 {
-    font-family: var(--font-serif);
-    font-size: var(--text-2xl);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-md);
-    font-weight: 600;
-  }
-  .form-success p { color: var(--color-text-secondary); margin-bottom: var(--space-2xl); }
-  .reset-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--space-sm) var(--space-2xl);
-    min-height: 48px;
-    border-radius: var(--radius-sm);
-    background: none;
-    color: var(--color-gold-on-light);
-    border: var(--border-width-thin) solid var(--color-gold-on-light);
-    font-family: var(--font-sans);
-    font-weight: 600;
-    font-size: var(--text-sm);
-    letter-spacing: var(--tracking-tight);
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background var(--transition-base), color var(--transition-base);
-  }
-  .reset-btn:hover { background: var(--color-gold); color: var(--color-black); }
   @media (max-width: 600px) {
     .form-row-half { grid-template-columns: 1fr; }
   }
@@ -265,8 +226,6 @@ const locations = [
   const form = document.querySelector('.campaign-contact .contact-form') as HTMLFormElement;
   const btn = form?.querySelector('.submit-btn') as HTMLButtonElement;
   const status = form?.querySelector('.form-status') as HTMLElement;
-  const successEl = document.querySelector('.campaign-contact .form-success') as HTMLElement;
-  const resetBtn = successEl?.querySelector('.reset-btn') as HTMLButtonElement;
 
   function setLoading(loading: boolean) {
     if (btn) { btn.disabled = loading; btn.classList.toggle('is-loading', loading); }
@@ -289,9 +248,14 @@ const locations = [
         body: new URLSearchParams(new FormData(form) as any).toString(),
       });
       if (!res.ok) throw new Error(`${res.status}`);
-      form.hidden = true;
-      successEl.hidden = false;
-      successEl.focus();
+      sessionStorage.setItem('fsa_form_success', '1');
+      const params = new URLSearchParams(window.location.search);
+      const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+      const qs = utmParams
+        .filter((k) => params.has(k))
+        .map((k) => `${k}=${encodeURIComponent(params.get(k) || '')}`)
+        .join('&');
+      window.location.href = '/kontakt/danke' + (qs ? '?' + qs : '');
     } catch {
       showError('Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
     } finally {
@@ -299,10 +263,4 @@ const locations = [
     }
   });
 
-  resetBtn?.addEventListener('click', () => {
-    successEl.hidden = true;
-    form.hidden = false;
-    form?.reset();
-    clearError();
-  });
 </script>

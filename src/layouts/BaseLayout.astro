@@ -7,6 +7,12 @@ import '../styles/variables.css';
 import '../styles/global.css';
 
 import globals from '../../content/globals.json';
+
+const g = globals as Record<string, unknown>;
+const googleAdsId = (g.googleAdsId as string) || '';
+const googleAdsConversionId = (g.googleAdsConversionId as string) || '';
+const conversionValue = (g.conversionValue as string) || '';
+const conversionSendTo = googleAdsId && googleAdsConversionId ? `AW-${googleAdsId}/${googleAdsConversionId}` : '';
 import landing from '../../content/landing.json';
 
 interface Props {
@@ -119,6 +125,7 @@ const breadcrumbNames: Record<string, string> = {
   neuss: 'Neuss',
   datenschutz: 'Datenschutz',
   impressum: 'Impressum',
+  danke: 'Vielen Dank',
 };
 const ldBreadcrumb = pathSegments.length > 0 ? {
   '@context': 'https://schema.org',
@@ -193,6 +200,32 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
     <script type="application/ld+json" set:html={JSON.stringify(ldWebSite)} />
     <script type="application/ld+json" set:html={JSON.stringify(ldWebPage)} />
     {ldBreadcrumb && <script type="application/ld+json" set:html={JSON.stringify(ldBreadcrumb)} />}
+
+    {/* Google Consent Mode v2 + gtag – loads only when conversion tracking is configured */}
+    {conversionSendTo && (
+      <>
+        <script is:inline define:vars={{ conversionSendTo, conversionValue }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ dataLayer.push(arguments); }
+          gtag('consent', 'default', {
+            'analytics_storage': 'denied',
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'wait_for_update': 500,
+          });
+          gtag('js', new Date());
+          window.__FSA_GOOGLE_ADS_CONVERSION__ = conversionSendTo;
+          window.__FSA_CONVERSION_VALUE__ = conversionValue ? parseFloat(conversionValue) : undefined;
+        </script>
+        <script is:inline src={`https://www.googletagmanager.com/gtag/js?id=AW-${googleAdsId}`} async></script>
+        <script is:inline define:vars={{ googleAdsId, conversionSendTo }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ dataLayer.push(arguments); }
+          gtag('config', 'AW-' + googleAdsId, { 'send_page_view': true });
+        </script>
+      </>
+    )}
   </head>
   <body>
     <a href="#main-content" class="skip-link">Zum Inhalt springen</a>

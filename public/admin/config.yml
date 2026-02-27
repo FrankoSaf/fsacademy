@@ -33,6 +33,9 @@ collections:
           - { label: "OG-Bild Alt-Text", name: ogImageAlt, widget: string, required: false, default: "Fine Sound Academy – Musikschule Düsseldorf & Neuss" }
           - { label: "Twitter @handle", name: twitterHandle, widget: string, required: false }
           - { label: "WhatsApp-URL (floating Button)", name: whatsappUrl, widget: string, required: false, hint: "z.B. https://wa.me/4917677154511" }
+          - { label: "Google Ads ID (nur Zahl)", name: googleAdsId, widget: string, required: false, hint: "z.B. 123456789 aus AW-123456789" }
+          - { label: "Google Ads Conversion ID (Label)", name: googleAdsConversionId, widget: string, required: false, hint: "Conversion-Aktion-Label aus Google Ads" }
+          - { label: "Conversion-Wert (optional, EUR)", name: conversionValue, widget: string, required: false, hint: "z.B. 50 für Lead-Wert" }
 
   # ─── Startseite ──────────────────────────────────────────────────────────
   - name: landing

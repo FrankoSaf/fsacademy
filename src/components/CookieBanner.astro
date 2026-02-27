@@ -166,19 +166,33 @@
     showBanner();
   }
 
+  function updateConsent(granted: boolean) {
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('consent', 'update', {
+        analytics_storage: granted ? 'granted' : 'denied',
+        ad_storage: granted ? 'granted' : 'denied',
+        ad_user_data: granted ? 'granted' : 'denied',
+        ad_personalization: granted ? 'granted' : 'denied',
+      });
+    }
+  }
+
   acceptButton?.addEventListener('click', () => {
     setCookie(COOKIE_NAME, 'accepted', COOKIE_EXPIRY_DAYS);
+    updateConsent(true);
     hideBanner();
   });
 
   declineButton?.addEventListener('click', () => {
     setCookie(COOKIE_NAME, 'declined', COOKIE_EXPIRY_DAYS);
+    updateConsent(false);
     hideBanner();
   });
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && banner?.classList.contains('show')) {
       setCookie(COOKIE_NAME, 'declined', COOKIE_EXPIRY_DAYS);
+      updateConsent(false);
       hideBanner();
     }
   });

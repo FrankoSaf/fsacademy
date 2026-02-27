@@ -10,7 +10,8 @@ export default defineConfig({
     sitemap({
       filter: (page) =>
         !page.includes('/datenschutz') &&
-        !page.includes('/impressum'),
+        !page.includes('/impressum') &&
+        !page.includes('/kontakt/danke'),
     }),
   ],
 });
