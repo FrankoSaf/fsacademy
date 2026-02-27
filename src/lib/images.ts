@@ -30,14 +30,15 @@ export interface ImagePresetConfig {
 }
 
 const PRESETS: Record<ImagePreset, ImagePresetConfig> = {
-  /** Team: .member-image aspect-ratio 1:1, grid minmax(280px,1fr), container 1200px → max ~600x600 */
+  /** Team / campaign teachers: 1:1, max 800px; single-teacher layouts must not stretch small source images */
   teacher: {
     dimensions: [
       { w: 280, h: 280 },
       { w: 400, h: 400 },
       { w: 560, h: 560 },
+      { w: 800, h: 800 },
     ],
-    sizes: '(min-width: 1200px) 300px, (min-width: 900px) 400px, (min-width: 768px) 280px, 90vw',
+    sizes: '(min-width: 1200px) min(800px, 33vw), (min-width: 900px) min(800px, 50vw), (min-width: 768px) min(800px, 90vw), min(800px, 90vw)',
     q: 75,
   },
   /** Hero: full viewport, 16:9 typical */

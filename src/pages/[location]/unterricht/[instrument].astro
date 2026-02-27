@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import CTA from '../../../components/CTA.astro';
 import Pricing from '../../../components/Pricing.astro';
 import CampaignContactForm from '../../../components/CampaignContactForm.astro';
+import ResponsiveImage from '../../../components/ResponsiveImage.astro';
 import {
   getTeachers,
   getCities,
@@ -54,7 +55,8 @@ const displayName = instrumentDetail?.title ?? `${instrumentName}unterricht`;
 const metaTitle = `${displayName} ${cityName} | Fine Sound Academy`;
 const metaDescription = `${displayName} in ${cityName} – Fine Sound Academy. Professioneller Unterricht für Kinder, Jugendliche und Erwachsene. Kostenlose Probestunde.`;
 
-const cityIntroParagraph = cityInfo?.intro?.paragraphs?.[0];
+const paragraphs = cityInfo?.intro?.paragraphs;
+const cityIntroParagraph = Array.isArray(paragraphs) ? paragraphs[0] : undefined;
 const cityIntroText = typeof cityIntroParagraph === 'string' ? cityIntroParagraph : (cityIntroParagraph as { paragraph?: string })?.paragraph ?? '';
 
 const extraSections = (instrumentDetail?.sections ?? []).slice(1, 3);
@@ -142,7 +144,7 @@ const ldFAQ = faqItems.length > 0 ? {
           {teachersForPage.map((t) => (
             <div class="teacher-card">
               <figure class="teacher-image">
-                <img src={t.image} alt={t.alt} loading="lazy" />
+                <ResponsiveImage src={t.image} alt={t.alt} preset="teacher" loading="lazy" />
               </figure>
               <div class="teacher-info">
                 <h3>{t.name}</h3>
@@ -224,8 +226,8 @@ const ldFAQ = faqItems.length > 0 ? {
   .teachers-container { max-width: var(--container-max-width); margin: 0 auto; }
   .campaign-teachers h2 { font-family: var(--font-serif); font-size: clamp(var(--text-xl), 3vw, var(--text-2xl)); color: var(--color-text-primary); text-align: center; margin-bottom: var(--space-md); font-weight: 600; }
   .teachers-intro { text-align: center; color: var(--color-text-secondary); max-width: 700px; margin: 0 auto var(--space-4xl); line-height: 1.8; }
-  .teachers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-2xl); }
-  .teacher-card { text-align: center; }
+  .teachers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-2xl); justify-items: center; }
+  .teacher-card { text-align: center; max-width: 800px; }
   .teacher-image { aspect-ratio: 1; overflow: hidden; margin: 0 0 var(--space-md) 0; border: var(--border-width-thin) solid var(--color-gold-alpha-20); background: var(--color-surface); }
   .teacher-image img { width: 100%; height: 100%; object-fit: cover; }
   .teacher-info h3 { font-family: var(--font-serif); font-size: var(--text-lg); color: var(--color-text-primary); margin-bottom: var(--space-xs); font-weight: 600; }
