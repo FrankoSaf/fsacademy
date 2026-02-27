@@ -24,7 +24,7 @@ function buildUrl(w: number, fm?: string) {
 }
 ---
 
-<picture>
+<picture class="responsive-image">
   <source
     type="image/webp"
     srcset={widths.map((w) => `${buildUrl(w, 'webp')} ${w}w`).join(', ')}
@@ -43,3 +43,17 @@ function buildUrl(w: number, fm?: string) {
     decoding="async"
   />
 </picture>
+
+<style>
+  .responsive-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .responsive-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

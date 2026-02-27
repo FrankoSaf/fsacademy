@@ -28,6 +28,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 /* Prevent H1 overflow on small screens: long words wrap instead of causing horizontal scroll */
@@ -35,6 +37,8 @@ h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
   word-break: break-word;
   max-width: 100%;
+  hyphens: auto;
+  -webkit-hyphens: auto;
 }
 
 /* Hero-style containers: prevent width overflow on small screens */
