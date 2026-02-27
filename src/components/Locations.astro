@@ -36,7 +36,7 @@ function toLocation(
 }
 
 const locations = {
-  dusseldorf: toLocation(duesseldorfData, 'duesseldorf'),
+  duesseldorf: toLocation(duesseldorfData, 'duesseldorf'),
   neuss: toLocation(neussData, 'neuss'),
 };
 ---
@@ -47,17 +47,17 @@ const locations = {
   <div class="locations-grid">
     <article class="location-card">
       <ResponsiveImage
-        src={locations.dusseldorf.image}
-        alt={`Musikschule ${locations.dusseldorf.name}`}
+        src={locations.duesseldorf.image}
+        alt={`Musikschule ${locations.duesseldorf.name}`}
         preset="location"
         class="location-image"
         loading="lazy"
       />
       <div class="location-overlay"></div>
       <div class="location-content">
-        <h3>{locations.dusseldorf.name}</h3>
-        <a href={locations.dusseldorf.link} class="location-button">
-          {locations.dusseldorf.buttonText}
+        <h3>{locations.duesseldorf.name}</h3>
+        <a href={locations.duesseldorf.link} class="location-button">
+          {locations.duesseldorf.buttonText}
         </a>
       </div>
     </article>

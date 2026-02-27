@@ -1,6 +1,6 @@
 ---
 interface Props {
-  location: 'dusseldorf' | 'neuss';
+  location: 'duesseldorf' | 'neuss';
 }
 
 const { location } = Astro.props;
@@ -8,7 +8,7 @@ const { location } = Astro.props;
 const GOOGLE_MAPS_API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
 const locations = {
-  dusseldorf: {
+  duesseldorf: {
     title: 'Fine Sound Academy Düsseldorf',
     subtitle: 'Musikschule Düsseldorf',
     address: 'Kaiserstr. 28',

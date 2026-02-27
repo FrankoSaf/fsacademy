@@ -22,11 +22,8 @@ const { location, showIntro = true } = Astro.props;
 const content = contentRaw as Content;
 const teachers = await getTeachers();
 
-// Normalize location for filter: "dusseldorf" -> "duesseldorf"
-const locationNorm = location === 'dusseldorf' ? 'duesseldorf' : location;
-
-const members = locationNorm
-  ? teachers.filter((t) => t.cities.includes(locationNorm))
+const members = location
+  ? teachers.filter((t) => t.cities.includes(location))
   : teachers;
 ---
 

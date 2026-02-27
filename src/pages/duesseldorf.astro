@@ -81,10 +81,10 @@ const ldFAQ = {
   <script type="application/ld+json" set:html={JSON.stringify(ldLocal)} slot="head" />
   <script type="application/ld+json" set:html={JSON.stringify(ldFAQ)} slot="head" />
 
-  <section class="location-hero" aria-labelledby="dusseldorf-heading">
+  <section class="location-hero" aria-labelledby="duesseldorf-heading">
     <div class="hero-container">
       <div class="accent-line"></div>
-      <h1 id="dusseldorf-heading">{data.hero?.title ?? 'Musikschule in Düsseldorf'}</h1>
+      <h1 id="duesseldorf-heading">{data.hero?.title ?? 'Musikschule in Düsseldorf'}</h1>
       <p class="hero-subtitle">{data.hero?.subtitle ?? 'Fine Sound Academy — Kaiserstraße 28, Pempelfort'}</p>
       <p class="hero-text">{data.hero?.text ?? 'Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — mitten in Düsseldorf.'}</p>
     </div>
@@ -130,9 +130,9 @@ const ldFAQ = {
     </div>
   </section>
 
-  <section class="instruments-overview" aria-labelledby="instruments-dusseldorf">
+  <section class="instruments-overview" aria-labelledby="instruments-duesseldorf">
     <div class="instruments-container">
-      <h2 id="instruments-dusseldorf">{data.instruments?.heading ?? 'Unser Unterrichtsangebot in Düsseldorf'}</h2>
+      <h2 id="instruments-duesseldorf">{data.instruments?.heading ?? 'Unser Unterrichtsangebot in Düsseldorf'}</h2>
       <p class="section-intro">{data.instruments?.intro ?? 'An unserem Standort in der Kaiserstraße bieten wir professionellen Unterricht für fünf Instrumente an.'}</p>
       <p><a href="/duesseldorf/unterricht" class="instruments-cta">Alle Instrumente in Düsseldorf →</a></p>
       <div class="instruments-grid">
@@ -157,11 +157,11 @@ const ldFAQ = {
 
   <About school="duesseldorf" />
   <CTA />
-  <Team location="dusseldorf" showIntro={false} />
+  <Team location="duesseldorf" showIntro={false} />
 
-  <section class="faq-section" aria-labelledby="faq-dusseldorf">
+  <section class="faq-section" aria-labelledby="faq-duesseldorf">
     <div class="faq-container">
-      <h2 id="faq-dusseldorf">{data.faq?.heading ?? 'Häufige Fragen zur Musikschule Düsseldorf'}</h2>
+      <h2 id="faq-duesseldorf">{data.faq?.heading ?? 'Häufige Fragen zur Musikschule Düsseldorf'}</h2>
       <div class="faq-list">
         {faqItems.length > 0 ? faqItems.map((item) => (
           <details class="faq-item">
@@ -176,7 +176,7 @@ const ldFAQ = {
   </section>
 
   <Pricing showHeader={false} />
-  <Contact location="dusseldorf" />
+  <Contact location="duesseldorf" />
 </BaseLayout>
 
 <style>
