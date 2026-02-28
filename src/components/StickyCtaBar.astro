@@ -5,49 +5,46 @@ if (hideOnContact) {
   return null;
 }
 ---
-<div class="sticky-cta-bar" aria-label="Call-to-Action">
-  <a href="/kontakt" class="sticky-cta-link">
-    <span class="sticky-cta-text">Probestunde vereinbaren</span>
-    <span class="sticky-cta-arrow" aria-hidden="true">→</span>
-  </a>
-</div>
+<a
+  href="/kontakt"
+  class="sticky-cta-float"
+  aria-label="Probestunde vereinbaren"
+>
+  <span class="sticky-cta-text">Probestunde</span>
+  <span class="sticky-cta-arrow" aria-hidden="true">→</span>
+</a>
 
 <style>
-  .sticky-cta-bar {
+  .sticky-cta-float {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: var(--space-lg);
+    left: var(--space-lg);
     z-index: 9997;
-    background: var(--color-bg-default);
-    border-top: 1px solid var(--color-gold-alpha-20);
-    padding: var(--space-md) var(--space-lg);
-    padding-right: calc(var(--space-lg) + 72px);
-    box-shadow: var(--shadow-md);
-  }
-  .sticky-cta-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: var(--space-sm);
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: var(--space-md) var(--space-xl);
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-lg);
     background: var(--color-gold);
     color: var(--color-black);
     font-family: var(--font-sans);
     font-weight: 600;
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     text-decoration: none;
-    border-radius: var(--radius-sm);
-    transition: background var(--transition-base), transform var(--transition-base);
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(205, 178, 135, 0.4);
+    transition: background var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
   }
-  .sticky-cta-link:hover {
+  .sticky-cta-float:hover {
     background: var(--color-gold-light);
-    transform: translateY(-1px);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(205, 178, 135, 0.5);
   }
   .sticky-cta-arrow {
-    font-size: 1.2em;
+    font-size: 1.1em;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sticky-cta-float:hover {
+      transform: none;
+    }
   }
 </style>
