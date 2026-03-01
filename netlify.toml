@@ -5,22 +5,22 @@
 [images]
   remote_images = ["https://images\\.unsplash\\.com/.*", "https://irp\\.cdn-website\\.com/.*", "https://s3\\.ca-central-1\\.amazonaws\\.com/.*"]
 
-# 301 redirects: consolidate www and non-www to www.finesoundacademy.com
+# 301 redirects: consolidate www to apex (finesoundacademy.com)
 [[redirects]]
-  from = "https://finesoundacademy.com/*"
-  to = "https://www.finesoundacademy.com/:splat"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "http://finesoundacademy.com/*"
-  to = "https://www.finesoundacademy.com/:splat"
+  from = "https://www.finesoundacademy.com/*"
+  to = "https://finesoundacademy.com/:splat"
   status = 301
   force = true
 
 [[redirects]]
   from = "http://www.finesoundacademy.com/*"
-  to = "https://www.finesoundacademy.com/:splat"
+  to = "https://finesoundacademy.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://finesoundacademy.com/*"
+  to = "https://finesoundacademy.com/:splat"
   status = 301
   force = true
 
