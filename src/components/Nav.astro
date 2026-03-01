@@ -517,8 +517,11 @@ const socialIcons: Record<string, string> = {
 </style>
 
 <script define:vars={{ menuOpenLabel: ui.menuOpen ?? 'Menü öffnen', menuCloseLabel: ui.menuClose ?? 'Menü schließen' }}>
+  function initNav() {
   const toggle = document.querySelector('.mobile-toggle') as HTMLButtonElement | null;
   const mobileMenu = document.querySelector('.mobile-menu');
+  const nav = document.getElementById('mainNav');
+  if (!toggle || !mobileMenu || !nav) return;
 
   function setMenuOpen(open: boolean) {
     if (!toggle || !mobileMenu) return;
@@ -567,18 +570,26 @@ const socialIcons: Record<string, string> = {
   mobileLinks.forEach((link) => {
     link.addEventListener('click', () => setMenuOpen(false));
   });
-
-  const nav = document.getElementById('mainNav');
-  const scrollThreshold = 60;
-
-  function updateNavScroll() {
-    if (window.scrollY > scrollThreshold) {
-      nav?.classList.add('nav-scrolled');
-    } else {
-      nav?.classList.remove('nav-scrolled');
-    }
   }
 
-  updateNavScroll();
-  window.addEventListener('scroll', updateNavScroll, { passive: true });
+  function updateNavScroll() {
+    const n = document.getElementById('mainNav');
+    if (n) n.classList.toggle('nav-scrolled', window.scrollY > 60);
+  }
+
+  function boot() {
+    initNav();
+    updateNavScroll();
+    window.addEventListener('scroll', updateNavScroll, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) updateNavScroll();
+  });
 </script>

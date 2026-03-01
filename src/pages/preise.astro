@@ -31,7 +31,7 @@ const faqSchema = {
   <section class="info-section" aria-labelledby="info-heading">
     <div class="info-container">
       <h2 id="info-heading" class="info-heading">Zusätzliche Informationen</h2>
-      <div class="info-grid">
+      <div class="info-grid" style={`--info-cols: ${content.additionalInfo?.length ?? 3}`}>
         {
           content.additionalInfo.map((info: any) => (
             <article class="info-card">
@@ -241,8 +241,9 @@ const faqSchema = {
 
   .info-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(var(--info-cols, 3), minmax(240px, 1fr));
     gap: var(--space-3xl);
+    justify-content: center;
   }
 
   .info-card {
