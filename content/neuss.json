@@ -105,5 +105,19 @@
       "Samstag: 09:00 – 12:00 Uhr",
       "Sonntag: Geschlossen"
     ]
-  }
+  },
+  "infoCards": [
+    {
+      "title": "Zahlungsart",
+      "description": "Um den Zahlungsvorgang zu erleichtern, ziehen wir die monatlichen Gebühren per Einzugsermächtigung ein. Alternativ besteht die Möglichkeit der Überweisung. Barzahlung oder Überweisung der Gesamtsumme ist bei Vorauskasse für die gesamte Laufzeit möglich."
+    },
+    {
+      "title": "Parkmöglichkeiten",
+      "description": "Am Neumarkt gibt es die Tiefgarage Neumarkt und umliegende Parkplätze. Direkt vor der Tür hält der Bus."
+    },
+    {
+      "title": "Rabatte",
+      "description": "Erhalte 10% Rabatt für jeden weiteren Unterrichtsvertrag aus demselben Haushalt. Familienrabatt für alle aus deinem Haushalt."
+    }
+  ]
 }

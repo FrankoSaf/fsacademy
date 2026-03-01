@@ -12,19 +12,33 @@ const HeadingTag = headingLevel;
 // Use content/pricing.json (Preise-Seite in CMS) so CMS edits affect all pages
 const pricingData = {
   title: (pricingRaw as any).hero?.title ?? 'Unsere Preise',
-  subtitle: (pricingRaw as any).hero?.subtitle ?? 'Transparente Preise für qualitativ hochwertigen Musikunterricht',
+  subtitle:
+    (pricingRaw as any).hero?.subtitle ??
+    'Transparente Preise für qualitativ hochwertigen Musikunterricht',
   plans: (pricingRaw as any).plans ?? [],
 };
 ---
 
-<section id="pricing" class="pricing" aria-labelledby={showHeader ? "pricing-heading" : "pricing-section-heading"}>
+<section
+  id="pricing"
+  class="pricing"
+  aria-labelledby={showHeader ? 'pricing-heading' : 'pricing-section-heading'}
+>
   <div class="pricing-container">
-    {!showHeader && <h2 id="pricing-section-heading" class="visually-hidden">Unsere Tarife</h2>}
+    {
+      !showHeader && (
+        <h2 id="pricing-section-heading" class="visually-hidden">
+          Unsere Tarife
+        </h2>
+      )
+    }
     {
       showHeader && (
         <header class="pricing-header">
           <div class="accent-line" />
-          <HeadingTag id="pricing-heading" class="pricing-heading">{pricingData.title}</HeadingTag>
+          <HeadingTag id="pricing-heading" class="pricing-heading">
+            {pricingData.title}
+          </HeadingTag>
           <p class="pricing-subtitle">{pricingData.subtitle}</p>
         </header>
       )
@@ -46,7 +60,11 @@ const pricingData = {
                 <li>{feature}</li>
               ))}
             </ul>
-            <a href={plan.buttonLink} class="pricing-button" aria-label={`${plan.buttonText} – ${plan.name}`}>
+            <a
+              href={plan.buttonLink}
+              class="pricing-button"
+              aria-label={`${plan.buttonText} – ${plan.name}`}
+            >
               {plan.buttonText}
             </a>
           </article>

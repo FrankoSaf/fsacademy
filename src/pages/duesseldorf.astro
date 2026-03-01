@@ -4,6 +4,7 @@ import About from '../components/About.astro';
 import CTA from '../components/CTA.astro';
 import Team from '../components/Team.astro';
 import Pricing from '../components/Pricing.astro';
+import LocationInfoCards from '../components/LocationInfoCards.astro';
 import Contact from '../components/Contact.astro';
 import { normalizeParagraphs, normalizeLines, getCities } from '../lib/cms';
 
@@ -14,15 +15,22 @@ const pageData = (await import('../../content/duesseldorf.json')).default as {
   intro?: { heading: string; paragraphs: unknown };
   directionsCard?: { title: string; lines: unknown };
   hoursCard?: { title: string; lines: unknown };
-  instruments: { heading: string; intro: string; items: Array<{ title: string; description: string }> };
+  infoCards?: Array<{ title: string; description: string }>;
+  instruments: {
+    heading: string;
+    intro: string;
+    items: Array<{ title: string; description: string }>;
+  };
   faq: { heading: string; items: Array<{ question: string; answer: string }> };
 };
 
 const data = {
   hero: city?.hero ?? pageData.hero ?? { title: '', subtitle: '', text: '' },
   intro: city?.intro ?? pageData.intro ?? { heading: '', paragraphs: [] },
-  directionsCard: city?.directionsCard ?? pageData.directionsCard ?? { title: '', lines: [] },
+  directionsCard: city?.directionsCard ??
+    pageData.directionsCard ?? { title: '', lines: [] },
   hoursCard: city?.hoursCard ?? pageData.hoursCard ?? { title: '', lines: [] },
+  infoCards: (city as any)?.infoCards ?? pageData.infoCards ?? [],
   instruments: pageData.instruments,
   faq: pageData.faq,
 };
@@ -31,18 +39,35 @@ const introParagraphs = normalizeParagraphs(data.intro?.paragraphs);
 const directionsLines = normalizeLines(data.directionsCard?.lines);
 const hoursLines = normalizeLines(data.hoursCard?.lines);
 const faqItems = Array.isArray(data.faq?.items) ? data.faq.items : [];
-const instrumentItemsRaw = Array.isArray(data.instruments?.items) ? data.instruments.items : [];
-const titleToSlug: Record<string, string> = { 'Klavierunterricht': 'klavier', 'Gitarrenunterricht': 'gitarre', 'Gesangsunterricht': 'gesang', 'Bassunterricht': 'bass', 'Schlagzeugunterricht': 'schlagzeug' };
-const instrumentItems = instrumentItemsRaw.map((item: { title: string; description: string }) => ({
-  ...item,
-  slug: (item as { slug?: string }).slug ?? titleToSlug[item.title] ?? item.title.toLowerCase().replace(/unterricht$/, '').replace(/\s/g, '-'),
-}));
+const instrumentItemsRaw = Array.isArray(data.instruments?.items)
+  ? data.instruments.items
+  : [];
+const titleToSlug: Record<string, string> = {
+  Klavierunterricht: 'klavier',
+  Gitarrenunterricht: 'gitarre',
+  Gesangsunterricht: 'gesang',
+  Bassunterricht: 'bass',
+  Schlagzeugunterricht: 'schlagzeug',
+};
+const instrumentItems = instrumentItemsRaw.map(
+  (item: { title: string; description: string }) => ({
+    ...item,
+    slug:
+      (item as { slug?: string }).slug ??
+      titleToSlug[item.title] ??
+      item.title
+        .toLowerCase()
+        .replace(/unterricht$/, '')
+        .replace(/\s/g, '-'),
+  }),
+);
 
 const ldLocal = {
   '@context': 'https://schema.org',
   '@type': 'MusicSchool',
   name: 'Fine Sound Academy Düsseldorf',
-  description: 'Musikschule in Düsseldorf-Pempelfort: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Einzel- und Gruppenunterricht für alle Altersgruppen.',
+  description:
+    'Musikschule in Düsseldorf-Pempelfort: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Einzel- und Gruppenunterricht für alle Altersgruppen.',
   url: 'https://www.finesoundacademy.com/duesseldorf',
   telephone: '+49 176 77154511',
   email: 'info@finesoundacademy.com',
@@ -56,8 +81,18 @@ const ldLocal = {
   },
   geo: { '@type': 'GeoCoordinates', latitude: 51.23387, longitude: 6.77908 },
   openingHoursSpecification: [
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '20:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '10:00',
+      closes: '20:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Saturday',
+      opens: '09:00',
+      closes: '12:00',
+    },
   ],
   priceRange: '€€',
   areaServed: { '@type': 'City', name: 'Düsseldorf' },
@@ -66,7 +101,7 @@ const ldLocal = {
 const ldFAQ = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: faqItems.map(item => ({
+  mainEntity: faqItems.map((item) => ({
     '@type': 'Question',
     name: item.question,
     acceptedAnswer: { '@type': 'Answer', text: item.answer },
@@ -78,15 +113,35 @@ const ldFAQ = {
   title="Musikschule Düsseldorf – Klavier, Gitarre, Gesang, Bass & Schlagzeug | Fine Sound Academy"
   description="Musikschule Düsseldorf: Fine Sound Academy am Kaiserstr. 28 (Pempelfort). Klavier, Gitarre, Gesang, Bass, Schlagzeug. Kostenlose Probestunde, Öffnungszeiten, Anfahrt."
 >
-  <script type="application/ld+json" set:html={JSON.stringify(ldLocal)} slot="head" />
-  <script type="application/ld+json" set:html={JSON.stringify(ldFAQ)} slot="head" />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(ldLocal)}
+    slot="head"
+  />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify(ldFAQ)}
+    slot="head"
+  />
 
   <section class="location-hero" aria-labelledby="duesseldorf-heading">
     <div class="hero-container">
       <div class="accent-line"></div>
-      <h1 id="duesseldorf-heading">{data.hero?.title ?? 'Musikschule in Düsseldorf'}</h1>
-      <p class="hero-subtitle">{data.hero?.subtitle ?? 'Fine Sound Academy — Kaiserstraße 28, Pempelfort'}</p>
-      <p class="hero-text">{data.hero?.text ?? 'Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — mitten in Düsseldorf.'}</p>
+      <h1 id="duesseldorf-heading">
+        {data.hero?.title ?? 'Musikschule in Düsseldorf'}
+      </h1>
+      <p class="hero-subtitle">
+        {
+          data.hero?.subtitle ??
+            'Fine Sound Academy — Kaiserstraße 28, Pempelfort'
+        }
+      </p>
+      <p class="hero-text">
+        {
+          data.hero?.text ??
+            'Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — mitten in Düsseldorf.'
+        }
+      </p>
     </div>
   </section>
 
@@ -94,63 +149,189 @@ const ldFAQ = {
     <div class="intro-container">
       <div class="intro-grid">
         <div class="intro-content">
-          <h2>{data.intro?.heading ?? 'Deine Musikschule im Herzen von Düsseldorf-Pempelfort'}</h2>
-          {introParagraphs.length > 0 ? introParagraphs.map((paragraph) => <p>{paragraph}</p>) : (
-            <>
-              <p>Die Fine Sound Academy Düsseldorf liegt in der <strong>Kaiserstraße 28</strong>, im beliebten Stadtteil <strong>Pempelfort</strong> — einem der lebendigsten Viertel Düsseldorfs.</p>
-              <p>Unsere modern ausgestatteten Unterrichtsräume bieten eine inspirierende Atmosphäre für konzentriertes Lernen.</p>
-              <p>Wir unterrichten <strong>Kinder ab 6 Jahren, Jugendliche und Erwachsene</strong> — vom absoluten Anfänger bis zum fortgeschrittenen Musiker.</p>
-            </>
-          )}
+          <h2>
+            {
+              data.intro?.heading ??
+                'Deine Musikschule im Herzen von Düsseldorf-Pempelfort'
+            }
+          </h2>
+          {
+            introParagraphs.length > 0 ? (
+              introParagraphs.map((paragraph) => <p>{paragraph}</p>)
+            ) : (
+              <>
+                <p>
+                  Die Fine Sound Academy Düsseldorf liegt in der{' '}
+                  <strong>Kaiserstraße 28</strong>, im beliebten Stadtteil{' '}
+                  <strong>Pempelfort</strong> — einem der lebendigsten Viertel
+                  Düsseldorfs.
+                </p>
+                <p>
+                  Unsere modern ausgestatteten Unterrichtsräume bieten eine
+                  inspirierende Atmosphäre für konzentriertes Lernen.
+                </p>
+                <p>
+                  Wir unterrichten{' '}
+                  <strong>
+                    Kinder ab 6 Jahren, Jugendliche und Erwachsene
+                  </strong>{' '}
+                  — vom absoluten Anfänger bis zum fortgeschrittenen Musiker.
+                </p>
+              </>
+            )
+          }
         </div>
         <div class="intro-details">
           <div class="detail-card">
             <h3>{data.directionsCard?.title ?? 'Anfahrt &amp; Lage'}</h3>
-            {directionsLines.length > 0 ? directionsLines.map((line) => <p>{line}</p>) : (
-              <>
-                <p><strong>Adresse:</strong> Kaiserstr. 28, 40479 Düsseldorf</p>
-                <p><strong>Stadtteil:</strong> Pempelfort</p>
-                <p><strong>U-Bahn:</strong> Haltestelle Nordstraße (U78, U79) — 3 Min. Fußweg</p>
-                <p><strong>Parken:</strong> Straßenparkplätze in der Kaiserstraße und Umgebung</p>
-              </>
-            )}
+            {
+              directionsLines.length > 0 ? (
+                directionsLines.map((line) => <p>{line}</p>)
+              ) : (
+                <>
+                  <p>
+                    <strong>Adresse:</strong> Kaiserstr. 28, 40479 Düsseldorf
+                  </p>
+                  <p>
+                    <strong>Stadtteil:</strong> Pempelfort
+                  </p>
+                  <p>
+                    <strong>U-Bahn:</strong> Haltestelle Nordstraße (U78, U79) —
+                    3 Min. Fußweg
+                  </p>
+                  <p>
+                    <strong>Parken:</strong> Straßenparkplätze in der
+                    Kaiserstraße und Umgebung
+                  </p>
+                </>
+              )
+            }
           </div>
           <div class="detail-card">
             <h3>{data.hoursCard?.title ?? 'Öffnungszeiten'}</h3>
-            {hoursLines.length > 0 ? hoursLines.map((line) => <p>{line}</p>) : (
-              <>
-                <p>Montag – Freitag: 10:00 – 20:00 Uhr</p>
-                <p>Samstag: 09:00 – 12:00 Uhr</p>
-                <p>Sonntag: Geschlossen</p>
-              </>
-            )}
+            {
+              hoursLines.length > 0 ? (
+                hoursLines.map((line) => <p>{line}</p>)
+              ) : (
+                <>
+                  <p>Montag – Freitag: 10:00 – 20:00 Uhr</p>
+                  <p>Samstag: 09:00 – 12:00 Uhr</p>
+                  <p>Sonntag: Geschlossen</p>
+                </>
+              )
+            }
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="instruments-overview" aria-labelledby="instruments-duesseldorf">
+  <section
+    class="instruments-overview"
+    aria-labelledby="instruments-duesseldorf"
+  >
     <div class="instruments-container">
-      <h2 id="instruments-duesseldorf">{data.instruments?.heading ?? 'Unser Unterrichtsangebot in Düsseldorf'}</h2>
-      <p class="section-intro">{data.instruments?.intro ?? 'An unserem Standort in der Kaiserstraße bieten wir professionellen Unterricht für fünf Instrumente an.'}</p>
-      <p><a href="/duesseldorf/unterricht" class="instruments-cta">Alle Instrumente in Düsseldorf →</a></p>
+      <h2 id="instruments-duesseldorf">
+        {data.instruments?.heading ?? 'Unser Unterrichtsangebot in Düsseldorf'}
+      </h2>
+      <p class="section-intro">
+        {
+          data.instruments?.intro ??
+            'An unserem Standort in der Kaiserstraße bieten wir professionellen Unterricht für fünf Instrumente an.'
+        }
+      </p>
+      <p>
+        <a href="/duesseldorf/unterricht" class="instruments-cta"
+          >Alle Instrumente in Düsseldorf →</a>
+      </p>
       <div class="instruments-grid">
-        {instrumentItems.length > 0 ? instrumentItems.map((item) => (
-          <div class="instrument-item">
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-            <a href={`/duesseldorf/unterricht/${item.slug}`} class="instrument-link">Mehr erfahren</a>
-          </div>
-        )) : (
-          <>
-            <div class="instrument-item"><h3>Klavierunterricht</h3><p>Vom ersten Akkord bis zur Konzertvorbereitung. Klassik, Pop, Jazz.</p><a href="/duesseldorf/unterricht/klavier" class="instrument-link">Mehr erfahren</a></div>
-            <div class="instrument-item"><h3>Gitarrenunterricht</h3><p>Akustik oder E-Gitarre, Fingerpicking oder Riffs.</p><a href="/duesseldorf/unterricht/gitarre" class="instrument-link">Mehr erfahren</a></div>
-            <div class="instrument-item"><h3>Gesangsunterricht</h3><p>Entdecke deine Stimme. Atemtechnik, Stimmbildung und Interpretation.</p><a href="/duesseldorf/unterricht/gesang" class="instrument-link">Mehr erfahren</a></div>
-            <div class="instrument-item"><h3>Bassunterricht</h3><p>Das Fundament jeder Band. E-Bass oder Akustikbass.</p><a href="/duesseldorf/unterricht/bass" class="instrument-link">Mehr erfahren</a></div>
-            <div class="instrument-item"><h3>Schlagzeugunterricht</h3><p>Rhythmus, Koordination und Energie für alle Stilrichtungen.</p><a href="/duesseldorf/unterricht/schlagzeug" class="instrument-link">Mehr erfahren</a></div>
-          </>
-        )}
+        {
+          instrumentItems.length > 0 ? (
+            instrumentItems.map((item) => (
+              <div class="instrument-item">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <a
+                  href={`/duesseldorf/unterricht/${item.slug}`}
+                  class="instrument-link"
+                >
+                  Mehr erfahren
+                </a>
+              </div>
+            ))
+          ) : (
+            <>
+              <div class="instrument-item">
+                <>
+                  <h3>Klavierunterricht</h3>
+                  <p>
+                    Vom ersten Akkord bis zur Konzertvorbereitung. Klassik, Pop,
+                    Jazz.
+                  </p>
+                  <a
+                    href="/duesseldorf/unterricht/klavier"
+                    class="instrument-link"
+                  >
+                    Mehr erfahren
+                  </a>
+                </>
+              </div>
+              <div class="instrument-item">
+                <>
+                  <h3>Gitarrenunterricht</h3>
+                  <p>Akustik oder E-Gitarre, Fingerpicking oder Riffs.</p>
+                  <a
+                    href="/duesseldorf/unterricht/gitarre"
+                    class="instrument-link"
+                  >
+                    Mehr erfahren
+                  </a>
+                </>
+              </div>
+              <div class="instrument-item">
+                <>
+                  <h3>Gesangsunterricht</h3>
+                  <p>
+                    Entdecke deine Stimme. Atemtechnik, Stimmbildung und
+                    Interpretation.
+                  </p>
+                  <a
+                    href="/duesseldorf/unterricht/gesang"
+                    class="instrument-link"
+                  >
+                    Mehr erfahren
+                  </a>
+                </>
+              </div>
+              <div class="instrument-item">
+                <>
+                  <h3>Bassunterricht</h3>
+                  <p>Das Fundament jeder Band. E-Bass oder Akustikbass.</p>
+                  <a
+                    href="/duesseldorf/unterricht/bass"
+                    class="instrument-link"
+                  >
+                    Mehr erfahren
+                  </a>
+                </>
+              </div>
+              <div class="instrument-item">
+                <>
+                  <h3>Schlagzeugunterricht</h3>
+                  <p>
+                    Rhythmus, Koordination und Energie für alle Stilrichtungen.
+                  </p>
+                  <a
+                    href="/duesseldorf/unterricht/schlagzeug"
+                    class="instrument-link"
+                  >
+                    Mehr erfahren
+                  </a>
+                </>
+              </div>
+            </>
+          )
+        }
       </div>
     </div>
   </section>
@@ -161,28 +342,36 @@ const ldFAQ = {
 
   <section class="faq-section" aria-labelledby="faq-duesseldorf">
     <div class="faq-container">
-      <h2 id="faq-duesseldorf">{data.faq?.heading ?? 'Häufige Fragen zur Musikschule Düsseldorf'}</h2>
+      <h2 id="faq-duesseldorf">
+        {data.faq?.heading ?? 'Häufige Fragen zur Musikschule Düsseldorf'}
+      </h2>
       <div class="faq-list">
-        {faqItems.length > 0 ? faqItems.map((item) => (
-          <details class="faq-item">
-            <summary>{item.question}</summary>
-            <p>{item.answer}</p>
-          </details>
-        )) : (
-          <p class="faq-empty">Keine FAQ-Einträge vorhanden.</p>
-        )}
+        {
+          faqItems.length > 0 ? (
+            faqItems.map((item) => (
+              <details class="faq-item">
+                <summary>{item.question}</summary>
+                <p>{item.answer}</p>
+              </details>
+            ))
+          ) : (
+            <p class="faq-empty">Keine FAQ-Einträge vorhanden.</p>
+          )
+        }
       </div>
     </div>
   </section>
 
   <Pricing showHeader={true} headingLevel="h2" />
+  <LocationInfoCards cards={data.infoCards} />
   <Contact location="duesseldorf" />
 </BaseLayout>
 
 <style>
   .location-hero {
     background: var(--color-bg-dark);
-    padding: calc(var(--nav-height) + var(--space-6xl)) var(--space-lg) var(--space-6xl);
+    padding: calc(var(--nav-height) + var(--space-6xl)) var(--space-lg)
+      var(--space-6xl);
     text-align: center;
   }
 
@@ -420,7 +609,8 @@ const ldFAQ = {
     }
 
     .location-hero {
-      padding: calc(var(--nav-height) + var(--space-4xl)) var(--space-md) var(--space-4xl);
+      padding: calc(var(--nav-height) + var(--space-4xl)) var(--space-md)
+        var(--space-4xl);
     }
   }
 </style>
