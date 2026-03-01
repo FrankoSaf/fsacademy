@@ -57,19 +57,25 @@
     "image": "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae",
     "imageAlt": "Musikunterricht in der Fine Sound Academy Neuss"
   },
-  "reviews": {
-    "title": "Was unsere Schüler in Neuss sagen",
-    "items": [
-      { "name": "Thomas K.", "text": "Endlich Gitarre spielen gelernt – genau so, wie ich es mir vorgestellt habe. Top Unterricht in Neuss!", "instrument": "Gitarre" },
-      { "name": "Maria S.", "text": "Meine Tochter liebt den Klavierunterricht. Die Atmosphäre am Neumarkt ist toll.", "instrument": "Klavier" },
-      { "name": "Michael B.", "text": "Professioneller Bassunterricht in zentraler Lage. Kann ich nur empfehlen.", "instrument": "Bass" }
-    ]
-  },
   "card": {
     "image": "/uploads/16116014630_0426735dd4_b.jpg",
     "buttonText": "Zur Schule Neuss"
   },
   "address": "Neumarkt 18, 41460 Neuss",
+  "infoCards": [
+    {
+      "title": "Zahlungsart",
+      "description": "Um den Zahlungsvorgang zu erleichtern, ziehen wir die monatlichen Gebühren per Einzugsermächtigung ein. Alternativ besteht die Möglichkeit der Überweisung. Barzahlung oder Überweisung der Gesamtsumme ist bei Vorauskasse für die gesamte Laufzeit möglich."
+    },
+    {
+      "title": "Parkmöglichkeiten",
+      "description": "Am Neumarkt gibt es die Tiefgarage Neumarkt und umliegende Parkplätze. Direkt vor der Tür hält der Bus."
+    },
+    {
+      "title": "Rabatte",
+      "description": "Erhalte 10% Rabatt für jeden weiteren Unterrichtsvertrag aus demselben Haushalt. Familienrabatt für alle aus deinem Haushalt."
+    }
+  ],
   "faq": {
     "heading": "Häufige Fragen zur Musikschule Neuss",
     "items": [
@@ -87,7 +93,7 @@
       },
       {
         "question": "Wie komme ich am besten zur Musikschule am Neumarkt?",
-        "answer": "Der Neumarkt ist das Zentrum der Neusser Innenstadt. Mit dem Bus erreichst du uns über die Haltestelle „Neumarkt\". Mit dem Auto gibt es Parkmöglichkeiten in der Tiefgarage am Neumarkt und umliegende Parkplätze."
+        "answer": "Wir haben ausgezeichnete Parkmöglichkeiten. 100m von unserer Musikschule befindet sich das Parkhaus Rheintor, bei dem die erste Stunde Parken kostenlos ist, was unseren Schülern und Besuchern bequemen Zugang und stressfreies Parken ermöglicht. Genießt euren Aufenthalt bei uns und freut euch auf eine musikalische Erfahrung.\n\n"
       },
       {
         "question": "Bietet ihr auch Unterricht für Erwachsene an?",
@@ -95,7 +101,7 @@
       },
       {
         "question": "Kann ich den Unterrichtstag und die Uhrzeit frei wählen?",
-        "answer": "Wir bieten flexible Unterrichtszeiten an. Gemeinsam finden wir einen Termin, der in deinen Alltag passt — auch am Samstag."
+        "answer": "Wir bieten flexible Unterrichtszeiten an. Gemeinsam finden wir einen Termin, der in deinen Alltag passt."
       }
     ]
   },
@@ -105,6 +111,26 @@
     "subtitle": "Fine Sound Academy — Neumarkt 18, Neusser Innenstadt",
     "text": "Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — zentral in Neuss."
   },
+  "reviews": {
+    "title": "Was unsere Schüler in Neuss sagen",
+    "items": [
+      {
+        "name": "Thomas K.",
+        "text": "Endlich Gitarre spielen gelernt – genau so, wie ich es mir vorgestellt habe. Top Unterricht in Neuss!",
+        "instrument": "Gitarre"
+      },
+      {
+        "name": "Maria S.",
+        "text": "Meine Tochter liebt den Klavierunterricht. Die Atmosphäre am Neumarkt ist toll.",
+        "instrument": "Klavier"
+      },
+      {
+        "name": "Michael B.",
+        "text": "Professioneller Bassunterricht in zentraler Lage. Kann ich nur empfehlen.",
+        "instrument": "Bass"
+      }
+    ]
+  },
   "id": "neuss",
   "hoursCard": {
     "title": "Öffnungszeiten",
@@ -113,19 +139,5 @@
       "Samstag: 09:00 – 12:00 Uhr",
       "Sonntag: Geschlossen"
     ]
-  },
-  "infoCards": [
-    {
-      "title": "Zahlungsart",
-      "description": "Um den Zahlungsvorgang zu erleichtern, ziehen wir die monatlichen Gebühren per Einzugsermächtigung ein. Alternativ besteht die Möglichkeit der Überweisung. Barzahlung oder Überweisung der Gesamtsumme ist bei Vorauskasse für die gesamte Laufzeit möglich."
-    },
-    {
-      "title": "Parkmöglichkeiten",
-      "description": "Am Neumarkt gibt es die Tiefgarage Neumarkt und umliegende Parkplätze. Direkt vor der Tür hält der Bus."
-    },
-    {
-      "title": "Rabatte",
-      "description": "Erhalte 10% Rabatt für jeden weiteren Unterrichtsvertrag aus demselben Haushalt. Familienrabatt für alle aus deinem Haushalt."
-    }
-  ]
+  }
 }
