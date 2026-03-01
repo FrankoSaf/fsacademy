@@ -5,22 +5,6 @@
   },
   "plans": [
     {
-      "name": "Solo 30",
-      "price": "ab €89",
-      "period": "Monat",
-      "description": "Perfekt für Einsteiger",
-      "features": [
-        "30 Minuten wöchentlich",
-        "3, 6 oder 12 Monate Mindestlaufzeit",
-        "Kostenlose Probestunde",
-        "Einzelunterricht",
-        "Flexible Terminplanung"
-      ],
-      "buttonText": "Jetzt anmelden",
-      "buttonLink": "/kontakt",
-      "popular": false
-    },
-    {
       "name": "Solo 45",
       "price": "ab €132",
       "period": "Monat",
@@ -32,6 +16,22 @@
         "Einzelunterricht",
         "Flexible Terminplanung",
         "Auftrittsmöglichkeiten"
+      ],
+      "buttonText": "Jetzt anmelden",
+      "buttonLink": "/kontakt",
+      "popular": false
+    },
+    {
+      "name": "Solo 30",
+      "price": "ab €89",
+      "period": "Monat",
+      "description": "Perfekt für Einsteiger",
+      "features": [
+        "30 Minuten wöchentlich",
+        "3, 6 oder 12 Monate Mindestlaufzeit",
+        "Kostenlose Probestunde",
+        "Einzelunterricht",
+        "Flexible Terminplanung"
       ],
       "buttonText": "Jetzt anmelden",
       "buttonLink": "/kontakt",
