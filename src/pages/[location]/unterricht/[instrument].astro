@@ -57,6 +57,12 @@ const faqItems = locationPage?.faq?.items ?? [];
 const locationCta = locationPage?.cta;
 
 const instrumentName = instrumentInfo?.name ?? instrument;
+const instrumentCta = {
+  title: `${(instrumentDetail?.title ?? `${instrumentName}unterricht`).toUpperCase()} IN ${(cityInfo?.name ?? city).toUpperCase()}`,
+  subtitle: `Buche jetzt deine kostenlose Probestunde für ${instrumentName} in ${cityInfo?.name ?? city} und lerne uns kennen!`,
+  buttonText: locationCta?.buttonText ?? 'Termin vereinbaren',
+  buttonLink: locationCta?.buttonLink ?? probestundeUrl,
+};
 const cityName = cityInfo?.name ?? city;
 
 const displayName = instrumentDetail?.title ?? `${instrumentName}unterricht`;
@@ -219,7 +225,7 @@ const ldFAQ = faqItems.length > 0 ? {
     </div>
   </section>
 
-  <CTA cta={locationCta} />
+  <CTA cta={instrumentCta} />
 </BaseLayout>
 
 <style>
