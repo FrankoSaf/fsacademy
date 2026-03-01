@@ -57,17 +57,17 @@
     "image": "https://images.unsplash.com/photo-1511379938547-c1f69419868d",
     "imageAlt": "Musikunterricht in der Fine Sound Academy Düsseldorf"
   },
+  "cta": {
+    "title": "MUSIKSCHULE DÜSSELDORF",
+    "subtitle": "Buche jetzt deine kostenlose Probestunde in der Kaiserstraße und lerne uns kennen!",
+    "buttonText": "Termin vereinbaren",
+    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
+  },
   "card": {
     "image": "/uploads/d_medienhafen.jpg",
     "buttonText": "Zur Schule Düsseldorf"
   },
   "address": "Kaiserstr. 28",
-  "cta": {
-    "title": "MUSIKSCHULE DÜSSELDORF – KAISERSTRAßE",
-    "subtitle": "Buche jetzt deine kostenlose Probestunde in der Kaiserstraße und lerne uns kennen!",
-    "buttonText": "Termin vereinbaren",
-    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
-  },
   "infoCards": [
     {
       "title": "Zahlungsart",
