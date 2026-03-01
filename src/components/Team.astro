@@ -58,7 +58,7 @@ const members = location
                   />
                 </figure>
                 <div class="member-info">
-                  <h3>{member.name}</h3>
+                  <p class="member-name">{member.name}</p>
                   <p>{member.role}</p>
                 </div>
               </div>
@@ -150,7 +150,7 @@ const members = location
     user-select: none;
   }
 
-  .member-info h3 {
+  .member-info .member-name {
     font-family: var(--font-serif);
     font-size: var(--text-xl);
     color: var(--color-text-primary);

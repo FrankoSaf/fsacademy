@@ -39,7 +39,7 @@ const HeadingTag = headingLevel;
                 <li>{feature}</li>
               ))}
             </ul>
-            <a href={plan.buttonLink} class="pricing-button">
+            <a href={plan.buttonLink} class="pricing-button" aria-label={`${plan.buttonText} – ${plan.name}`}>
               {plan.buttonText}
             </a>
           </article>

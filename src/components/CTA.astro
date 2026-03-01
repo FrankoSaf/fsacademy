@@ -17,9 +17,9 @@ const content = contentRaw as Content;
 
 <section class="cta" aria-labelledby="cta-heading">
   <div class="cta-container">
-    <h2 id="cta-heading">{content.cta.title}</h2>
+    <p id="cta-heading" class="cta-heading">{content.cta.title}</p>
     <p>{content.cta.subtitle}</p>
-    <a href={content.cta.buttonLink} class="cta-button">
+    <a href={content.cta.buttonLink} class="cta-button" aria-label={content.cta.buttonText}>
       {content.cta.buttonText}
     </a>
   </div>
@@ -37,7 +37,7 @@ const content = contentRaw as Content;
     text-align: center;
   }
 
-  .cta h2 {
+  .cta .cta-heading {
     font-family: var(--font-serif);
     font-size: clamp(var(--text-2xl), 5vw, var(--text-3xl));
     color: var(--color-black);
@@ -90,7 +90,7 @@ const content = contentRaw as Content;
       padding: var(--space-4xl) var(--space-md);
     }
 
-    .cta h2 {
+    .cta .cta-heading {
       margin-bottom: var(--space-lg);
     }
 

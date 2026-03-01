@@ -52,11 +52,11 @@ const slugToIconFile: Record<string, string> = {
             const slug = iconToSlug[instrument.icon] ?? instrument.icon;
             const iconFile = slugToIconFile[slug] ?? `${slug}.svg`;
             return (
-              <a href={`/unterricht/${slug}`} class="instrument-card">
+              <a href={`/unterricht/${slug}`} class="instrument-card" aria-label={`Zum ${instrument.name}unterricht – mehr erfahren`}>
                 <div class="instrument-icon" aria-hidden="true">
                   <img src={`/instrument-icons/${iconFile}`} alt={`${instrument.name} – Symbol`} width="64" height="64" loading="lazy" />
                 </div>
-                <h3>{instrument.name}</h3>
+                <h3 class="instrument-name">{instrument.name}</h3>
                 <p>{instrument.description}</p>
               </a>
             );
@@ -137,7 +137,7 @@ const slugToIconFile: Record<string, string> = {
     margin-bottom: var(--space-md);
   }
 
-  .instrument-card h3 {
+  .instrument-card h3.instrument-name {
     font-family: var(--font-serif);
     font-size: var(--text-xl);
     color: var(--color-text-primary);

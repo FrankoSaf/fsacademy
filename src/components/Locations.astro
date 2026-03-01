@@ -55,8 +55,8 @@ const locations = {
       />
       <div class="location-overlay"></div>
       <div class="location-content">
-        <h3>{locations.duesseldorf.name}</h3>
-        <a href={locations.duesseldorf.link} class="location-button">
+        <p class="location-name">{locations.duesseldorf.name}</p>
+        <a href={locations.duesseldorf.link} class="location-button" aria-label={`Zur Musikschule ${locations.duesseldorf.name}`}>
           {locations.duesseldorf.buttonText}
         </a>
       </div>
@@ -72,8 +72,8 @@ const locations = {
       />
       <div class="location-overlay"></div>
       <div class="location-content">
-        <h3>{locations.neuss.name}</h3>
-        <a href={locations.neuss.link} class="location-button">
+        <p class="location-name">{locations.neuss.name}</p>
+        <a href={locations.neuss.link} class="location-button" aria-label={`Zur Musikschule ${locations.neuss.name}`}>
           {locations.neuss.buttonText}
         </a>
       </div>
@@ -154,12 +154,13 @@ const locations = {
     text-align: left;
   }
 
-  .location-content h3 {
+  .location-content .location-name {
     font-family: var(--font-serif);
     font-size: var(--text-2xl);
     color: var(--color-text-on-dark);
     margin-bottom: var(--space-md);
     font-weight: 600;
+    margin: 0 0 var(--space-md) 0;
   }
 
   .location-button {
@@ -202,7 +203,7 @@ const locations = {
       aspect-ratio: 3/2;
     }
 
-    .location-content h3 {
+    .location-content .location-name {
       font-size: var(--text-xl);
     }
   }

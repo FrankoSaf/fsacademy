@@ -39,7 +39,7 @@ const cards = [
     <div class="intro-cards">
       {cards.map((card) => (
         <div class="intro-card">
-          <h3>{card.title}</h3>
+          <p class="intro-card-title"><strong>{card.title}</strong></p>
           <p>{card.text}</p>
         </div>
       ))}
@@ -108,7 +108,7 @@ const cards = [
     border-radius: var(--radius-md);
   }
 
-  .intro-card h3 {
+  .intro-card-title {
     font-family: var(--font-serif);
     font-size: var(--text-lg);
     color: var(--color-text-primary);

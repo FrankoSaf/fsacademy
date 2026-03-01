@@ -23,7 +23,7 @@ const title = content.testimonials?.title ?? 'Was unsere Schüler sagen';
   <section class="testimonials" aria-labelledby="testimonials-heading">
     <div class="testimonials-container">
       <div class="accent-line"></div>
-      <h2 id="testimonials-heading">{title}</h2>
+      <p id="testimonials-heading" class="testimonials-heading">{title}</p>
       <div class="testimonials-grid">
         {testimonials.map((t) => (
           <blockquote class="testimonial-card">
@@ -57,7 +57,7 @@ const title = content.testimonials?.title ?? 'Was unsere Schüler sagen';
     margin: 0 auto var(--space-lg);
   }
 
-  .testimonials h2 {
+  .testimonials .testimonials-heading {
     font-family: var(--font-serif);
     font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
     color: var(--color-text-primary);
