@@ -29,7 +29,7 @@ const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.pro
 
 // Use deploy URL only for netlify.app (preview/test) so canonical matches – avoids SEO warnings when testing
 const deployUrl = typeof process !== 'undefined' ? (process.env.URL || process.env.DEPLOY_PRIME_URL) : null;
-const site = (deployUrl && deployUrl.includes('netlify.app')) ? deployUrl : (Astro.site?.href || 'https://www.finesoundacademy.com');
+const site = (deployUrl && deployUrl.includes('netlify.app')) ? deployUrl : (Astro.site?.href || 'https://finesoundacademy.com');
 const canonical = canonicalUrl ?? new URL(Astro.url.pathname, site).href;
 const metaDescription = description ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription ?? 'Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
 const image = ogImage ?? (globals as { ogImage?: string }).ogImage ?? '';

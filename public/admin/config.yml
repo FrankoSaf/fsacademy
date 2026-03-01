@@ -13,8 +13,8 @@ locale: de
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-site_url: "https://www.finesoundacademy.com"
-display_url: "https://www.finesoundacademy.com"
+site_url: "https://finesoundacademy.com"
+  display_url: "https://finesoundacademy.com"
 
 collections:
   # ─── Global ─────────────────────────────────────────────────────────────
