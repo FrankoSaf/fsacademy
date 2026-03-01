@@ -518,12 +518,12 @@ const socialIcons: Record<string, string> = {
 
 <script define:vars={{ menuOpenLabel: ui.menuOpen ?? 'Menü öffnen', menuCloseLabel: ui.menuClose ?? 'Menü schließen' }}>
   function initNav() {
-  const toggle = document.querySelector('.mobile-toggle') as HTMLButtonElement | null;
+  const toggle = document.querySelector('.mobile-toggle');
   const mobileMenu = document.querySelector('.mobile-menu');
   const nav = document.getElementById('mainNav');
   if (!toggle || !mobileMenu || !nav) return;
 
-  function setMenuOpen(open: boolean) {
+  function setMenuOpen(open) {
     if (!toggle || !mobileMenu) return;
     toggle.classList.toggle('active', open);
     mobileMenu.classList.toggle('active', open);
@@ -531,7 +531,7 @@ const socialIcons: Record<string, string> = {
     toggle.setAttribute('aria-label', open ? menuCloseLabel : menuOpenLabel);
 
     if (open) {
-      const firstLink = mobileMenu.querySelector('a, button') as HTMLElement | null;
+      const firstLink = mobileMenu.querySelector('a, button');
       firstLink?.focus();
     }
   }
@@ -552,7 +552,7 @@ const socialIcons: Record<string, string> = {
     }
 
     if (e.key === 'Tab' && isOpen) {
-      const focusable = [toggle, ...mobileMenu.querySelectorAll<HTMLElement>('a, button')];
+      const focusable = [toggle, ...mobileMenu.querySelectorAll('a, button')];
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
 
