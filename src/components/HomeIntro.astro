@@ -29,7 +29,7 @@ const cards = [
   <div class="intro-container">
     <h2 id="home-intro-heading">{intro.heading}</h2>
     <p class="intro-lead">
-      Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug – in Düsseldorf und Neuss.
+      Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug – in <a href="/duesseldorf">Düsseldorf</a> und <a href="/neuss">Neuss</a>.
     </p>
     {intro.paragraphs && intro.paragraphs.length > 0 && (
       <div class="intro-paragraphs">
@@ -76,6 +76,16 @@ const cards = [
     line-height: 1.7;
     max-width: 65ch;
     margin-bottom: var(--space-lg);
+  }
+
+  .intro-lead a {
+    color: var(--color-gold-on-light);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .intro-lead a:hover {
+    color: var(--color-gold);
   }
 
   .intro-paragraphs {

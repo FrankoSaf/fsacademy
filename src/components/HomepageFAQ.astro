@@ -1,0 +1,103 @@
+---
+const faqItems = [
+  { q: 'Wo findet der Musikunterricht statt?', a: 'An zwei Standorten: In Düsseldorf an der Kaiserstraße 28 (Pempelfort) und in Neuss am Neumarkt 18. Beide Studios sind gut mit öffentlichen Verkehrsmitteln erreichbar.' },
+  { q: 'Was kostet eine Probestunde?', a: 'Die Probestunde ist kostenlos und unverbindlich. So können Sie uns, unsere Lehrkräfte und die Räume kennenlernen, bevor Sie sich entscheiden.' },
+  { q: 'Für wen ist der Unterricht geeignet?', a: 'Für Kinder, Jugendliche und Erwachsene – vom Anfänger bis zum Fortgeschrittenen. Wir bieten Einzel- und Gruppenunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug.' },
+  { q: 'Wie kann ich mich anmelden?', a: 'Füllen Sie das Kontaktformular aus oder melden Sie sich per WhatsApp. Wir melden uns in der Regel innerhalb von 24 Stunden und vereinbaren einen Termin für Ihre Probestunde.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<section class="homepage-faq" aria-labelledby="faq-heading">
+  <div class="faq-container">
+    <h2 id="faq-heading">Häufige Fragen zur Musikschule</h2>
+    <div class="faq-list">
+      {faqItems.map((item) => (
+        <details class="faq-item">
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</section>
+
+<style>
+  .homepage-faq {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+
+  .faq-container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .homepage-faq h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-3xl);
+    font-weight: 600;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-gold-alpha-20);
+    padding: var(--space-lg) 0;
+  }
+
+  .faq-item:first-of-type {
+    padding-top: 0;
+  }
+
+  .faq-item summary {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary::after {
+    content: '+';
+    font-size: var(--text-xl);
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .faq-item[open] summary::after {
+    content: '−';
+  }
+
+  .faq-item p {
+    margin: var(--space-md) 0 0;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    font-size: var(--text-base);
+  }
+
+  @media (max-width: 768px) {
+    .homepage-faq {
+      padding: var(--space-4xl) var(--space-md);
+    }
+  }
+</style>
