@@ -106,6 +106,9 @@ const ldFAQ = {
     acceptedAnswer: { '@type': 'Answer', text: item.answer },
   })),
 };
+
+const landingData = (await import('../../content/landing.json')).default as { hero?: { image?: string } };
+const heroImage = landingData?.hero?.image ?? '';
 ---
 
 <BaseLayout
@@ -124,6 +127,14 @@ const ldFAQ = {
   />
 
   <section class="location-hero" aria-labelledby="neuss-heading">
+    {heroImage && (
+      <>
+        <div class="location-hero-picture">
+          <img src={heroImage} alt="" fetchpriority="high" />
+        </div>
+        <div class="location-hero-overlay"></div>
+      </>
+    )}
     <div class="hero-container">
       <div class="accent-line"></div>
       <h1 id="neuss-heading">{data.hero?.title ?? 'Musikschule in Neuss'}</h1>
@@ -359,10 +370,38 @@ const ldFAQ = {
 
 <style>
   .location-hero {
+    position: relative;
     background: var(--color-bg-dark);
     padding: calc(var(--nav-height) + var(--space-6xl)) var(--space-lg)
       var(--space-6xl);
     text-align: center;
+    overflow: hidden;
+  }
+  .location-hero-picture {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  .location-hero-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .location-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.55);
+    z-index: 1;
+  }
+  .location-hero .hero-container {
+    position: relative;
+    z-index: 2;
   }
 
   .hero-container {
