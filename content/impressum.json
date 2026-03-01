@@ -2,14 +2,14 @@
   "company": {
     "companyName": "Fine Sound Academy GmBH",
     "legalForm": "Inhaber",
-    "street": "Kaiserstr. 28",
-    "postalCode": "40479",
-    "city": "Düsseldorf",
+    "street": "Neumarkt 18",
+    "postalCode": "41460",
+    "city": "Neuss",
     "country": "Deutschland"
   },
-  "representedBy": "Inhaber: [Name eintragen]",
+  "representedBy": "Inhaber: Toni Damjanovic ",
   "contact": {
-    "phone": "0176 77154511",
+    "phone": "0151 41273622",
     "email": "info@finesoundacademy.com",
     "website": "www.finesoundacademy.com"
   },
@@ -23,10 +23,10 @@
     "vatIdNumber": "DE123456789"
   },
   "contentResponsible": {
-    "contentResponsibleName": "[Name eintragen]",
-    "contentResponsibleStreet": "Kaiserstr. 28",
-    "contentResponsiblePostalCode": "40479",
-    "contentResponsibleCity": "Düsseldorf"
+    "contentResponsibleName": "Toni Damjanovic ",
+    "contentResponsibleStreet": "Neumarkt 18",
+    "contentResponsiblePostalCode": "41460",
+    "contentResponsibleCity": "Neuss"
   },
   "lastUpdated": "Februar 2025"
 }
