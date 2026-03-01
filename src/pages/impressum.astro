@@ -1,10 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const data = (await import('../../content/impressum.json')).default as {
+  company: { companyName: string; legalForm?: string; street: string; postalCode: string; city: string; country: string };
+  representedBy: string;
+  contact: { phone: string; email: string; website: string };
+  register?: { showRegister?: boolean; registerCourt?: string; registerNumber?: string };
+  vat?: { showVatId?: boolean; vatIdNumber?: string };
+  contentResponsible?: { contentResponsibleName?: string; contentResponsibleStreet?: string; contentResponsiblePostalCode?: string; contentResponsibleCity?: string };
+  lastUpdated?: string;
+};
+
+const c = data.company;
+const companyDisplay = [c.companyName, c.legalForm].filter(Boolean).join(' ');
+const cr = data.contentResponsible ?? {};
+const showRegister = data.register?.showRegister && data.register?.registerCourt && data.register?.registerNumber;
+const showVatId = data.vat?.showVatId && data.vat?.vatIdNumber;
 ---
 
 <BaseLayout
-  title="Impressum - Fine Sound Academy"
-  description="Impressum und rechtliche Angaben der Fine Sound Academy GmbH, Musikschule Düsseldorf und Neuss."
+  title={`Impressum - ${data.company.companyName}`}
+  description={`Impressum und rechtliche Angaben der ${data.company.companyName}, Musikschule Düsseldorf und Neuss.`}
   noindex
 >
   <section class="legal-page">
@@ -15,42 +31,50 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="legal-content">
         <h2>Angaben gemäß § 5 TMG</h2>
         <p>
-          <strong>Fine Sound Academy GmbH</strong><br>
-          Kaiserstr. 28<br>
-          40479 Düsseldorf<br>
-          Deutschland
+          <strong>{companyDisplay}</strong><br>
+          {c.street}<br>
+          {c.postalCode} {c.city}<br>
+          {c.country}
         </p>
 
         <h2>Vertreten durch</h2>
         <p>
-          Geschäftsführer: [Name des Geschäftsführers]
+          {data.representedBy}
         </p>
 
         <h2>Kontakt</h2>
         <p>
-          Telefon: 0176 77154511<br>
-          E-Mail: info@finesoundacademy.com<br>
-          Website: www.finesoundacademy.com
+          Telefon: {data.contact.phone}<br>
+          E-Mail: {data.contact.email}<br>
+          Website: {data.contact.website}
         </p>
 
-        <h2>Registereintrag</h2>
-        <p>
-          Eintragung im Handelsregister<br>
-          Registergericht: Amtsgericht Düsseldorf<br>
-          Registernummer: HRB [Nummer]
-        </p>
+        {showRegister && (
+          <>
+            <h2>Registereintrag</h2>
+            <p>
+              Eintragung im Handelsregister<br>
+              Registergericht: {data.register!.registerCourt}<br>
+              Registernummer: {data.register!.registerNumber}
+            </p>
+          </>
+        )}
 
-        <h2>Umsatzsteuer-ID</h2>
-        <p>
-          Umsatzsteuer-Identifikationsnummer gemäß §27a Umsatzsteuergesetz:<br>
-          DE [USt-IdNr.]
-        </p>
+        {showVatId && (
+          <>
+            <h2>Umsatzsteuer-ID</h2>
+            <p>
+              Umsatzsteuer-Identifikationsnummer gemäß §27a Umsatzsteuergesetz:<br>
+              {data.vat!.vatIdNumber}
+            </p>
+          </>
+        )}
 
         <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
         <p>
-          [Name]<br>
-          Kaiserstr. 28<br>
-          40479 Düsseldorf
+          {cr.contentResponsibleName ?? '[Name]'}<br>
+          {cr.contentResponsibleStreet ?? c.street}<br>
+          {cr.contentResponsiblePostalCode ?? c.postalCode} {cr.contentResponsibleCity ?? c.city}
         </p>
 
         <h2>Haftungsausschluss</h2>
@@ -98,7 +122,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           Verbraucherschlichtungsstelle teilzunehmen.
         </p>
 
-        <p class="last-updated">Stand: Dezember 2024</p>
+        <p class="last-updated">Stand: {data.lastUpdated ?? 'Dezember 2024'}</p>
       </div>
     </div>
   </section>

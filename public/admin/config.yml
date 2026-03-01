@@ -527,6 +527,62 @@ collections:
                   - { label: "Düsseldorf", value: "duesseldorf" }
                   - { label: "Neuss", value: "neuss" }
 
+  # ─── Impressum ────────────────────────────────────────────────────────────
+  - name: impressum
+    label: "⚖️ Impressum"
+    editor: { preview: false }
+    files:
+      - label: Impressum (rechtliche Angaben)
+        name: impressum
+        file: "content/impressum.json"
+        format: json
+        fields:
+          - label: Unternehmen (§ 5 TMG)
+            name: company
+            widget: object
+            fields:
+              - { label: "Firmenname (ohne Rechtsform)", name: companyName, widget: string, hint: "z.B. Fine Sound Academy" }
+              - { label: "Rechtsform", name: legalForm, widget: select, options: [{ label: "Inhaber / Einzelunternehmen", value: "Inhaber" }, { label: "GmbH", value: "GmbH" }, { label: "GbR", value: "GbR" }, { label: "UG", value: "UG" }, { label: "(keine)", value: "" }], required: false }
+              - { label: Straße, name: street, widget: string }
+              - { label: PLZ, name: postalCode, widget: string }
+              - { label: Ort, name: city, widget: string }
+              - { label: Land, name: country, widget: string, default: "Deutschland" }
+          - label: Vertreten durch
+            name: representedBy
+            widget: string
+            hint: "z.B. Inhaber: Max Mustermann oder Geschäftsführer: Max Mustermann"
+          - label: Kontakt
+            name: contact
+            widget: object
+            fields:
+              - { label: Telefon, name: phone, widget: string }
+              - { label: E-Mail, name: email, widget: string }
+              - { label: Website, name: website, widget: string, hint: "z.B. www.finesoundacademy.com" }
+          - label: Registereintrag (nur bei GmbH, UG etc.)
+            name: register
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Registereintrag anzeigen", name: showRegister, widget: boolean, default: false }
+              - { label: Registergericht, name: registerCourt, widget: string, hint: "z.B. Amtsgericht Düsseldorf" }
+              - { label: Registernummer, name: registerNumber, widget: string, hint: "z.B. HRB 12345" }
+          - label: Umsatzsteuer-ID
+            name: vat
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "USt-ID anzeigen", name: showVatId, widget: boolean, default: false }
+              - { label: "USt-IdNr.", name: vatIdNumber, widget: string, hint: "z.B. DE123456789" }
+          - label: "Verantwortlich für den Inhalt (§ 55 RStV)"
+            name: contentResponsible
+            widget: object
+            fields:
+              - { label: Name, name: contentResponsibleName, widget: string }
+              - { label: Straße, name: contentResponsibleStreet, widget: string }
+              - { label: PLZ, name: contentResponsiblePostalCode, widget: string }
+              - { label: Ort, name: contentResponsibleCity, widget: string }
+          - { label: "Stand (Datum)", name: lastUpdated, widget: string, hint: "z.B. Februar 2025" }
+
   # ─── Gemeinsame Inhalte (Komponenten auf mehreren Seiten) ─────────────────
   - name: shared
     label: "🔧 Gemeinsame Inhalte"

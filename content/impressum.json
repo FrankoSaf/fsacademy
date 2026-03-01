@@ -1,0 +1,32 @@
+{
+  "company": {
+    "companyName": "Fine Sound Academy",
+    "legalForm": "Inhaber",
+    "street": "Kaiserstr. 28",
+    "postalCode": "40479",
+    "city": "Düsseldorf",
+    "country": "Deutschland"
+  },
+  "representedBy": "Inhaber: [Name eintragen]",
+  "contact": {
+    "phone": "0176 77154511",
+    "email": "info@finesoundacademy.com",
+    "website": "www.finesoundacademy.com"
+  },
+  "register": {
+    "showRegister": false,
+    "registerCourt": "Amtsgericht Düsseldorf",
+    "registerNumber": "HRB 12345"
+  },
+  "vat": {
+    "showVatId": false,
+    "vatIdNumber": "DE123456789"
+  },
+  "contentResponsible": {
+    "contentResponsibleName": "[Name eintragen]",
+    "contentResponsibleStreet": "Kaiserstr. 28",
+    "contentResponsiblePostalCode": "40479",
+    "contentResponsibleCity": "Düsseldorf"
+  },
+  "lastUpdated": "Februar 2025"
+}
