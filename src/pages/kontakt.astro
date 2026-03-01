@@ -11,7 +11,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="accent-line"></div>
       <h1 id="kontakt-heading">Kontakt</h1>
       <p class="hero-subtitle">Probestunde vereinbaren</p>
-      <p class="hero-text">Füllen Sie das Formular aus – wir melden uns schnellstmöglich bei Ihnen.</p>
+      <p class="hero-text">Füll das Formular aus – wir melden uns schnellstmöglich bei dir.</p>
     </div>
   </section>
 
@@ -520,7 +520,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         .join('&');
       window.location.href = '/kontakt/danke' + (qs ? '?' + qs : '');
     } catch {
-      showError('Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.');
+      showError('Etwas ist schiefgelaufen. Bitte versuche es erneut.');
     } finally {
       setLoading(false);
     }
