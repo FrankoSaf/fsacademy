@@ -54,7 +54,7 @@ const slugToIconFile: Record<string, string> = {
             return (
               <a href={`/unterricht/${slug}`} class="instrument-card">
                 <div class="instrument-icon" aria-hidden="true">
-                  <img src={`/instrument-icons/${iconFile}`} alt="" width="64" height="64" loading="lazy" />
+                  <img src={`/instrument-icons/${iconFile}`} alt={`${instrument.name} – Symbol`} width="64" height="64" loading="lazy" />
                 </div>
                 <h3>{instrument.name}</h3>
                 <p>{instrument.description}</p>

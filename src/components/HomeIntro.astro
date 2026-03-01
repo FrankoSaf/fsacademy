@@ -12,9 +12,9 @@ const content = contentRaw as Content;
 const intro = content.homeIntro ?? {
   heading: 'Fine Sound Academy – Deine Musikschule in Düsseldorf und Neuss',
   paragraphs: [
-    'Die Fine Sound Academy ist deine Musikschule in Düsseldorf und Neuss. Wir bieten professionellen Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug – für Kinder, Jugendliche und Erwachsene.',
-    'Mit zwei Standorten bist du flexibel: Düsseldorf-Pempelfort (Kaiserstraße 28) und Neuss am Neumarkt 18. Individueller Unterricht, kostenlose Probestunde.',
-    'Über 500 Schüler vertrauen uns. Von Pop bis Klassik – wir finden den richtigen Einstieg für dich.'
+    'Die Fine Sound Academy ist deine Musikschule in Düsseldorf und Neuss. Wir bieten professionellen Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug – für Kinder, Jugendliche und Erwachsene. Ob du gerade erst anfängst oder deine Fähigkeiten vertiefen möchtest: Unsere erfahrenen Lehrkräfte begleiten dich auf deinem musikalischen Weg.',
+    'Mit zwei Standorten bist du flexibel: Düsseldorf-Pempelfort (Kaiserstraße 28) und Neuss am Neumarkt 18. Beide Studios sind gut erreichbar und mit öffentlichen Verkehrsmitteln erreichbar. Individueller Einzel- oder Gruppenunterricht, flexible Terminplanung und eine kostenlose Probestunde – so lernst du uns und unser Konzept unverbindlich kennen.',
+    'Über 500 Schüler vertrauen uns an beiden Standorten. Von Pop über Klassik bis Jazz und Rock: Wir finden den richtigen Einstieg für dich. Mit modernen Unterrichtsmethoden und einem freundlichen Team schaffen wir eine Umgebung, in der du dein musikalisches Potenzial entfalten kannst.'
   ]
 };
 
@@ -31,6 +31,11 @@ const cards = [
     <p class="intro-lead">
       Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug – in Düsseldorf und Neuss.
     </p>
+    {intro.paragraphs && intro.paragraphs.length > 0 && (
+      <div class="intro-paragraphs">
+        {intro.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+    )}
     <div class="intro-cards">
       {cards.map((card) => (
         <div class="intro-card">
@@ -70,7 +75,23 @@ const cards = [
     color: var(--color-text-secondary);
     line-height: 1.7;
     max-width: 65ch;
+    margin-bottom: var(--space-lg);
+  }
+
+  .intro-paragraphs {
+    max-width: 65ch;
     margin-bottom: var(--space-3xl);
+  }
+
+  .intro-paragraphs p {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+  }
+
+  .intro-paragraphs p:last-child {
+    margin-bottom: 0;
   }
 
   .intro-cards {
