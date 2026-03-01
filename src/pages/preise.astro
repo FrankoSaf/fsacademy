@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import contentRaw from '../../content/pricing.json';
 import Pricing from '../components/Pricing.astro';
+import InfoCards from '../components/InfoCards.astro';
 
 const content = contentRaw as any;
 
@@ -28,6 +29,7 @@ const faqSchema = {
     </div>
   </section>
   <Pricing headingLevel="h2" />
+  <InfoCards />
   <section class="info-section" aria-labelledby="info-heading">
     <div class="info-container">
       <h2 id="info-heading" class="info-heading">Zusätzliche Informationen</h2>

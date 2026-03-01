@@ -39,7 +39,7 @@ const [teachers, cities, unterrichtData, instrumentsData, duesseldorfData, neuss
   import('../../../../content/neuss.json'),
 ]);
 
-const instrumentInfo = (unterrichtData as { instruments?: Array<{ slug: string; name: string; description: string; highlights: string[] }> }).instruments?.find((i) => i.slug === instrument);
+const instrumentInfo = (unterrichtData as { instruments?: Array<{ slug: string; name: string; description: string; highlights: string[]; image?: string }> }).instruments?.find((i) => i.slug === instrument);
 const instrumentsDataTyped = (instrumentsData as { default: Record<string, { title: string; subtitle: string; sections?: Array<{ heading: string; content: string }> }> }).default;
 const instrumentDetail = instrumentsDataTyped[instrument];
 const cityInfo = cities.find((c) => c.slug === city);
@@ -97,7 +97,7 @@ const ldFAQ = faqItems.length > 0 ? {
 } : null;
 ---
 
-<BaseLayout title={metaTitle} description={metaDescription}>
+<BaseLayout title={metaTitle} description={metaDescription} ogImage={instrumentInfo?.image}>
   {ldLocal && <script type="application/ld+json" set:html={JSON.stringify(ldLocal)} slot="head" />}
   {ldFAQ && <script type="application/ld+json" set:html={JSON.stringify(ldFAQ)} slot="head" />}
   <section class="campaign-hero" aria-labelledby="campaign-heading">
