@@ -1,5 +1,5 @@
 ---
-import pricingData from '../../content/shared/pricing.json';
+import pricingRaw from '../../content/pricing.json';
 
 interface Props {
   showHeader?: boolean;
@@ -8,6 +8,13 @@ interface Props {
 
 const { showHeader = true, headingLevel = 'h2' } = Astro.props;
 const HeadingTag = headingLevel;
+
+// Use content/pricing.json (Preise-Seite in CMS) so CMS edits affect all pages
+const pricingData = {
+  title: (pricingRaw as any).hero?.title ?? 'Unsere Preise',
+  subtitle: (pricingRaw as any).hero?.subtitle ?? 'Transparente Preise für qualitativ hochwertigen Musikunterricht',
+  plans: (pricingRaw as any).plans ?? [],
+};
 ---
 
 <section id="pricing" class="pricing" aria-labelledby={showHeader ? "pricing-heading" : "pricing-section-heading"}>
@@ -149,11 +156,13 @@ const HeadingTag = headingLevel;
 
   .price {
     margin-bottom: var(--space-md);
+    hyphens: none;
+    white-space: nowrap;
   }
 
   .amount {
     font-family: var(--font-serif);
-    font-size: var(--text-4xl);
+    font-size: var(--text-2xl);
     color: var(--color-gold-on-light);
     font-weight: 700;
   }
