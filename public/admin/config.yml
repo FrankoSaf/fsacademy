@@ -14,7 +14,7 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 site_url: "https://finesoundacademy.com"
-  display_url: "https://finesoundacademy.com"
+display_url: "https://finesoundacademy.com"
 
 collections:
   # ─── Global ─────────────────────────────────────────────────────────────
