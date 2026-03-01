@@ -1,5 +1,6 @@
 ---
 import contentRaw from '../../content/landing.json';
+import uiRaw from '../../content/ui.json';
 
 // Type definitions
 interface SocialMedia {
@@ -33,6 +34,7 @@ interface Content {
 }
 
 const content = contentRaw as Content;
+const ui = uiRaw as { menuOpen?: string; menuClose?: string; navAriaLabel?: string; mobileMenuAriaLabel?: string };
 const navLinks = content?.navigation?.links ?? [];
 const linksBeforeLogo = navLinks.slice(0, 2);
 const linksAfterLogo = navLinks.slice(2);
@@ -52,9 +54,9 @@ const socialIcons: Record<string, string> = {
 };
 ---
 
-<nav id="mainNav" class="nav-dark" aria-label="Hauptnavigation">
+<nav id="mainNav" class="nav-dark" aria-label={ui.navAriaLabel ?? 'Hauptnavigation'}>
   <div class="nav-container">
-    <button class="mobile-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+    <button class="mobile-toggle" aria-label={ui.menuOpen ?? 'Menü öffnen'} aria-expanded="false" aria-controls="mobile-menu">
       <span></span>
       <span></span>
       <span></span>
@@ -140,7 +142,7 @@ const socialIcons: Record<string, string> = {
 
   </div>
 
-  <div class="mobile-menu" id="mobile-menu" role="region" aria-label="Mobiles Menü">
+  <div class="mobile-menu" id="mobile-menu" role="region" aria-label={ui.mobileMenuAriaLabel ?? 'Mobiles Menü'}>
     <ul class="mobile-nav-links">
       {
         content &&
@@ -514,7 +516,7 @@ const socialIcons: Record<string, string> = {
   }
 </style>
 
-<script>
+<script define:vars={{ menuOpenLabel: ui.menuOpen ?? 'Menü öffnen', menuCloseLabel: ui.menuClose ?? 'Menü schließen' }}>
   const toggle = document.querySelector('.mobile-toggle') as HTMLButtonElement | null;
   const mobileMenu = document.querySelector('.mobile-menu');
 
@@ -523,7 +525,7 @@ const socialIcons: Record<string, string> = {
     toggle.classList.toggle('active', open);
     mobileMenu.classList.toggle('active', open);
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    toggle.setAttribute('aria-label', open ? menuCloseLabel : menuOpenLabel);
 
     if (open) {
       const firstLink = mobileMenu.querySelector('a, button') as HTMLElement | null;

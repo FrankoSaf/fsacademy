@@ -17,12 +17,41 @@
     "schlagzeug": "Schlagzeug",
     "startseite": "Startseite"
   },
-  "stickyCta": {
-    "text": "Probestunde",
-    "ariaLabel": "Probestunde vereinbaren"
-  },
+  "stickyCta": { "text": "Probestunde", "ariaLabel": "Probestunde vereinbaren" },
   "whatsappAriaLabel": "WhatsApp kontaktieren",
   "navAriaLabel": "Hauptnavigation",
   "menuOpen": "Menü öffnen",
-  "menuClose": "Menü schließen"
+  "menuClose": "Menü schließen",
+  "mobileMenuAriaLabel": "Mobiles Menü",
+  "contact": {
+    "adresse": "Adresse",
+    "oeffnungszeiten": "Öffnungszeiten",
+    "kontakt": "Kontakt",
+    "routePlanen": "Route planen"
+  },
+  "location": {
+    "probestundeVereinbaren": "Probestunde vereinbaren",
+    "kostenloseProbestundeBuchen": "Kostenlose Probestunde buchen",
+    "keineFaq": "Keine FAQ-Einträge vorhanden.",
+    "alleInstrumente": "Alle Instrumente"
+  },
+  "campaign": {
+    "fuerKinder": "Für Kinder, Jugendliche und Erwachsene",
+    "wieKannIchAnfangen": "Wie kann ich anfangen?",
+    "step1": "Formular ausfüllen",
+    "step2": "Termin vereinbaren",
+    "step3": "Kostenlos ausprobieren",
+    "step4": "Danach entscheiden",
+    "probestundeVereinbaren": "Probestunde vereinbaren",
+    "kostenloseProbestundeBuchen": "Kostenlose Probestunde buchen",
+    "kostenlosUnverbindlich": "Kostenlos und unverbindlich – direkt online buchen.",
+    "teachersIntro": "Unsere Lehrkräfte sind das kreative Herz unserer Musikschule und begleiten dich auf deinem musikalischen Weg.",
+    "unsereLehrer": "Unsere"
+  },
+  "unterricht": {
+    "unterrichtIn": "Unterricht in Düsseldorf und Neuss:",
+    "inDuesseldorf": "In Düsseldorf",
+    "inNeuss": "In Neuss",
+    "jetztProbestundeBuchen": "Jetzt Probestunde buchen"
+  }
 }

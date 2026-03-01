@@ -2,8 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import instrumentsData from '../../../content/instruments.json';
 import globals from '../../../content/globals.json';
+import ui from '../../../content/ui.json';
 
 const probestundeUrl = (globals as { probestundeUrl?: string }).probestundeUrl ?? 'https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/';
+const unterrichtUi = (ui as { unterricht?: Record<string, string> }).unterricht ?? {};
 
 const iconToSlug: Record<string, string> = {
   piano: 'klavier',
@@ -50,13 +52,13 @@ if (!data) {
         ))}
 
         <div class="location-ctas">
-          <p>Unterricht in Düsseldorf und Neuss:</p>
+          <p>{unterrichtUi.unterrichtIn ?? 'Unterricht in Düsseldorf und Neuss:'}</p>
           <div class="cta-buttons">
-            <a href={`/duesseldorf/unterricht/${instrument}`} class="cta-button">In Düsseldorf</a>
-            <a href={`/neuss/unterricht/${instrument}`} class="cta-button">In Neuss</a>
+            <a href={`/duesseldorf/unterricht/${instrument}`} class="cta-button">{unterrichtUi.inDuesseldorf ?? 'In Düsseldorf'}</a>
+            <a href={`/neuss/unterricht/${instrument}`} class="cta-button">{unterrichtUi.inNeuss ?? 'In Neuss'}</a>
           </div>
         </div>
-        <a href={probestundeUrl} target="_blank" rel="noopener noreferrer" class="cta-button primary">Jetzt Probestunde buchen</a>
+        <a href={probestundeUrl} target="_blank" rel="noopener noreferrer" class="cta-button primary">{unterrichtUi.jetztProbestundeBuchen ?? 'Jetzt Probestunde buchen'}</a>
       </div>
     </div>
   </section>

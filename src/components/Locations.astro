@@ -1,10 +1,15 @@
 ---
 import ResponsiveImage from './ResponsiveImage.astro';
 
-const [duesseldorfData, neussData] = await Promise.all([
+const [duesseldorfData, neussData, landingData] = await Promise.all([
   import('../../content/duesseldorf.json'),
   import('../../content/neuss.json'),
+  import('../../content/landing.json'),
 ]);
+
+const locationsBlock = (landingData as { default?: { locationsBlock?: { heading?: string; intro?: string } } }).default?.locationsBlock;
+const locationsHeading = locationsBlock?.heading ?? 'Unsere Standorte';
+const locationsIntro = locationsBlock?.intro ?? 'Düsseldorf und Neuss — professioneller Musikunterricht an zwei Orten in der Region.';
 
 interface LocationCard {
   image: string;
@@ -42,8 +47,8 @@ const locations = {
 ---
 
 <section class="locations" aria-labelledby="locations-heading">
-  <h2 id="locations-heading" class="locations-title">Unsere Standorte</h2>
-  <p class="locations-intro">Düsseldorf und Neuss — professioneller Musikunterricht an zwei Orten in der Region.</p>
+  <h2 id="locations-heading" class="locations-title">{locationsHeading}</h2>
+  <p class="locations-intro">{locationsIntro}</p>
   <div class="locations-grid">
     <article class="location-card">
       <ResponsiveImage

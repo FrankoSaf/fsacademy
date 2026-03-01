@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import globals from '../../content/globals.json';
+import ui from '../../content/ui.json';
 
 const probestundeUrl = (globals as { probestundeUrl?: string }).probestundeUrl ?? 'https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/';
+const loc = (ui as { location?: Record<string, string> }).location ?? {};
 import About from '../components/About.astro';
 import CTA from '../components/CTA.astro';
 import Team from '../components/Team.astro';
@@ -258,7 +260,7 @@ const heroImage = landingData?.hero?.image ?? '';
       </p>
       <p>
         <a href="/duesseldorf/unterricht" class="instruments-cta"
-          >Alle Instrumente in Düsseldorf →</a>
+          >{(loc.alleInstrumente ?? 'Alle Instrumente')} in Düsseldorf →</a>
       </p>
       <div class="instruments-grid">
         {
@@ -372,7 +374,7 @@ const heroImage = landingData?.hero?.image ?? '';
               </details>
             ))
           ) : (
-            <p class="faq-empty">Keine FAQ-Einträge vorhanden.</p>
+            <p class="faq-empty">{loc.keineFaq ?? 'Keine FAQ-Einträge vorhanden.'}</p>
           )
         }
       </div>
@@ -383,14 +385,14 @@ const heroImage = landingData?.hero?.image ?? '';
   <LocationInfoCards cards={data.infoCards} />
   <section class="location-cta-section" aria-label="Probestunde buchen">
     <div class="location-cta-inner">
-      <p class="location-cta-heading">Probestunde vereinbaren</p>
+      <p class="location-cta-heading">{loc.probestundeVereinbaren ?? 'Probestunde vereinbaren'}</p>
       <a
         href={probestundeUrl}
         target="_blank"
         rel="noopener noreferrer"
         class="location-cta-button"
       >
-        Kostenlose Probestunde buchen
+        {loc.kostenloseProbestundeBuchen ?? 'Kostenlose Probestunde buchen'}
       </a>
     </div>
   </section>

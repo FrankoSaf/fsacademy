@@ -88,6 +88,32 @@ collections:
                 fields:
                   - { label: Text, name: text, widget: string }
                   - { label: URL, name: url, widget: string }
+          - label: Intro-Bereich (HomeIntro)
+            name: homeIntro
+            widget: object
+            hint: "Textblock zwischen Hero und Instrumente."
+            fields:
+              - { label: Überschrift, name: heading, widget: string }
+              - { label: Lead-Zeile (unter der Überschrift), name: lead, widget: string }
+              - label: Absätze
+                name: paragraphs
+                widget: list
+                field: { label: Absatz, name: paragraph, widget: text }
+              - label: Info-Karten
+                name: cards
+                widget: list
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Titel, name: title, widget: string }
+                  - { label: Text, name: text, widget: string }
+              - { label: CTA-Text (z.B. Buche jetzt deine kostenlose Probestunde…), name: ctaText, widget: string }
+          - label: Standorte-Block (Unsere Standorte)
+            name: locationsBlock
+            widget: object
+            hint: "Bereich „Unsere Standorte“ auf der Startseite."
+            fields:
+              - { label: Überschrift, name: heading, widget: string }
+              - { label: Intro-Text, name: intro, widget: string }
           - label: Instrumente (Übersicht Startseite)
             name: instruments
             widget: object
@@ -805,6 +831,50 @@ collections:
           - { label: "Nav Aria-Label", name: navAriaLabel, widget: string }
           - { label: "Menü öffnen", name: menuOpen, widget: string }
           - { label: "Menü schließen", name: menuClose, widget: string }
+          - { label: "Mobiles Menü (Aria-Label)", name: mobileMenuAriaLabel, widget: string }
+          - label: "Kontakt-Komponente (Adresse, Öffnungszeiten…)"
+            name: contact
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Adresse, name: adresse, widget: string }
+              - { label: Öffnungszeiten, name: oeffnungszeiten, widget: string }
+              - { label: Kontakt, name: kontakt, widget: string }
+              - { label: "Route planen", name: routePlanen, widget: string }
+          - label: "Standort-Seiten (Probestunde CTA, FAQ leer…)"
+            name: location
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Probestunde vereinbaren", name: probestundeVereinbaren, widget: string }
+              - { label: "Kostenlose Probestunde buchen", name: kostenloseProbestundeBuchen, widget: string }
+              - { label: "Keine FAQ (Platzhalter)", name: keineFaq, widget: string }
+              - { label: "Alle Instrumente", name: alleInstrumente, widget: string }
+          - label: "Kampagnen-Seiten (Instrument + Standort)"
+            name: campaign
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Für Kinder, Jugendliche…", name: fuerKinder, widget: string }
+              - { label: "Wie kann ich anfangen?", name: wieKannIchAnfangen, widget: string }
+              - { label: "Schritt 1", name: step1, widget: string }
+              - { label: "Schritt 2", name: step2, widget: string }
+              - { label: "Schritt 3", name: step3, widget: string }
+              - { label: "Schritt 4", name: step4, widget: string }
+              - { label: "Probestunde vereinbaren", name: probestundeVereinbaren, widget: string }
+              - { label: "Kostenlose Probestunde buchen (CTA-Button)", name: kostenloseProbestundeBuchen, widget: string }
+              - { label: "Kostenlos unverbindlich (CTA)", name: kostenlosUnverbindlich, widget: string }
+              - { label: "Lehrer-Intro", name: teachersIntro, widget: string }
+              - { label: "Unsere (Lehrer)", name: unsereLehrer, widget: string }
+          - label: "Unterricht-Seiten (/unterricht/[instrument])"
+            name: unterricht
+            widget: object
+            collapsed: true
+            fields:
+              - { label: "Unterricht in Düsseldorf und Neuss:", name: unterrichtIn, widget: string }
+              - { label: "In Düsseldorf", name: inDuesseldorf, widget: string }
+              - { label: "In Neuss", name: inNeuss, widget: string }
+              - { label: "Jetzt Probestunde buchen", name: jetztProbestundeBuchen, widget: string }
       - label: Cookie-Banner
         name: cookie
         file: "content/cookie.json"

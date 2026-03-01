@@ -1,9 +1,12 @@
 ---
+import uiRaw from '../../content/ui.json';
+
 interface Props {
   location: 'duesseldorf' | 'neuss';
 }
 
 const { location } = Astro.props;
+const ui = uiRaw as { contact?: { adresse?: string; oeffnungszeiten?: string; kontakt?: string; routePlanen?: string } };
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || '';
 
@@ -54,13 +57,13 @@ const contact = locations[location];
       <p class="subtitle">{contact.subtitle}</p>
 
       <div class="info-group">
-        <h3>Adresse</h3>
+        <h3>{ui.contact?.adresse ?? 'Adresse'}</h3>
         <p>{contact.address}</p>
         <p>{contact.city}</p>
       </div>
 
       <div class="info-group">
-        <h3>Öffnungszeiten</h3>
+        <h3>{ui.contact?.oeffnungszeiten ?? 'Öffnungszeiten'}</h3>
         {
           contact.hours.map((hour) => (
             <p>
@@ -83,7 +86,7 @@ const contact = locations[location];
           rel="noopener noreferrer"
           class="directions-button"
         >
-          Route planen
+          {ui.contact?.routePlanen ?? 'Route planen'}
         </a>
       </div>
     </div>

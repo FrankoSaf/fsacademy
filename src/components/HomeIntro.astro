@@ -4,36 +4,37 @@ import contentRaw from '../../content/landing.json';
 interface Content {
   homeIntro?: {
     heading?: string;
+    lead?: string;
     paragraphs?: string[];
+    cards?: Array<{ title?: string; text?: string }>;
+    ctaText?: string;
   };
 }
 
 const content = contentRaw as Content;
-const intro = content.homeIntro ?? {
-  heading: 'Fine Sound Academy – Deine Musikschule in Düsseldorf und Neuss',
-  paragraphs: [
-    'Die Fine Sound Academy ist deine Musikschule in Düsseldorf und Neuss. Wir unterrichten Klavier, Gitarre, Gesang, Bass und Schlagzeug – für Kinder, Jugendliche und Erwachsene. Egal ob Anfänger oder Fortgeschrittener: Unsere erfahrenen Lehrkräfte unterstützen dich dort, wo du stehst.',
-    'Zwei Standorte: Düsseldorf-Pempelfort (Kaiserstraße 28) und Neuss am Neumarkt 18. Beide Studios sind gut mit öffentlichen Verkehrsmitteln erreichbar. Du entscheidest, ob Einzel- oder Gruppenunterricht – und Termine planen wir flexibel. Mit einer kostenlosen Probestunde lernst du uns unverbindlich kennen.',
-    'Über 500 Schüler sind bereits dabei. Von Pop über Klassik bis Jazz und Rock – wir finden einen Einstieg, der zu dir passt. Moderner Unterricht, ein freundliches Team, eine entspannte Atmosphäre.'
-  ]
-};
-
-const cards = [
+const intro = content.homeIntro ?? {};
+const heading = intro.heading ?? 'Fine Sound Academy – Deine Musikschule in Düsseldorf und Neuss';
+const lead = intro.lead ?? 'Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug – in Düsseldorf und Neuss.';
+const paragraphs = intro.paragraphs ?? [
+  'Die Fine Sound Academy ist deine Musikschule in Düsseldorf und Neuss. Wir unterrichten Klavier, Gitarre, Gesang, Bass und Schlagzeug – für Kinder, Jugendliche und Erwachsene. Egal ob Anfänger oder Fortgeschrittener: Unsere erfahrenen Lehrkräfte unterstützen dich dort, wo du stehst.',
+  'Zwei Standorte: Düsseldorf-Pempelfort (Kaiserstraße 28) und Neuss am Neumarkt 18. Beide Studios sind gut mit öffentlichen Verkehrsmitteln erreichbar. Du entscheidest, ob Einzel- oder Gruppenunterricht – und Termine planen wir flexibel. Mit einer kostenlosen Probestunde lernst du uns unverbindlich kennen.',
+  'Über 500 Schüler sind bereits dabei. Von Pop über Klassik bis Jazz und Rock – wir finden einen Einstieg, der zu dir passt. Moderner Unterricht, ein freundliches Team, eine entspannte Atmosphäre.'
+];
+const cards = intro.cards ?? [
   { title: 'Zwei Standorte', text: 'Düsseldorf und Neuss – beide gut mit ÖPNV erreichbar.' },
   { title: 'Individuell', text: 'Einzel- oder Gruppenunterricht, für Anfänger und Fortgeschrittene.' },
   { title: 'Kostenlos testen', text: 'Unverbindliche Probestunde zum Kennenlernen.' },
 ];
+const ctaText = intro.ctaText ?? 'Buche jetzt deine kostenlose Probestunde und lerne uns und unser Konzept kennen.';
 ---
 
 <section class="home-intro" aria-labelledby="home-intro-heading">
   <div class="intro-container">
-    <h2 id="home-intro-heading">{intro.heading}</h2>
-    <p class="intro-lead">
-      Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug – in <a href="/duesseldorf">Düsseldorf</a> und <a href="/neuss">Neuss</a>.
-    </p>
-    {intro.paragraphs && intro.paragraphs.length > 0 && (
+    <h2 id="home-intro-heading">{heading}</h2>
+    <p class="intro-lead" set:html={lead.replace(/Düsseldorf/g, '<a href="/duesseldorf">Düsseldorf</a>').replace(/Neuss/g, '<a href="/neuss">Neuss</a>')} />
+    {paragraphs && paragraphs.length > 0 && (
       <div class="intro-paragraphs">
-        {intro.paragraphs.map((p) => <p>{p}</p>)}
+        {paragraphs.map((p) => <p>{p}</p>)}
       </div>
     )}
     <div class="intro-cards">
@@ -44,9 +45,7 @@ const cards = [
         </div>
       ))}
     </div>
-    <p class="intro-cta">
-      Buche jetzt deine <strong>kostenlose Probestunde</strong> und lerne uns und unser Konzept kennen.
-    </p>
+    <p class="intro-cta" set:html={ctaText.replace(/kostenlose Probestunde/gi, '<strong>kostenlose Probestunde</strong>')} />
   </div>
 </section>
 

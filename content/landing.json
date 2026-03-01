@@ -190,6 +190,31 @@
       "url": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
     }
   },
+  "homeIntro": {
+    "heading": "Fine Sound Academy – Deine Musikschule in Düsseldorf und Neuss",
+    "lead": "Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug – in Düsseldorf und Neuss.",
+    "paragraphs": [
+      "Die Fine Sound Academy ist deine Musikschule in Düsseldorf und Neuss. Wir unterrichten Klavier, Gitarre, Gesang, Bass und Schlagzeug – für Kinder, Jugendliche und Erwachsene. Egal ob Anfänger oder Fortgeschrittener: Unsere erfahrenen Lehrkräfte unterstützen dich dort, wo du stehst.",
+      "Zwei Standorte: Düsseldorf-Pempelfort (Kaiserstraße 28) und Neuss am Neumarkt 18. Beide Studios sind gut mit öffentlichen Verkehrsmitteln erreichbar. Du entscheidest, ob Einzel- oder Gruppenunterricht – und Termine planen wir flexibel. Mit einer kostenlosen Probestunde lernst du uns unverbindlich kennen.",
+      "Über 500 Schüler sind bereits dabei. Von Pop über Klassik bis Jazz und Rock – wir finden einen Einstieg, der zu dir passt. Moderner Unterricht, ein freundliches Team, eine entspannte Atmosphäre."
+    ],
+    "cards": [
+      { "title": "Zwei Standorte", "text": "Düsseldorf und Neuss – beide gut mit ÖPNV erreichbar." },
+      { "title": "Individuell", "text": "Einzel- oder Gruppenunterricht, für Anfänger und Fortgeschrittene." },
+      { "title": "Kostenlos testen", "text": "Unverbindliche Probestunde zum Kennenlernen." }
+    ],
+    "ctaText": "Buche jetzt deine kostenlose Probestunde und lerne uns und unser Konzept kennen."
+  },
+  "locationsBlock": {
+    "heading": "Unsere Standorte",
+    "intro": "Düsseldorf und Neuss — professioneller Musikunterricht an zwei Orten in der Region."
+  },
+  "cta": {
+    "title": "MUSIKSCHULE IN NEUSS UND DÜSSELDORF",
+    "subtitle": "Buche jetzt deine kostenlose Probestunde und lerne uns kennen!",
+    "buttonText": "Termin vereinbaren",
+    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
+  },
   "team": {
     "title": "Unser Team",
     "intro": "Unsere Musiklehrer sind das kreative Herz unserer Musikschule in Düsseldorf und Neuss, und wir sind stolz darauf, eine Umgebung zu schaffen, die das musikalische Potential eines jeden Schülers entfaltet. Mit wöchentlichem Unterricht von 30 oder 45 Minuten, sowohl in Gruppen- als auch im Einzelunterricht, bieten wir eine flexible Lernstruktur in unserer Musikschule an, die sich den individuellen Bedürfnissen jedes Schülers anpasst.",
