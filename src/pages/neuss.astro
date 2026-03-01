@@ -21,6 +21,7 @@ const pageData = (await import('../../content/neuss.json')).default as {
   directionsCard?: { title: string; lines: unknown };
   hoursCard?: { title: string; lines: unknown };
   infoCards?: Array<{ title: string; description: string }>;
+  cta?: { title: string; subtitle: string; buttonText: string; buttonLink: string };
   instruments: {
     heading: string;
     intro: string;
@@ -37,6 +38,7 @@ const data = {
     pageData.directionsCard ?? { title: '', lines: [] },
   hoursCard: city?.hoursCard ?? pageData.hoursCard ?? { title: '', lines: [] },
   infoCards: (city as any)?.infoCards ?? pageData.infoCards ?? [],
+  cta: (city as any)?.cta ?? pageData.cta,
   instruments: pageData.instruments,
   faq: pageData.faq,
   reviews: pageData.reviews ?? { title: 'Was unsere Schüler sagen', items: [] },
@@ -335,7 +337,7 @@ const heroImage = landingData?.hero?.image ?? '';
 
   <About school="neuss" />
   <LocationReviews title={data.reviews.title} items={data.reviews.items} />
-  <CTA />
+  <CTA cta={data.cta} />
   <Team location="neuss" showIntro={false} />
 
   <section class="faq-section" aria-labelledby="faq-neuss">

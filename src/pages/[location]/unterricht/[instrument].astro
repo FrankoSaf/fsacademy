@@ -52,8 +52,9 @@ const instrumentDetail = instrumentsDataTyped[instrument];
 const cityInfo = cities.find((c) => c.slug === city);
 const teachersForPage = getTeachersForInstrumentAndCity(teachers, instrument!, city!);
 
-const locationPage = city === 'duesseldorf' ? (duesseldorfData as { default: { faq?: { items?: Array<{ question: string; answer: string }> }; reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> } } }).default : (neussData as { default: { faq?: { items?: Array<{ question: string; answer: string }> }; reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> } } }).default;
+const locationPage = city === 'duesseldorf' ? (duesseldorfData as { default: { faq?: { items?: Array<{ question: string; answer: string }> }; reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> }; cta?: { title: string; subtitle: string; buttonText: string; buttonLink: string } } }).default : (neussData as { default: { faq?: { items?: Array<{ question: string; answer: string }> }; reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> }; cta?: { title: string; subtitle: string; buttonText: string; buttonLink: string } } }).default;
 const faqItems = locationPage?.faq?.items ?? [];
+const locationCta = locationPage?.cta;
 
 const instrumentName = instrumentInfo?.name ?? instrument;
 const cityName = cityInfo?.name ?? city;
@@ -218,7 +219,7 @@ const ldFAQ = faqItems.length > 0 ? {
     </div>
   </section>
 
-  <CTA />
+  <CTA cta={locationCta} />
 </BaseLayout>
 
 <style>

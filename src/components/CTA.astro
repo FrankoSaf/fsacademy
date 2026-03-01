@@ -13,14 +13,21 @@ interface Content {
 }
 
 const content = contentRaw as Content;
+
+interface Props {
+  cta?: CTAContent;
+}
+
+const { cta: customCta } = Astro.props;
+const cta = customCta ?? content.cta;
 ---
 
 <section class="cta" aria-labelledby="cta-heading">
   <div class="cta-container">
-    <p id="cta-heading" class="cta-heading">{content.cta.title}</p>
-    <p>{content.cta.subtitle}</p>
-    <a href={content.cta.buttonLink} class="cta-button" aria-label={content.cta.buttonText} target={content.cta.buttonLink.startsWith('http') ? '_blank' : undefined} rel={content.cta.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}>
-      {content.cta.buttonText}
+    <p id="cta-heading" class="cta-heading">{cta.title}</p>
+    <p>{cta.subtitle}</p>
+    <a href={cta.buttonLink} class="cta-button" aria-label={cta.buttonText} target={cta.buttonLink.startsWith('http') ? '_blank' : undefined} rel={cta.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}>
+      {cta.buttonText}
     </a>
   </div>
 </section>

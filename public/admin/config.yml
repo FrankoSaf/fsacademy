@@ -443,6 +443,23 @@ collections:
             fields:
               - { label: Bild, name: image, widget: image }
               - { label: Button-Text, name: buttonText, widget: string, default: "Zur Schule Düsseldorf" }
+          - label: CTA-Bereich (Standort Düsseldorf)
+            name: cta
+            widget: object
+            hint: "Eigener CTA-Text für die Düsseldorf-Seite (Titel, Untertitel, Button)."
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+          - label: Info-Karten (Zahlungsart, Parkmöglichkeiten, Rabatte)
+            name: infoCards
+            widget: list
+            hint: "Erscheint auf der Düsseldorf-Seite. Zahlungsart, Parkmöglichkeiten, Rabatte – jeweils bearbeitbar."
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Beschreibung, name: description, widget: text }
           - label: Hero
             name: hero
             widget: object
@@ -547,6 +564,23 @@ collections:
             fields:
               - { label: Bild, name: image, widget: image }
               - { label: Button-Text, name: buttonText, widget: string, default: "Zur Schule Neuss" }
+          - label: CTA-Bereich (Standort Neuss)
+            name: cta
+            widget: object
+            hint: "Eigener CTA-Text für die Neuss-Seite (Titel, Untertitel, Button)."
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - { label: Button-Text, name: buttonText, widget: string }
+              - { label: Button-Link, name: buttonLink, widget: string }
+          - label: Info-Karten (Zahlungsart, Parkmöglichkeiten, Rabatte)
+            name: infoCards
+            widget: list
+            hint: "Erscheint auf der Neuss-Seite. Zahlungsart, Parkmöglichkeiten, Rabatte – jeweils bearbeitbar."
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Beschreibung, name: description, widget: text }
           - label: Hero
             name: hero
             widget: object
