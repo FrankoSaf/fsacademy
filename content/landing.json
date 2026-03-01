@@ -1,10 +1,40 @@
 {
-  "hero": {
-    "title": "Fine Sound Academy – Musikschule Düsseldorf und Neuss",
-    "subtitle": "Professioneller Musikunterricht in Düsseldorf und Neuss",
-    "buttonText": "Kostenlose Probestunde buchen",
-    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
-    "image": "/uploads/img_9980.jpeg"
+  "instruments": {
+    "title": "Unsere Instrumente",
+    "subtitle": "Entdecke dein Instrument",
+    "items": [
+      {
+        "name": "Bass",
+        "icon": "bass",
+        "description": "Die tiefe, rhythmische Basis – verbindet Melodie und Perkussion und gibt dem Groove seine Kraft."
+      },
+      {
+        "name": "Gitarre",
+        "icon": "guitar",
+        "description": "Vielseitiges sechssaitiges Instrument – von zartem Fingerpicking bis zu kraftvollen Riffs."
+      },
+      {
+        "name": "Klavier",
+        "icon": "piano",
+        "description": "88 Tasten voller harmonischer Möglichkeiten – von klassischer Eleganz bis zur modernen Improvisation."
+      },
+      {
+        "name": "Gesang",
+        "icon": "vocals",
+        "description": "Dein natürlichstes Instrument – die Stimme, fähig zu unendlicher Emotion und Ausdruck."
+      },
+      {
+        "name": "Schlagzeug",
+        "icon": "drums",
+        "description": "Der Herzschlag der Band – Rhythmus und Dynamik mit kraftvollem Percussion-Sound."
+      }
+    ]
+  },
+  "cta": {
+    "title": "MUSIKSCHULE IN NEUSS UND DÜSSELDORF",
+    "subtitle": "Buche jetzt deine kostenlose Probestunde und lerne uns kennen!",
+    "buttonText": "Termin vereinbaren",
+    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
   },
   "navigation": {
     "logo": {
@@ -62,42 +92,103 @@
       "url": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
     }
   },
-  "instruments": {
-    "title": "Unsere Instrumente",
-    "subtitle": "Entdecke dein Instrument",
+  "testimonials": {
+    "title": "Was unsere Schüler sagen",
     "items": [
       {
-        "name": "Bass",
-        "icon": "bass",
-        "description": "Die tiefe, rhythmische Basis – verbindet Melodie und Perkussion und gibt dem Groove seine Kraft."
+        "name": "Sarah M.",
+        "text": "Mein Sohn hat in nur einem Jahr enorme Fortschritte am Klavier gemacht. Die Lehrer sind geduldig und motivierend.",
+        "instrument": "Klavier"
       },
       {
-        "name": "Gitarre",
-        "icon": "guitar",
-        "description": "Vielseitiges sechssaitiges Instrument – von zartem Fingerpicking bis zu kraftvollen Riffs."
+        "name": "Thomas K.",
+        "text": "Endlich Gitarre spielen gelernt – genau so, wie ich es mir vorgestellt habe. Top Unterricht in Neuss!",
+        "instrument": "Gitarre"
       },
       {
-        "name": "Klavier",
-        "icon": "piano",
-        "description": "88 Tasten voller harmonischer Möglichkeiten – von klassischer Eleganz bis zur modernen Improvisation."
-      },
-      {
-        "name": "Gesang",
-        "icon": "vocals",
-        "description": "Dein natürlichstes Instrument – die Stimme, fähig zu unendlicher Emotion und Ausdruck."
-      },
-      {
-        "name": "Schlagzeug",
-        "icon": "drums",
-        "description": "Der Herzschlag der Band – Rhythmus und Dynamik mit kraftvollem Percussion-Sound."
+        "name": "Lisa R.",
+        "text": "Die Probestunde hat mich überzeugt. Professionell, freundlich und ein echtes Musikgefühl.",
+        "instrument": "Gesang"
       }
     ]
   },
-  "cta": {
-    "title": "MUSIKSCHULE IN NEUSS UND DÜSSELDORF",
-    "subtitle": "Buche jetzt deine kostenlose Probestunde und lerne uns kennen!",
-    "buttonText": "Termin vereinbaren",
-    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
+  "trustBlock": {
+    "text": "Kostenlose Probestunde – unverbindlich",
+    "subtext": "Über 200 Schüler vertrauen uns an beiden Standorten"
+  },
+  "faq": {
+    "heading": "Häufige Fragen zur Musikschule",
+    "items": [
+      {
+        "question": "Wo findet der Musikunterricht statt?",
+        "answer": "In Düsseldorf an der Kaiserstraße 28 (Pempelfort) und in Neuss am Neumarkt 18. Beide Studios sind gut mit Bus und Bahn erreichbar."
+      },
+      {
+        "question": "Was kostet eine Probestunde?",
+        "answer": "Die Probestunde ist kostenlos. Du schaust dir die Räume an, lernst den Lehrer kennen – und entscheidest dann in Ruhe."
+      },
+      {
+        "question": "Für wen ist der Unterricht geeignet?",
+        "answer": "Für alle: Kinder, Jugendliche und Erwachsene, Anfänger und Fortgeschrittene. Wir unterrichten Klavier, Gitarre, Gesang, Bass und Schlagzeug – einzeln oder in der Gruppe."
+      },
+      {
+        "question": "Wie kann ich mich anmelden?",
+        "answer": "Über unseren Buchungslink für die Probestunde, Anruf oder per WhatsApp. Oder wir melden uns bei dir und vereinbaren gemeinsam einen passenden Termin."
+      }
+    ]
+  },
+  "hero": {
+    "title": "Fine Sound Academy – Musikschule Düsseldorf und Neuss",
+    "subtitle": "Professioneller Musikunterricht in Düsseldorf und Neuss",
+    "buttonText": "Kostenlose Probestunde buchen",
+    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
+    "image": "/uploads/img_9980.jpeg"
+  },
+  "footer": {
+    "logo": {
+      "image": "https://s3.ca-central-1.amazonaws.com/logojoy/logos/112675843/noBgColor.png",
+      "alt": "Logo der Musikschule",
+      "link": "/"
+    },
+    "navigation": [
+      {
+        "text": "Startseite",
+        "url": "/"
+      },
+      {
+        "text": "Über uns",
+        "url": "/about"
+      },
+      {
+        "text": "Unterricht",
+        "url": "/unterricht"
+      },
+      {
+        "text": "Preise",
+        "url": "/preise"
+      }
+    ],
+    "legal": [
+      {
+        "text": "Datenschutz",
+        "url": "/datenschutz",
+        "highlight": true
+      },
+      {
+        "text": "Impressum",
+        "url": "/impressum",
+        "highlight": true
+      },
+      {
+        "text": "Vertrag kündigen",
+        "url": "https://www.axinio.app/booking/forms/termination/ebc793bf-3f17-4c16-a315-e9b045bf954b/",
+        "highlight": true
+      }
+    ],
+    "cta": {
+      "text": "Jetzt Probestunde anfragen",
+      "url": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
+    }
   },
   "team": {
     "title": "Unser Team",
@@ -198,96 +289,5 @@
         ]
       }
     ]
-  },
-  "testimonials": {
-    "title": "Was unsere Schüler sagen",
-    "items": [
-      {
-        "name": "Sarah M.",
-        "text": "Mein Sohn hat in nur einem Jahr enorme Fortschritte am Klavier gemacht. Die Lehrer sind geduldig und motivierend.",
-        "instrument": "Klavier"
-      },
-      {
-        "name": "Thomas K.",
-        "text": "Endlich Gitarre spielen gelernt – genau so, wie ich es mir vorgestellt habe. Top Unterricht in Neuss!",
-        "instrument": "Gitarre"
-      },
-      {
-        "name": "Lisa R.",
-        "text": "Die Probestunde hat mich überzeugt. Professionell, freundlich und ein echtes Musikgefühl.",
-        "instrument": "Gesang"
-      }
-    ]
-  },
-  "trustBlock": {
-    "text": "Kostenlose Probestunde – unverbindlich",
-    "subtext": "Über 200 Schüler vertrauen uns an beiden Standorten"
-  },
-  "faq": {
-    "heading": "Häufige Fragen zur Musikschule",
-    "items": [
-      {
-        "question": "Wo findet der Musikunterricht statt?",
-        "answer": "In Düsseldorf an der Kaiserstraße 28 (Pempelfort) und in Neuss am Neumarkt 18. Beide Studios sind gut mit Bus und Bahn erreichbar."
-      },
-      {
-        "question": "Was kostet eine Probestunde?",
-        "answer": "Die Probestunde ist kostenlos. Du schaust dir die Räume an, lernst den Lehrer kennen – und entscheidest dann in Ruhe."
-      },
-      {
-        "question": "Für wen ist der Unterricht geeignet?",
-        "answer": "Für alle: Kinder, Jugendliche und Erwachsene, Anfänger und Fortgeschrittene. Wir unterrichten Klavier, Gitarre, Gesang, Bass und Schlagzeug – einzeln oder in der Gruppe."
-      },
-      {
-        "question": "Wie kann ich mich anmelden?",
-        "answer": "Über unseren Buchungslink für die Probestunde oder per WhatsApp. Du kannst direkt online einen Termin auswählen – oder wir melden uns bei dir und vereinbaren gemeinsam einen passenden Termin."
-      }
-    ]
-  },
-  "footer": {
-    "logo": {
-      "image": "https://s3.ca-central-1.amazonaws.com/logojoy/logos/112675843/noBgColor.png",
-      "alt": "Logo der Musikschule",
-      "link": "/"
-    },
-    "navigation": [
-      {
-        "text": "Startseite",
-        "url": "/"
-      },
-      {
-        "text": "Über uns",
-        "url": "/about"
-      },
-      {
-        "text": "Unterricht",
-        "url": "/unterricht"
-      },
-      {
-        "text": "Preise",
-        "url": "/preise"
-      }
-    ],
-    "legal": [
-      {
-        "text": "Datenschutz",
-        "url": "/datenschutz",
-        "highlight": true
-      },
-      {
-        "text": "Impressum",
-        "url": "/impressum",
-        "highlight": true
-      },
-      {
-        "text": "Vertrag kündigen",
-        "url": "https://www.axinio.app/booking/forms/termination/ebc793bf-3f17-4c16-a315-e9b045bf954b/",
-        "highlight": true
-      }
-    ],
-    "cta": {
-      "text": "Jetzt Probestunde anfragen",
-      "url": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
-    }
   }
 }
