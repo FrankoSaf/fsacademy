@@ -64,6 +64,8 @@ const pricingData = {
               href={plan.buttonLink}
               class="pricing-button"
               aria-label={`${plan.buttonText} – ${plan.name}`}
+              target={plan.buttonLink.startsWith('http') ? '_blank' : undefined}
+              rel={plan.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
             >
               {plan.buttonText}
             </a>

@@ -3,7 +3,7 @@
     "title": "Fine Sound Academy – Musikschule Düsseldorf und Neuss",
     "subtitle": "Professioneller Musikunterricht in Düsseldorf und Neuss",
     "buttonText": "Kostenlose Probestunde buchen",
-    "buttonLink": "/kontakt",
+    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
     "image": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1920&q=80"
   },
   "navigation": {
@@ -54,12 +54,12 @@
       },
       {
         "text": "Kontakt",
-        "url": "/kontakt"
+        "url": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
       }
     ],
     "cta": {
       "text": "Probestunde",
-      "url": "/kontakt"
+      "url": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
     }
   },
   "instruments": {
@@ -97,7 +97,7 @@
     "title": "MUSIKSCHULE IN NEUSS UND DÜSSELDORF",
     "subtitle": "Buche jetzt deine kostenlose Probestunde und lerne uns kennen!",
     "buttonText": "Termin vereinbaren",
-    "buttonLink": "/kontakt"
+    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
   },
   "team": {
     "title": "Unser Team",
@@ -266,7 +266,7 @@
     ],
     "cta": {
       "text": "Jetzt Probestunde anfragen",
-      "url": "/kontakt"
+      "url": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
     }
   }
 }

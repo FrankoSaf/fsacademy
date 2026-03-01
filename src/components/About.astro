@@ -36,7 +36,7 @@ const content = {
           ))
         }
       </div>
-      <a href={content.about.buttonLink} class="about-button">
+      <a href={content.about.buttonLink} class="about-button" target={content.about.buttonLink.startsWith('http') ? '_blank' : undefined} rel={content.about.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}>
         {content.about.buttonText}
       </a>
     </div>

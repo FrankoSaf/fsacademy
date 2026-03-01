@@ -5,7 +5,6 @@ import CTA from '../components/CTA.astro';
 import Team from '../components/Team.astro';
 import Pricing from '../components/Pricing.astro';
 import LocationInfoCards from '../components/LocationInfoCards.astro';
-import Contact from '../components/Contact.astro';
 import { normalizeParagraphs, normalizeLines, getCities } from '../lib/cms';
 
 const cities = await getCities();
@@ -343,7 +342,19 @@ const ldFAQ = {
 
   <Pricing />
   <LocationInfoCards cards={data.infoCards} />
-  <Contact location="neuss" />
+  <section class="location-cta-section" aria-label="Probestunde buchen">
+    <div class="location-cta-inner">
+      <p class="location-cta-heading">Probestunde vereinbaren</p>
+      <a
+        href="https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="location-cta-button"
+      >
+        Kostenlose Probestunde buchen
+      </a>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
@@ -579,6 +590,41 @@ const ldFAQ = {
   .faq-empty {
     color: var(--color-text-secondary);
     font-style: italic;
+  }
+
+  .location-cta-section {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-gold);
+    text-align: center;
+  }
+  .location-cta-inner {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+  .location-cta-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
+    color: var(--color-black);
+    margin-bottom: var(--space-xl);
+    font-weight: 600;
+  }
+  .location-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md) var(--space-3xl);
+    background: var(--color-black);
+    color: var(--color-white);
+    font-weight: 600;
+    font-family: var(--font-sans);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    min-height: 48px;
+    transition: background var(--transition-base), color var(--transition-base);
+  }
+  .location-cta-button:hover {
+    background: var(--color-white);
+    color: var(--color-black);
   }
 
   @media (max-width: 767px) {

@@ -19,7 +19,7 @@ const content = contentRaw as Content;
   <div class="cta-container">
     <p id="cta-heading" class="cta-heading">{content.cta.title}</p>
     <p>{content.cta.subtitle}</p>
-    <a href={content.cta.buttonLink} class="cta-button" aria-label={content.cta.buttonText}>
+    <a href={content.cta.buttonLink} class="cta-button" aria-label={content.cta.buttonText} target={content.cta.buttonLink.startsWith('http') ? '_blank' : undefined} rel={content.cta.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}>
       {content.cta.buttonText}
     </a>
   </div>

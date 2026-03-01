@@ -2,7 +2,6 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import CTA from '../../../components/CTA.astro';
 import Pricing from '../../../components/Pricing.astro';
-import CampaignContactForm from '../../../components/CampaignContactForm.astro';
 import ResponsiveImage from '../../../components/ResponsiveImage.astro';
 import {
   getTeachers,
@@ -105,7 +104,7 @@ const ldFAQ = faqItems.length > 0 ? {
       <div class="accent-line"></div>
       <h1 id="campaign-heading">{displayName} {cityName}</h1>
       <p class="hero-subtitle">Für Kinder, Jugendliche und Erwachsene</p>
-      <a href="#contact" class="hero-cta">Kostenlose Probestunde</a>
+      <a href="https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/" target="_blank" rel="noopener noreferrer" class="hero-cta">Kostenlose Probestunde</a>
       <p><a href={`/${city}/unterricht`} class="back-link">← Alle Instrumente in {cityName}</a></p>
     </div>
   </section>
@@ -166,7 +165,7 @@ const ldFAQ = faqItems.length > 0 ? {
         <div class="how-step"><span class="step-num">3</span><h3>Kostenlos ausprobieren</h3></div>
         <div class="how-step"><span class="step-num">4</span><h3>Danach entscheiden</h3></div>
       </div>
-      <a href="#contact" class="how-cta">Probestunde vereinbaren</a>
+      <a href="https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/" target="_blank" rel="noopener noreferrer" class="how-cta">Probestunde vereinbaren</a>
     </div>
   </section>
 
@@ -188,11 +187,19 @@ const ldFAQ = faqItems.length > 0 ? {
     </section>
   )}
 
-  <section id="contact" class="campaign-contact-section">
-    <CampaignContactForm
-      instrumentValue={instrumentName}
-      cityValue={cityName}
-    />
+  <section class="campaign-contact-section" aria-label="Probestunde buchen">
+    <div class="campaign-cta-link-wrap">
+      <h2>Probestunde vereinbaren</h2>
+      <p>Kostenlos und unverbindlich – direkt online buchen.</p>
+      <a
+        href="https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="campaign-cta-link"
+      >
+        Kostenlose Probestunde buchen →
+      </a>
+    </div>
   </section>
 
   <CTA />
@@ -249,5 +256,10 @@ const ldFAQ = faqItems.length > 0 ? {
   .campaign-faq .faq-item summary::after { content: '+'; font-size: var(--text-xl); color: var(--color-gold); flex-shrink: 0; margin-left: var(--space-md); }
   .campaign-faq .faq-item[open] summary::after { content: '−'; }
   .campaign-faq .faq-item p { color: var(--color-text-secondary); line-height: 1.8; padding-top: var(--space-md); font-size: var(--text-sm); }
-  .campaign-contact-section { scroll-margin-top: var(--nav-height); }
+  .campaign-contact-section { scroll-margin-top: var(--nav-height); padding: var(--space-6xl) var(--space-lg); background: var(--color-bg-default); }
+  .campaign-cta-link-wrap { max-width: 560px; margin: 0 auto; text-align: center; }
+  .campaign-cta-link-wrap h2 { font-family: var(--font-serif); font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl)); color: var(--color-text-primary); margin-bottom: var(--space-lg); font-weight: 600; }
+  .campaign-cta-link-wrap p { color: var(--color-text-secondary); margin-bottom: var(--space-xl); font-size: var(--text-base); }
+  .campaign-cta-link { display: inline-flex; align-items: center; justify-content: center; padding: var(--space-md) var(--space-2xl); background: var(--color-gold); color: var(--color-black); font-weight: 600; font-family: var(--font-sans); text-decoration: none; border-radius: var(--radius-sm); min-height: 48px; transition: background var(--transition-base); }
+  .campaign-cta-link:hover { background: var(--color-gold-light); }
 </style>

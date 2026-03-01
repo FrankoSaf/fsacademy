@@ -18,7 +18,7 @@
         "Auftrittsmöglichkeiten"
       ],
       "buttonText": "Jetzt anmelden",
-      "buttonLink": "/kontakt",
+      "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
       "popular": false
     },
     {
@@ -34,7 +34,7 @@
         "Flexible Terminplanung"
       ],
       "buttonText": "Jetzt anmelden",
-      "buttonLink": "/kontakt",
+      "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
       "popular": true
     },
     {
@@ -50,7 +50,7 @@
         "Flexible Terminplanung"
       ],
       "buttonText": "Jetzt anmelden",
-      "buttonLink": "/kontakt",
+      "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
       "popular": false
     }
   ],
@@ -94,6 +94,6 @@
     "title": "Noch Fragen zu unseren Preisen?",
     "description": "Kontaktiere uns gerne – wir beraten dich persönlich und finden das passende Paket für deine musikalischen Ziele.",
     "buttonText": "Jetzt Kontakt aufnehmen",
-    "buttonLink": "/kontakt"
+    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
   }
 }
