@@ -57,17 +57,17 @@
     "image": "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae",
     "imageAlt": "Musikunterricht in der Fine Sound Academy Neuss"
   },
+  "cta": {
+    "title": "MUSIKSCHULE NEUSS ",
+    "subtitle": "Buche jetzt deine kostenlose Probestunde am Neumarkt und lerne uns kennen!",
+    "buttonText": "Termin vereinbaren",
+    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
+  },
   "card": {
     "image": "/uploads/16116014630_0426735dd4_b.jpg",
     "buttonText": "Zur Schule Neuss"
   },
   "address": "Neumarkt 18, 41460 Neuss",
-  "cta": {
-    "title": "MUSIKSCHULE NEUSS – NEUMARKT",
-    "subtitle": "Buche jetzt deine kostenlose Probestunde am Neumarkt und lerne uns kennen!",
-    "buttonText": "Termin vereinbaren",
-    "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
-  },
   "infoCards": [
     {
       "title": "Zahlungsart",
