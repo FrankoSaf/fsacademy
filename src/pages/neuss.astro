@@ -5,6 +5,7 @@ import CTA from '../components/CTA.astro';
 import Team from '../components/Team.astro';
 import Pricing from '../components/Pricing.astro';
 import LocationInfoCards from '../components/LocationInfoCards.astro';
+import LocationReviews from '../components/LocationReviews.astro';
 import { normalizeParagraphs, normalizeLines, getCities } from '../lib/cms';
 
 const cities = await getCities();
@@ -21,6 +22,7 @@ const pageData = (await import('../../content/neuss.json')).default as {
     items: Array<{ title: string; description: string }>;
   };
   faq: { heading: string; items: Array<{ question: string; answer: string }> };
+  reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> };
 };
 
 const data = {
@@ -32,6 +34,7 @@ const data = {
   infoCards: (city as any)?.infoCards ?? pageData.infoCards ?? [],
   instruments: pageData.instruments,
   faq: pageData.faq,
+  reviews: pageData.reviews ?? { title: 'Was unsere Schüler sagen', items: [] },
 };
 
 const introParagraphs = normalizeParagraphs(data.intro?.paragraphs);
@@ -326,6 +329,7 @@ const heroImage = landingData?.hero?.image ?? '';
   </section>
 
   <About school="neuss" />
+  <LocationReviews title={data.reviews.title} items={data.reviews.items} />
   <CTA />
   <Team location="neuss" showIntro={false} />
 

@@ -398,6 +398,21 @@ collections:
               - { label: Button-Link, name: buttonLink, widget: string }
               - { label: Bild, name: image, widget: image }
               - { label: Bild-Alt, name: imageAlt, widget: string }
+          - label: Bewertungen / Reviews
+            name: reviews
+            widget: object
+            required: false
+            hint: "Erscheint auf der Düsseldorf-Seite und den Instrument-Seiten (gefiltert pro Instrument)."
+            fields:
+              - { label: Überschrift, name: title, widget: string }
+              - label: Einträge
+                name: items
+                widget: list
+                summary: "{{fields.name}} ({{fields.instrument}})"
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: Text, name: text, widget: text }
+                  - { label: Instrument, name: instrument, widget: select, options: [Klavier, Gitarre, Bass, Gesang, Schlagzeug] }
 
       - label: Standort Neuss (komplette Seite)
         name: neuss
@@ -487,6 +502,21 @@ collections:
               - { label: Button-Link, name: buttonLink, widget: string }
               - { label: Bild, name: image, widget: image }
               - { label: Bild-Alt, name: imageAlt, widget: string }
+          - label: Bewertungen / Reviews
+            name: reviews
+            widget: object
+            required: false
+            hint: "Erscheint auf der Neuss-Seite und den Instrument-Seiten (gefiltert pro Instrument)."
+            fields:
+              - { label: Überschrift, name: title, widget: string }
+              - label: Einträge
+                name: items
+                widget: list
+                summary: "{{fields.name}} ({{fields.instrument}})"
+                fields:
+                  - { label: Name, name: name, widget: string }
+                  - { label: Text, name: text, widget: text }
+                  - { label: Instrument, name: instrument, widget: select, options: [Klavier, Gitarre, Bass, Gesang, Schlagzeug] }
 
   # ─── Lehrer (wiederverwendbar) ─────────────────────────────────────────────
   - name: teachers

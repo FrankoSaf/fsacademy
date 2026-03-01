@@ -116,5 +116,13 @@
     "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
     "image": "https://images.unsplash.com/photo-1511379938547-c1f69419868d",
     "imageAlt": "Musikunterricht in der Fine Sound Academy Düsseldorf"
+  },
+  "reviews": {
+    "title": "Was unsere Schüler in Düsseldorf sagen",
+    "items": [
+      { "name": "Sarah M.", "text": "Mein Sohn hat in nur einem Jahr enorme Fortschritte am Klavier gemacht. Die Lehrer sind geduldig und motivierend.", "instrument": "Klavier" },
+      { "name": "Thomas K.", "text": "Top Gitarrenunterricht in Düsseldorf – genau so, wie ich es mir vorgestellt habe.", "instrument": "Gitarre" },
+      { "name": "Lisa R.", "text": "Die Probestunde hat mich überzeugt. Professionell, freundlich und ein echtes Musikgefühl.", "instrument": "Gesang" }
+    ]
   }
 }

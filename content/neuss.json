@@ -57,6 +57,14 @@
     "image": "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae",
     "imageAlt": "Musikunterricht in der Fine Sound Academy Neuss"
   },
+  "reviews": {
+    "title": "Was unsere Schüler in Neuss sagen",
+    "items": [
+      { "name": "Thomas K.", "text": "Endlich Gitarre spielen gelernt – genau so, wie ich es mir vorgestellt habe. Top Unterricht in Neuss!", "instrument": "Gitarre" },
+      { "name": "Maria S.", "text": "Meine Tochter liebt den Klavierunterricht. Die Atmosphäre am Neumarkt ist toll.", "instrument": "Klavier" },
+      { "name": "Michael B.", "text": "Professioneller Bassunterricht in zentraler Lage. Kann ich nur empfehlen.", "instrument": "Bass" }
+    ]
+  },
   "card": {
     "image": "/uploads/16116014630_0426735dd4_b.jpg",
     "buttonText": "Zur Schule Neuss"

@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import CTA from '../../../components/CTA.astro';
 import Pricing from '../../../components/Pricing.astro';
 import ResponsiveImage from '../../../components/ResponsiveImage.astro';
+import LocationReviews from '../../../components/LocationReviews.astro';
 import {
   getTeachers,
   getCities,
@@ -44,7 +45,7 @@ const instrumentDetail = instrumentsDataTyped[instrument];
 const cityInfo = cities.find((c) => c.slug === city);
 const teachersForPage = getTeachersForInstrumentAndCity(teachers, instrument!, city!);
 
-const locationPage = city === 'duesseldorf' ? (duesseldorfData as { default: { faq?: { items?: Array<{ question: string; answer: string }> } } }).default : (neussData as { default: { faq?: { items?: Array<{ question: string; answer: string }> } } }).default;
+const locationPage = city === 'duesseldorf' ? (duesseldorfData as { default: { faq?: { items?: Array<{ question: string; answer: string }> }; reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> } } }).default : (neussData as { default: { faq?: { items?: Array<{ question: string; answer: string }> }; reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> } } }).default;
 const faqItems = locationPage?.faq?.items ?? [];
 
 const instrumentName = instrumentInfo?.name ?? instrument;
@@ -154,6 +155,14 @@ const ldFAQ = faqItems.length > 0 ? {
         </div>
       </div>
     </section>
+  )}
+
+  {locationPage.reviews && (
+    <LocationReviews
+      title={locationPage.reviews.title}
+      items={locationPage.reviews.items}
+      instrumentFilter={instrumentName}
+    />
   )}
 
   <section class="campaign-how" aria-label="So geht's">
