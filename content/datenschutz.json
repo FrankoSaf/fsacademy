@@ -1,0 +1,35 @@
+{
+  "metaTitle": "Datenschutzerklärung - Fine Sound Academy",
+  "metaDescription": "Datenschutzerklärung der Fine Sound Academy: Informationen zur Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten.",
+  "title": "Datenschutzerklärung",
+  "intro": "Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. Wir verarbeiten Ihre Daten daher ausschließlich auf Grundlage der gesetzlichen Bestimmungen (DSGVO, TKG 2003).",
+  "sections": [
+    {
+      "heading": "1. Verantwortlicher",
+      "content": "Verantwortlich für die Datenverarbeitung auf dieser Website ist:\n\n**Fine Sound Academy GmbH**\nKaiserstr. 28\n40479 Düsseldorf\nDeutschland\nE-Mail: info@finesoundacademy.com\nTelefon: 0176 77154511"
+    },
+    {
+      "heading": "2. Erhebung und Speicherung personenbezogener Daten",
+      "subheading": "Bei Besuch der Website",
+      "content": "Beim Aufrufen unserer Website werden durch den auf Ihrem Endgerät zum Einsatz kommenden Browser automatisch Informationen an den Server unserer Website gesendet. Diese Informationen werden temporär in einem sogenannten Logfile gespeichert.\n\nFolgende Informationen werden dabei erfasst:\n- IP-Adresse des anfragenden Rechners\n- Datum und Uhrzeit des Zugriffs\n- Name und URL der abgerufenen Datei\n- Website, von der aus der Zugriff erfolgt (Referrer-URL)\n- Verwendeter Browser und ggf. das Betriebssystem Ihres Rechners"
+    },
+    {
+      "heading": "2. Erhebung und Speicherung personenbezogener Daten",
+      "subheading": "Bei Buchung einer Probestunde",
+      "content": "Über Links auf unserer Website werden Sie zur Buchungsplattform unseres Partners **Axinio GmbH** (axinio.app) weitergeleitet. Dort können Sie eine kostenlose Probestunde vereinbaren. Die Erhebung und Verarbeitung Ihrer Daten erfolgt dabei durch Axinio. Wir empfangen von Axinio die für die Terminplanung erforderlichen Angaben (z. B. Name, Kontaktdaten, gewünschtes Instrument und Standort) und verarbeiten diese ausschließlich zur Durchführung der Probestunde.\n\nDie Datenschutzerklärung von Axinio finden Sie unter [axinio.com/unternehmen/datenschutz](https://www.axinio.com/unternehmen/datenschutz/). Bei allgemeinen Fragen erreichen Sie uns per E-Mail unter info@finesoundacademy.com oder telefonisch unter 0176 77154511."
+    },
+    {
+      "heading": "3. Cookies",
+      "content": "Unsere Website verwendet Cookies. Cookies sind kleine Textdateien, die auf Ihrem Endgerät gespeichert werden. Ihr Browser greift auf diese Dateien zu. Durch den Einsatz von Cookies erhöht sich die Benutzerfreundlichkeit und Sicherheit dieser Website.\n\nSie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden und einzeln über deren Annahme entscheiden oder die Annahme von Cookies für bestimmte Fälle oder generell ausschließen können."
+    },
+    {
+      "heading": "4. Ihre Rechte",
+      "content": "Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerruf und Widerspruch zu. Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt oder Ihre datenschutzrechtlichen Ansprüche sonst in einer Weise verletzt worden sind, können Sie sich bei der Aufsichtsbehörde beschweren."
+    },
+    {
+      "heading": "5. Kontaktdaten des Datenschutzbeauftragten",
+      "content": "Bei Fragen zur Erhebung, Verarbeitung oder Nutzung Ihrer personenbezogenen Daten, bei Auskünften, Berichtigung, Sperrung oder Löschung von Daten wenden Sie sich bitte an:\n\n**Fine Sound Academy GmbH**\nDatenschutzbeauftragter\nKaiserstr. 28\n40479 Düsseldorf\nE-Mail: datenschutz@finesoundacademy.com"
+    }
+  ],
+  "lastUpdated": "Stand: Februar 2025"
+}

@@ -1,14 +1,20 @@
 ---
-const AXINIO_URL = 'https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/';
+import globals from '../../content/globals.json';
+import ui from '../../content/ui.json';
+
+const probestundeUrl = (globals as { probestundeUrl?: string }).probestundeUrl ?? 'https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/';
+const stickyCta = (ui as { stickyCta?: { text?: string; ariaLabel?: string } }).stickyCta ?? {};
+const ctaText = stickyCta.text ?? 'Probestunde';
+const ariaLabel = stickyCta.ariaLabel ?? 'Probestunde vereinbaren';
 ---
 <a
-  href={AXINIO_URL}
+  href={probestundeUrl}
   target="_blank"
   rel="noopener noreferrer"
   class="sticky-cta-float"
-  aria-label="Probestunde vereinbaren"
+  aria-label={ariaLabel}
 >
-  <span class="sticky-cta-text">Probestunde</span>
+  <span class="sticky-cta-text">{ctaText}</span>
   <span class="sticky-cta-arrow" aria-hidden="true">→</span>
 </a>
 

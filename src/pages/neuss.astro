@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import globals from '../../content/globals.json';
+
+const probestundeUrl = (globals as { probestundeUrl?: string }).probestundeUrl ?? 'https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/';
 import About from '../components/About.astro';
 import CTA from '../components/CTA.astro';
 import Team from '../components/Team.astro';
@@ -361,7 +364,7 @@ const heroImage = landingData?.hero?.image ?? '';
     <div class="location-cta-inner">
       <p class="location-cta-heading">Probestunde vereinbaren</p>
       <a
-        href="https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
+        href={probestundeUrl}
         target="_blank"
         rel="noopener noreferrer"
         class="location-cta-button"

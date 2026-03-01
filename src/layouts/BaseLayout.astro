@@ -8,6 +8,7 @@ import '../styles/variables.css';
 import '../styles/global.css';
 
 import globals from '../../content/globals.json';
+import ui from '../../content/ui.json';
 
 const g = globals as Record<string, unknown>;
 const googleAdsId = (g.googleAdsId as string) || '';
@@ -121,27 +122,28 @@ const ldWebPage = {
 };
 
 const pathSegments = Astro.url.pathname.replace(/\/$/, '').split('/').filter(Boolean);
+const breadcrumbs = (ui as { breadcrumbs?: Record<string, string> }).breadcrumbs ?? {};
 const breadcrumbNames: Record<string, string> = {
-  about: 'Über uns',
-  preise: 'Preise',
-  kontakt: 'Kontakt',
-  unterricht: 'Unterricht',
-  duesseldorf: 'Düsseldorf',
-  neuss: 'Neuss',
-  datenschutz: 'Datenschutz',
-  impressum: 'Impressum',
-  danke: 'Vielen Dank',
-  klavier: 'Klavier',
-  gitarre: 'Gitarre',
-  bass: 'Bass',
-  gesang: 'Gesang',
-  schlagzeug: 'Schlagzeug',
+  about: breadcrumbs.about ?? 'Über uns',
+  preise: breadcrumbs.preise ?? 'Preise',
+  kontakt: breadcrumbs.kontakt ?? 'Kontakt',
+  unterricht: breadcrumbs.unterricht ?? 'Unterricht',
+  duesseldorf: breadcrumbs.duesseldorf ?? 'Düsseldorf',
+  neuss: breadcrumbs.neuss ?? 'Neuss',
+  datenschutz: breadcrumbs.datenschutz ?? 'Datenschutz',
+  impressum: breadcrumbs.impressum ?? 'Impressum',
+  danke: breadcrumbs.danke ?? 'Vielen Dank',
+  klavier: breadcrumbs.klavier ?? 'Klavier',
+  gitarre: breadcrumbs.gitarre ?? 'Gitarre',
+  bass: breadcrumbs.bass ?? 'Bass',
+  gesang: breadcrumbs.gesang ?? 'Gesang',
+  schlagzeug: breadcrumbs.schlagzeug ?? 'Schlagzeug',
 };
 const ldBreadcrumb = pathSegments.length > 0 ? {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Startseite', item: site },
+    { '@type': 'ListItem', position: 1, name: breadcrumbs.startseite ?? 'Startseite', item: site },
     ...pathSegments.map((seg, i) => ({
       '@type': 'ListItem',
       position: i + 2,
@@ -239,7 +241,7 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
     )}
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Zum Inhalt springen</a>
+    <a href="#main-content" class="skip-link">{(ui as { skipLink?: string }).skipLink ?? 'Zum Inhalt springen'}</a>
     <header>
       <Nav />
     </header>

@@ -30,14 +30,17 @@ export function getStaticPaths() {
 
 const { location: city, instrument } = Astro.params;
 
-const [teachers, cities, unterrichtData, instrumentsData, duesseldorfData, neussData] = await Promise.all([
+const [teachers, cities, unterrichtData, instrumentsData, duesseldorfData, neussData, globalsData] = await Promise.all([
   getTeachers(),
   getCities(),
   import('../../../../content/unterricht.json'),
   import('../../../../content/instruments.json'),
   import('../../../../content/duesseldorf.json'),
   import('../../../../content/neuss.json'),
+  import('../../../../content/globals.json'),
 ]);
+
+const probestundeUrl = ((globalsData as { default?: { probestundeUrl?: string } }).default?.probestundeUrl) ?? 'https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/';
 
 const instrumentInfo = (unterrichtData as { instruments?: Array<{ slug: string; name: string; description: string; highlights: string[]; image?: string }> }).instruments?.find((i) => i.slug === instrument);
 const instrumentsDataTyped = (instrumentsData as { default: Record<string, { title: string; subtitle: string; sections?: Array<{ heading: string; content: string }> }> }).default;
@@ -105,7 +108,7 @@ const ldFAQ = faqItems.length > 0 ? {
       <div class="accent-line"></div>
       <h1 id="campaign-heading">{displayName} {cityName}</h1>
       <p class="hero-subtitle">Für Kinder, Jugendliche und Erwachsene</p>
-      <a href="https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/" target="_blank" rel="noopener noreferrer" class="hero-cta">Kostenlose Probestunde</a>
+      <a href={probestundeUrl} target="_blank" rel="noopener noreferrer" class="hero-cta">Kostenlose Probestunde</a>
       <p><a href={`/${city}/unterricht`} class="back-link">← Alle Instrumente in {cityName}</a></p>
     </div>
   </section>
@@ -174,7 +177,7 @@ const ldFAQ = faqItems.length > 0 ? {
         <div class="how-step"><span class="step-num">3</span><h3>Kostenlos ausprobieren</h3></div>
         <div class="how-step"><span class="step-num">4</span><h3>Danach entscheiden</h3></div>
       </div>
-      <a href="https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/" target="_blank" rel="noopener noreferrer" class="how-cta">Probestunde vereinbaren</a>
+      <a href={probestundeUrl} target="_blank" rel="noopener noreferrer" class="how-cta">Probestunde vereinbaren</a>
     </div>
   </section>
 
@@ -201,7 +204,7 @@ const ldFAQ = faqItems.length > 0 ? {
       <h2>Probestunde vereinbaren</h2>
       <p>Kostenlos und unverbindlich – direkt online buchen.</p>
       <a
-        href="https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/"
+        href={probestundeUrl}
         target="_blank"
         rel="noopener noreferrer"
         class="campaign-cta-link"

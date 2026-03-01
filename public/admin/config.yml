@@ -33,6 +33,7 @@ collections:
           - { label: "OG-Bild Alt-Text", name: ogImageAlt, widget: string, required: false, default: "Fine Sound Academy – Musikschule Düsseldorf & Neuss" }
           - { label: "Twitter @handle", name: twitterHandle, widget: string, required: false }
           - { label: "WhatsApp-URL (floating Button)", name: whatsappUrl, widget: string, required: false, hint: "z.B. https://wa.me/4917677154511" }
+          - { label: "Probestunde / Buchungs-URL", name: probestundeUrl, widget: string, required: false, hint: "Link zur Axinio-Buchung oder Kontaktformular." }
           - { label: "Google Ads ID (nur Zahl)", name: googleAdsId, widget: string, required: false, hint: "z.B. 123456789 aus AW-123456789" }
           - { label: "Google Ads Conversion ID (Label)", name: googleAdsConversionId, widget: string, required: false, hint: "Conversion-Aktion-Label aus Google Ads" }
           - { label: "Conversion-Wert (optional, EUR)", name: conversionValue, widget: string, required: false, hint: "z.B. 50 für Lead-Wert" }
@@ -100,6 +101,19 @@ collections:
                   - { label: Name, name: name, widget: string }
                   - { label: Icon, name: icon, widget: select, options: [bass, guitar, piano, vocals, drums] }
                   - { label: Beschreibung, name: description, widget: text }
+          - label: FAQ (Startseite)
+            name: faq
+            widget: object
+            hint: "Häufige Fragen auf der Startseite."
+            fields:
+              - { label: Überschrift, name: heading, widget: string }
+              - label: Fragen & Antworten
+                name: items
+                widget: list
+                summary: "{{fields.question}}"
+                fields:
+                  - { label: Frage, name: question, widget: string }
+                  - { label: Antwort, name: answer, widget: text }
           - label: Trust-Block (Vertrauenszeile)
             name: trustBlock
             widget: object
@@ -268,6 +282,83 @@ collections:
               - { label: Beschreibung, name: description, widget: string }
               - { label: Button-Text, name: buttonText, widget: string }
               - { label: Button-Link, name: buttonLink, widget: string }
+
+  # ─── Instrumente (Detailseiten /unterricht/[instrument]) ───────────────────
+  - name: instruments
+    label: "🎹 Instrumente (Detailseiten)"
+    editor: { preview: true }
+    files:
+      - label: Instrumente (Klavier, Gitarre, Bass, Gesang, Schlagzeug)
+        name: instruments
+        file: "content/instruments.json"
+        format: json
+        hint: "Inhalte für /unterricht/klavier, /unterricht/gitarre usw."
+        fields:
+          - label: Klavier
+            name: klavier
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - label: Abschnitte
+                name: sections
+                widget: list
+                summary: "{{fields.heading}}"
+                fields:
+                  - { label: Überschrift, name: heading, widget: string }
+                  - { label: Inhalt, name: content, widget: text }
+          - label: Gitarre
+            name: gitarre
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - label: Abschnitte
+                name: sections
+                widget: list
+                summary: "{{fields.heading}}"
+                fields:
+                  - { label: Überschrift, name: heading, widget: string }
+                  - { label: Inhalt, name: content, widget: text }
+          - label: Bass
+            name: bass
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - label: Abschnitte
+                name: sections
+                widget: list
+                summary: "{{fields.heading}}"
+                fields:
+                  - { label: Überschrift, name: heading, widget: string }
+                  - { label: Inhalt, name: content, widget: text }
+          - label: Gesang
+            name: gesang
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - label: Abschnitte
+                name: sections
+                widget: list
+                summary: "{{fields.heading}}"
+                fields:
+                  - { label: Überschrift, name: heading, widget: string }
+                  - { label: Inhalt, name: content, widget: text }
+          - label: Schlagzeug
+            name: schlagzeug
+            widget: object
+            fields:
+              - { label: Titel, name: title, widget: string }
+              - { label: Untertitel, name: subtitle, widget: string }
+              - label: Abschnitte
+                name: sections
+                widget: list
+                summary: "{{fields.heading}}"
+                fields:
+                  - { label: Überschrift, name: heading, widget: string }
+                  - { label: Inhalt, name: content, widget: text }
 
   # ─── Unterricht (Übersicht + Instrumente) ───────────────────────────────
   - name: unterricht
@@ -557,6 +648,30 @@ collections:
                   - { label: "Düsseldorf", value: "duesseldorf" }
                   - { label: "Neuss", value: "neuss" }
 
+  # ─── Datenschutz ───────────────────────────────────────────────────────────
+  - name: datenschutz
+    label: "🔒 Datenschutz"
+    editor: { preview: true }
+    files:
+      - label: Datenschutzerklärung
+        name: datenschutz
+        file: "content/datenschutz.json"
+        format: json
+        fields:
+          - { label: "Meta-Titel", name: metaTitle, widget: string }
+          - { label: "Meta-Beschreibung", name: metaDescription, widget: text }
+          - { label: "Seitentitel (H1)", name: title, widget: string }
+          - { label: "Intro-Text", name: intro, widget: text }
+          - label: Abschnitte
+            name: sections
+            widget: list
+            summary: "{{fields.heading}}"
+            fields:
+              - { label: Überschrift (z.B. 1. Verantwortlicher), name: heading, widget: string }
+              - { label: Unterüberschrift (optional), name: subheading, widget: string, required: false }
+              - { label: Inhalt (Markdown möglich), name: content, widget: markdown }
+          - { label: "Stand (z.B. Februar 2025)", name: lastUpdated, widget: string }
+
   # ─── Impressum ────────────────────────────────────────────────────────────
   - name: impressum
     label: "⚖️ Impressum"
@@ -653,3 +768,74 @@ collections:
             fields:
               - { label: Titel, name: title, widget: string }
               - { label: Beschreibung, name: description, widget: text }
+      - label: UI-Texte (Skip-Link, Breadcrumbs, Aria-Labels)
+        name: ui
+        file: "content/ui.json"
+        format: json
+        hint: "Texte für Barrierefreiheit und Navigation."
+        fields:
+          - { label: "Skip-Link (Zum Inhalt springen)", name: skipLink, widget: string }
+          - label: Breadcrumb-Namen
+            name: breadcrumbs
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Über uns, name: about, widget: string }
+              - { label: Preise, name: preise, widget: string }
+              - { label: Kontakt, name: kontakt, widget: string }
+              - { label: Unterricht, name: unterricht, widget: string }
+              - { label: Düsseldorf, name: duesseldorf, widget: string }
+              - { label: Neuss, name: neuss, widget: string }
+              - { label: Datenschutz, name: datenschutz, widget: string }
+              - { label: Impressum, name: impressum, widget: string }
+              - { label: "Vielen Dank", name: danke, widget: string }
+              - { label: Klavier, name: klavier, widget: string }
+              - { label: Gitarre, name: gitarre, widget: string }
+              - { label: Bass, name: bass, widget: string }
+              - { label: Gesang, name: gesang, widget: string }
+              - { label: Schlagzeug, name: schlagzeug, widget: string }
+              - { label: Startseite, name: startseite, widget: string }
+          - label: Sticky CTA
+            name: stickyCta
+            widget: object
+            fields:
+              - { label: Text, name: text, widget: string }
+              - { label: "Aria-Label", name: ariaLabel, widget: string }
+          - { label: "WhatsApp Aria-Label", name: whatsappAriaLabel, widget: string }
+          - { label: "Nav Aria-Label", name: navAriaLabel, widget: string }
+          - { label: "Menü öffnen", name: menuOpen, widget: string }
+          - { label: "Menü schließen", name: menuClose, widget: string }
+      - label: Cookie-Banner
+        name: cookie
+        file: "content/cookie.json"
+        format: json
+        fields:
+          - { label: Nachricht, name: message, widget: text }
+          - { label: "Link-Text (z.B. Mehr erfahren)", name: learnMoreText, widget: string }
+          - { label: "Link-URL (z.B. /datenschutz)", name: learnMoreUrl, widget: string }
+          - { label: "Button Akzeptieren", name: acceptText, widget: string }
+          - { label: "Button Ablehnen", name: declineText, widget: string }
+      - label: Kontaktformular (Kampagnen-Seiten)
+        name: contactForm
+        file: "content/contact-form.json"
+        format: json
+        fields:
+          - { label: Überschrift, name: heading, widget: string }
+          - { label: Vertrauenszeile, name: trustLine, widget: string }
+          - label: Formular-Labels
+            name: labels
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: E-Mail, name: email, widget: string }
+              - { label: Telefon, name: phone, widget: string }
+              - { label: "Interesse (Ich interessiere mich für)", name: interest, widget: string }
+              - { label: Standort, name: location, widget: string }
+              - { label: Nachricht, name: message, widget: string }
+          - { label: Placeholder Nachricht, name: placeholder, widget: string }
+          - { label: Einwilligungstext, name: consentText, widget: string }
+          - { label: "Button-Text (Senden)", name: submitText, widget: string }
+          - { label: "Lade-Text (Wird gesendet…)", name: sendingText, widget: string }
+          - { label: Beruhigungstext (24h), name: reassurance, widget: string }
+          - { label: Fehlermeldung, name: errorMessage, widget: string }

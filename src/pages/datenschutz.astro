@@ -1,105 +1,57 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import datenschutzData from '../../content/datenschutz.json';
+
+const data = datenschutzData as {
+  metaTitle: string;
+  metaDescription: string;
+  title: string;
+  intro: string;
+  sections: Array<{ heading: string; subheading?: string; content: string }>;
+  lastUpdated: string;
+};
+
+function markdownToHtml(md: string): string {
+  let html = md
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+  const blocks = html.split(/\n\n+/);
+  const out: string[] = [];
+  for (const block of blocks) {
+    const lines = block.split('\n');
+    const listItems = lines.filter((l) => l.trimStart().startsWith('- '));
+    if (listItems.length === lines.length && listItems.length > 0) {
+      out.push('<ul>' + listItems.map((l) => `<li>${l.trimStart().slice(2)}</li>`).join('') + '</ul>');
+    } else {
+      out.push('<p>' + lines.join('<br>') + '</p>');
+    }
+  }
+  return out.join('');
+}
 ---
 
 <BaseLayout
-  title="Datenschutzerklärung - Fine Sound Academy"
-  description="Datenschutzerklärung der Fine Sound Academy: Informationen zur Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten."
+  title={data.metaTitle}
+  description={data.metaDescription}
   noindex
 >
   <section class="legal-page">
     <div class="legal-container">
       <div class="accent-line"></div>
-      <h1>Datenschutzerklärung</h1>
+      <h1>{data.title}</h1>
 
       <div class="legal-content">
-        <p class="intro">
-          Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen.
-          Wir verarbeiten Ihre Daten daher ausschließlich auf Grundlage der
-          gesetzlichen Bestimmungen (DSGVO, TKG 2003).
-        </p>
+        <p class="intro">{data.intro}</p>
 
-        <h2>1. Verantwortlicher</h2>
-        <p>
-          Verantwortlich für die Datenverarbeitung auf dieser Website ist:
-        </p>
-        <p>
-          <strong>Fine Sound Academy GmbH</strong><br>
-          Kaiserstr. 28<br>
-          40479 Düsseldorf<br>
-          Deutschland<br>
-          E-Mail: info@finesoundacademy.com<br>
-          Telefon: 0176 77154511
-        </p>
+        {data.sections?.map((section) => (
+          <>
+            <h2>{section.heading}</h2>
+            {section.subheading && <h3>{section.subheading}</h3>}
+            <Fragment set:html={markdownToHtml(section.content)} />
+          </>
+        ))}
 
-        <h2>2. Erhebung und Speicherung personenbezogener Daten</h2>
-
-        <h3>Bei Besuch der Website</h3>
-        <p>
-          Beim Aufrufen unserer Website werden durch den auf Ihrem Endgerät zum Einsatz
-          kommenden Browser automatisch Informationen an den Server unserer Website gesendet.
-          Diese Informationen werden temporär in einem sogenannten Logfile gespeichert.
-        </p>
-        <p>Folgende Informationen werden dabei erfasst:</p>
-        <ul>
-          <li>IP-Adresse des anfragenden Rechners</li>
-          <li>Datum und Uhrzeit des Zugriffs</li>
-          <li>Name und URL der abgerufenen Datei</li>
-          <li>Website, von der aus der Zugriff erfolgt (Referrer-URL)</li>
-          <li>Verwendeter Browser und ggf. das Betriebssystem Ihres Rechners</li>
-        </ul>
-
-        <h3>Bei Buchung einer Probestunde</h3>
-        <p>
-          Über Links auf unserer Website werden Sie zur Buchungsplattform unseres Partners
-          <strong>Axinio GmbH</strong> (axinio.app) weitergeleitet. Dort können Sie eine
-          kostenlose Probestunde vereinbaren. Die Erhebung und Verarbeitung Ihrer Daten
-          erfolgt dabei durch Axinio. Wir empfangen von Axinio die für die Terminplanung
-          erforderlichen Angaben (z. B. Name, Kontaktdaten, gewünschtes Instrument und
-          Standort) und verarbeiten diese ausschließlich zur Durchführung der Probestunde.
-        </p>
-        <p>
-          Die Datenschutzerklärung von Axinio finden Sie unter{' '}
-          <a href="https://www.axinio.com/unternehmen/datenschutz/" target="_blank" rel="noopener noreferrer">axinio.com/unternehmen/datenschutz</a>.
-          Bei allgemeinen Fragen erreichen Sie uns per E-Mail unter info@finesoundacademy.com
-          oder telefonisch unter 0176 77154511.
-        </p>
-
-        <h2>3. Cookies</h2>
-        <p>
-          Unsere Website verwendet Cookies. Cookies sind kleine Textdateien, die auf Ihrem
-          Endgerät gespeichert werden. Ihr Browser greift auf diese Dateien zu. Durch den
-          Einsatz von Cookies erhöht sich die Benutzerfreundlichkeit und Sicherheit dieser
-          Website.
-        </p>
-        <p>
-          Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies
-          informiert werden und einzeln über deren Annahme entscheiden oder die Annahme von
-          Cookies für bestimmte Fälle oder generell ausschließen können.
-        </p>
-
-        <h2>4. Ihre Rechte</h2>
-        <p>Ihnen stehen grundsätzlich die Rechte auf Auskunft, Berichtigung, Löschung,
-        Einschränkung, Datenübertragbarkeit, Widerruf und Widerspruch zu. Wenn Sie glauben,
-        dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt oder Ihre
-        datenschutzrechtlichen Ansprüche sonst in einer Weise verletzt worden sind, können
-        Sie sich bei der Aufsichtsbehörde beschweren.</p>
-
-        <h2>5. Kontaktdaten des Datenschutzbeauftragten</h2>
-        <p>
-          Bei Fragen zur Erhebung, Verarbeitung oder Nutzung Ihrer personenbezogenen Daten,
-          bei Auskünften, Berichtigung, Sperrung oder Löschung von Daten wenden Sie sich
-          bitte an:
-        </p>
-        <p>
-          Fine Sound Academy GmbH<br>
-          Datenschutzbeauftragter<br>
-          Kaiserstr. 28<br>
-          40479 Düsseldorf<br>
-          E-Mail: datenschutz@finesoundacademy.com
-        </p>
-
-        <p class="last-updated">Stand: Februar 2025</p>
+        <p class="last-updated">{data.lastUpdated}</p>
       </div>
     </div>
   </section>

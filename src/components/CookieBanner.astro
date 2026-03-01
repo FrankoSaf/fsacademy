@@ -1,21 +1,29 @@
 ---
+import cookie from '../../content/cookie.json';
 
+const c = cookie as {
+  message?: string;
+  learnMoreText?: string;
+  learnMoreUrl?: string;
+  acceptText?: string;
+  declineText?: string;
+};
+const message = c.message ?? 'Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten. Durch die weitere Nutzung der Website stimmen Sie der Verwendung von Cookies zu.';
+const learnMoreText = c.learnMoreText ?? 'Mehr erfahren';
+const learnMoreUrl = c.learnMoreUrl ?? '/datenschutz';
+const acceptText = c.acceptText ?? 'Akzeptieren';
+const declineText = c.declineText ?? 'Ablehnen';
 ---
 
 <div id="cookie-banner" class="cookie-banner">
   <div class="cookie-content">
     <p>
-      Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer
-      Website zu bieten. Durch die weitere Nutzung der Website stimmen Sie der
-      Verwendung von Cookies zu.
-      <a href="/datenschutz">Mehr erfahren</a>
+      {message}
+      <a href={learnMoreUrl}>{learnMoreText}</a>
     </p>
     <div class="cookie-buttons">
-      <button id="cookie-accept" class="cookie-button accept"
-        >Akzeptieren</button
-      >
-      <button id="cookie-decline" class="cookie-button decline">Ablehnen</button
-      >
+      <button id="cookie-accept" class="cookie-button accept">{acceptText}</button>
+      <button id="cookie-decline" class="cookie-button decline">{declineText}</button>
     </div>
   </div>
 </div>

@@ -1,0 +1,18 @@
+{
+  "heading": "Kontakt uns",
+  "trustLine": "Kostenlos und unverbindlich – wir melden uns schnellstmöglich.",
+  "labels": {
+    "name": "Vollständiger Name",
+    "email": "E-Mail-Adresse",
+    "phone": "Telefonnummer",
+    "interest": "Ich interessiere mich für",
+    "location": "Standort",
+    "message": "Deine Nachricht"
+  },
+  "placeholder": "Terminwünsche, Vorkenntnisse, weitere Anmerkungen...",
+  "consentText": "Ich stimme der Übermittlung und Verarbeitung meiner Nachricht zu.",
+  "submitText": "Senden",
+  "sendingText": "Wird gesendet…",
+  "reassurance": "Wir melden uns in der Regel innerhalb von 24 Stunden.",
+  "errorMessage": "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+}

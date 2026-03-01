@@ -223,6 +223,27 @@
     "text": "Kostenlose Probestunde – unverbindlich",
     "subtext": "Über 200 Schüler vertrauen uns an beiden Standorten"
   },
+  "faq": {
+    "heading": "Häufige Fragen zur Musikschule",
+    "items": [
+      {
+        "question": "Wo findet der Musikunterricht statt?",
+        "answer": "In Düsseldorf an der Kaiserstraße 28 (Pempelfort) und in Neuss am Neumarkt 18. Beide Studios sind gut mit Bus und Bahn erreichbar."
+      },
+      {
+        "question": "Was kostet eine Probestunde?",
+        "answer": "Die Probestunde ist kostenlos. Du schaust dir die Räume an, lernst den Lehrer kennen – und entscheidest dann in Ruhe."
+      },
+      {
+        "question": "Für wen ist der Unterricht geeignet?",
+        "answer": "Für alle: Kinder, Jugendliche und Erwachsene, Anfänger und Fortgeschrittene. Wir unterrichten Klavier, Gitarre, Gesang, Bass und Schlagzeug – einzeln oder in der Gruppe."
+      },
+      {
+        "question": "Wie kann ich mich anmelden?",
+        "answer": "Über unseren Buchungslink für die Probestunde oder per WhatsApp. Du kannst direkt online einen Termin auswählen – oder wir melden uns bei dir und vereinbaren gemeinsam einen passenden Termin."
+      }
+    ]
+  },
   "footer": {
     "logo": {
       "image": "https://s3.ca-central-1.amazonaws.com/logojoy/logos/112675843/noBgColor.png",

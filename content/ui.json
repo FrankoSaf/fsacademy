@@ -1,0 +1,28 @@
+{
+  "skipLink": "Zum Inhalt springen",
+  "breadcrumbs": {
+    "about": "Über uns",
+    "preise": "Preise",
+    "kontakt": "Kontakt",
+    "unterricht": "Unterricht",
+    "duesseldorf": "Düsseldorf",
+    "neuss": "Neuss",
+    "datenschutz": "Datenschutz",
+    "impressum": "Impressum",
+    "danke": "Vielen Dank",
+    "klavier": "Klavier",
+    "gitarre": "Gitarre",
+    "bass": "Bass",
+    "gesang": "Gesang",
+    "schlagzeug": "Schlagzeug",
+    "startseite": "Startseite"
+  },
+  "stickyCta": {
+    "text": "Probestunde",
+    "ariaLabel": "Probestunde vereinbaren"
+  },
+  "whatsappAriaLabel": "WhatsApp kontaktieren",
+  "navAriaLabel": "Hauptnavigation",
+  "menuOpen": "Menü öffnen",
+  "menuClose": "Menü schließen"
+}
