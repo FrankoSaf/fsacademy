@@ -49,18 +49,21 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <li>Verwendeter Browser und ggf. das Betriebssystem Ihres Rechners</li>
         </ul>
 
-        <h3>Bei Nutzung unseres Kontaktformulars</h3>
+        <h3>Bei Buchung einer Probestunde</h3>
         <p>
-          Bei Fragen jeglicher Art bieten wir Ihnen die Möglichkeit, mit uns über ein auf
-          der Website bereitgestelltes Formular Kontakt aufzunehmen. Dabei sind folgende
-          Angaben erforderlich:
+          Über Links auf unserer Website werden Sie zur Buchungsplattform unseres Partners
+          <strong>Axinio GmbH</strong> (axinio.app) weitergeleitet. Dort können Sie eine
+          kostenlose Probestunde vereinbaren. Die Erhebung und Verarbeitung Ihrer Daten
+          erfolgt dabei durch Axinio. Wir empfangen von Axinio die für die Terminplanung
+          erforderlichen Angaben (z. B. Name, Kontaktdaten, gewünschtes Instrument und
+          Standort) und verarbeiten diese ausschließlich zur Durchführung der Probestunde.
         </p>
-        <ul>
-          <li>Name</li>
-          <li>E-Mail-Adresse</li>
-          <li>Telefonnummer (optional)</li>
-          <li>Ihre Nachricht</li>
-        </ul>
+        <p>
+          Die Datenschutzerklärung von Axinio finden Sie unter{' '}
+          <a href="https://www.axinio.com/unternehmen/datenschutz/" target="_blank" rel="noopener noreferrer">axinio.com/unternehmen/datenschutz</a>.
+          Bei allgemeinen Fragen erreichen Sie uns per E-Mail unter info@finesoundacademy.com
+          oder telefonisch unter 0176 77154511.
+        </p>
 
         <h2>3. Cookies</h2>
         <p>
@@ -96,7 +99,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           E-Mail: datenschutz@finesoundacademy.com
         </p>
 
-        <p class="last-updated">Stand: Dezember 2024</p>
+        <p class="last-updated">Stand: Februar 2025</p>
       </div>
     </div>
   </section>
@@ -172,6 +175,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .legal-content strong {
     font-weight: 600;
+  }
+
+  .legal-content a {
+    color: var(--color-gold-on-light);
+    text-decoration: underline;
+  }
+  .legal-content a:hover {
+    text-decoration: none;
   }
 
   .last-updated {
