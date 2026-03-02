@@ -160,8 +160,8 @@
   "hoursCard": {
     "title": "Öffnungszeiten",
     "lines": [
-      "Montag – Freitag: 10:00 – 20:00 Uhr",
-      "Samstag: 09:00 – 12:00 Uhr",
+      "Montag – Freitag: 11:00 – 20:00 Uhr",
+      "Samstag: Geschlossen",
       "Sonntag: Geschlossen"
     ]
   }
