@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
 import globals from '../../content/globals.json';
 import ui from '../../content/ui.json';
 
@@ -140,7 +141,13 @@ const heroImage = landingData?.hero?.image ?? '';
     {heroImage && (
       <>
         <div class="location-hero-picture">
-          <img src={heroImage} alt="" fetchpriority="high" />
+          <ResponsiveImage
+            src={heroImage}
+            alt=""
+            preset="hero"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
         <div class="location-hero-overlay"></div>
       </>
@@ -396,6 +403,7 @@ const heroImage = landingData?.hero?.image ?? '';
     height: 100%;
     z-index: 0;
   }
+  .location-hero-picture picture,
   .location-hero-picture img {
     width: 100%;
     height: 100%;
