@@ -583,10 +583,18 @@ const socialIcons: Record<string, string> = {
     window.addEventListener('scroll', updateNavScroll, { passive: true });
   }
 
+  function scheduleBoot() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(boot, { timeout: 100 });
+    } else {
+      setTimeout(boot, 0);
+    }
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', boot);
+    document.addEventListener('DOMContentLoaded', scheduleBoot);
   } else {
-    boot();
+    scheduleBoot();
   }
 
   window.addEventListener('pageshow', (e) => {
