@@ -39,7 +39,7 @@ const PRESETS: Record<ImagePreset, ImagePresetConfig> = {
       { w: 800, h: 800 },
     ],
     sizes: '(min-width: 1200px) min(800px, 33vw), (min-width: 900px) min(800px, 50vw), (min-width: 768px) min(800px, 90vw), min(800px, 90vw)',
-    q: 75,
+    q: 70,
   },
   /** Hero: full viewport, 16:9 typical; q:70 balances quality vs size for Lighthouse */
   hero: {

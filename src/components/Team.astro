@@ -372,10 +372,11 @@ const members = location
       grid.classList.remove('is-dragging');
       if (isDragging) {
         grid.style.scrollSnapType = 'x mandatory';
-        void grid.offsetHeight;
-        const idx = getClosestIndex();
-        scrollToIndex(idx);
-        setTimeout(() => updateUI(), 350);
+        requestAnimationFrame(() => {
+          const idx = getClosestIndex();
+          scrollToIndex(idx);
+          setTimeout(() => updateUI(), 350);
+        });
       }
       isDragging = false;
     }
@@ -420,7 +421,7 @@ const members = location
       dotsContainer.addEventListener('keydown', onDotsKeyDown);
       prevBtn.addEventListener('click', () => { if (active > 0) scrollToIndex(active - 1); });
       nextBtn.addEventListener('click', () => { if (active < members.length - 1) scrollToIndex(active + 1); });
-      updateUI();
+      requestAnimationFrame(() => updateUI());
     }
 
     function deactivate() {
@@ -444,7 +445,13 @@ const members = location
     mq.addEventListener('change', (e) => toggle(e.matches));
   }
 
-  document.addEventListener('DOMContentLoaded', initTeamSlider);
-  // Also run if DOM is already loaded (Astro client scripts)
-  if (document.readyState !== 'loading') initTeamSlider();
+  function scheduleInit() {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initTeamSlider, { timeout: 500 });
+    } else {
+      setTimeout(initTeamSlider, 0);
+    }
+  }
+  document.addEventListener('DOMContentLoaded', scheduleInit);
+  if (document.readyState !== 'loading') scheduleInit();
 </script>
