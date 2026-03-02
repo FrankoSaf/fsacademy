@@ -24,6 +24,104 @@
   status = 301
   force = true
 
+# Old indexed URLs → current structure (301 permanent)
+[[redirects]]
+  from = "/gesang-neuss"
+  to = "/neuss/unterricht/gesang"
+  status = 301
+[[redirects]]
+  from = "/impressum8f7586af"
+  to = "/impressum"
+  status = 301
+[[redirects]]
+  from = "/schlagzeug-neuss"
+  to = "/neuss/unterricht/schlagzeug"
+  status = 301
+[[redirects]]
+  from = "/bass"
+  to = "/unterricht/bass"
+  status = 301
+[[redirects]]
+  from = "/gesang"
+  to = "/unterricht/gesang"
+  status = 301
+[[redirects]]
+  from = "/bass-duesseldorf"
+  to = "/duesseldorf/unterricht/bass"
+  status = 301
+[[redirects]]
+  from = "/gitarre"
+  to = "/unterricht/gitarre"
+  status = 301
+[[redirects]]
+  from = "/gitarrenunterricht-duesseldorf"
+  to = "/duesseldorf/unterricht/gitarre"
+  status = 301
+[[redirects]]
+  from = "/gesangsunterrichtneuss"
+  to = "/neuss/unterricht/gesang"
+  status = 301
+[[redirects]]
+  from = "/gitarrenunterrichtduesseldorf"
+  to = "/duesseldorf/unterricht/gitarre"
+  status = 301
+[[redirects]]
+  from = "/klavierunterrichtduesseldorf"
+  to = "/duesseldorf/unterricht/klavier"
+  status = 301
+[[redirects]]
+  from = "/gesang-duesseldorf"
+  to = "/duesseldorf/unterricht/gesang"
+  status = 301
+[[redirects]]
+  from = "/schlagzeug"
+  to = "/unterricht/schlagzeug"
+  status = 301
+[[redirects]]
+  from = "/klavier-duesseldorf"
+  to = "/duesseldorf/unterricht/klavier"
+  status = 301
+[[redirects]]
+  from = "/privacy"
+  to = "/datenschutz"
+  status = 301
+[[redirects]]
+  from = "/klavier"
+  to = "/unterricht/klavier"
+  status = 301
+[[redirects]]
+  from = "/klavier-neuss"
+  to = "/neuss/unterricht/klavier"
+  status = 301
+[[redirects]]
+  from = "/gitarrenunterricht-neuss"
+  to = "/neuss/unterricht/gitarre"
+  status = 301
+[[redirects]]
+  from = "/schlagzeug-duesseldorf"
+  to = "/duesseldorf/unterricht/schlagzeug"
+  status = 301
+[[redirects]]
+  from = "/über-uns-düsseldorf"
+  to = "/duesseldorf"
+  status = 301
+[[redirects]]
+  from = "/über-uns-neuss"
+  to = "/neuss"
+  status = 301
+
+# Subdomain redirects
+[[redirects]]
+  from = "https://gesang.finesoundacademy.com/"
+  to = "https://finesoundacademy.com/unterricht/gesang"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://gitarre.finesoundacademy.com/"
+  to = "https://finesoundacademy.com/unterricht/gitarre"
+  status = 301
+  force = true
+
 [[headers]]
   for = "/_astro/*"
   [headers.values]
