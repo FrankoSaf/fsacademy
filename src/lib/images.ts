@@ -41,7 +41,7 @@ const PRESETS: Record<ImagePreset, ImagePresetConfig> = {
     sizes: '(min-width: 1200px) min(800px, 33vw), (min-width: 900px) min(800px, 50vw), (min-width: 768px) min(800px, 90vw), min(800px, 90vw)',
     q: 75,
   },
-  /** Hero: full viewport, 16:9 typical */
+  /** Hero: full viewport, 16:9 typical; q:70 balances quality vs size for Lighthouse */
   hero: {
     dimensions: [
       { w: 640, h: 360 },
@@ -51,7 +51,7 @@ const PRESETS: Record<ImagePreset, ImagePresetConfig> = {
       { w: 1920, h: 1080 },
     ],
     sizes: '(min-width: 1920px) 1920px, (min-width: 1440px) 1440px, 100vw',
-    q: 80,
+    q: 70,
   },
   /** Unterricht instruments: .instrument-image 600x400 (3:2) desktop, ~375x300 mobile */
   instrument: {
