@@ -51,7 +51,6 @@ const ldOrganization = {
   telephone: '+49 176 77154511',
   email: 'info@finesoundacademy.com',
   sameAs: (landing as any).navigation?.socialMedia?.map((s: any) => s.url) ?? [],
-  priceRange: '€€',
   areaServed: [
     { '@type': 'City', name: 'Düsseldorf' },
     { '@type': 'City', name: 'Neuss' },
@@ -66,6 +65,18 @@ const ldOrganization = {
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Bassunterricht' } },
       { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Schlagzeugunterricht' } },
     ],
+  },
+  offers: {
+    '@type': 'Offer',
+    name: 'Monatliches Abo',
+    description: 'Monthly subscription for music lessons (tutoring school).',
+    url: `${site}/preise`,
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      priceCurrency: 'EUR',
+      billingDuration: 'P1M',
+      unitText: 'MONTH',
+    },
   },
   location: [
     {
