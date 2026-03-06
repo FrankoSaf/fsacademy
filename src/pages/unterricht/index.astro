@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import contentRaw from '../../../content/unterricht.json';
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
@@ -8,7 +8,7 @@ const content = contentRaw as any;
 
 <BaseLayout
   title="Unterricht - Fine Sound Academy"
-  description="Musikunterricht Düsseldorf & Neuss: Klavier, Gitarre, Bass, Gesang, Schlagzeug, Violine. Entdecke dein Instrument – kostenlose Probestunde bei der Fine Sound Academy."
+  description="Musikunterricht D\u00FCsseldorf & Neuss: Klavier, Gitarre, Bass, Gesang, Schlagzeug, Violine. Entdecke dein Instrument - kostenlose Probestunde bei der Fine Sound Academy."
 >
   <section class="unterricht-hero" aria-labelledby="unterricht-heading">
     <div class="hero-container">
@@ -22,7 +22,7 @@ const content = contentRaw as any;
     <div class="intro-container">
       <p>{content.intro.text}</p>
       <div class="location-links">
-        <a href="/duesseldorf/unterricht" class="location-link">Instrumente in Düsseldorf</a>
+        <a href="/duesseldorf/unterricht" class="location-link">Instrumente in D\u00FCsseldorf</a>
         <a href="/neuss/unterricht" class="location-link">Instrumente in Neuss</a>
       </div>
     </div>
@@ -58,6 +58,25 @@ const content = contentRaw as any;
           </article>
         ))
       }
+    </div>
+  </section>
+
+  <section class="crawl-links" aria-labelledby="crawl-links-title">
+    <div class="crawl-links-container">
+      <h2 id="crawl-links-title">Direkte Unterrichtsseiten</h2>
+      <p>Alle Instrumente nach Standort:</p>
+      <ul>
+        <li><a href="/duesseldorf/unterricht/bass/">Bassunterricht in D\u00FCsseldorf</a></li>
+        <li><a href="/duesseldorf/unterricht/gesang/">Gesangsunterricht in D\u00FCsseldorf</a></li>
+        <li><a href="/duesseldorf/unterricht/gitarre/">Gitarrenunterricht in D\u00FCsseldorf</a></li>
+        <li><a href="/duesseldorf/unterricht/klavier/">Klavierunterricht in D\u00FCsseldorf</a></li>
+        <li><a href="/duesseldorf/unterricht/schlagzeug/">Schlagzeugunterricht in D\u00FCsseldorf</a></li>
+        <li><a href="/neuss/unterricht/bass/">Bassunterricht in Neuss</a></li>
+        <li><a href="/neuss/unterricht/gesang/">Gesangsunterricht in Neuss</a></li>
+        <li><a href="/neuss/unterricht/gitarre/">Gitarrenunterricht in Neuss</a></li>
+        <li><a href="/neuss/unterricht/klavier/">Klavierunterricht in Neuss</a></li>
+        <li><a href="/neuss/unterricht/schlagzeug/">Schlagzeugunterricht in Neuss</a></li>
+      </ul>
     </div>
   </section>
 </BaseLayout>
@@ -243,6 +262,42 @@ const content = contentRaw as any;
     color: var(--color-gold-on-light);
   }
 
+  .crawl-links {
+    padding: var(--space-4xl) var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+  .crawl-links-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+  .crawl-links h2 {
+    font-family: var(--font-serif);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+    text-align: center;
+  }
+  .crawl-links p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+  }
+  .crawl-links ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+    columns: 2;
+    gap: var(--space-2xl);
+  }
+  .crawl-links li {
+    margin-bottom: var(--space-sm);
+  }
+  .crawl-links a {
+    color: var(--color-gold-on-light);
+    text-decoration: none;
+  }
+  .crawl-links a:hover {
+    text-decoration: underline;
+  }
+
   @media (max-width: 767px) {
     .unterricht-hero {
       padding: var(--space-4xl) var(--space-md) var(--space-3xl);
@@ -267,6 +322,10 @@ const content = contentRaw as any;
 
     .instrument-image {
       height: 300px;
+    }
+
+    .crawl-links ul {
+      columns: 1;
     }
   }
 </style>

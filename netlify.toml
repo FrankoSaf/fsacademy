@@ -1,4 +1,4 @@
-[build]
+﻿[build]
   command = "npm run build"
   publish = "dist"
 
@@ -24,7 +24,7 @@
   status = 301
   force = true
 
-# Old indexed URLs → current structure (301 permanent)
+# Old indexed URLs â†’ current structure (301 permanent)
 [[redirects]]
   from = "/gesang-neuss"
   to = "/neuss/unterricht/gesang"
@@ -94,6 +94,10 @@
   to = "/neuss/unterricht/klavier"
   status = 301
 [[redirects]]
+  from = "/bass-neuss"
+  to = "/neuss/unterricht/bass"
+  status = 301
+[[redirects]]
   from = "/gitarrenunterricht-neuss"
   to = "/neuss/unterricht/gitarre"
   status = 301
@@ -102,11 +106,11 @@
   to = "/duesseldorf/unterricht/schlagzeug"
   status = 301
 [[redirects]]
-  from = "/über-uns-düsseldorf"
+  from = "/Ã¼ber-uns-dÃ¼sseldorf"
   to = "/duesseldorf"
   status = 301
 [[redirects]]
-  from = "/über-uns-neuss"
+  from = "/Ã¼ber-uns-neuss"
   to = "/neuss"
   status = 301
 
@@ -122,6 +126,27 @@
   status = 301
   force = true
 
+# Removed legacy URLs (no replacement)
+[[redirects]]
+  from = "/danke"
+  to = "/404.html"
+  status = 410
+  force = true
+[[redirects]]
+  from = "/danke/"
+  to = "/404.html"
+  status = 410
+  force = true
+[[redirects]]
+  from = "/feed/rss2"
+  to = "/404.html"
+  status = 410
+  force = true
+[[redirects]]
+  from = "/feed/rss2/"
+  to = "/404.html"
+  status = 410
+  force = true
 [[headers]]
   for = "/_astro/*"
   [headers.values]
@@ -143,3 +168,4 @@
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
+

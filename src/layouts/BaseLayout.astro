@@ -1,4 +1,4 @@
----
+﻿---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
@@ -27,13 +27,13 @@ interface Props {
 
 const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.props;
 
-// Use deploy URL only for netlify.app (preview/test) so canonical matches – avoids SEO warnings when testing
+// Use deploy URL only for netlify.app (preview/test) so canonical matches â€“ avoids SEO warnings when testing
 const deployUrl = typeof process !== 'undefined' ? (process.env.URL || process.env.DEPLOY_PRIME_URL) : null;
 const site = (deployUrl && deployUrl.includes('netlify.app')) ? deployUrl : (Astro.site?.href || 'https://finesoundacademy.com');
 const canonical = canonicalUrl ?? new URL(Astro.url.pathname, site).href;
-const metaDescription = description ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription ?? 'Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
+const metaDescription = description ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription ?? 'Musikschule in DÃ¼sseldorf und Neuss: Professioneller Unterricht fÃ¼r Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
 const image = ogImage ?? (globals as { ogImage?: string }).ogImage ?? '';
-const ogImageAlt = (globals as { ogImageAlt?: string }).ogImageAlt ?? 'Fine Sound Academy – Musikschule Düsseldorf & Neuss';
+const ogImageAlt = (globals as { ogImageAlt?: string }).ogImageAlt ?? 'Fine Sound Academy â€“ Musikschule DÃ¼sseldorf & Neuss';
 const twitterHandle = (globals as { twitterHandle?: string }).twitterHandle ?? '';
 const imageUrl = image ? (image.startsWith('http') ? image : new URL(image, site).href) : null;
 const imageMimeType = imageUrl && (imageUrl.toLowerCase().includes('.png') || imageUrl.toLowerCase().includes('noBgColor')) ? 'image/png' : 'image/jpeg';
@@ -52,7 +52,7 @@ const ldOrganization = {
   email: 'info@finesoundacademy.com',
   sameAs: (landing as any).navigation?.socialMedia?.map((s: any) => s.url) ?? [],
   areaServed: [
-    { '@type': 'City', name: 'Düsseldorf' },
+    { '@type': 'City', name: 'DÃ¼sseldorf' },
     { '@type': 'City', name: 'Neuss' },
   ],
   hasOfferCatalog: {
@@ -81,12 +81,12 @@ const ldOrganization = {
   location: [
     {
       '@type': 'School',
-      name: 'Fine Sound Academy Düsseldorf',
+      name: 'Fine Sound Academy DÃ¼sseldorf',
       url: `${site}/duesseldorf`,
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'Kaiserstr. 28',
-        addressLocality: 'Düsseldorf',
+        addressLocality: 'DÃ¼sseldorf',
         postalCode: '40479',
         addressCountry: 'DE',
       },
@@ -135,11 +135,11 @@ const ldWebPage = {
 const pathSegments = Astro.url.pathname.replace(/\/$/, '').split('/').filter(Boolean);
 const breadcrumbs = (ui as { breadcrumbs?: Record<string, string> }).breadcrumbs ?? {};
 const breadcrumbNames: Record<string, string> = {
-  about: breadcrumbs.about ?? 'Über uns',
+  about: breadcrumbs.about ?? 'Ãœber uns',
   preise: breadcrumbs.preise ?? 'Preise',
   kontakt: breadcrumbs.kontakt ?? 'Kontakt',
   unterricht: breadcrumbs.unterricht ?? 'Unterricht',
-  duesseldorf: breadcrumbs.duesseldorf ?? 'Düsseldorf',
+  duesseldorf: breadcrumbs.duesseldorf ?? 'DÃ¼sseldorf',
   neuss: breadcrumbs.neuss ?? 'Neuss',
   datenschutz: breadcrumbs.datenschutz ?? 'Datenschutz',
   impressum: breadcrumbs.impressum ?? 'Impressum',
@@ -209,23 +209,22 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&display=optional"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&display=optional"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&display=swap"
       rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
     <script type="application/ld+json" set:html={JSON.stringify(ldOrganization)} />
     <script type="application/ld+json" set:html={JSON.stringify(ldWebSite)} />
     <script type="application/ld+json" set:html={JSON.stringify(ldWebPage)} />
     {ldBreadcrumb && <script type="application/ld+json" set:html={JSON.stringify(ldBreadcrumb)} />}
 
-    {/* Google Consent Mode v2 + gtag – loads only when conversion tracking is configured */}
+    {/* Google Consent Mode v2 + gtag â€“ loads only when conversion tracking is configured */}
     {conversionSendTo && (
       <>
         <script is:inline define:vars={{ conversionSendTo, conversionValue }}>
@@ -308,3 +307,5 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
     top: 0;
   }
 </style>
+
+

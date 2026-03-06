@@ -1,4 +1,4 @@
----
+﻿---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import HomeIntro from '../components/HomeIntro.astro';
@@ -9,11 +9,24 @@ import Testimonials from '../components/Testimonials.astro';
 import HomepageFAQ from '../components/HomepageFAQ.astro';
 import Locations from '../components/Locations.astro';
 import Team from '../components/Team.astro';
+
+const cityInstrumentLinks = [
+  { href: '/duesseldorf/unterricht/bass/', label: 'Bassunterricht in D\u00FCsseldorf' },
+  { href: '/duesseldorf/unterricht/gesang/', label: 'Gesangsunterricht in D\u00FCsseldorf' },
+  { href: '/duesseldorf/unterricht/gitarre/', label: 'Gitarrenunterricht in D\u00FCsseldorf' },
+  { href: '/duesseldorf/unterricht/klavier/', label: 'Klavierunterricht in D\u00FCsseldorf' },
+  { href: '/duesseldorf/unterricht/schlagzeug/', label: 'Schlagzeugunterricht in D\u00FCsseldorf' },
+  { href: '/neuss/unterricht/bass/', label: 'Bassunterricht in Neuss' },
+  { href: '/neuss/unterricht/gesang/', label: 'Gesangsunterricht in Neuss' },
+  { href: '/neuss/unterricht/gitarre/', label: 'Gitarrenunterricht in Neuss' },
+  { href: '/neuss/unterricht/klavier/', label: 'Klavierunterricht in Neuss' },
+  { href: '/neuss/unterricht/schlagzeug/', label: 'Schlagzeugunterricht in Neuss' },
+];
 ---
 
 <BaseLayout
-  title="Fine Sound Academy – Musikschule Düsseldorf & Neuss"
-  description="Fine Sound Academy – Musikschule in Düsseldorf & Neuss. Klavier, Gitarre, Gesang und Schlagzeug. Kostenlose Probestunde."
+  title={`Fine Sound Academy - Musikschule D\u00FCsseldorf & Neuss`}
+  description={`Fine Sound Academy - Musikschule in D\u00FCsseldorf und Neuss. Klavier, Gitarre, Gesang und Schlagzeug. Kostenlose Probestunde.`}
 >
   <Hero />
   <HomeIntro />
@@ -23,5 +36,57 @@ import Team from '../components/Team.astro';
   <Testimonials />
   <HomepageFAQ />
   <Locations />
+  <section class="seo-links" aria-labelledby="seo-links-title">
+    <div class="seo-links-container">
+      <h2 id="seo-links-title">Instrumente nach Standort</h2>
+      <p>Direkte Links zu den meistgesuchten Unterrichtsseiten:</p>
+      <ul>
+        {cityInstrumentLinks.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
   <Team />
 </BaseLayout>
+
+<style>
+  .seo-links {
+    padding: var(--space-4xl) var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+  .seo-links-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+  .seo-links h2 {
+    font-family: var(--font-serif);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+  }
+  .seo-links p {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+  }
+  .seo-links ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+    columns: 2;
+    gap: var(--space-2xl);
+  }
+  .seo-links li {
+    margin-bottom: var(--space-sm);
+  }
+  .seo-links a {
+    color: var(--color-gold-on-light);
+    text-decoration: none;
+  }
+  .seo-links a:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 767px) {
+    .seo-links ul {
+      columns: 1;
+    }
+  }
+</style>

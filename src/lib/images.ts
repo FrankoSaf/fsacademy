@@ -1,14 +1,19 @@
-/**
+﻿/**
  * Build Netlify Image CDN URLs for on-demand resize/optimization.
  * Presets match component layout dimensions (width, height, aspect ratio).
  */
 const NETLIFY_IMAGES = '/.netlify/images';
+const IS_NETLIFY_ENV = Boolean(
+  typeof process !== 'undefined' && (process.env.NETLIFY || process.env.DEPLOY_PRIME_URL || process.env.URL)
+);
 
 export function getNetlifyImageUrl(
   src: string,
   options: { w?: number; h?: number; q?: number; fit?: string; position?: string; fm?: string } = {}
 ): string {
   const url = src.startsWith('http') ? src : src.startsWith('/') ? src : `/${src}`;
+  if (!IS_NETLIFY_ENV) return url;
+
   const params = new URLSearchParams();
   params.set('url', url);
   if (options.w) params.set('w', String(options.w));
@@ -63,7 +68,7 @@ const PRESETS: Record<ImagePreset, ImagePresetConfig> = {
     sizes: '(min-width: 768px) 600px, 100vw',
     q: 80,
   },
-  /** Locations: .location-card aspect-ratio 16:10 desktop, 3:2 mobile; 2-col → max ~580x362 */
+  /** Locations: .location-card aspect-ratio 16:10 desktop, 3:2 mobile; 2-col â†’ max ~580x362 */
   location: {
     dimensions: [
       { w: 400, h: 250 },
@@ -88,3 +93,4 @@ const PRESETS: Record<ImagePreset, ImagePresetConfig> = {
 export function getPreset(preset: ImagePreset) {
   return PRESETS[preset];
 }
+
