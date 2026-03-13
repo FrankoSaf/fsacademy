@@ -22,7 +22,7 @@ const hero = content.hero;
   <div class="hero-picture-wrap">
     <ResponsiveImage
       src={hero.image}
-      alt="Fine Sound Academy Musikschule – Klavier, Gitarre, Gesang, Bass und Schlagzeug in Düsseldorf und Neuss"
+      alt="Fine Sound Academy Musikschule - Klavier, Gitarre, Gesang, Bass und Schlagzeug in Düsseldorf und Neuss"
       preset="hero"
       loading="eager"
       fetchpriority="high"
@@ -34,7 +34,14 @@ const hero = content.hero;
     <div class="accent-line"></div>
     <h1 id="hero-heading">{hero.title}</h1>
     <p>{hero.subtitle}</p>
-    <a href={hero.buttonLink} class="hero-cta" target={hero.buttonLink.startsWith('http') ? '_blank' : undefined} rel={hero.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}>{hero.buttonText}</a>
+    <a
+      href={hero.buttonLink}
+      class="hero-cta"
+      target={hero.buttonLink.startsWith('http') ? '_blank' : undefined}
+      rel={hero.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+    >
+      {hero.buttonText}
+    </a>
   </div>
 </section>
 

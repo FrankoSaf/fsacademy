@@ -9,12 +9,6 @@ import '../styles/global.css';
 
 import globals from '../../content/globals.json';
 import ui from '../../content/ui.json';
-
-const g = globals as Record<string, unknown>;
-const googleAdsId = (g.googleAdsId as string) || '';
-const googleAdsConversionId = (g.googleAdsConversionId as string) || '';
-const conversionValue = (g.conversionValue as string) || '';
-const conversionSendTo = googleAdsId && googleAdsConversionId ? `AW-${googleAdsId}/${googleAdsConversionId}` : '';
 import landing from '../../content/landing.json';
 
 interface Props {
@@ -25,19 +19,78 @@ interface Props {
   noindex?: boolean;
 }
 
+const g = globals as Record<string, unknown>;
+const googleAdsId = (g.googleAdsId as string) || '';
+const googleAdsConversionId = (g.googleAdsConversionId as string) || '';
+const conversionValue = (g.conversionValue as string) || '';
+const conversionSendTo = googleAdsId && googleAdsConversionId ? `AW-${googleAdsId}/${googleAdsConversionId}` : '';
+
 const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.props;
 
-// Use deploy URL only for netlify.app (preview/test) so canonical matches â€“ avoids SEO warnings when testing
+// Use the deploy URL only for Netlify preview domains so canonicals stay stable.
 const deployUrl = typeof process !== 'undefined' ? (process.env.URL || process.env.DEPLOY_PRIME_URL) : null;
-const site = (deployUrl && deployUrl.includes('netlify.app')) ? deployUrl : (Astro.site?.href || 'https://finesoundacademy.com');
+const site = deployUrl && deployUrl.includes('netlify.app')
+  ? deployUrl
+  : (Astro.site?.href || 'https://finesoundacademy.com');
 const canonical = canonicalUrl ?? new URL(Astro.url.pathname, site).href;
-const metaDescription = description ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription ?? 'Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
+const metaDescription = description
+  ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription
+  ?? 'Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
 const image = ogImage ?? (globals as { ogImage?: string }).ogImage ?? '';
-const ogImageAlt = (globals as { ogImageAlt?: string }).ogImageAlt ?? 'Fine Sound Academy â€“ Musikschule Düsseldorf & Neuss';
+const ogImageAlt = (globals as { ogImageAlt?: string }).ogImageAlt ?? 'Fine Sound Academy - Musikschule Düsseldorf & Neuss';
 const twitterHandle = (globals as { twitterHandle?: string }).twitterHandle ?? '';
 const imageUrl = image ? (image.startsWith('http') ? image : new URL(image, site).href) : null;
-const imageMimeType = imageUrl && (imageUrl.toLowerCase().includes('.png') || imageUrl.toLowerCase().includes('noBgColor')) ? 'image/png' : 'image/jpeg';
-const logoUrl = (landing as any)?.footer?.logo?.image ? ((landing as any).footer.logo.image.startsWith('http') ? (landing as any).footer.logo.image : new URL((landing as any).footer.logo.image, site).href) : imageUrl;
+const imageMimeType = imageUrl && (imageUrl.toLowerCase().includes('.png') || imageUrl.toLowerCase().includes('noBgColor'))
+  ? 'image/png'
+  : 'image/jpeg';
+const logoUrl = (landing as any)?.footer?.logo?.image
+  ? ((landing as any).footer.logo.image.startsWith('http')
+      ? (landing as any).footer.logo.image
+      : new URL((landing as any).footer.logo.image, site).href)
+  : imageUrl;
+
+const googleAdsSrc = `https://www.googletagmanager.com/gtag/js?id=AW-${googleAdsId}`;
+const consentBootstrapScript = [
+  'window.dataLayer = window.dataLayer || [];',
+  'function gtag(){ window.dataLayer.push(arguments); }',
+  "gtag('consent', 'default', {",
+  "  analytics_storage: 'denied',",
+  "  ad_storage: 'denied',",
+  "  ad_user_data: 'denied',",
+  "  ad_personalization: 'denied',",
+  '  wait_for_update: 500,',
+  '});',
+  "gtag('js', new Date());",
+  `window.__FSA_GOOGLE_ADS_CONVERSION__ = ${JSON.stringify(conversionSendTo)};`,
+  `window.__FSA_CONVERSION_VALUE__ = ${conversionValue ? `Number(${JSON.stringify(conversionValue)})` : 'undefined'};`,
+].join('\n');
+const consentConfigScript = [
+  'window.dataLayer = window.dataLayer || [];',
+  'function gtag(){ window.dataLayer.push(arguments); }',
+  `gtag('config', 'AW-${googleAdsId}', { send_page_view: true });`,
+].join('\n');
+const identityWidgetScript = [
+  '(function () {',
+  "  if (window.location.hash.indexOf('invite_token') !== -1",
+  "      || window.location.hash.indexOf('confirmation_token') !== -1",
+  "      || window.location.hash.indexOf('recovery_token') !== -1) {",
+  "    var script = document.createElement('script');",
+  "    script.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';",
+  '    script.onload = function () {',
+  '      if (window.netlifyIdentity) {',
+  "        window.netlifyIdentity.on('init', function (user) {",
+  '          if (!user) {',
+  "            window.netlifyIdentity.on('login', function () {",
+  "              document.location.href = '/admin/';",
+  '            });',
+  '          }',
+  '        });',
+  '      }',
+  '    };',
+  '    document.head.appendChild(script);',
+  '  }',
+  '})();',
+].join('\n');
 
 const ldOrganization = {
   '@context': 'https://schema.org',
@@ -92,7 +145,7 @@ const ldOrganization = {
       },
       geo: { '@type': 'GeoCoordinates', latitude: 51.23387, longitude: 6.77908 },
       openingHoursSpecification: [
-        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '20:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '20:00' },
         { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
       ],
     },
@@ -109,7 +162,7 @@ const ldOrganization = {
       },
       geo: { '@type': 'GeoCoordinates', latitude: 51.1985, longitude: 6.6929 },
       openingHoursSpecification: [
-        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '20:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '20:00' },
         { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
       ],
     },
@@ -150,19 +203,21 @@ const breadcrumbNames: Record<string, string> = {
   gesang: breadcrumbs.gesang ?? 'Gesang',
   schlagzeug: breadcrumbs.schlagzeug ?? 'Schlagzeug',
 };
-const ldBreadcrumb = pathSegments.length > 0 ? {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: breadcrumbs.startseite ?? 'Startseite', item: site },
-    ...pathSegments.map((seg, i) => ({
-      '@type': 'ListItem',
-      position: i + 2,
-      name: breadcrumbNames[seg] ?? seg.charAt(0).toUpperCase() + seg.slice(1),
-      item: new URL(pathSegments.slice(0, i + 1).join('/') + '/', site).href,
-    })),
-  ],
-} : null;
+const ldBreadcrumb = pathSegments.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: breadcrumbs.startseite ?? 'Startseite', item: site },
+        ...pathSegments.map((seg, i) => ({
+          '@type': 'ListItem',
+          position: i + 2,
+          name: breadcrumbNames[seg] ?? seg.charAt(0).toUpperCase() + seg.slice(1),
+          item: new URL(pathSegments.slice(0, i + 1).join('/') + '/', site).href,
+        })),
+      ],
+    }
+  : null;
 ---
 
 <!doctype html>
@@ -223,32 +278,11 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
     <script type="application/ld+json" set:html={JSON.stringify(ldWebSite)} />
     <script type="application/ld+json" set:html={JSON.stringify(ldWebPage)} />
     {ldBreadcrumb && <script type="application/ld+json" set:html={JSON.stringify(ldBreadcrumb)} />}
+    <slot name="head" />
 
-    {/* Google Consent Mode v2 + gtag â€“ loads only when conversion tracking is configured */}
-    {conversionSendTo && (
-      <>
-        <script is:inline define:vars={{ conversionSendTo, conversionValue }}>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){ dataLayer.push(arguments); }
-          gtag('consent', 'default', {
-            'analytics_storage': 'denied',
-            'ad_storage': 'denied',
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'wait_for_update': 500,
-          });
-          gtag('js', new Date());
-          window.__FSA_GOOGLE_ADS_CONVERSION__ = conversionSendTo;
-          window.__FSA_CONVERSION_VALUE__ = conversionValue ? parseFloat(conversionValue) : undefined;
-        </script>
-        <script is:inline src={`https://www.googletagmanager.com/gtag/js?id=AW-${googleAdsId}`} async></script>
-        <script is:inline define:vars={{ googleAdsId, conversionSendTo }}>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){ dataLayer.push(arguments); }
-          gtag('config', 'AW-' + googleAdsId, { 'send_page_view': true });
-        </script>
-      </>
-    )}
+    {conversionSendTo ? <script is:inline src={googleAdsSrc} async></script> : null}
+    {conversionSendTo ? <script is:inline set:html={consentBootstrapScript}></script> : null}
+    {conversionSendTo ? <script is:inline set:html={consentConfigScript}></script> : null}
   </head>
   <body>
     <a href="#main-content" class="skip-link">{(ui as { skipLink?: string }).skipLink ?? 'Zum Inhalt springen'}</a>
@@ -264,28 +298,7 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
     <StickyCtaBar />
     <WhatsAppButton />
     <CookieBanner />
-    <script is:inline>
-      (function() {
-        if (window.location.hash.indexOf('invite_token') !== -1
-            || window.location.hash.indexOf('confirmation_token') !== -1
-            || window.location.hash.indexOf('recovery_token') !== -1) {
-          var s = document.createElement('script');
-          s.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
-          s.onload = function() {
-            if (window.netlifyIdentity) {
-              window.netlifyIdentity.on('init', function(user) {
-                if (!user) {
-                  window.netlifyIdentity.on('login', function() {
-                    document.location.href = '/admin/';
-                  });
-                }
-              });
-            }
-          };
-          document.head.appendChild(s);
-        }
-      })();
-    </script>
+    <script is:inline set:html={identityWidgetScript}></script>
   </body>
 </html>
 
@@ -303,9 +316,8 @@ const ldBreadcrumb = pathSegments.length > 0 ? {
     border-radius: 0 0 4px 4px;
     transition: top 0.2s;
   }
+
   .skip-link:focus {
     top: 0;
   }
 </style>
-
-

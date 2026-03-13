@@ -7,14 +7,6 @@ import ui from '../../../content/ui.json';
 const probestundeUrl = (globals as { probestundeUrl?: string }).probestundeUrl ?? 'https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/';
 const unterrichtUi = (ui as { unterricht?: Record<string, string> }).unterricht ?? {};
 
-const iconToSlug: Record<string, string> = {
-  piano: 'klavier',
-  guitar: 'gitarre',
-  bass: 'bass',
-  vocals: 'gesang',
-  drums: 'schlagzeug',
-};
-
 export function getStaticPaths() {
   return [
     { params: { instrument: 'klavier' } },
@@ -29,13 +21,13 @@ const { instrument } = Astro.params;
 const data = (instrumentsData as Record<string, { title: string; subtitle?: string; sections?: Array<{ heading: string; content: string }> }>)[instrument!];
 
 if (!data) {
-  return Astro.redirect('/unterricht');
+  return Astro.redirect('/unterricht/');
 }
 ---
 
 <BaseLayout
-  title={`${data.title} - Fine Sound Academy`}
-  description={data.subtitle ?? `${data.title} bei der Fine Sound Academy in Düsseldorf und Neuss. Professioneller Unterricht für alle Level.`}
+  title={`${data.title} | Unterricht in Düsseldorf & Neuss | Fine Sound Academy`}
+  description={data.subtitle ?? `${data.title} bei der Fine Sound Academy in Düsseldorf und Neuss. Professioneller Unterricht für Kinder, Jugendliche und Erwachsene.`}
 >
   <section class="instrument-detail">
     <div class="detail-container">
@@ -54,8 +46,8 @@ if (!data) {
         <div class="location-ctas">
           <p>{unterrichtUi.unterrichtIn ?? 'Unterricht in Düsseldorf und Neuss:'}</p>
           <div class="cta-buttons">
-            <a href={`/duesseldorf/unterricht/${instrument}`} class="cta-button">{unterrichtUi.inDuesseldorf ?? 'In Düsseldorf'}</a>
-            <a href={`/neuss/unterricht/${instrument}`} class="cta-button">{unterrichtUi.inNeuss ?? 'In Neuss'}</a>
+            <a href={`/duesseldorf/unterricht/${instrument}/`} class="cta-button">{unterrichtUi.inDuesseldorf ?? 'In Düsseldorf'}</a>
+            <a href={`/neuss/unterricht/${instrument}/`} class="cta-button">{unterrichtUi.inNeuss ?? 'In Neuss'}</a>
           </div>
         </div>
         <a href={probestundeUrl} target="_blank" rel="noopener noreferrer" class="cta-button primary">{unterrichtUi.jetztProbestundeBuchen ?? 'Jetzt Probestunde buchen'}</a>

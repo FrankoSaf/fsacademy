@@ -699,7 +699,6 @@ collections:
                   - { label: "Gitarre", value: "gitarre" }
                   - { label: "Bass", value: "bass" }
                   - { label: "Schlagzeug", value: "schlagzeug" }
-                  - { label: "Violine", value: "violine" }
               - label: Standorte
                 name: cities
                 widget: select

@@ -35,8 +35,7 @@ const pageData = (await import('../../content/neuss.json')).default as {
 const data = {
   hero: city?.hero ?? pageData.hero ?? { title: '', subtitle: '', text: '' },
   intro: city?.intro ?? pageData.intro ?? { heading: '', paragraphs: [] },
-  directionsCard: city?.directionsCard ??
-    pageData.directionsCard ?? { title: '', lines: [] },
+  directionsCard: city?.directionsCard ?? pageData.directionsCard ?? { title: '', lines: [] },
   hoursCard: city?.hoursCard ?? pageData.hoursCard ?? { title: '', lines: [] },
   infoCards: (city as any)?.infoCards ?? pageData.infoCards ?? [],
   cta: (city as any)?.cta ?? pageData.cta,
@@ -49,9 +48,7 @@ const introParagraphs = normalizeParagraphs(data.intro?.paragraphs);
 const directionsLines = normalizeLines(data.directionsCard?.lines);
 const hoursLines = normalizeLines(data.hoursCard?.lines);
 const faqItems = Array.isArray(data.faq?.items) ? data.faq.items : [];
-const instrumentItemsRaw = Array.isArray(data.instruments?.items)
-  ? data.instruments.items
-  : [];
+const instrumentItemsRaw = Array.isArray(data.instruments?.items) ? data.instruments.items : [];
 const titleToSlug: Record<string, string> = {
   Klavierunterricht: 'klavier',
   Gitarrenunterricht: 'gitarre',
@@ -59,25 +56,22 @@ const titleToSlug: Record<string, string> = {
   Bassunterricht: 'bass',
   Schlagzeugunterricht: 'schlagzeug',
 };
-const instrumentItems = instrumentItemsRaw.map(
-  (item: { title: string; description: string }) => ({
-    ...item,
-    slug:
-      (item as { slug?: string }).slug ??
-      titleToSlug[item.title] ??
-      item.title
-        .toLowerCase()
-        .replace(/unterricht$/, '')
-        .replace(/\s/g, '-'),
-  }),
-);
+const instrumentItems = instrumentItemsRaw.map((item: { title: string; description: string }) => ({
+  ...item,
+  slug:
+    (item as { slug?: string }).slug ??
+    titleToSlug[item.title] ??
+    item.title
+      .toLowerCase()
+      .replace(/unterricht$/, '')
+      .replace(/\s/g, '-'),
+}));
 
 const ldLocal = {
   '@context': 'https://schema.org',
   '@type': 'School',
   name: 'Fine Sound Academy Neuss',
-  description:
-    'Musikschule in Neuss am Neumarkt: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Einzel- und Gruppenunterricht für alle Altersgruppen.',
+  description: 'Musikschule in Neuss am Neumarkt: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug.',
   url: 'https://finesoundacademy.com/neuss',
   telephone: '+49 176 77154511',
   email: 'info@finesoundacademy.com',
@@ -122,8 +116,9 @@ const heroImage = landingData?.hero?.image ?? '';
 ---
 
 <BaseLayout
-  title="Musikschule Neuss – Klavier, Gitarre, Gesang, Bass & Schlagzeug | Fine Sound Academy"
-  description="Musikschule Neuss: Fine Sound Academy am Neumarkt 18. Klavier, Gitarre, Gesang, Bass, Schlagzeug, Violine. Kostenlose Probestunde, Öffnungszeiten, Anfahrt."
+  title="Musikschule Neuss | Klavier, Gitarre, Gesang | Fine Sound Academy"
+  description="Musikschule in Neuss am Neumarkt 18: Klavier-, Gitarren- und Gesangsunterricht sowie Bass und Schlagzeug. Kostenlose Probestunde buchen."
+  ogImage={heroImage}
 >
   <script
     type="application/ld+json"
@@ -142,7 +137,7 @@ const heroImage = landingData?.hero?.image ?? '';
         <div class="location-hero-picture">
           <ResponsiveImage
             src={heroImage}
-            alt=""
+            alt="Unterrichtsraum der Fine Sound Academy in Neuss"
             preset="hero"
             loading="eager"
             fetchpriority="high"
@@ -155,16 +150,10 @@ const heroImage = landingData?.hero?.image ?? '';
       <div class="accent-line"></div>
       <h1 id="neuss-heading">{data.hero?.title ?? 'Musikschule in Neuss'}</h1>
       <p class="hero-subtitle">
-        {
-          data.hero?.subtitle ??
-            'Fine Sound Academy — Neumarkt 18, Neusser Innenstadt'
-        }
+        {data.hero?.subtitle ?? 'Fine Sound Academy - Neumarkt 18, Neusser Innenstadt'}
       </p>
       <p class="hero-text">
-        {
-          data.hero?.text ??
-            'Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug — zentral in Neuss.'
-        }
+        {data.hero?.text ?? 'Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug - zentral in Neuss.'}
       </p>
     </div>
   </section>
@@ -173,30 +162,20 @@ const heroImage = landingData?.hero?.image ?? '';
     <div class="intro-container">
       <div class="intro-grid">
         <div class="intro-content">
-          <h2>
-            {data.intro?.heading ?? 'Deine Musikschule im Zentrum von Neuss'}
-          </h2>
+          <h2>{data.intro?.heading ?? 'Deine Musikschule im Zentrum von Neuss'}</h2>
           {
             introParagraphs.length > 0 ? (
               introParagraphs.map((paragraph) => <p>{paragraph}</p>)
             ) : (
               <>
                 <p>
-                  Die Fine Sound Academy Neuss liegt am{' '}
-                  <strong>Neumarkt 18</strong> — direkt im Herzen der{' '}
-                  <strong>Neusser Innenstadt</strong>.
+                  Die Fine Sound Academy Neuss liegt am <strong>Neumarkt 18</strong> - direkt im Herzen der <strong>Neusser Innenstadt</strong>.
                 </p>
                 <p>
-                  Unser Standort in Neuss steht für eine{' '}
-                  <strong>familiäre Atmosphäre</strong> und persönliche
-                  Betreuung.
+                  Unser Standort in Neuss steht für eine <strong>familiäre Atmosphäre</strong> und persönliche Betreuung.
                 </p>
                 <p>
-                  Für{' '}
-                  <strong>
-                    Kinder ab 6 Jahren, Jugendliche und Erwachsene
-                  </strong>
-                  .
+                  Für <strong>Kinder ab 6 Jahren, Jugendliche und Erwachsene</strong>.
                 </p>
               </>
             )
@@ -210,19 +189,10 @@ const heroImage = landingData?.hero?.image ?? '';
                 directionsLines.map((line) => <p>{line}</p>)
               ) : (
                 <>
-                  <p>
-                    <strong>Adresse:</strong> Neumarkt 18, 41460 Neuss
-                  </p>
-                  <p>
-                    <strong>Bus:</strong> Haltestelle Neumarkt
-                  </p>
-                  <p>
-                    <strong>Bahn:</strong> Neuss Hauptbahnhof — ca. 8 Min.
-                    Fußweg
-                  </p>
-                  <p>
-                    <strong>Parken:</strong> Tiefgarage Neumarkt
-                  </p>
+                  <p><strong>Adresse:</strong> Neumarkt 18, 41460 Neuss</p>
+                  <p><strong>Bus:</strong> Haltestelle Neumarkt</p>
+                  <p><strong>Bahn:</strong> Neuss Hauptbahnhof - ca. 8 Min. Fußweg</p>
+                  <p><strong>Parken:</strong> Tiefgarage Neumarkt</p>
                 </>
               )
             }
@@ -234,8 +204,8 @@ const heroImage = landingData?.hero?.image ?? '';
                 hoursLines.map((line) => <p>{line}</p>)
               ) : (
                 <>
-                  <p>Montag – Freitag: 10:00 – 20:00 Uhr</p>
-                  <p>Samstag: 09:00 – 12:00 Uhr</p>
+                  <p>Montag - Freitag: 10:00 - 20:00 Uhr</p>
+                  <p>Samstag: 09:00 - 12:00 Uhr</p>
                   <p>Sonntag: Geschlossen</p>
                 </>
               )
@@ -248,18 +218,12 @@ const heroImage = landingData?.hero?.image ?? '';
 
   <section class="instruments-overview" aria-labelledby="instruments-neuss">
     <div class="instruments-container">
-      <h2 id="instruments-neuss">
-        {data.instruments?.heading ?? 'Unser Unterrichtsangebot in Neuss'}
-      </h2>
+      <h2 id="instruments-neuss">{data.instruments?.heading ?? 'Unser Unterrichtsangebot in Neuss'}</h2>
       <p class="section-intro">
-        {
-          data.instruments?.intro ??
-            'Am Neumarkt bieten wir professionellen Musikunterricht für fünf Instrumente an.'
-        }
+        {data.instruments?.intro ?? 'Am Neumarkt bieten wir professionellen Musikunterricht für fünf Instrumente an.'}
       </p>
       <p>
-        <a href="/neuss/unterricht" class="instruments-cta"
-          >{(loc.alleInstrumente ?? 'Alle Instrumente')} in Neuss →</a>
+        <a href="/neuss/unterricht" class="instruments-cta">{(loc.alleInstrumente ?? 'Alle Instrumente')} in Neuss -></a>
       </p>
       <div class="instruments-grid">
         {
@@ -268,10 +232,7 @@ const heroImage = landingData?.hero?.image ?? '';
               <div class="instrument-item">
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
-                <a
-                  href={`/neuss/unterricht/${item.slug}`}
-                  class="instrument-link"
-                >
+                <a href={`/neuss/unterricht/${item.slug}`} class="instrument-link">
                   Mehr erfahren
                 </a>
               </div>
@@ -279,60 +240,29 @@ const heroImage = landingData?.hero?.image ?? '';
           ) : (
             <>
               <div class="instrument-item">
-                <>
-                  <h3>Klavierunterricht</h3>
-                  <p>
-                    Klassik, Pop oder Jazz — lerne Klavier in deinem eigenen
-                    Tempo.
-                  </p>
-                  <a href="/neuss/unterricht/klavier" class="instrument-link">
-                    Mehr erfahren
-                  </a>
-                </>
+                <h3>Klavierunterricht</h3>
+                <p>Klassik, Pop oder Jazz - lerne Klavier in deinem eigenen Tempo.</p>
+                <a href="/neuss/unterricht/klavier" class="instrument-link">Mehr erfahren</a>
               </div>
               <div class="instrument-item">
-                <>
-                  <h3>Gitarrenunterricht</h3>
-                  <p>
-                    Akustik oder E-Gitarre mit Methoden, die wirklich
-                    funktionieren.
-                  </p>
-                  <a href="/neuss/unterricht/gitarre" class="instrument-link">
-                    Mehr erfahren
-                  </a>
-                </>
+                <h3>Gitarrenunterricht</h3>
+                <p>Akustik oder E-Gitarre mit Methoden, die wirklich funktionieren.</p>
+                <a href="/neuss/unterricht/gitarre" class="instrument-link">Mehr erfahren</a>
               </div>
               <div class="instrument-item">
-                <>
-                  <h3>Gesangsunterricht</h3>
-                  <p>
-                    Entfalte dein stimmliches Potenzial für jeden Musikstil.
-                  </p>
-                  <a href="/neuss/unterricht/gesang" class="instrument-link">
-                    Mehr erfahren
-                  </a>
-                </>
+                <h3>Gesangsunterricht</h3>
+                <p>Entfalte dein stimmliches Potenzial für jeden Musikstil.</p>
+                <a href="/neuss/unterricht/gesang" class="instrument-link">Mehr erfahren</a>
               </div>
               <div class="instrument-item">
-                <>
-                  <h3>Bassunterricht</h3>
-                  <p>E-Bass oder Kontrabass — Groove und Zusammenspiel.</p>
-                  <a href="/neuss/unterricht/bass" class="instrument-link">
-                    Mehr erfahren
-                  </a>
-                </>
+                <h3>Bassunterricht</h3>
+                <p>E-Bass oder Kontrabass - Groove und Zusammenspiel.</p>
+                <a href="/neuss/unterricht/bass" class="instrument-link">Mehr erfahren</a>
               </div>
               <div class="instrument-item">
-                <>
-                  <h3>Schlagzeugunterricht</h3>
-                  <p>Beats, Fills und Koordination von Rock bis Jazz.</p>
-                  <a
-                    href="/neuss/unterricht/schlagzeug"
-                    class="instrument-link"
-                  >
-                    Mehr erfahren
-                  </a>
-                </>
+                <h3>Schlagzeugunterricht</h3>
+                <p>Beats, Fills und Koordination von Rock bis Jazz.</p>
+                <a href="/neuss/unterricht/schlagzeug" class="instrument-link">Mehr erfahren</a>
               </div>
             </>
           )
@@ -348,9 +278,7 @@ const heroImage = landingData?.hero?.image ?? '';
 
   <section class="faq-section" aria-labelledby="faq-neuss">
     <div class="faq-container">
-      <h2 id="faq-neuss">
-        {data.faq?.heading ?? 'Häufige Fragen zur Musikschule Neuss'}
-      </h2>
+      <h2 id="faq-neuss">{data.faq?.heading ?? 'Häufige Fragen zur Musikschule Neuss'}</h2>
       <div class="faq-list">
         {
           faqItems.length > 0 ? (
@@ -634,7 +562,7 @@ const heroImage = landingData?.hero?.image ?? '';
   }
 
   .faq-item[open] summary::after {
-    content: '−';
+    content: '-';
   }
 
   .faq-item p {

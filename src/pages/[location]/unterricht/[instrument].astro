@@ -20,17 +20,19 @@ export function getStaticPaths() {
   ];
   const locations = ['duesseldorf', 'neuss'];
   const paths: Array<{ params: { location: string; instrument: string } }> = [];
+
   for (const loc of locations) {
     for (const inst of instruments) {
       paths.push({ params: { location: loc, instrument: inst.slug } });
     }
   }
+
   return paths;
 }
 
 const { location: city, instrument } = Astro.params;
 
-const [teachers, cities, unterrichtData, instrumentsData, duesseldorfData, neussData, globalsData] = await Promise.all([
+const [teachers, cities, unterrichtData, instrumentsData, duesseldorfData, neussData, globalsData, uiData] = await Promise.all([
   getTeachers(),
   getCities(),
   import('../../../../content/unterricht.json'),
@@ -38,49 +40,59 @@ const [teachers, cities, unterrichtData, instrumentsData, duesseldorfData, neuss
   import('../../../../content/duesseldorf.json'),
   import('../../../../content/neuss.json'),
   import('../../../../content/globals.json'),
+  import('../../../../content/ui.json'),
 ]);
 
 const probestundeUrl = ((globalsData as { default?: { probestundeUrl?: string } }).default?.probestundeUrl) ?? 'https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/';
 
-const [uiData] = await Promise.all([import('../../../../content/ui.json')]);
-const ui = (uiData as { default?: Record<string, unknown> }).default as { campaign?: Record<string, string>; unterricht?: Record<string, string> } | undefined;
+const ui = (uiData as { default?: Record<string, any> }).default;
 const camp = ui?.campaign ?? {};
-
-const instrumentInfo = (unterrichtData as { instruments?: Array<{ slug: string; name: string; description: string; highlights: string[]; image?: string }> }).instruments?.find((i) => i.slug === instrument);
+const allInstruments = ((unterrichtData as { instruments?: Array<{ slug: string; name: string; description: string; highlights: string[]; image?: string }> }).instruments ?? []);
+const instrumentInfo = allInstruments.find((i) => i.slug === instrument);
 const instrumentsDataTyped = (instrumentsData as { default: Record<string, { title: string; subtitle: string; sections?: Array<{ heading: string; content: string }> }> }).default;
-const instrumentDetail = instrumentsDataTyped[instrument];
+const instrumentDetail = instrumentsDataTyped[instrument!];
 const cityInfo = cities.find((c) => c.slug === city);
 const teachersForPage = getTeachersForInstrumentAndCity(teachers, instrument!, city!);
+const cityName = cityInfo?.name ?? city ?? '';
+const displayName = instrumentDetail?.title ?? `${instrumentInfo?.name ?? instrument}unterricht`;
 
-const locationPage = city === 'duesseldorf' ? (duesseldorfData as { default: { faq?: { items?: Array<{ question: string; answer: string }> }; reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> }; cta?: { title: string; subtitle: string; buttonText: string; buttonLink: string } } }).default : (neussData as { default: { faq?: { items?: Array<{ question: string; answer: string }> }; reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> }; cta?: { title: string; subtitle: string; buttonText: string; buttonLink: string } } }).default;
+const locationPage = city === 'duesseldorf'
+  ? (duesseldorfData as { default: { faq?: { items?: Array<{ question: string; answer: string }> }; reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> }; cta?: { title: string; subtitle: string; buttonText: string; buttonLink: string } } }).default
+  : (neussData as { default: { faq?: { items?: Array<{ question: string; answer: string }> }; reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> }; cta?: { title: string; subtitle: string; buttonText: string; buttonLink: string } } }).default;
+
 const faqItems = locationPage?.faq?.items ?? [];
 const locationCta = locationPage?.cta;
+const cityIntroParagraph = Array.isArray(cityInfo?.intro?.paragraphs)
+  ? cityInfo?.intro?.paragraphs[0]
+  : undefined;
+const cityIntroText = typeof cityIntroParagraph === 'string'
+  ? cityIntroParagraph
+  : (cityIntroParagraph as { paragraph?: string } | undefined)?.paragraph ?? '';
 
-const instrumentName = instrumentInfo?.name ?? instrument;
+const extraSections = (instrumentDetail?.sections ?? []).slice(1, 3);
+const cityStreet = city === 'duesseldorf' ? 'Kaiserstraße 28' : 'Neumarkt 18';
+const cityArea = city === 'duesseldorf' ? 'Düsseldorf-Pempelfort' : 'der Neusser Innenstadt';
+const cityPageUrl = `/${city}/`;
+const cityLessonsUrl = `/${city}/unterricht/`;
+const genericInstrumentUrl = `/unterricht/${instrument}/`;
+const relatedInstrumentLinks = allInstruments.filter((item) => item.slug !== instrument).slice(0, 4);
+
 const instrumentCta = {
-  title: `${(instrumentDetail?.title ?? `${instrumentName}unterricht`).toUpperCase()} IN ${(cityInfo?.name ?? city).toUpperCase()}`,
-  subtitle: `Buche jetzt deine kostenlose Probestunde für ${instrumentName} in ${cityInfo?.name ?? city} und lerne uns kennen!`,
+  title: `${displayName.toUpperCase()} IN ${cityName.toUpperCase()}`,
+  subtitle: `Buche jetzt deine kostenlose Probestunde für ${displayName} in ${cityName} und lerne uns kennen!`,
   buttonText: locationCta?.buttonText ?? 'Termin vereinbaren',
   buttonLink: locationCta?.buttonLink ?? probestundeUrl,
 };
-const cityName = cityInfo?.name ?? city;
 
-const displayName = instrumentDetail?.title ?? `${instrumentName}unterricht`;
-const metaTitle = `${displayName} ${cityName} | Fine Sound Academy`;
-const metaDescription = `${displayName} in ${cityName} – Fine Sound Academy. Professioneller Unterricht für Kinder, Jugendliche und Erwachsene. Kostenlose Probestunde.`;
-
-const paragraphs = cityInfo?.intro?.paragraphs;
-const cityIntroParagraph = Array.isArray(paragraphs) ? paragraphs[0] : undefined;
-const cityIntroText = typeof cityIntroParagraph === 'string' ? cityIntroParagraph : (cityIntroParagraph as { paragraph?: string })?.paragraph ?? '';
-
-const extraSections = (instrumentDetail?.sections ?? []).slice(1, 3);
+const metaTitle = `${displayName} in ${cityName} | Fine Sound Academy`;
+const metaDescription = `${displayName} in ${cityName} auf der ${cityStreet}: professioneller Unterricht für Kinder, Jugendliche und Erwachsene. Kostenlose Probestunde buchen.`;
 
 const ldLocal = cityInfo ? {
   '@context': 'https://schema.org',
   '@type': 'School',
   name: `Fine Sound Academy ${cityName}`,
   description: metaDescription,
-  url: `https://finesoundacademy.com/${city}/unterricht/${instrument}`,
+  url: `https://finesoundacademy.com/${city}/unterricht/${instrument}/`,
   telephone: '+49 176 77154511',
   email: 'info@finesoundacademy.com',
   address: {
@@ -91,9 +103,11 @@ const ldLocal = cityInfo ? {
     postalCode: city === 'duesseldorf' ? '40479' : '41460',
     addressCountry: 'DE',
   },
-  geo: city === 'duesseldorf' ? { '@type': 'GeoCoordinates', latitude: 51.23387, longitude: 6.77908 } : { '@type': 'GeoCoordinates', latitude: 51.1985, longitude: 6.6929 },
+  geo: city === 'duesseldorf'
+    ? { '@type': 'GeoCoordinates', latitude: 51.23387, longitude: 6.77908 }
+    : { '@type': 'GeoCoordinates', latitude: 51.1985, longitude: 6.6929 },
   openingHoursSpecification: [
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '10:00', closes: '20:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '20:00' },
     { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
   ],
   areaServed: { '@type': 'City', name: cityName },
@@ -113,22 +127,21 @@ const ldFAQ = faqItems.length > 0 ? {
 <BaseLayout title={metaTitle} description={metaDescription} ogImage={instrumentInfo?.image}>
   {ldLocal && <script type="application/ld+json" set:html={JSON.stringify(ldLocal)} slot="head" />}
   {ldFAQ && <script type="application/ld+json" set:html={JSON.stringify(ldFAQ)} slot="head" />}
+
   <section class="campaign-hero" aria-labelledby="campaign-heading">
     <div class="hero-container">
       <div class="accent-line"></div>
-      <h1 id="campaign-heading">{displayName} {cityName}</h1>
+      <h1 id="campaign-heading">{displayName} in {cityName}</h1>
       <p class="hero-subtitle">{camp.fuerKinder ?? 'Für Kinder, Jugendliche und Erwachsene'}</p>
       <a href={probestundeUrl} target="_blank" rel="noopener noreferrer" class="hero-cta">Kostenlose Probestunde</a>
-      <p><a href={`/${city}/unterricht`} class="back-link">← {(ui?.location?.alleInstrumente ?? 'Alle Instrumente')} in {cityName}</a></p>
+      <p><a href={cityLessonsUrl} class="back-link">← {(ui?.location?.alleInstrumente ?? 'Alle Instrumente')} in {cityName}</a></p>
     </div>
   </section>
 
   <section class="campaign-overview" aria-label="Überblick">
     <div class="overview-container">
       <h2>{displayName} in {cityName}</h2>
-      {cityIntroText && (
-        <p class="overview-text overview-city">{cityIntroText}</p>
-      )}
+      {cityIntroText && <p class="overview-text overview-city">{cityIntroText}</p>}
       <p class="overview-text">
         {instrumentDetail?.sections?.[0]?.content ?? instrumentInfo?.description ?? `Professioneller ${displayName} bei der Fine Sound Academy in ${cityName}.`}
       </p>
@@ -146,10 +159,27 @@ const ldFAQ = faqItems.length > 0 ? {
     </div>
   </section>
 
+  <section class="campaign-local" aria-labelledby="local-heading">
+    <div class="local-container">
+      <h2 id="local-heading">Warum {displayName} in {cityName}?</h2>
+      <p>
+        Unser Unterricht findet in {cityArea} auf der {cityStreet} statt. So erreichst du die Fine Sound Academy schnell und kannst {displayName.toLowerCase()} direkt an deinem Standort in {cityName} lernen.
+      </p>
+      <p>
+        {displayName} in {cityName} kombiniert persönliche Betreuung, qualifizierte Lehrkräfte und eine kostenlose Probestunde. Das macht diese Seite deutlich anders als unsere allgemeine Instrumentenseite.
+      </p>
+      <div class="related-links">
+        <a href={cityPageUrl}>{`Musikschule ${cityName}`}</a>
+        <a href={cityLessonsUrl}>{`Alle Instrumente in ${cityName}`}</a>
+        <a href={genericInstrumentUrl}>{`${displayName} an beiden Standorten`}</a>
+      </div>
+    </div>
+  </section>
+
   {teachersForPage.length > 0 && (
     <section class="campaign-teachers" aria-labelledby="teachers-heading">
       <div class="teachers-container">
-        <h2 id="teachers-heading">{(camp.unsereLehrer ?? 'Unsere')} {instrumentName}lehrer in {cityName}</h2>
+        <h2 id="teachers-heading">{(camp.unsereLehrer ?? 'Unsere')} {instrumentInfo?.name ?? instrument}lehrer in {cityName}</h2>
         <p class="teachers-intro">
           {camp.teachersIntro ?? 'Unsere Lehrkräfte sind das kreative Herz unserer Musikschule und begleiten dich auf deinem musikalischen Weg.'}
         </p>
@@ -174,9 +204,21 @@ const ldFAQ = faqItems.length > 0 ? {
     <LocationReviews
       title={locationPage.reviews.title}
       items={locationPage.reviews.items}
-      instrumentFilter={instrumentName}
+      instrumentFilter={instrumentInfo?.name ?? instrument}
     />
   )}
+
+  <section class="campaign-related" aria-labelledby="related-heading">
+    <div class="related-container">
+      <h2 id="related-heading">Weitere Unterrichtsseiten in {cityName}</h2>
+      <p>Diese internen Links stärken die wichtigsten Seiten rund um deinen Standort und helfen dir, das passende Angebot schneller zu finden.</p>
+      <ul class="related-list">
+        {relatedInstrumentLinks.map((item) => (
+          <li><a href={`/${city}/unterricht/${item.slug}/`}>{`${item.name}unterricht in ${cityName}`}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
 
   <section class="campaign-how" aria-label="So geht's">
     <div class="how-container">
@@ -212,7 +254,7 @@ const ldFAQ = faqItems.length > 0 ? {
   <section class="campaign-contact-section" aria-label="Probestunde buchen">
     <div class="campaign-cta-link-wrap">
       <h2>Probestunde vereinbaren</h2>
-      <p>{camp.kostenlosUnverbindlich ?? 'Kostenlos und unverbindlich – direkt online buchen.'}</p>
+      <p>{camp.kostenlosUnverbindlich ?? 'Kostenlos und unverbindlich - direkt online buchen.'}</p>
       <a
         href={probestundeUrl}
         target="_blank"
@@ -251,6 +293,21 @@ const ldFAQ = faqItems.length > 0 ? {
   .highlights { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); }
   .highlights li { display: flex; align-items: center; gap: var(--space-sm); color: var(--color-text-primary); font-size: var(--text-sm); }
   .highlights li::before { content: '✓'; color: var(--color-gold); font-weight: 700; }
+  .campaign-local,
+  .campaign-related { padding: var(--space-5xl) var(--space-lg); background: var(--color-bg-alt); }
+  .local-container,
+  .related-container { max-width: 900px; margin: 0 auto; }
+  .campaign-local h2,
+  .campaign-related h2 { font-family: var(--font-serif); font-size: clamp(var(--text-xl), 3vw, var(--text-2xl)); color: var(--color-text-primary); margin-bottom: var(--space-lg); font-weight: 600; }
+  .campaign-local p,
+  .campaign-related p { color: var(--color-text-secondary); line-height: 1.8; margin-bottom: var(--space-lg); }
+  .related-links { display: flex; flex-wrap: wrap; gap: var(--space-md); }
+  .related-links a,
+  .related-list a { color: var(--color-gold-on-light); text-decoration: none; }
+  .related-links a:hover,
+  .related-list a:hover { text-decoration: underline; }
+  .related-list { margin: 0; padding-left: var(--space-lg); columns: 2; gap: var(--space-2xl); }
+  .related-list li { margin-bottom: var(--space-sm); }
   .campaign-teachers { padding: var(--space-6xl) var(--space-lg); background: var(--color-bg-alt); }
   .teachers-container { max-width: var(--container-max-width); margin: 0 auto; }
   .campaign-teachers h2 { font-family: var(--font-serif); font-size: clamp(var(--text-xl), 3vw, var(--text-2xl)); color: var(--color-text-primary); text-align: center; margin-bottom: var(--space-md); font-weight: 600; }
@@ -284,4 +341,7 @@ const ldFAQ = faqItems.length > 0 ? {
   .campaign-cta-link-wrap p { color: var(--color-text-secondary); margin-bottom: var(--space-xl); font-size: var(--text-base); }
   .campaign-cta-link { display: inline-flex; align-items: center; justify-content: center; padding: var(--space-md) var(--space-2xl); background: var(--color-gold); color: var(--color-black); font-weight: 600; font-family: var(--font-sans); text-decoration: none; border-radius: var(--radius-sm); min-height: 48px; transition: background var(--transition-base); }
   .campaign-cta-link:hover { background: var(--color-gold-light); }
+  @media (max-width: 767px) {
+    .related-list { columns: 1; }
+  }
 </style>

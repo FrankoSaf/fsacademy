@@ -10,23 +10,35 @@ import HomepageFAQ from '../components/HomepageFAQ.astro';
 import Locations from '../components/Locations.astro';
 import Team from '../components/Team.astro';
 
-const cityInstrumentLinks = [
-  { href: '/duesseldorf/unterricht/bass/', label: 'Bassunterricht in Düsseldorf' },
-  { href: '/duesseldorf/unterricht/gesang/', label: 'Gesangsunterricht in Düsseldorf' },
-  { href: '/duesseldorf/unterricht/gitarre/', label: 'Gitarrenunterricht in Düsseldorf' },
-  { href: '/duesseldorf/unterricht/klavier/', label: 'Klavierunterricht in Düsseldorf' },
-  { href: '/duesseldorf/unterricht/schlagzeug/', label: 'Schlagzeugunterricht in Düsseldorf' },
-  { href: '/neuss/unterricht/bass/', label: 'Bassunterricht in Neuss' },
-  { href: '/neuss/unterricht/gesang/', label: 'Gesangsunterricht in Neuss' },
-  { href: '/neuss/unterricht/gitarre/', label: 'Gitarrenunterricht in Neuss' },
-  { href: '/neuss/unterricht/klavier/', label: 'Klavierunterricht in Neuss' },
-  { href: '/neuss/unterricht/schlagzeug/', label: 'Schlagzeugunterricht in Neuss' },
+const locationGroups = [
+  {
+    city: 'Neuss',
+    cityHref: '/neuss/',
+    links: [
+      { href: '/neuss/unterricht/klavier/', label: 'Klavierunterricht in Neuss' },
+      { href: '/neuss/unterricht/gitarre/', label: 'Gitarrenunterricht in Neuss' },
+      { href: '/neuss/unterricht/gesang/', label: 'Gesangsunterricht in Neuss' },
+      { href: '/neuss/unterricht/bass/', label: 'Bassunterricht in Neuss' },
+      { href: '/neuss/unterricht/schlagzeug/', label: 'Schlagzeugunterricht in Neuss' },
+    ],
+  },
+  {
+    city: 'Düsseldorf',
+    cityHref: '/duesseldorf/',
+    links: [
+      { href: '/duesseldorf/unterricht/klavier/', label: 'Klavierunterricht in Düsseldorf' },
+      { href: '/duesseldorf/unterricht/gitarre/', label: 'Gitarrenunterricht in Düsseldorf' },
+      { href: '/duesseldorf/unterricht/gesang/', label: 'Gesangsunterricht in Düsseldorf' },
+      { href: '/duesseldorf/unterricht/bass/', label: 'Bassunterricht in Düsseldorf' },
+      { href: '/duesseldorf/unterricht/schlagzeug/', label: 'Schlagzeugunterricht in Düsseldorf' },
+    ],
+  },
 ];
 ---
 
 <BaseLayout
-  title={`Fine Sound Academy - Musikschule Düsseldorf & Neuss`}
-  description={`Fine Sound Academy - Musikschule in Düsseldorf und Neuss. Klavier, Gitarre, Gesang und Schlagzeug. Kostenlose Probestunde.`}
+  title="Musikschule Düsseldorf & Neuss | Fine Sound Academy"
+  description="Fine Sound Academy ist deine Musikschule in Düsseldorf und Neuss für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde buchen."
 >
   <Hero />
   <HomeIntro />
@@ -36,17 +48,29 @@ const cityInstrumentLinks = [
   <Testimonials />
   <HomepageFAQ />
   <Locations />
+
   <section class="seo-links" aria-labelledby="seo-links-title">
     <div class="seo-links-container">
-      <h2 id="seo-links-title">Instrumente nach Standort</h2>
-      <p>Direkte Links zu den meistgesuchten Unterrichtsseiten:</p>
-      <ul>
-        {cityInstrumentLinks.map((link) => (
-          <li><a href={link.href}>{link.label}</a></li>
+      <h2 id="seo-links-title">Musikunterricht nach Standort</h2>
+      <p>Finde direkt die wichtigsten Seiten für Musikunterricht in Neuss und Düsseldorf.</p>
+
+      <div class="seo-link-groups">
+        {locationGroups.map((group) => (
+          <section class="seo-link-group" aria-labelledby={`seo-group-${group.city.toLowerCase()}`}>
+            <h3 id={`seo-group-${group.city.toLowerCase()}`}>
+              <a href={group.cityHref}>{`Musikschule ${group.city}`}</a>
+            </h3>
+            <ul>
+              {group.links.map((link) => (
+                <li><a href={link.href}>{link.label}</a></li>
+              ))}
+            </ul>
+          </section>
         ))}
-      </ul>
+      </div>
     </div>
   </section>
+
   <Team />
 </BaseLayout>
 
@@ -55,38 +79,64 @@ const cityInstrumentLinks = [
     padding: var(--space-4xl) var(--space-lg);
     background: var(--color-bg-alt);
   }
+
   .seo-links-container {
     max-width: var(--container-max-width);
     margin: 0 auto;
   }
+
   .seo-links h2 {
     font-family: var(--font-serif);
     color: var(--color-text-primary);
     margin-bottom: var(--space-sm);
   }
+
   .seo-links p {
     color: var(--color-text-secondary);
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-xl);
   }
-  .seo-links ul {
-    margin: 0;
-    padding-left: var(--space-lg);
-    columns: 2;
+
+  .seo-link-groups {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-2xl);
   }
-  .seo-links li {
-    margin-bottom: var(--space-sm);
+
+  .seo-link-group {
+    background: var(--color-surface);
+    border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    padding: var(--space-xl);
   }
-  .seo-links a {
+
+  .seo-link-group h3 {
+    font-family: var(--font-serif);
+    margin-bottom: var(--space-md);
+    font-size: var(--text-xl);
+  }
+
+  .seo-link-group h3 a,
+  .seo-link-group li a {
     color: var(--color-gold-on-light);
     text-decoration: none;
   }
-  .seo-links a:hover {
+
+  .seo-link-group h3 a:hover,
+  .seo-link-group li a:hover {
     text-decoration: underline;
   }
+
+  .seo-link-group ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .seo-link-group li {
+    margin-bottom: var(--space-sm);
+  }
+
   @media (max-width: 767px) {
-    .seo-links ul {
-      columns: 1;
+    .seo-link-groups {
+      grid-template-columns: 1fr;
     }
   }
 </style>
