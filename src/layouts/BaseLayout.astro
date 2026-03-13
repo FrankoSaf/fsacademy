@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import StickyCtaBar from '../components/StickyCtaBar.astro';
+import '../styles/fonts.css';
 import '../styles/variables.css';
 import '../styles/global.css';
 
@@ -260,19 +261,6 @@ const ldBreadcrumb = pathSegments.length > 0
     {imageUrl && <meta name="twitter:image" content={imageUrl} />}
     {imageUrl && <meta name="twitter:image:alt" content={ogImageAlt} />}
     {twitterHandle && <meta name="twitter:site" content={twitterHandle} />}
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&display=swap"
-      rel="stylesheet"
-    />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
 
     <script type="application/ld+json" set:html={JSON.stringify(ldOrganization)} />
     <script type="application/ld+json" set:html={JSON.stringify(ldWebSite)} />
