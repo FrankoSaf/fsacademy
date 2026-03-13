@@ -1,4 +1,4 @@
-﻿---
+---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
@@ -31,9 +31,9 @@ const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.pro
 const deployUrl = typeof process !== 'undefined' ? (process.env.URL || process.env.DEPLOY_PRIME_URL) : null;
 const site = (deployUrl && deployUrl.includes('netlify.app')) ? deployUrl : (Astro.site?.href || 'https://finesoundacademy.com');
 const canonical = canonicalUrl ?? new URL(Astro.url.pathname, site).href;
-const metaDescription = description ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription ?? 'Musikschule in DÃ¼sseldorf und Neuss: Professioneller Unterricht fÃ¼r Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
+const metaDescription = description ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription ?? 'Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
 const image = ogImage ?? (globals as { ogImage?: string }).ogImage ?? '';
-const ogImageAlt = (globals as { ogImageAlt?: string }).ogImageAlt ?? 'Fine Sound Academy â€“ Musikschule DÃ¼sseldorf & Neuss';
+const ogImageAlt = (globals as { ogImageAlt?: string }).ogImageAlt ?? 'Fine Sound Academy â€“ Musikschule Düsseldorf & Neuss';
 const twitterHandle = (globals as { twitterHandle?: string }).twitterHandle ?? '';
 const imageUrl = image ? (image.startsWith('http') ? image : new URL(image, site).href) : null;
 const imageMimeType = imageUrl && (imageUrl.toLowerCase().includes('.png') || imageUrl.toLowerCase().includes('noBgColor')) ? 'image/png' : 'image/jpeg';
@@ -52,7 +52,7 @@ const ldOrganization = {
   email: 'info@finesoundacademy.com',
   sameAs: (landing as any).navigation?.socialMedia?.map((s: any) => s.url) ?? [],
   areaServed: [
-    { '@type': 'City', name: 'DÃ¼sseldorf' },
+    { '@type': 'City', name: 'Düsseldorf' },
     { '@type': 'City', name: 'Neuss' },
   ],
   hasOfferCatalog: {
@@ -81,12 +81,12 @@ const ldOrganization = {
   location: [
     {
       '@type': 'School',
-      name: 'Fine Sound Academy DÃ¼sseldorf',
+      name: 'Fine Sound Academy Düsseldorf',
       url: `${site}/duesseldorf`,
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'Kaiserstr. 28',
-        addressLocality: 'DÃ¼sseldorf',
+        addressLocality: 'Düsseldorf',
         postalCode: '40479',
         addressCountry: 'DE',
       },
@@ -135,11 +135,11 @@ const ldWebPage = {
 const pathSegments = Astro.url.pathname.replace(/\/$/, '').split('/').filter(Boolean);
 const breadcrumbs = (ui as { breadcrumbs?: Record<string, string> }).breadcrumbs ?? {};
 const breadcrumbNames: Record<string, string> = {
-  about: breadcrumbs.about ?? 'Ãœber uns',
+  about: breadcrumbs.about ?? 'Über uns',
   preise: breadcrumbs.preise ?? 'Preise',
   kontakt: breadcrumbs.kontakt ?? 'Kontakt',
   unterricht: breadcrumbs.unterricht ?? 'Unterricht',
-  duesseldorf: breadcrumbs.duesseldorf ?? 'DÃ¼sseldorf',
+  duesseldorf: breadcrumbs.duesseldorf ?? 'Düsseldorf',
   neuss: breadcrumbs.neuss ?? 'Neuss',
   datenschutz: breadcrumbs.datenschutz ?? 'Datenschutz',
   impressum: breadcrumbs.impressum ?? 'Impressum',
