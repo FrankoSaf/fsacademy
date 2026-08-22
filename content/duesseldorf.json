@@ -65,7 +65,8 @@
   },
   "card": {
     "image": "/uploads/d_medienhafen.jpg",
-    "buttonText": "Zur Schule Düsseldorf"
+    "buttonText": "Zur Schule Düsseldorf",
+    "alt": "Skyline von Düsseldorf mit Rheinturm und Medienhafen"
   },
   "address": "Kaiserstr. 28",
   "infoCards": [

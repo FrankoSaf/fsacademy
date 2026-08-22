@@ -9,6 +9,11 @@ import Testimonials from '../components/Testimonials.astro';
 import HomepageFAQ from '../components/HomepageFAQ.astro';
 import Locations from '../components/Locations.astro';
 import Team from '../components/Team.astro';
+import landing from '../../content/landing.json';
+
+// Same source Hero.astro reads, so the preload in <head> matches what the
+// hero's <picture> resolves to.
+const heroImage = (landing as { hero?: { image?: string } }).hero?.image ?? '';
 
 const locationGroups = [
   {
@@ -39,6 +44,7 @@ const locationGroups = [
 <BaseLayout
   title="Musikschule Düsseldorf & Neuss | Fine Sound Academy"
   description="Fine Sound Academy ist deine Musikschule in Düsseldorf und Neuss für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde buchen."
+  preloadHero={heroImage ? { src: heroImage, preset: 'hero' } : undefined}
 >
   <Hero />
   <HomeIntro />

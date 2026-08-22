@@ -50,10 +50,13 @@ const slugToIconFile: Record<string, string> = {
           content.instruments.items.map((instrument) => {
             const slug = iconToSlug[instrument.icon] ?? instrument.icon;
             const iconFile = slugToIconFile[slug] ?? `${slug}.svg`;
+            // No aria-label on the link: it would override the card's visible
+            // heading and description for screen readers. The icon is
+            // decorative (alt="") since the heading already names the instrument.
             return (
-              <a href={`/unterricht/${slug}`} class="instrument-card" aria-label={`Zum ${instrument.name}unterricht – mehr erfahren`}>
-                <div class="instrument-icon" aria-hidden="true">
-                  <img src={`/instrument-icons/${iconFile}`} alt={`${instrument.name} – Symbol`} width="64" height="64" loading="lazy" />
+              <a href={`/unterricht/#${slug}`} class="instrument-card">
+                <div class="instrument-icon">
+                  <img src={`/instrument-icons/${iconFile}`} alt="" width="64" height="64" loading="lazy" decoding="async" />
                 </div>
                 <h3 class="instrument-name">{instrument.name}</h3>
                 <p>{instrument.description}</p>

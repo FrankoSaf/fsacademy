@@ -1,7 +1,20 @@
+/*
+ * Self-hosted webfonts, WOFF2 only.
+ *
+ * The WOFF fallbacks were dropped: every browser that can run this site has
+ * supported WOFF2 since 2016, and a browser only ever downloads the first
+ * format it recognises - so the .woff copies were 196KB of deploy weight that
+ * no visitor fetched.
+ *
+ * `font-display: swap` keeps text visible during load. The two faces needed for
+ * first paint (DM Sans 400 for body, Fraunces 700 for every h1) are preloaded
+ * from BaseLayout so they start downloading with the HTML rather than after the
+ * CSS is parsed.
+ */
+
 @font-face {
   font-family: 'DM Sans';
-  src: url('../assets/fonts/dm-sans-latin-300-normal.woff2') format('woff2'),
-       url('../assets/fonts/dm-sans-latin-300-normal.woff') format('woff');
+  src: url('../assets/fonts/dm-sans-latin-300-normal.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -9,8 +22,7 @@
 
 @font-face {
   font-family: 'DM Sans';
-  src: url('../assets/fonts/dm-sans-latin-400-normal.woff2') format('woff2'),
-       url('../assets/fonts/dm-sans-latin-400-normal.woff') format('woff');
+  src: url('../assets/fonts/dm-sans-latin-400-normal.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -18,8 +30,7 @@
 
 @font-face {
   font-family: 'DM Sans';
-  src: url('../assets/fonts/dm-sans-latin-500-normal.woff2') format('woff2'),
-       url('../assets/fonts/dm-sans-latin-500-normal.woff') format('woff');
+  src: url('../assets/fonts/dm-sans-latin-500-normal.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -27,8 +38,7 @@
 
 @font-face {
   font-family: 'DM Sans';
-  src: url('../assets/fonts/dm-sans-latin-600-normal.woff2') format('woff2'),
-       url('../assets/fonts/dm-sans-latin-600-normal.woff') format('woff');
+  src: url('../assets/fonts/dm-sans-latin-600-normal.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -36,8 +46,7 @@
 
 @font-face {
   font-family: 'DM Sans';
-  src: url('../assets/fonts/dm-sans-latin-700-normal.woff2') format('woff2'),
-       url('../assets/fonts/dm-sans-latin-700-normal.woff') format('woff');
+  src: url('../assets/fonts/dm-sans-latin-700-normal.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -45,8 +54,7 @@
 
 @font-face {
   font-family: 'Fraunces';
-  src: url('../assets/fonts/fraunces-latin-400-normal.woff2') format('woff2'),
-       url('../assets/fonts/fraunces-latin-400-normal.woff') format('woff');
+  src: url('../assets/fonts/fraunces-latin-400-normal.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -54,8 +62,7 @@
 
 @font-face {
   font-family: 'Fraunces';
-  src: url('../assets/fonts/fraunces-latin-500-normal.woff2') format('woff2'),
-       url('../assets/fonts/fraunces-latin-500-normal.woff') format('woff');
+  src: url('../assets/fonts/fraunces-latin-500-normal.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -63,8 +70,7 @@
 
 @font-face {
   font-family: 'Fraunces';
-  src: url('../assets/fonts/fraunces-latin-600-normal.woff2') format('woff2'),
-       url('../assets/fonts/fraunces-latin-600-normal.woff') format('woff');
+  src: url('../assets/fonts/fraunces-latin-600-normal.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -72,8 +78,7 @@
 
 @font-face {
   font-family: 'Fraunces';
-  src: url('../assets/fonts/fraunces-latin-700-normal.woff2') format('woff2'),
-       url('../assets/fonts/fraunces-latin-700-normal.woff') format('woff');
+  src: url('../assets/fonts/fraunces-latin-700-normal.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;

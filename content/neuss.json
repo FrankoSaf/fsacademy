@@ -65,7 +65,8 @@
   },
   "card": {
     "image": "/uploads/16116014630_0426735dd4_b.jpg",
-    "buttonText": "Zur Schule Neuss"
+    "buttonText": "Zur Schule Neuss",
+    "alt": "Stadtansicht von Neuss"
   },
   "address": "Neumarkt 18, 41460 Neuss",
   "infoCards": [

@@ -1,0 +1,526 @@
+---
+/**
+ * Location landing page: /duesseldorf/ and /neuss/.
+ *
+ * Replaces the former duesseldorf.astro and neuss.astro, which were 626 lines
+ * each and differed by roughly 50 - the other ~575 lines (including a ~310-line
+ * style block) were duplicated verbatim. With `inlineStylesheets: 'always'`
+ * that duplication was also being inlined into both pages' HTML.
+ *
+ * Per-location facts come from src/lib/site.ts; per-location copy comes from
+ * content/<slug>.json, which the CMS owns.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ResponsiveImage from '../components/ResponsiveImage.astro';
+import About from '../components/About.astro';
+import CTA from '../components/CTA.astro';
+import Team from '../components/Team.astro';
+import Pricing from '../components/Pricing.astro';
+import LocationInfoCards from '../components/LocationInfoCards.astro';
+import LocationReviews from '../components/LocationReviews.astro';
+import globals from '../../content/globals.json';
+import ui from '../../content/ui.json';
+import { normalizeParagraphs, normalizeLines } from '../lib/cms';
+import { LOCATIONS, LESSON_TO_SLUG, getLocation, schoolSchema, CONTACT } from '../lib/site';
+
+export function getStaticPaths() {
+  return LOCATIONS.map((loc) => ({ params: { location: loc.slug } }));
+}
+
+/** The CMS keeps one file per location; both are fully populated. */
+const CITY_CONTENT = {
+  duesseldorf: () => import('../../content/duesseldorf.json'),
+  neuss: () => import('../../content/neuss.json'),
+} as const;
+
+interface CityPageData {
+  hero?: { title: string; subtitle: string; text: string };
+  intro?: { heading: string; paragraphs: unknown };
+  directionsCard?: { title: string; lines: unknown };
+  hoursCard?: { title: string; lines: unknown };
+  infoCards?: Array<{ title: string; description: string }>;
+  cta?: { title: string; subtitle: string; buttonText: string; buttonLink: string };
+  card?: { image?: string; alt?: string; buttonText?: string };
+  instruments?: {
+    heading: string;
+    intro: string;
+    items: Array<{ title: string; description: string; slug?: string }>;
+  };
+  faq?: { heading: string; items: Array<{ question: string; answer: string }> };
+  reviews?: { title: string; items: Array<{ name: string; text: string; instrument: string }> };
+}
+
+const slug = Astro.params.location as keyof typeof CITY_CONTENT;
+const loc = getLocation(slug);
+if (!loc) throw new Error(`No location entry in src/lib/site.ts for "${slug}"`);
+
+const data = ((await CITY_CONTENT[slug]()).default ?? {}) as CityPageData;
+
+const probestundeUrl =
+  (globals as { probestundeUrl?: string }).probestundeUrl ??
+  'https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/';
+const uiLoc = (ui as { location?: Record<string, string> }).location ?? {};
+
+const introParagraphs = normalizeParagraphs(data.intro?.paragraphs);
+const directionsLines = normalizeLines(data.directionsCard?.lines);
+const hoursLines = normalizeLines(data.hoursCard?.lines);
+const faqItems = Array.isArray(data.faq?.items) ? data.faq.items : [];
+const reviews = data.reviews ?? { title: 'Was unsere Schüler sagen', items: [] };
+
+/** CMS rows carry a lesson title ("Klavierunterricht"); derive the URL slug. */
+const instrumentItems = (Array.isArray(data.instruments?.items) ? data.instruments.items : []).map(
+  (item) => ({
+    ...item,
+    slug:
+      item.slug ??
+      LESSON_TO_SLUG[item.title] ??
+      item.title.toLowerCase().replace(/unterricht$/, '').replace(/\s/g, '-'),
+  })
+);
+
+const SITE = 'https://finesoundacademy.com/';
+const metaTitle = `Musikschule ${loc.name} | Klavier, Gitarre, Gesang | Fine Sound Academy`;
+const metaDescription = `Musikschule in ${loc.areaPhrase} auf der ${loc.street}: Klavier-, Gitarren- und Gesangsunterricht sowie Bass und Schlagzeug. Kostenlose Probestunde buchen.`;
+
+const ldLocal = {
+  '@context': 'https://schema.org',
+  ...schoolSchema(loc, SITE, {
+    description: `Musikschule in ${loc.areaPhrase}: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug.`,
+  }),
+};
+
+const ldFAQ =
+  faqItems.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      }
+    : null;
+
+// City-specific photo, so /duesseldorf/ and /neuss/ no longer share one image
+// while each claimed in its alt text to show that city's own room.
+const heroImage = data.card?.image ?? '';
+const heroAlt = data.card?.alt ?? `Fine Sound Academy in ${loc.name}`;
+const headingId = `${slug}-heading`;
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={metaDescription}
+  preloadHero={heroImage ? { src: heroImage, preset: 'hero' } : undefined}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(ldLocal)} slot="head" />
+  {ldFAQ && <script type="application/ld+json" set:html={JSON.stringify(ldFAQ)} slot="head" />}
+
+  <section class="location-hero" aria-labelledby={headingId}>
+    {heroImage && (
+      <>
+        <div class="location-hero-picture">
+          <ResponsiveImage
+            src={heroImage}
+            alt={heroAlt}
+            preset="hero"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+        <div class="location-hero-overlay"></div>
+      </>
+    )}
+    <div class="hero-container">
+      <div class="accent-line"></div>
+      <h1 id={headingId}>{data.hero?.title ?? `Musikschule in ${loc.name}`}</h1>
+      <p class="hero-subtitle">{data.hero?.subtitle ?? `Fine Sound Academy - ${loc.street}`}</p>
+      {data.hero?.text && <p class="hero-text">{data.hero.text}</p>}
+    </div>
+  </section>
+
+  <section class="location-intro" aria-label={`Über den Standort ${loc.name}`}>
+    <div class="intro-container">
+      <div class="intro-grid">
+        <div class="intro-content">
+          <h2>{data.intro?.heading ?? `Deine Musikschule in ${loc.areaPhrase}`}</h2>
+          {introParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+        <div class="intro-details">
+          <div class="detail-card">
+            <h3>{data.directionsCard?.title ?? 'Anfahrt & Lage'}</h3>
+            {directionsLines.map((line) => <p>{line}</p>)}
+          </div>
+          <div class="detail-card">
+            <h3>{data.hoursCard?.title ?? 'Öffnungszeiten'}</h3>
+            {hoursLines.map((line) => <p>{line}</p>)}
+          </div>
+          <div class="detail-card">
+            <h3>Kontakt</h3>
+            <p><a href={`tel:${CONTACT.phone}`}>{CONTACT.phoneDisplay}</a></p>
+            <p><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="instruments-overview" aria-labelledby={`instruments-${slug}`}>
+    <div class="instruments-container">
+      <h2 id={`instruments-${slug}`}>
+        {data.instruments?.heading ?? `Unser Unterrichtsangebot in ${loc.name}`}
+      </h2>
+      {data.instruments?.intro && <p class="section-intro">{data.instruments.intro}</p>}
+      <div class="instruments-grid">
+        {instrumentItems.map((item) => (
+          <div class="instrument-item">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <a href={`/${slug}/unterricht/${item.slug}/`} class="instrument-link">Mehr erfahren</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <About school={slug} />
+  <LocationReviews title={reviews.title} items={reviews.items} />
+  <CTA cta={data.cta} />
+  <Team location={slug} showIntro={false} />
+
+  {faqItems.length > 0 && (
+    <section class="faq-section" aria-labelledby={`faq-${slug}`}>
+      <div class="faq-container">
+        <h2 id={`faq-${slug}`}>
+          {data.faq?.heading ?? `Häufige Fragen zur Musikschule ${loc.name}`}
+        </h2>
+        <div class="faq-list">
+          {faqItems.map((item) => (
+            <details class="faq-item">
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <Pricing showHeader={true} headingLevel="h2" />
+  <LocationInfoCards cards={data.infoCards} />
+
+  <section class="location-cta-section" aria-label="Probestunde buchen">
+    <div class="location-cta-inner">
+      <p class="location-cta-heading">{uiLoc.probestundeVereinbaren ?? 'Probestunde vereinbaren'}</p>
+      <a href={probestundeUrl} target="_blank" rel="noopener noreferrer" class="location-cta-button">
+        {uiLoc.kostenloseProbestundeBuchen ?? 'Kostenlose Probestunde buchen'}
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .location-hero {
+    position: relative;
+    background: var(--color-bg-dark);
+    padding: calc(var(--nav-height) + var(--space-6xl)) var(--space-lg) var(--space-6xl);
+    text-align: center;
+    overflow: hidden;
+  }
+  .location-hero-picture {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .location-hero-picture :global(picture),
+  .location-hero-picture :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .location-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.55);
+    z-index: 1;
+  }
+  .location-hero .hero-container {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .accent-line {
+    width: 60px;
+    height: var(--border-width-medium);
+    background: var(--color-gold);
+    margin: 0 auto var(--space-lg);
+  }
+
+  .location-hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    color: var(--color-text-on-dark);
+    margin-bottom: var(--space-lg);
+    font-weight: 700;
+  }
+
+  .hero-subtitle {
+    color: var(--color-gold);
+    font-size: var(--text-lg);
+    letter-spacing: var(--tracking-tight);
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-text {
+    color: var(--color-white-alpha-85);
+    font-size: var(--text-base);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .location-intro {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .intro-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-5xl);
+    align-items: start;
+  }
+
+  .intro-content h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2xl);
+    font-weight: 600;
+  }
+
+  .intro-content p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+    font-size: var(--text-base);
+  }
+
+  .detail-card {
+    background: var(--color-bg-alt);
+    padding: var(--space-2xl);
+    margin-bottom: var(--space-lg);
+    border-left: 3px solid var(--color-gold);
+  }
+
+  .detail-card h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .detail-card p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+    margin-bottom: var(--space-xs);
+  }
+
+  .detail-card a {
+    color: var(--color-gold-on-light);
+    text-decoration: none;
+  }
+
+  .detail-card a:hover {
+    text-decoration: underline;
+  }
+
+  .instruments-overview {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-alt);
+  }
+
+  .instruments-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .instruments-container h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .section-intro {
+    text-align: center;
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto var(--space-4xl);
+    line-height: 1.8;
+  }
+
+  .instruments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-2xl);
+  }
+
+  .instrument-item {
+    background: var(--color-surface);
+    padding: var(--space-2xl);
+    border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    border-radius: var(--radius-md);
+  }
+
+  .instrument-item h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .instrument-item p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+    margin-bottom: var(--space-md);
+  }
+
+  .instrument-item .instrument-link {
+    display: inline-block;
+    color: var(--color-gold-on-light);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-decoration: none;
+    margin-top: var(--space-sm);
+  }
+
+  .instrument-item .instrument-link:hover {
+    text-decoration: underline;
+  }
+
+  .faq-section {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .faq-container h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: var(--space-4xl);
+    font-weight: 600;
+  }
+
+  .faq-item {
+    border-bottom: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    padding: var(--space-lg) 0;
+  }
+
+  .faq-item summary {
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .faq-item summary::after {
+    content: '+';
+    font-size: var(--text-xl);
+    color: var(--color-gold);
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+  }
+
+  .faq-item[open] summary::after {
+    content: '−';
+  }
+
+  .faq-item p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    padding-top: var(--space-md);
+    font-size: var(--text-sm);
+  }
+
+  .location-cta-section {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-gold);
+    text-align: center;
+  }
+
+  .location-cta-inner {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  .location-cta-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-xl), 3vw, var(--text-2xl));
+    color: var(--color-black);
+    margin-bottom: var(--space-xl);
+    font-weight: 600;
+  }
+
+  .location-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md) var(--space-3xl);
+    background: var(--color-black);
+    color: var(--color-white);
+    font-weight: 600;
+    font-family: var(--font-sans);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    min-height: 48px;
+    transition: background var(--transition-base), color var(--transition-base);
+  }
+
+  .location-cta-button:hover {
+    background: var(--color-white);
+    color: var(--color-black);
+  }
+
+  @media (max-width: 767px) {
+    .intro-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-3xl);
+    }
+
+    .location-hero {
+      padding: calc(var(--nav-height) + var(--space-4xl)) var(--space-md) var(--space-4xl);
+    }
+  }
+</style>

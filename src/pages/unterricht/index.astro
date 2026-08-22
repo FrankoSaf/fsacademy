@@ -2,8 +2,13 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import contentRaw from '../../../content/unterricht.json';
 import ResponsiveImage from '../../components/ResponsiveImage.astro';
+import { INSTRUMENTS, LOCATIONS } from '../../lib/site';
 
 const content = contentRaw as any;
+
+/** Correct German lesson noun ("Gitarre" -> "Gitarrenunterricht"), keyed by slug. */
+const lessonNoun = (slug: string, fallback: string) =>
+  INSTRUMENTS.find((i) => i.slug === slug)?.lesson ?? `${fallback}unterricht`;
 ---
 
 <BaseLayout
@@ -22,8 +27,9 @@ const content = contentRaw as any;
     <div class="intro-container">
       <p>{content.intro.text}</p>
       <div class="location-links">
-        <a href="/neuss/unterricht/" class="location-link">Musikunterricht in Neuss</a>
-        <a href="/duesseldorf/unterricht/" class="location-link">Musikunterricht in Düsseldorf</a>
+        {LOCATIONS.map((loc) => (
+          <a href={`/${loc.slug}/`} class="location-link">{`Musikunterricht in ${loc.name}`}</a>
+        ))}
       </div>
     </div>
   </section>
@@ -33,12 +39,13 @@ const content = contentRaw as any;
       {
         content.instruments.map((instrument: any, index: number) => (
           <article
+            id={instrument.slug}
             class={`instrument-item ${index % 2 === 0 ? 'image-left' : 'image-right'}`}
           >
             <div class="instrument-image">
               <ResponsiveImage
                 src={instrument.image}
-                alt={`${instrument.name}unterricht bei der Fine Sound Academy`}
+                alt={`${lessonNoun(instrument.slug, instrument.name)} bei der Fine Sound Academy`}
                 preset="instrument"
                 loading="lazy"
               />
@@ -51,9 +58,17 @@ const content = contentRaw as any;
                   <li>{highlight}</li>
                 ))}
               </ul>
-              <a href={`/unterricht/${instrument.slug}`} class="read-more">
-                Mehr erfahren
-              </a>
+              {/* This page is the router, not a destination: send visitors
+                  straight to the location page that can actually teach them.
+                  The former /unterricht/<instrument>/ stubs were ~200 words and
+                  competed with these for the same query. */}
+              <div class="instrument-cities">
+                {LOCATIONS.map((loc) => (
+                  <a href={`/${loc.slug}/unterricht/${instrument.slug}/`} class="read-more">
+                    {`${lessonNoun(instrument.slug, instrument.name)} in ${loc.name}`}
+                  </a>
+                ))}
+              </div>
             </div>
           </article>
         ))
@@ -168,6 +183,8 @@ const content = contentRaw as any;
   }
 
   .instrument-item {
+    /* Anchor targets from the homepage instrument cards must clear the fixed nav. */
+    scroll-margin-top: calc(var(--nav-height) + var(--space-lg));
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-4xl);
@@ -241,6 +258,18 @@ const content = contentRaw as any;
     height: 6px;
     background: var(--color-gold);
     border-radius: 50%;
+  }
+
+  .instrument-cities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  /* Two buttons with full lesson names need tighter gutters than the single
+     "Mehr erfahren" button this replaced. */
+  .instrument-cities .read-more {
+    padding: var(--space-sm) var(--space-lg);
   }
 
   .read-more {

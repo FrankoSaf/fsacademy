@@ -8,6 +8,9 @@
   --color-gold-on-light: #7a6542;
   --color-gold-alpha-10: rgba(205, 178, 135, 0.1);
   --color-gold-alpha-20: rgba(205, 178, 135, 0.2);
+  /* Used by the instrument card hover border. Was referenced but never
+     defined, so that hover state silently did nothing. */
+  --color-gold-alpha-40: rgba(205, 178, 135, 0.4);
   --color-white-alpha-85: rgba(255, 255, 255, 0.85);
 
   /* Backgrounds & surfaces */
@@ -85,6 +88,15 @@
   /* Focus (WCAG 2.4.7 – visible on light and dark) */
   --focus-visible-ring: 0 0 0 2px #fff, 0 0 0 4px #0a0a0a;
   --focus-visible-offset: 0;
+
+  /*
+   * Bottom offset for the floating CTA stack (WhatsApp bubble + Probestunde
+   * pill, both bottom-right). The cookie banner sets --cookie-banner-height on
+   * <html> while it is visible so the stack lifts clear of it instead of being
+   * buried underneath.
+   */
+  --cookie-banner-height: 0px;
+  --floating-cta-offset: calc(var(--space-lg) + var(--cookie-banner-height));
 }
 
 /* Reduce section spacing on desktop (128+128=256px is too large) */

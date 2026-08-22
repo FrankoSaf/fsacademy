@@ -27,24 +27,37 @@ export function getNetlifyImageUrl(
 
 export type ImagePreset = 'teacher' | 'hero' | 'instrument' | 'location' | 'about';
 
-/** { w, h } pairs for srcset; sizes for slot; q for quality */
+/** { w, h } pairs for srcset; sizes for slot; q for quality; position for crop anchor */
 export interface ImagePresetConfig {
   dimensions: { w: number; h: number }[];
   sizes: string;
   q?: number;
+  /** Crop anchor passed to the image CDN when `fit=cover` trims the source. */
+  position?: string;
 }
 
 const PRESETS: Record<ImagePreset, ImagePresetConfig> = {
-  /** Team / campaign teachers: 1:1, max 800px; single-teacher layouts must not stretch small source images */
+  /**
+   * Team / campaign teachers, cropped to 1:1.
+   *
+   * The sources are mostly portraits (ratios 0.67-0.75), so a `center` crop
+   * takes an even bite off the top and bottom - which lands on foreheads and
+   * chins. `top` keeps the face in frame, which is the whole point of the shot.
+   *
+   * The ladder stops at 640 rather than 800: the widest real slot is ~370px
+   * (3-column grid in a 1200px container), so 640 already covers 2x, and half
+   * the source files are under 800px wide - asking for 800 only upscaled them.
+   */
   teacher: {
     dimensions: [
       { w: 280, h: 280 },
       { w: 400, h: 400 },
       { w: 560, h: 560 },
-      { w: 800, h: 800 },
+      { w: 640, h: 640 },
     ],
-    sizes: '(min-width: 1200px) min(800px, 33vw), (min-width: 900px) min(800px, 50vw), (min-width: 768px) min(800px, 90vw), min(800px, 90vw)',
+    sizes: '(min-width: 1200px) min(640px, 33vw), (min-width: 900px) min(640px, 50vw), min(640px, 90vw)',
     q: 70,
+    position: 'top',
   },
   /** Hero: full viewport, 16:9 typical; q:70 balances quality vs size for Lighthouse */
   hero: {

@@ -1,5 +1,7 @@
 ---
 import cookie from '../../content/cookie.json';
+import globals from '../../content/globals.json';
+import { href } from '../lib/links';
 
 const c = cookie as {
   message?: string;
@@ -7,7 +9,20 @@ const c = cookie as {
   learnMoreUrl?: string;
   acceptText?: string;
   declineText?: string;
+  ariaLabel?: string;
 };
+
+/*
+ * Only render the banner when there is actually something to consent to.
+ *
+ * BaseLayout loads gtag only when googleAdsId and googleAdsConversionId are
+ * both set. With them empty - as they are now - no tracking script ever runs,
+ * so a consent prompt asked permission for nothing while costing every visitor
+ * an interstitial over the page. If Ads is switched on later, filling in
+ * globals.json brings the banner back automatically.
+ */
+const g = globals as { googleAdsId?: string; googleAdsConversionId?: string };
+const trackingEnabled = Boolean(g.googleAdsId && g.googleAdsConversionId);
 const message = c.message ?? 'Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten. Durch die weitere Nutzung der Website stimmen Sie der Verwendung von Cookies zu.';
 const learnMoreText = c.learnMoreText ?? 'Mehr erfahren';
 const learnMoreUrl = c.learnMoreUrl ?? '/datenschutz';
@@ -15,20 +30,32 @@ const acceptText = c.acceptText ?? 'Akzeptieren';
 const declineText = c.declineText ?? 'Ablehnen';
 ---
 
-<div id="cookie-banner" class="cookie-banner">
+{trackingEnabled && (
+<div
+  id="cookie-banner"
+  class="cookie-banner"
+  role="region"
+  aria-label={c.ariaLabel ?? 'Cookie-Hinweis'}
+  hidden
+>
   <div class="cookie-content">
     <p>
       {message}
-      <a href={learnMoreUrl}>{learnMoreText}</a>
+      <a href={href(learnMoreUrl)}>{learnMoreText}</a>
     </p>
     <div class="cookie-buttons">
-      <button id="cookie-accept" class="cookie-button accept">{acceptText}</button>
-      <button id="cookie-decline" class="cookie-button decline">{declineText}</button>
+      <button id="cookie-accept" type="button" class="cookie-button accept">{acceptText}</button>
+      <button id="cookie-decline" type="button" class="cookie-button decline">{declineText}</button>
     </div>
   </div>
 </div>
+)}
 
 <style>
+  .cookie-banner[hidden] {
+    display: none;
+  }
+
   .cookie-banner {
     position: fixed;
     bottom: 0;
@@ -155,18 +182,40 @@ const declineText = c.declineText ?? 'Ablehnen';
   const banner = document.getElementById('cookie-banner');
   const acceptButton = document.getElementById('cookie-accept');
   const declineButton = document.getElementById('cookie-decline');
+  if (!banner) return;
+
+  /**
+   * Publish the banner height so the floating CTA stack can sit above it
+   * (see --cookie-banner-height in variables.css).
+   */
+  function setBannerOffset(px: number): void {
+    document.documentElement.style.setProperty('--cookie-banner-height', `${px}px`);
+  }
 
   function showBanner(): void {
-    if (banner) {
-      banner.classList.add('show');
-      acceptButton?.focus();
-    }
+    banner.hidden = false;
+    // Two frames: one for `hidden` to drop, one so the transform transition
+    // has a starting value to animate from.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        banner.classList.add('show');
+        setBannerOffset(banner.offsetHeight);
+      });
+    });
+    // Deliberately NOT focusing a button here. Moving focus on load steals it
+    // from the page before the visitor has done anything, and drops a keyboard
+    // user into the banner instead of the content they came for. The banner is
+    // the first thing in the tab order after the skip link, so it stays easy
+    // to reach.
   }
 
   function hideBanner(): void {
-    if (banner) {
-      banner.classList.remove('show');
-    }
+    banner.classList.remove('show');
+    setBannerOffset(0);
+    const done = () => { banner.hidden = true; };
+    banner.addEventListener('transitionend', done, { once: true });
+    // Fallback in case the transition never fires (reduced motion collapses it).
+    setTimeout(done, 400);
   }
 
   const consent = getCookie(COOKIE_NAME);
@@ -197,10 +246,13 @@ const declineText = c.declineText ?? 'Ablehnen';
     hideBanner();
   });
 
+  // Escape dismisses the banner for this page view only - it must NOT write a
+  // consent cookie. Previously it stored a 365-day "declined", so a visitor
+  // pressing Escape to get a dialog out of the way silently opted out for a
+  // year without knowing it. With no cookie set the banner returns on the next
+  // page, so the actual choice stays with the two buttons.
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && banner?.classList.contains('show')) {
-      setCookie(COOKIE_NAME, 'declined', COOKIE_EXPIRY_DAYS);
-      updateConsent(false);
+    if (e.key === 'Escape' && banner.classList.contains('show')) {
       hideBanner();
     }
   });

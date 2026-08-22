@@ -1,5 +1,6 @@
 ---
 import contentRaw from '../../content/landing.json';
+import { LOCATIONS } from '../lib/site';
 
 interface Content {
   homeIntro?: {
@@ -13,6 +14,33 @@ interface Content {
 
 const content = contentRaw as Content;
 const intro = content.homeIntro ?? {};
+
+/**
+ * Link the first mention of each city in the lead sentence.
+ *
+ * `set:html` means this string is injected unescaped, so escape the CMS copy
+ * first - an editor typing `<` should not be able to inject markup. Only the
+ * first occurrence is linked: the previous version used a /g regex, so copy
+ * naming a city twice produced two identical competing links.
+ */
+function escapeHtml(copy: string): string {
+  return copy.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function linkCities(copy: string): string {
+  return LOCATIONS.reduce(
+    (acc, loc) => acc.replace(loc.name, `<a href="/${loc.slug}/">${loc.name}</a>`),
+    escapeHtml(copy)
+  );
+}
+
+/** Bold the offer in the closing line; same escaping rule as above. */
+function emphasizeTrial(copy: string): string {
+  return escapeHtml(copy).replace(
+    /kostenlose Probestunde/gi,
+    (match) => `<strong>${match}</strong>`
+  );
+}
 const heading = intro.heading ?? 'Fine Sound Academy – Deine Musikschule in Düsseldorf und Neuss';
 const lead = intro.lead ?? 'Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug – in Düsseldorf und Neuss.';
 const paragraphs = intro.paragraphs ?? [
@@ -31,7 +59,7 @@ const ctaText = intro.ctaText ?? 'Buche jetzt deine kostenlose Probestunde und l
 <section class="home-intro" aria-labelledby="home-intro-heading">
   <div class="intro-container">
     <h2 id="home-intro-heading">{heading}</h2>
-    <p class="intro-lead" set:html={lead.replace(/Düsseldorf/g, '<a href="/duesseldorf">Düsseldorf</a>').replace(/Neuss/g, '<a href="/neuss">Neuss</a>')} />
+    <p class="intro-lead" set:html={linkCities(lead)} />
     {paragraphs && paragraphs.length > 0 && (
       <div class="intro-paragraphs">
         {paragraphs.map((p) => <p>{p}</p>)}
@@ -45,7 +73,7 @@ const ctaText = intro.ctaText ?? 'Buche jetzt deine kostenlose Probestunde und l
         </div>
       ))}
     </div>
-    <p class="intro-cta" set:html={ctaText.replace(/kostenlose Probestunde/gi, '<strong>kostenlose Probestunde</strong>')} />
+    <p class="intro-cta" set:html={emphasizeTrial(ctaText)} />
   </div>
 </section>
 

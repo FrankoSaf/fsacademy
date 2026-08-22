@@ -21,8 +21,12 @@ const ariaLabel = stickyCta.ariaLabel ?? 'Probestunde vereinbaren';
 <style>
   .sticky-cta-float {
     position: fixed;
-    bottom: var(--space-lg);
-    left: var(--space-lg);
+    /* Sits above the WhatsApp bubble in a shared right-hand stack rather than
+       in the opposite corner: at 360px the two used to squeeze the viewport
+       from both sides and cover the footer. --floating-cta-offset is defined in
+       variables.css so the cookie banner can push both up when it is showing. */
+    bottom: calc(var(--floating-cta-offset) + 56px + var(--space-sm));
+    right: var(--space-lg);
     z-index: 9997;
     display: inline-flex;
     align-items: center;

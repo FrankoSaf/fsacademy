@@ -1,7 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import contentRaw from '../../content/pricing.json';
+import sharedPricing from '../../content/shared/pricing.json';
 import Pricing from '../components/Pricing.astro';
+import { href, linkAttrs } from '../lib/links';
+import { CONTACT } from '../lib/site';
 
 const content = contentRaw as any;
 
@@ -14,6 +17,54 @@ const faqSchema = {
     acceptedAnswer: { '@type': 'Answer', text: item.answer },
   })),
 };
+
+/*
+ * Offer schema for the published tariffs.
+ *
+ * The page states concrete monthly prices but carried no price markup, so none
+ * of it was eligible for rich results. Prices read "ab €89" - an entry point,
+ * not a fixed amount - which maps to lowPrice on an AggregateOffer rather than
+ * a single `price`, so the markup does not overstate certainty.
+ */
+const plans = (sharedPricing as { plans?: Array<{ name: string; price: string; period?: string; description?: string }> }).plans ?? [];
+const parsedPlans = plans
+  .map((p) => ({ ...p, amount: Number(String(p.price).replace(/[^0-9.,]/g, '').replace(',', '.')) }))
+  .filter((p) => Number.isFinite(p.amount) && p.amount > 0);
+
+const offerSchema = parsedPlans.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: 'Musikunterricht',
+      serviceType: 'Musikunterricht',
+      provider: { '@id': 'https://finesoundacademy.com/#organization' },
+      areaServed: ['Düsseldorf', 'Neuss'],
+      offers: {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'EUR',
+        lowPrice: Math.min(...parsedPlans.map((p) => p.amount)),
+        highPrice: Math.max(...parsedPlans.map((p) => p.amount)),
+        offerCount: parsedPlans.length,
+        url: 'https://finesoundacademy.com/preise/',
+        availability: 'https://schema.org/InStock',
+        offers: parsedPlans.map((p) => ({
+          '@type': 'Offer',
+          name: p.name,
+          ...(p.description && { description: p.description }),
+          priceCurrency: 'EUR',
+          priceSpecification: {
+            '@type': 'UnitPriceSpecification',
+            price: p.amount,
+            priceCurrency: 'EUR',
+            billingDuration: 'P1M',
+            unitText: 'MONTH',
+          },
+          availability: 'https://schema.org/InStock',
+          seller: { '@id': 'https://finesoundacademy.com/#organization' },
+        })),
+      },
+    }
+  : null;
 ---
 
 <BaseLayout
@@ -61,14 +112,18 @@ const faqSchema = {
   </section>
 
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  {offerSchema && <script type="application/ld+json" set:html={JSON.stringify(offerSchema)} />}
 
   <section class="pricing-cta" aria-labelledby="pricing-cta-heading">
     <div class="cta-container">
       <h2 id="pricing-cta-heading">{content.cta.title}</h2>
       <p>{content.cta.description}</p>
-      <a href={content.cta.buttonLink} class="cta-button" target={content.cta.buttonLink.startsWith('http') ? '_blank' : undefined} rel={content.cta.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}>
+      <a href={href(content.cta.buttonLink)} class="cta-button" {...linkAttrs(content.cta.buttonLink)}>
         {content.cta.buttonText}
       </a>
+      <p class="pricing-contact">
+        Fragen zu den Tarifen? <a href={`tel:${CONTACT.phone}`}>{CONTACT.phoneDisplay}</a>
+      </p>
     </div>
   </section>
 </BaseLayout>
@@ -338,6 +393,17 @@ const faqSchema = {
     font-size: var(--text-lg);
     margin-bottom: var(--space-3xl);
     line-height: 1.7;
+  }
+
+  .pricing-contact {
+    margin-top: var(--space-lg);
+    font-size: var(--text-sm);
+  }
+
+  .pricing-contact a {
+    color: inherit;
+    font-weight: 600;
+    text-decoration: underline;
   }
 
   .cta-button {

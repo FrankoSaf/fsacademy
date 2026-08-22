@@ -1,0 +1,164 @@
+---
+/**
+ * Custom 404. Astro emits this as dist/404.html, which Netlify serves for any
+ * unmatched path - and which the 410 rules in netlify.toml point at. Without
+ * this file those rules had no document to serve and visitors got Netlify's
+ * generic branded error page.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { LOCATIONS, INSTRUMENTS } from '../lib/site';
+---
+
+<BaseLayout
+  title="Seite nicht gefunden | Fine Sound Academy"
+  description="Diese Seite existiert nicht mehr. Hier findest du unsere Standorte in Düsseldorf und Neuss sowie alle Instrumente."
+  noindex={true}
+>
+  <section class="notfound" aria-labelledby="notfound-heading">
+    <div class="notfound-inner">
+      <p class="notfound-code">404</p>
+      <h1 id="notfound-heading">Diese Seite gibt es nicht mehr</h1>
+      <p class="notfound-lead">
+        Vielleicht hat sich die Adresse geändert. Hier geht es direkt weiter:
+      </p>
+
+      <div class="notfound-actions">
+        <a href="/" class="notfound-cta">Zur Startseite</a>
+        <a href="/unterricht/" class="notfound-cta notfound-cta-secondary">Alle Instrumente</a>
+      </div>
+
+      <div class="notfound-groups">
+        {LOCATIONS.map((loc) => (
+          <div class="notfound-group">
+            <h2><a href={`/${loc.slug}/`}>{`Musikschule ${loc.name}`}</a></h2>
+            <ul>
+              {INSTRUMENTS.map((inst) => (
+                <li>
+                  <a href={`/${loc.slug}/unterricht/${inst.slug}/`}>
+                    {`${inst.lesson} in ${loc.name}`}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    padding: calc(var(--nav-height) + var(--space-4xl)) var(--space-lg) var(--space-6xl);
+    background: var(--color-bg-default);
+  }
+
+  .notfound-inner {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .notfound-code {
+    font-family: var(--font-serif);
+    font-size: var(--text-4xl);
+    color: var(--color-gold);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: var(--space-md);
+  }
+
+  .notfound h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+  }
+
+  .notfound-lead {
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .notfound-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    justify-content: center;
+    margin-bottom: var(--space-5xl);
+  }
+
+  .notfound-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md) var(--space-2xl);
+    background: var(--color-gold);
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-tight);
+    border: var(--border-width-medium) solid var(--color-gold);
+    border-radius: var(--radius-sm);
+    min-height: 48px;
+    transition: background var(--transition-base), color var(--transition-base);
+  }
+
+  .notfound-cta:hover {
+    background: transparent;
+    color: var(--color-gold-on-light);
+  }
+
+  .notfound-cta-secondary {
+    background: transparent;
+    color: var(--color-gold-on-light);
+  }
+
+  .notfound-cta-secondary:hover {
+    background: var(--color-gold);
+    color: var(--color-black);
+  }
+
+  .notfound-groups {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-2xl);
+    text-align: left;
+  }
+
+  .notfound-group {
+    background: var(--color-bg-alt);
+    border: var(--border-width-thin) solid var(--color-gold-alpha-20);
+    border-radius: var(--radius-md);
+    padding: var(--space-xl);
+  }
+
+  .notfound-group h2 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .notfound-group a {
+    color: var(--color-gold-on-light);
+    text-decoration: none;
+  }
+
+  .notfound-group a:hover {
+    text-decoration: underline;
+  }
+
+  .notfound-group ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .notfound-group li {
+    margin-bottom: var(--space-xs);
+    font-size: var(--text-sm);
+  }
+</style>

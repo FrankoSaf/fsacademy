@@ -1,5 +1,6 @@
 ---
 import ResponsiveImage from './ResponsiveImage.astro';
+import { LOCATIONS } from '../lib/site';
 
 const [duesseldorfData, neussData, landingData] = await Promise.all([
   import('../../content/duesseldorf.json'),
@@ -12,8 +13,9 @@ const locationsHeading = locationsBlock?.heading ?? 'Unsere Standorte';
 const locationsIntro = locationsBlock?.intro ?? 'Düsseldorf und Neuss — professioneller Musikunterricht an zwei Orten in der Region.';
 
 interface LocationCard {
-  image: string;
-  buttonText: string;
+  image?: string;
+  alt?: string;
+  buttonText?: string;
 }
 
 interface LocationData {
@@ -21,68 +23,51 @@ interface LocationData {
   hero?: { title: string };
 }
 
-const slugToName: Record<string, string> = {
-  duesseldorf: 'Düsseldorf',
-  neuss: 'Neuss',
+const CONTENT_BY_SLUG: Record<string, { default: LocationData }> = {
+  duesseldorf: duesseldorfData as { default: LocationData },
+  neuss: neussData as { default: LocationData },
 };
 
-function toLocation(
-  data: { default: LocationData },
-  slug: 'duesseldorf' | 'neuss'
-): { name: string; image: string; buttonText: string; link: string } {
-  const d = data.default;
-  const card = d.card ?? {};
+// Driven off LOCATIONS so adding a third location needs no change here, and so
+// the links carry the trailing slash the site canonicalises to.
+const locations = LOCATIONS.map((loc) => {
+  const card = CONTENT_BY_SLUG[loc.slug]?.default.card ?? {};
   return {
-    name: slugToName[slug],
+    name: loc.name,
     image: card.image ?? '',
-    buttonText: card.buttonText ?? `Zur Schule ${slugToName[slug]}`,
-    link: `/${slug === 'duesseldorf' ? 'duesseldorf' : 'neuss'}`,
+    alt: card.alt ?? `Musikschule ${loc.name}`,
+    buttonText: card.buttonText ?? `Zur Schule ${loc.name}`,
+    link: `/${loc.slug}/`,
   };
-}
-
-const locations = {
-  duesseldorf: toLocation(duesseldorfData, 'duesseldorf'),
-  neuss: toLocation(neussData, 'neuss'),
-};
+});
 ---
 
 <section class="locations" aria-labelledby="locations-heading">
   <h2 id="locations-heading" class="locations-title">{locationsHeading}</h2>
   <p class="locations-intro">{locationsIntro}</p>
   <div class="locations-grid">
-    <article class="location-card">
-      <ResponsiveImage
-        src={locations.duesseldorf.image}
-        alt={`Musikschule ${locations.duesseldorf.name}`}
-        preset="location"
-        class="location-image"
-        loading="lazy"
-      />
-      <div class="location-overlay"></div>
-      <div class="location-content">
-        <p class="location-name">{locations.duesseldorf.name}</p>
-        <a href={locations.duesseldorf.link} class="location-button" aria-label={`Zur Musikschule ${locations.duesseldorf.name}`}>
-          {locations.duesseldorf.buttonText}
-        </a>
-      </div>
-    </article>
-
-    <article class="location-card">
-      <ResponsiveImage
-        src={locations.neuss.image}
-        alt={`Musikschule ${locations.neuss.name}`}
-        preset="location"
-        class="location-image"
-        loading="lazy"
-      />
-      <div class="location-overlay"></div>
-      <div class="location-content">
-        <p class="location-name">{locations.neuss.name}</p>
-        <a href={locations.neuss.link} class="location-button" aria-label={`Zur Musikschule ${locations.neuss.name}`}>
-          {locations.neuss.buttonText}
-        </a>
-      </div>
-    </article>
+    {locations.map((location) => (
+      <article class="location-card">
+        <ResponsiveImage
+          src={location.image}
+          alt={location.alt}
+          preset="location"
+          class="location-image"
+          loading="lazy"
+        />
+        <div class="location-overlay"></div>
+        <div class="location-content">
+          <p class="location-name">{location.name}</p>
+          <a
+            href={location.link}
+            class="location-button"
+            aria-label={`Zur Musikschule ${location.name}`}
+          >
+            {location.buttonText}
+          </a>
+        </div>
+      </article>
+    ))}
   </div>
 </section>
 

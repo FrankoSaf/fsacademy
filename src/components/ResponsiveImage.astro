@@ -13,11 +13,14 @@ interface Props {
   sizes?: string;
 }
 
-const { src, alt, preset = 'hero', loading = 'lazy', fetchpriority, class: className, position = 'center' } = Astro.props;
+const { src, alt, preset = 'hero', loading = 'lazy', fetchpriority, class: className } = Astro.props;
 const p = getPreset(preset);
 const dimensions = Astro.props.dimensions ?? p.dimensions;
 const sizes = Astro.props.sizes ?? p.sizes;
 const q = p.q ?? 80;
+// An explicit prop wins; otherwise the preset decides (teacher crops anchor
+// to `top` so faces survive the 1:1 crop). `center` is the CDN default.
+const position = Astro.props.position ?? p.position ?? 'center';
 
 function buildUrl(w: number, h: number, fm?: string) {
   return getNetlifyImageUrl(src, { w, h, q, fit: 'cover', position, fm });
@@ -27,6 +30,13 @@ const [lastW, lastH] = [dimensions[dimensions.length - 1].w, dimensions[dimensio
 ---
 
 <picture class="responsive-image">
+  {/* AVIF first: typically ~30% smaller than WebP at the same quality.
+      Browsers pick the first type they support, so ordering matters. */}
+  <source
+    type="image/avif"
+    srcset={dimensions.map((d) => `${buildUrl(d.w, d.h, 'avif')} ${d.w}w`).join(', ')}
+    sizes={sizes}
+  />
   <source
     type="image/webp"
     srcset={dimensions.map((d) => `${buildUrl(d.w, d.h, 'webp')} ${d.w}w`).join(', ')}

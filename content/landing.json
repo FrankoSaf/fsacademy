@@ -66,8 +66,8 @@
   },
   "navigation": {
     "logo": {
-      "primaryImage": "https://irp.cdn-website.com/3931cdaa/dms3rep/multi/Color+logo+-+no+background.svg",
-      "secondaryImage": "https://irp.cdn-website.com/3931cdaa/dms3rep/multi/Black+logo+-+no+background.svg",
+      "primaryImage": "/brand/logo-light.svg",
+      "secondaryImage": "/brand/logo-dark.svg",
       "alt": "Logo der Musikschule",
       "link": "/"
     },
@@ -100,15 +100,15 @@
       },
       {
         "text": "Instrumente",
-        "url": "/unterricht"
+        "url": "/unterricht/"
       },
       {
         "text": "Über uns",
-        "url": "/about"
+        "url": "/about/"
       },
       {
         "text": "Preise",
-        "url": "/preise"
+        "url": "/preise/"
       },
       {
         "text": "Kontakt",
@@ -170,11 +170,11 @@
     "subtitle": "Professioneller Musikunterricht in Düsseldorf und Neuss",
     "buttonText": "Kostenlose Probestunde buchen",
     "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
-    "image": "/uploads/img_9980.jpeg"
+    "image": "/uploads/hero-studio-2560w.jpg"
   },
   "footer": {
     "logo": {
-      "image": "https://s3.ca-central-1.amazonaws.com/logojoy/logos/112675843/noBgColor.png",
+      "image": "/brand/logo-footer.png",
       "alt": "Logo der Musikschule",
       "link": "/"
     },
@@ -185,26 +185,26 @@
       },
       {
         "text": "Über uns",
-        "url": "/about"
+        "url": "/about/"
       },
       {
         "text": "Unterricht",
-        "url": "/unterricht"
+        "url": "/unterricht/"
       },
       {
         "text": "Preise",
-        "url": "/preise"
+        "url": "/preise/"
       }
     ],
     "legal": [
       {
         "text": "Datenschutz",
-        "url": "/datenschutz",
+        "url": "/datenschutz/",
         "highlight": true
       },
       {
         "text": "Impressum",
-        "url": "/impressum",
+        "url": "/impressum/",
         "highlight": true
       },
       {

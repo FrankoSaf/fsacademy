@@ -3,9 +3,15 @@
   publish = "dist"
 
 [images]
-  remote_images = ["https://images\\.unsplash\\.com/.*", "https://irp\\.cdn-website\\.com/.*", "https://s3\\.ca-central-1\\.amazonaws\\.com/.*"]
+  remote_images = [
+    "https://images\\.unsplash\\.com/.*",
+    "https://irp\\.cdn-website\\.com/.*",
+    "https://s3\\.ca-central-1\\.amazonaws\\.com/.*",
+  ]
 
-# 301 redirects: consolidate www to apex (finesoundacademy.com)
+# ---------------------------------------------------------------------------
+# Host canonicalisation: consolidate www + http on the apex.
+# ---------------------------------------------------------------------------
 [[redirects]]
   from = "https://www.finesoundacademy.com/*"
   to = "https://finesoundacademy.com/:splat"
@@ -24,109 +30,176 @@
   status = 301
   force = true
 
-# Old indexed URLs â†’ current structure (301 permanent)
+# ---------------------------------------------------------------------------
+# Retired pages.
+#
+# The generic /unterricht/<instrument>/ stubs (~200 words each) competed with
+# the far richer /<city>/unterricht/<instrument>/ pages for the same queries,
+# and the /<city>/unterricht/ hubs duplicated the instrument list already on
+# each city page. Both tiers are gone; these keep the old URLs resolving.
+#
+# Every `to` carries a trailing slash: the site sets `trailingSlash: 'always'`,
+# so a slashless target would 301 a second time and turn each of these into a
+# two-hop chain.
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "/unterricht/klavier"
+  to = "/unterricht/#klavier"
+  status = 301
+[[redirects]]
+  from = "/unterricht/gitarre"
+  to = "/unterricht/#gitarre"
+  status = 301
+[[redirects]]
+  from = "/unterricht/bass"
+  to = "/unterricht/#bass"
+  status = 301
+[[redirects]]
+  from = "/unterricht/gesang"
+  to = "/unterricht/#gesang"
+  status = 301
+[[redirects]]
+  from = "/unterricht/schlagzeug"
+  to = "/unterricht/#schlagzeug"
+  status = 301
+
+[[redirects]]
+  from = "/duesseldorf/unterricht"
+  to = "/duesseldorf/"
+  status = 301
+[[redirects]]
+  from = "/neuss/unterricht"
+  to = "/neuss/"
+  status = 301
+
+# ---------------------------------------------------------------------------
+# Legacy URLs from the previous site -> current structure.
+# ---------------------------------------------------------------------------
 [[redirects]]
   from = "/gesang-neuss"
-  to = "/neuss/unterricht/gesang"
-  status = 301
-[[redirects]]
-  from = "/impressum8f7586af"
-  to = "/impressum"
-  status = 301
-[[redirects]]
-  from = "/schlagzeug-neuss"
-  to = "/neuss/unterricht/schlagzeug"
-  status = 301
-[[redirects]]
-  from = "/bass"
-  to = "/unterricht/bass"
-  status = 301
-[[redirects]]
-  from = "/gesang"
-  to = "/unterricht/gesang"
-  status = 301
-[[redirects]]
-  from = "/bass-duesseldorf"
-  to = "/duesseldorf/unterricht/bass"
-  status = 301
-[[redirects]]
-  from = "/gitarre"
-  to = "/unterricht/gitarre"
-  status = 301
-[[redirects]]
-  from = "/gitarrenunterricht-duesseldorf"
-  to = "/duesseldorf/unterricht/gitarre"
+  to = "/neuss/unterricht/gesang/"
   status = 301
 [[redirects]]
   from = "/gesangsunterrichtneuss"
-  to = "/neuss/unterricht/gesang"
+  to = "/neuss/unterricht/gesang/"
   status = 301
 [[redirects]]
-  from = "/gitarrenunterrichtduesseldorf"
-  to = "/duesseldorf/unterricht/gitarre"
-  status = 301
-[[redirects]]
-  from = "/klavierunterrichtduesseldorf"
-  to = "/duesseldorf/unterricht/klavier"
-  status = 301
-[[redirects]]
-  from = "/gesang-duesseldorf"
-  to = "/duesseldorf/unterricht/gesang"
-  status = 301
-[[redirects]]
-  from = "/schlagzeug"
-  to = "/unterricht/schlagzeug"
-  status = 301
-[[redirects]]
-  from = "/klavier-duesseldorf"
-  to = "/duesseldorf/unterricht/klavier"
-  status = 301
-[[redirects]]
-  from = "/privacy"
-  to = "/datenschutz"
-  status = 301
-[[redirects]]
-  from = "/klavier"
-  to = "/unterricht/klavier"
+  from = "/schlagzeug-neuss"
+  to = "/neuss/unterricht/schlagzeug/"
   status = 301
 [[redirects]]
   from = "/klavier-neuss"
-  to = "/neuss/unterricht/klavier"
+  to = "/neuss/unterricht/klavier/"
   status = 301
 [[redirects]]
   from = "/bass-neuss"
-  to = "/neuss/unterricht/bass"
+  to = "/neuss/unterricht/bass/"
   status = 301
 [[redirects]]
   from = "/gitarrenunterricht-neuss"
-  to = "/neuss/unterricht/gitarre"
+  to = "/neuss/unterricht/gitarre/"
+  status = 301
+
+[[redirects]]
+  from = "/bass-duesseldorf"
+  to = "/duesseldorf/unterricht/bass/"
+  status = 301
+[[redirects]]
+  from = "/gitarrenunterricht-duesseldorf"
+  to = "/duesseldorf/unterricht/gitarre/"
+  status = 301
+[[redirects]]
+  from = "/gitarrenunterrichtduesseldorf"
+  to = "/duesseldorf/unterricht/gitarre/"
+  status = 301
+[[redirects]]
+  from = "/klavierunterrichtduesseldorf"
+  to = "/duesseldorf/unterricht/klavier/"
+  status = 301
+[[redirects]]
+  from = "/klavier-duesseldorf"
+  to = "/duesseldorf/unterricht/klavier/"
+  status = 301
+[[redirects]]
+  from = "/gesang-duesseldorf"
+  to = "/duesseldorf/unterricht/gesang/"
   status = 301
 [[redirects]]
   from = "/schlagzeug-duesseldorf"
-  to = "/duesseldorf/unterricht/schlagzeug"
-  status = 301
-[[redirects]]
-  from = "/Ã¼ber-uns-dÃ¼sseldorf"
-  to = "/duesseldorf"
-  status = 301
-[[redirects]]
-  from = "/Ã¼ber-uns-neuss"
-  to = "/neuss"
+  to = "/duesseldorf/unterricht/schlagzeug/"
   status = 301
 
-# Subdomain redirects
+# Bare instrument names carried no city intent, so they land on the overview
+# hub at the matching instrument section.
 [[redirects]]
-  from = "https://gesang.finesoundacademy.com/"
-  to = "https://finesoundacademy.com/unterricht/gesang"
+  from = "/klavier"
+  to = "/unterricht/#klavier"
   status = 301
-  force = true
 [[redirects]]
-  from = "https://gitarre.finesoundacademy.com/"
-  to = "https://finesoundacademy.com/unterricht/gitarre"
+  from = "/gitarre"
+  to = "/unterricht/#gitarre"
+  status = 301
+[[redirects]]
+  from = "/bass"
+  to = "/unterricht/#bass"
+  status = 301
+[[redirects]]
+  from = "/gesang"
+  to = "/unterricht/#gesang"
+  status = 301
+[[redirects]]
+  from = "/schlagzeug"
+  to = "/unterricht/#schlagzeug"
+  status = 301
+
+[[redirects]]
+  from = "/impressum8f7586af"
+  to = "/impressum/"
+  status = 301
+[[redirects]]
+  from = "/privacy"
+  to = "/datenschutz/"
+  status = 301
+
+# These two were previously written as double-encoded UTF-8 ("Ã¼ber-uns" -
+# bytes C3 83 C2 BC where "ü" is C3 BC), so they could never match a real
+# request. Percent-encoding is unambiguous and survives any editor.
+[[redirects]]
+  from = "/%C3%BCber-uns-d%C3%BCsseldorf"
+  to = "/duesseldorf/"
+  status = 301
+[[redirects]]
+  from = "/über-uns-düsseldorf"
+  to = "/duesseldorf/"
+  status = 301
+[[redirects]]
+  from = "/%C3%BCber-uns-neuss"
+  to = "/neuss/"
+  status = 301
+[[redirects]]
+  from = "/über-uns-neuss"
+  to = "/neuss/"
+  status = 301
+
+# ---------------------------------------------------------------------------
+# Subdomain redirects.
+# ---------------------------------------------------------------------------
+[[redirects]]
+  from = "https://gesang.finesoundacademy.com/*"
+  to = "https://finesoundacademy.com/unterricht/#gesang"
   status = 301
   force = true
 
-# Removed legacy URLs (no replacement)
+[[redirects]]
+  from = "https://gitarre.finesoundacademy.com/*"
+  to = "https://finesoundacademy.com/unterricht/#gitarre"
+  status = 301
+  force = true
+
+# ---------------------------------------------------------------------------
+# Removed legacy URLs with no replacement (410 Gone tells crawlers to drop
+# them, unlike a 404 which they keep retrying).
+# ---------------------------------------------------------------------------
 [[redirects]]
   from = "/danke"
   to = "/404.html"
@@ -147,6 +220,13 @@
   to = "/404.html"
   status = 410
   force = true
+
+# ---------------------------------------------------------------------------
+# Caching. Astro fingerprints everything under /_astro/, so those are safe to
+# pin forever. /uploads/ and /brand/ are not fingerprinted - they keep a long
+# max-age but stay revalidatable so replacing a photo in the CMS can take
+# effect without a filename change.
+# ---------------------------------------------------------------------------
 [[headers]]
   for = "/_astro/*"
   [headers.values]
@@ -155,10 +235,15 @@
 [[headers]]
   for = "/uploads/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
 
 [[headers]]
-  for = "/*.svg"
+  for = "/brand/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000, stale-while-revalidate=86400"
+
+[[headers]]
+  for = "/instrument-icons/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
@@ -168,4 +253,13 @@
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
-
+    # Opt out of browser features the site never uses, so a compromised
+    # third-party script can't reach for them.
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    # Netlify serves this site HTTPS-only; the apex redirects above make the
+    # first hop, and HSTS removes it for repeat visitors.
+    #
+    # Deliberately WITHOUT `includeSubDomains` and `preload`: the gesang./
+    # gitarre. subdomains are in play, and preload-list removal takes months.
+    # Add both only once every subdomain is confirmed HTTPS-only.
+    Strict-Transport-Security = "max-age=31536000"

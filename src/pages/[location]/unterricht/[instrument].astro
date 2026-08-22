@@ -9,25 +9,18 @@ import {
   getCities,
   getTeachersForInstrumentAndCity,
 } from '../../../lib/cms';
+import { INSTRUMENTS, LOCATIONS, getLocation, schoolSchema } from '../../../lib/site';
+
+/** Correct German lesson noun ("Gitarre" -> "Gitarrenunterricht"), keyed by slug. */
+const lessonNoun = (slug: string, fallback: string) =>
+  INSTRUMENTS.find((i) => i.slug === slug)?.lesson ?? `${fallback}unterricht`;
 
 export function getStaticPaths() {
-  const instruments = [
-    { slug: 'klavier', name: 'Klavier' },
-    { slug: 'gitarre', name: 'Gitarre' },
-    { slug: 'bass', name: 'Bass' },
-    { slug: 'gesang', name: 'Gesang' },
-    { slug: 'schlagzeug', name: 'Schlagzeug' },
-  ];
-  const locations = ['duesseldorf', 'neuss'];
-  const paths: Array<{ params: { location: string; instrument: string } }> = [];
-
-  for (const loc of locations) {
-    for (const inst of instruments) {
-      paths.push({ params: { location: loc, instrument: inst.slug } });
-    }
-  }
-
-  return paths;
+  return LOCATIONS.flatMap((loc) =>
+    INSTRUMENTS.map((inst) => ({
+      params: { location: loc.slug, instrument: inst.slug },
+    }))
+  );
 }
 
 const { location: city, instrument } = Astro.params;
@@ -70,11 +63,16 @@ const cityIntroText = typeof cityIntroParagraph === 'string'
   : (cityIntroParagraph as { paragraph?: string } | undefined)?.paragraph ?? '';
 
 const extraSections = (instrumentDetail?.sections ?? []).slice(1, 3);
-const cityStreet = city === 'duesseldorf' ? 'Kaiserstraße 28' : 'Neumarkt 18';
-const cityArea = city === 'duesseldorf' ? 'Düsseldorf-Pempelfort' : 'der Neusser Innenstadt';
+const site = getLocation(city);
+const cityStreet = site?.street ?? '';
+const cityArea = site?.areaPhrase ?? '';
 const cityPageUrl = `/${city}/`;
-const cityLessonsUrl = `/${city}/unterricht/`;
-const genericInstrumentUrl = `/unterricht/${instrument}/`;
+// The former /<city>/unterricht/ hub was a 279-word duplicate of the instrument
+// list already on the city page, so both of these now resolve there instead.
+const cityLessonsUrl = `/${city}/`;
+// The generic /unterricht/<instrument>/ stub is gone; the overview hub carries
+// an anchor per instrument.
+const genericInstrumentUrl = `/unterricht/#${instrument}`;
 const relatedInstrumentLinks = allInstruments.filter((item) => item.slug !== instrument).slice(0, 4);
 
 const instrumentCta = {
@@ -87,31 +85,17 @@ const instrumentCta = {
 const metaTitle = `${displayName} in ${cityName} | Fine Sound Academy`;
 const metaDescription = `${displayName} in ${cityName} auf der ${cityStreet}: professioneller Unterricht für Kinder, Jugendliche und Erwachsene. Kostenlose Probestunde buchen.`;
 
-const ldLocal = cityInfo ? {
-  '@context': 'https://schema.org',
-  '@type': 'School',
-  name: `Fine Sound Academy ${cityName}`,
-  description: metaDescription,
-  url: `https://finesoundacademy.com/${city}/unterricht/${instrument}/`,
-  telephone: '+49 176 77154511',
-  email: 'info@finesoundacademy.com',
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: city === 'duesseldorf' ? 'Kaiserstr. 28' : 'Neumarkt 18',
-    addressLocality: cityName,
-    addressRegion: 'Nordrhein-Westfalen',
-    postalCode: city === 'duesseldorf' ? '40479' : '41460',
-    addressCountry: 'DE',
-  },
-  geo: city === 'duesseldorf'
-    ? { '@type': 'GeoCoordinates', latitude: 51.23387, longitude: 6.77908 }
-    : { '@type': 'GeoCoordinates', latitude: 51.1985, longitude: 6.6929 },
-  openingHoursSpecification: [
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '20:00' },
-    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
-  ],
-  areaServed: { '@type': 'City', name: cityName },
-} : null;
+// Address, geo and hours all come from src/lib/site.ts so this page can never
+// drift from the city page or the sitewide Organization schema.
+const ldLocal = site
+  ? {
+      '@context': 'https://schema.org',
+      ...schoolSchema(site, 'https://finesoundacademy.com/', {
+        description: metaDescription,
+        url: `https://finesoundacademy.com/${city}/unterricht/${instrument}/`,
+      }),
+    }
+  : null;
 
 const ldFAQ = faqItems.length > 0 ? {
   '@context': 'https://schema.org',
@@ -170,7 +154,6 @@ const ldFAQ = faqItems.length > 0 ? {
       </p>
       <div class="related-links">
         <a href={cityPageUrl}>{`Musikschule ${cityName}`}</a>
-        <a href={cityLessonsUrl}>{`Alle Instrumente in ${cityName}`}</a>
         <a href={genericInstrumentUrl}>{`${displayName} an beiden Standorten`}</a>
       </div>
     </div>
@@ -214,7 +197,7 @@ const ldFAQ = faqItems.length > 0 ? {
       <p>Diese internen Links stärken die wichtigsten Seiten rund um deinen Standort und helfen dir, das passende Angebot schneller zu finden.</p>
       <ul class="related-list">
         {relatedInstrumentLinks.map((item) => (
-          <li><a href={`/${city}/unterricht/${item.slug}/`}>{`${item.name}unterricht in ${cityName}`}</a></li>
+          <li><a href={`/${city}/unterricht/${item.slug}/`}>{`${lessonNoun(item.slug, item.name)} in ${cityName}`}</a></li>
         ))}
       </ul>
     </div>

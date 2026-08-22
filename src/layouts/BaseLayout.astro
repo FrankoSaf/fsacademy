@@ -11,6 +11,13 @@ import '../styles/global.css';
 import globals from '../../content/globals.json';
 import ui from '../../content/ui.json';
 import landing from '../../content/landing.json';
+import { getNetlifyImageUrl, getPreset, type ImagePreset } from '../lib/images';
+import { CONTACT, LOCATIONS, schoolSchema, INSTRUMENTS } from '../lib/site';
+// Imported so Vite emits them and hands back the fingerprinted URLs; these are
+// the only two faces needed for first paint (body copy and every h1), so they
+// start downloading alongside the HTML instead of waiting for the CSS parse.
+import dmSans400 from '../assets/fonts/dm-sans-latin-400-normal.woff2?url';
+import fraunces700 from '../assets/fonts/fraunces-latin-700-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -18,6 +25,13 @@ interface Props {
   canonicalUrl?: string;
   ogImage?: string;
   noindex?: boolean;
+  /**
+   * Above-the-fold hero image to preload, so the LCP fetch starts with the HTML
+   * instead of waiting for the external stylesheet and layout. Must be the same
+   * src + preset the page passes to <ResponsiveImage>, or the browser will
+   * download two different files.
+   */
+  preloadHero?: { src: string; preset?: ImagePreset };
 }
 
 const g = globals as Record<string, unknown>;
@@ -26,7 +40,35 @@ const googleAdsConversionId = (g.googleAdsConversionId as string) || '';
 const conversionValue = (g.conversionValue as string) || '';
 const conversionSendTo = googleAdsId && googleAdsConversionId ? `AW-${googleAdsId}/${googleAdsConversionId}` : '';
 
-const { title, description, canonicalUrl, ogImage, noindex = false } = Astro.props;
+const { title, description, canonicalUrl, ogImage, noindex = false, preloadHero } = Astro.props;
+
+/*
+ * Hero preload, mirroring what <ResponsiveImage> emits for the same preset.
+ *
+ * AVIF only, with an explicit `type`: browsers skip a preload whose type they
+ * cannot decode, so non-AVIF clients simply fall through to the <picture> chain
+ * rather than fetching a file twice. ResponsiveImage lists AVIF first, so this
+ * is the candidate an AVIF-capable browser would have chosen anyway.
+ */
+const heroPreset = preloadHero ? getPreset(preloadHero.preset ?? 'hero') : null;
+const heroPreload = preloadHero && heroPreset
+  ? {
+      srcset: heroPreset.dimensions
+        .map((d) => {
+          const url = getNetlifyImageUrl(preloadHero.src, {
+            w: d.w,
+            h: d.h,
+            q: heroPreset.q ?? 80,
+            fit: 'cover',
+            position: heroPreset.position ?? 'center',
+            fm: 'avif',
+          });
+          return `${url} ${d.w}w`;
+        })
+        .join(', '),
+      sizes: heroPreset.sizes,
+    }
+  : null;
 
 // Use the deploy URL only for Netlify preview domains so canonicals stay stable.
 const deployUrl = typeof process !== 'undefined' ? (process.env.URL || process.env.DEPLOY_PRIME_URL) : null;
@@ -40,10 +82,39 @@ const metaDescription = description
 const image = ogImage ?? (globals as { ogImage?: string }).ogImage ?? '';
 const ogImageAlt = (globals as { ogImageAlt?: string }).ogImageAlt ?? 'Fine Sound Academy - Musikschule Düsseldorf & Neuss';
 const twitterHandle = (globals as { twitterHandle?: string }).twitterHandle ?? '';
-const imageUrl = image ? (image.startsWith('http') ? image : new URL(image, site).href) : null;
-const imageMimeType = imageUrl && (imageUrl.toLowerCase().includes('.png') || imageUrl.toLowerCase().includes('noBgColor'))
-  ? 'image/png'
-  : 'image/jpeg';
+
+// og:image:width/height below are declared as 1200x630, so the image has to
+// actually be that. Per-page overrides are arbitrary sources (CMS uploads,
+// remote stock photos) at arbitrary sizes, so push everything through the
+// image CDN at exactly 1200x630 rather than declaring dimensions that lie.
+// Crawlers need an absolute URL, and they don't run JS, so this must resolve
+// on the deployed origin.
+const OG_W = 1200;
+const OG_H = 630;
+/** The one asset we ship at exactly OG_W x OG_H, so its size is known. */
+const OG_CARD = '/brand/og-card.jpg';
+const ogSource = image
+  ? getNetlifyImageUrl(image, { w: OG_W, h: OG_H, q: 82, fit: 'cover', fm: 'jpeg' })
+  : '';
+const imageUrl = ogSource
+  ? (ogSource.startsWith('http') ? ogSource : new URL(ogSource, site).href)
+  : null;
+/*
+ * Only claim dimensions we can actually stand behind.
+ *
+ * getNetlifyImageUrl is a no-op outside a Netlify build, so a local or
+ * third-party CI build emits the raw source URL - which for the per-instrument
+ * overrides is a full-size remote stock photo, not 1200x630. Declaring the size
+ * anyway is how the old markup ended up lying about a 3163x938 logo. Emit
+ * width/height only when the URL really is the transformed one, or is the card
+ * we generated at that exact size.
+ */
+const ogIsSized = Boolean(
+  imageUrl && (ogSource.includes('/.netlify/images') || image === OG_CARD)
+);
+// Always JPEG now: `fm=jpeg` above flattens any transparency, which is what
+// social cards want (a transparent PNG renders on an unpredictable ground).
+const imageMimeType = 'image/jpeg';
 const logoUrl = (landing as any)?.footer?.logo?.image
   ? ((landing as any).footer.logo.image.startsWith('http')
       ? (landing as any).footer.logo.image
@@ -93,38 +164,36 @@ const identityWidgetScript = [
   '})();',
 ].join('\n');
 
+// `site` always ends in a slash (Astro.site), so schema URLs below are built
+// against it directly and inherit the site's `trailingSlash: 'always'` rule.
+const siteBase = site.endsWith('/') ? site : `${site}/`;
+
 const ldOrganization = {
   '@context': 'https://schema.org',
   '@type': 'School',
-  '@id': `${site}#organization`,
-  name: 'Fine Sound Academy',
+  '@id': `${siteBase}#organization`,
+  name: CONTACT.name,
   description: metaDescription,
-  url: site,
+  url: siteBase,
   ...(imageUrl && { image: imageUrl }),
   ...(logoUrl && { logo: logoUrl }),
-  telephone: '+49 176 77154511',
-  email: 'info@finesoundacademy.com',
+  telephone: CONTACT.phone,
+  email: CONTACT.email,
   sameAs: (landing as any).navigation?.socialMedia?.map((s: any) => s.url) ?? [],
-  areaServed: [
-    { '@type': 'City', name: 'Düsseldorf' },
-    { '@type': 'City', name: 'Neuss' },
-  ],
+  areaServed: LOCATIONS.map((loc) => ({ '@type': 'City', name: loc.name })),
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Musikunterricht',
-    itemListElement: [
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Klavierunterricht' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Gitarrenunterricht' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Gesangsunterricht' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Bassunterricht' } },
-      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Schlagzeugunterricht' } },
-    ],
+    itemListElement: INSTRUMENTS.map((inst) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: inst.lesson },
+    })),
   },
   offers: {
     '@type': 'Offer',
     name: 'Monatliches Abo',
-    description: 'Monthly subscription for music lessons (tutoring school).',
-    url: `${site}/preise`,
+    description: 'Monatliches Abo für Musikunterricht.',
+    url: `${siteBase}preise/`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
       priceCurrency: 'EUR',
@@ -132,49 +201,21 @@ const ldOrganization = {
       unitText: 'MONTH',
     },
   },
-  location: [
-    {
-      '@type': 'School',
-      name: 'Fine Sound Academy Düsseldorf',
-      url: `${site}/duesseldorf`,
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Kaiserstr. 28',
-        addressLocality: 'Düsseldorf',
-        postalCode: '40479',
-        addressCountry: 'DE',
-      },
-      geo: { '@type': 'GeoCoordinates', latitude: 51.23387, longitude: 6.77908 },
-      openingHoursSpecification: [
-        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '20:00' },
-        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
-      ],
-    },
-    {
-      '@type': 'School',
-      name: 'Fine Sound Academy Neuss',
-      url: `${site}/neuss`,
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: 'Neumarkt 18',
-        addressLocality: 'Neuss',
-        postalCode: '41460',
-        addressCountry: 'DE',
-      },
-      geo: { '@type': 'GeoCoordinates', latitude: 51.1985, longitude: 6.6929 },
-      openingHoursSpecification: [
-        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '20:00' },
-        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
-      ],
-    },
-  ],
+  // Address, geo and hours from src/lib/site.ts, the same source the location
+  // pages use, so the two can never disagree.
+  location: LOCATIONS.map((loc) => schoolSchema(loc, siteBase)),
 };
 
 const ldWebSite = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Fine Sound Academy',
-  url: site,
+  // ldWebPage.isPartOf points at this @id. Without it the reference dangled
+  // and the WebPage node was orphaned from the graph.
+  '@id': `${siteBase}#website`,
+  name: CONTACT.name,
+  url: siteBase,
+  publisher: { '@id': `${siteBase}#organization` },
+  inLanguage: 'de-DE',
 };
 
 const ldWebPage = {
@@ -183,7 +224,7 @@ const ldWebPage = {
   name: title,
   description: metaDescription,
   url: canonical,
-  isPartOf: { '@id': `${site}#website` },
+  isPartOf: { '@id': `${siteBase}#website` },
 };
 
 const pathSegments = Astro.url.pathname.replace(/\/$/, '').split('/').filter(Boolean);
@@ -242,6 +283,20 @@ const ldBreadcrumb = pathSegments.length > 0
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/favicon.ico" />
 
+    <link rel="preload" href={dmSans400} as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href={fraunces700} as="font" type="font/woff2" crossorigin="anonymous" />
+
+    {heroPreload && (
+      <link
+        rel="preload"
+        as="image"
+        type="image/avif"
+        imagesrcset={heroPreload.srcset}
+        imagesizes={heroPreload.sizes}
+        fetchpriority="high"
+      />
+    )}
+
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:title" content={title} />
@@ -251,8 +306,8 @@ const ldBreadcrumb = pathSegments.length > 0
     {imageUrl && <meta property="og:image" content={imageUrl} />}
     {imageUrl && <meta property="og:image:secure_url" content={imageUrl} />}
     {imageUrl && <meta property="og:image:type" content={imageMimeType} />}
-    {imageUrl && <meta property="og:image:width" content="1200" />}
-    {imageUrl && <meta property="og:image:height" content="630" />}
+    {ogIsSized && <meta property="og:image:width" content={String(OG_W)} />}
+    {ogIsSized && <meta property="og:image:height" content={String(OG_H)} />}
     {imageUrl && <meta property="og:image:alt" content={ogImageAlt} />}
 
     <meta name="twitter:card" content="summary_large_image" />
