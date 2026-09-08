@@ -12,8 +12,8 @@ const lessonNoun = (slug: string, fallback: string) =>
 ---
 
 <BaseLayout
-  title="Musikunterricht | Klavier, Gitarre, Gesang in Düsseldorf & Neuss"
-  description="Musikunterricht in Düsseldorf und Neuss für Klavier, Gitarre, Bass, Gesang und Schlagzeug. Entdecke dein Instrument und buche eine kostenlose Probestunde."
+  title="Musikunterricht in Düsseldorf | Standortinformation Neuss"
+  description="Klavier, Gitarre, Bass, Gesang und Schlagzeug in Düsseldorf. Der Standort Neuss schließt zum 30. November 2026 und nimmt keine Neuanmeldungen mehr an."
 >
   <section class="unterricht-hero" aria-labelledby="unterricht-heading">
     <div class="hero-container">
@@ -28,7 +28,9 @@ const lessonNoun = (slug: string, fallback: string) =>
       <p>{content.intro.text}</p>
       <div class="location-links">
         {LOCATIONS.map((loc) => (
-          <a href={`/${loc.slug}/`} class="location-link">{`Musikunterricht in ${loc.name}`}</a>
+          <a href={`/${loc.slug}/`} class="location-link">
+            {loc.slug === 'neuss' ? 'Standortinformation Neuss' : `Musikunterricht in ${loc.name}`}
+          </a>
         ))}
       </div>
     </div>
@@ -65,7 +67,9 @@ const lessonNoun = (slug: string, fallback: string) =>
               <div class="instrument-cities">
                 {LOCATIONS.map((loc) => (
                   <a href={`/${loc.slug}/unterricht/${instrument.slug}/`} class="read-more">
-                    {`${lessonNoun(instrument.slug, instrument.name)} in ${loc.name}`}
+                    {loc.slug === 'neuss'
+                      ? `Informationen zu ${lessonNoun(instrument.slug, instrument.name)} in Neuss`
+                      : `${lessonNoun(instrument.slug, instrument.name)} in ${loc.name}`}
                   </a>
                 ))}
               </div>

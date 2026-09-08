@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import StickyCtaBar from '../components/StickyCtaBar.astro';
+import LocationClosureNotice from '../components/LocationClosureNotice.astro';
 import '../styles/fonts.css';
 import '../styles/variables.css';
 import '../styles/global.css';
@@ -78,7 +79,7 @@ const site = deployUrl && deployUrl.includes('netlify.app')
 const canonical = canonicalUrl ?? new URL(Astro.url.pathname, site).href;
 const metaDescription = description
   ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription
-  ?? 'Musikschule in Düsseldorf und Neuss: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
+  ?? 'Musikschule in Düsseldorf: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Standort Neuss schließt zum 30. November 2026.';
 const image = ogImage ?? (globals as { ogImage?: string }).ogImage ?? '';
 const ogImageAlt = (globals as { ogImageAlt?: string }).ogImageAlt ?? 'Fine Sound Academy - Musikschule Düsseldorf & Neuss';
 const twitterHandle = (globals as { twitterHandle?: string }).twitterHandle ?? '';
@@ -334,6 +335,7 @@ const ldBreadcrumb = pathSegments.length > 0
     </header>
     <main id="main-content" class="content">
       <div class="page-width">
+        <LocationClosureNotice />
         <slot />
       </div>
     </main>

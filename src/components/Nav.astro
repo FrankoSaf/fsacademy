@@ -42,6 +42,10 @@ const linksBeforeLogo = navLinks.slice(0, 2);
 const linksAfterLogo = navLinks.slice(2);
 const socials = (content?.navigation?.socialMedia ?? []).filter((s) => socialIcon(s.icon));
 const logo = content.navigation.logo;
+const isNeussPage = Astro.url.pathname.startsWith('/neuss/');
+const neussSafeUrl = (url: string) =>
+  isNeussPage && url.includes('/booking/forms/trial/') ? '/duesseldorf/' : url;
+const navCtaUrl = neussSafeUrl(content.navigation.cta.url);
 // Intrinsic ratio of the logo SVG is 3162.36 / 937.24 = 3.374, so these
 // width/height pairs match what the CSS actually renders and reserve the right
 // box up front instead of nudging the nav once the SVG lands.
@@ -71,7 +75,7 @@ const LOGO_MOBILE = { w: 111, h: 33 };
       <ul class="nav-links">
         {linksBeforeLogo.map((link) => (
           <li>
-            <a href={href(link.url)} {...linkAttrs(link.url)}>{link.text}</a>
+            <a href={href(neussSafeUrl(link.url))} {...linkAttrs(neussSafeUrl(link.url))}>{link.text}</a>
           </li>
         ))}
       </ul>
@@ -98,7 +102,7 @@ const LOGO_MOBILE = { w: 111, h: 33 };
       <ul class="nav-links">
         {linksAfterLogo.map((link) => (
           <li>
-            <a href={href(link.url)} {...linkAttrs(link.url)}>{link.text}</a>
+            <a href={href(neussSafeUrl(link.url))} {...linkAttrs(neussSafeUrl(link.url))}>{link.text}</a>
           </li>
         ))}
       </ul>
@@ -106,7 +110,7 @@ const LOGO_MOBILE = { w: 111, h: 33 };
 
     <div class="nav-right desktop-only">
       <div class="nav-cta">
-        <a href={href(content.navigation.cta.url)} {...linkAttrs(content.navigation.cta.url)}>{content.navigation.cta.text}</a>
+        <a href={href(navCtaUrl)} {...linkAttrs(navCtaUrl)}>{isNeussPage ? 'Düsseldorf' : content.navigation.cta.text}</a>
       </div>
     </div>
 
@@ -134,12 +138,12 @@ const LOGO_MOBILE = { w: 111, h: 33 };
     <ul class="mobile-nav-links">
       {navLinks.map((link) => (
         <li>
-          <a href={href(link.url)} {...linkAttrs(link.url)}>{link.text}</a>
+          <a href={href(neussSafeUrl(link.url))} {...linkAttrs(neussSafeUrl(link.url))}>{link.text}</a>
         </li>
       ))}
     </ul>
     <div class="mobile-cta">
-      <a href={href(content.navigation.cta.url)} {...linkAttrs(content.navigation.cta.url)}>{content.navigation.cta.text}</a>
+      <a href={href(navCtaUrl)} {...linkAttrs(navCtaUrl)}>{isNeussPage ? 'Unterricht in Düsseldorf' : content.navigation.cta.text}</a>
     </div>
     <div class="mobile-social">
       {socials.map((social) => (

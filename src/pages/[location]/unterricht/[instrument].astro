@@ -24,6 +24,7 @@ export function getStaticPaths() {
 }
 
 const { location: city, instrument } = Astro.params;
+const isNeussPage = city === 'neuss';
 
 const [teachers, cities, unterrichtData, instrumentsData, duesseldorfData, neussData, globalsData, uiData] = await Promise.all([
   getTeachers(),
@@ -74,16 +75,28 @@ const cityLessonsUrl = `/${city}/`;
 // an anchor per instrument.
 const genericInstrumentUrl = `/unterricht/#${instrument}`;
 const relatedInstrumentLinks = allInstruments.filter((item) => item.slug !== instrument).slice(0, 4);
+const duesseldorfInstrumentUrl = `/duesseldorf/unterricht/${instrument}/`;
+const conversionUrl = isNeussPage ? duesseldorfInstrumentUrl : probestundeUrl;
 
 const instrumentCta = {
-  title: `${displayName.toUpperCase()} IN ${cityName.toUpperCase()}`,
-  subtitle: `Buche jetzt deine kostenlose Probestunde für ${displayName} in ${cityName} und lerne uns kennen!`,
-  buttonText: locationCta?.buttonText ?? 'Termin vereinbaren',
-  buttonLink: locationCta?.buttonLink ?? probestundeUrl,
+  title: isNeussPage ? `${displayName.toUpperCase()} IN DÜSSELDORF` : `${displayName.toUpperCase()} IN ${cityName.toUpperCase()}`,
+  subtitle: isNeussPage
+    ? 'Der Standort Neuss schließt zum 30. November 2026. Dieses Unterrichtsangebot bleibt in Düsseldorf verfügbar.'
+    : `Buche jetzt deine kostenlose Probestunde für ${displayName} in ${cityName} und lerne uns kennen!`,
+  buttonText: isNeussPage ? 'Angebot in Düsseldorf' : (locationCta?.buttonText ?? 'Termin vereinbaren'),
+  buttonLink: isNeussPage ? duesseldorfInstrumentUrl : (locationCta?.buttonLink ?? probestundeUrl),
 };
 
-const metaTitle = `${displayName} in ${cityName} | Fine Sound Academy`;
-const metaDescription = `${displayName} in ${cityName} auf der ${cityStreet}: professioneller Unterricht für Kinder, Jugendliche und Erwachsene. Kostenlose Probestunde buchen.`;
+const metaTitle = isNeussPage
+  ? `${displayName} Neuss – Standort schließt 30.11.2026 | Fine Sound Academy`
+  : `${displayName} in ${cityName} | Fine Sound Academy`;
+const metaDescription = isNeussPage
+  ? `${displayName} in Neuss: Der Standort schließt zum 30. November 2026 und nimmt keine Neuanmeldungen mehr an. Unterricht bleibt in Düsseldorf verfügbar.`
+  : `${displayName} in ${cityName} auf der ${cityStreet}: professioneller Unterricht für Kinder, Jugendliche und Erwachsene. Kostenlose Probestunde buchen.`;
+
+const pageHighlights = isNeussPage
+  ? ['Weiterhin in Düsseldorf verfügbar', 'Für Kinder, Jugendliche und Erwachsene', 'Einzel- oder Gruppenunterricht', 'Qualifizierte Lehrkräfte']
+  : (instrumentInfo?.highlights ?? ['Einzel- oder Gruppenunterricht', 'Kostenlose Probestunde', 'Keine Wartezeit', 'Qualifizierte Lehrkräfte']);
 
 // Address, geo and hours all come from src/lib/site.ts so this page can never
 // drift from the city page or the sitewide Organization schema.
@@ -117,7 +130,12 @@ const ldFAQ = faqItems.length > 0 ? {
       <div class="accent-line"></div>
       <h1 id="campaign-heading">{displayName} in {cityName}</h1>
       <p class="hero-subtitle">{camp.fuerKinder ?? 'Für Kinder, Jugendliche und Erwachsene'}</p>
-      <a href={probestundeUrl} target="_blank" rel="noopener noreferrer" class="hero-cta">Kostenlose Probestunde</a>
+      <a
+        href={conversionUrl}
+        target={conversionUrl.startsWith('http') ? '_blank' : undefined}
+        rel={conversionUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
+        class="hero-cta"
+      >{isNeussPage ? 'Unterricht in Düsseldorf' : 'Kostenlose Probestunde'}</a>
       <p><a href={cityLessonsUrl} class="back-link">← {(ui?.location?.alleInstrumente ?? 'Alle Instrumente')} in {cityName}</a></p>
     </div>
   </section>
@@ -136,7 +154,7 @@ const ldFAQ = faqItems.length > 0 ? {
         </div>
       ))}
       <ul class="highlights">
-        {(instrumentInfo?.highlights ?? ['Einzel- oder Gruppenunterricht', 'Kostenlose Probestunde', 'Keine Wartezeit', 'Qualifizierte Lehrkräfte']).map((h) => (
+        {pageHighlights.map((h) => (
           <li>{h}</li>
         ))}
       </ul>
@@ -146,20 +164,27 @@ const ldFAQ = faqItems.length > 0 ? {
   <section class="campaign-local" aria-labelledby="local-heading">
     <div class="local-container">
       <h2 id="local-heading">Warum {displayName} in {cityName}?</h2>
-      <p>
-        Unser Unterricht findet in {cityArea} auf der {cityStreet} statt. So erreichst du die Fine Sound Academy schnell und kannst {displayName.toLowerCase()} direkt an deinem Standort in {cityName} lernen.
-      </p>
-      <p>
-        {displayName} in {cityName} kombiniert persönliche Betreuung, qualifizierte Lehrkräfte und eine kostenlose Probestunde. Das macht diese Seite deutlich anders als unsere allgemeine Instrumentenseite.
-      </p>
+      {isNeussPage ? (
+        <>
+          <p>Der Standort am {cityStreet} schließt zum 30. November 2026. Neue Anfragen und Anmeldungen für {displayName} in Neuss können wir nicht mehr annehmen.</p>
+          <p>Das gleiche Unterrichtsangebot führen wir an der Kaiserstraße 28 in Düsseldorf-Pempelfort fort. Dort freuen wir uns auf neue Schülerinnen und Schüler.</p>
+        </>
+      ) : (
+        <>
+          <p>Unser Unterricht findet in {cityArea} auf der {cityStreet} statt. So erreichst du die Fine Sound Academy schnell und kannst {displayName.toLowerCase()} direkt an deinem Standort in {cityName} lernen.</p>
+          <p>{displayName} in {cityName} kombiniert persönliche Betreuung, qualifizierte Lehrkräfte und eine kostenlose Probestunde. Das macht diese Seite deutlich anders als unsere allgemeine Instrumentenseite.</p>
+        </>
+      )}
       <div class="related-links">
         <a href={cityPageUrl}>{`Musikschule ${cityName}`}</a>
-        <a href={genericInstrumentUrl}>{`${displayName} an beiden Standorten`}</a>
+        <a href={isNeussPage ? duesseldorfInstrumentUrl : genericInstrumentUrl}>
+          {isNeussPage ? `${displayName} in Düsseldorf` : `${displayName} im Überblick`}
+        </a>
       </div>
     </div>
   </section>
 
-  {teachersForPage.length > 0 && (
+  {!isNeussPage && teachersForPage.length > 0 && (
     <section class="campaign-teachers" aria-labelledby="teachers-heading">
       <div class="teachers-container">
         <h2 id="teachers-heading">{(camp.unsereLehrer ?? 'Unsere')} {instrumentInfo?.name ?? instrument}lehrer in {cityName}</h2>
@@ -194,7 +219,11 @@ const ldFAQ = faqItems.length > 0 ? {
   <section class="campaign-related" aria-labelledby="related-heading">
     <div class="related-container">
       <h2 id="related-heading">Weitere Unterrichtsseiten in {cityName}</h2>
-      <p>Diese internen Links stärken die wichtigsten Seiten rund um deinen Standort und helfen dir, das passende Angebot schneller zu finden.</p>
+      <p>
+        {isNeussPage
+          ? 'Auch für diese Instrumente findest du Informationen zur Standortschließung und das passende Angebot in Düsseldorf.'
+          : 'Entdecke weitere Instrumente an diesem Standort und finde das passende Unterrichtsangebot.'}
+      </p>
       <ul class="related-list">
         {relatedInstrumentLinks.map((item) => (
           <li><a href={`/${city}/unterricht/${item.slug}/`}>{`${lessonNoun(item.slug, item.name)} in ${cityName}`}</a></li>
@@ -205,18 +234,28 @@ const ldFAQ = faqItems.length > 0 ? {
 
   <section class="campaign-how" aria-label="So geht's">
     <div class="how-container">
-      <h2>{camp.wieKannIchAnfangen ?? 'Wie kann ich anfangen?'}</h2>
+      <h2>{isNeussPage ? `Wie kann ich ${displayName} in Düsseldorf anfangen?` : (camp.wieKannIchAnfangen ?? 'Wie kann ich anfangen?')}</h2>
       <div class="how-steps">
         <div class="how-step"><span class="step-num">1</span><h3>{camp.step1 ?? 'Formular ausfüllen'}</h3></div>
         <div class="how-step"><span class="step-num">2</span><h3>{camp.step2 ?? 'Termin vereinbaren'}</h3></div>
         <div class="how-step"><span class="step-num">3</span><h3>{camp.step3 ?? 'Kostenlos ausprobieren'}</h3></div>
         <div class="how-step"><span class="step-num">4</span><h3>{camp.step4 ?? 'Danach entscheiden'}</h3></div>
       </div>
-      <a href={probestundeUrl} target="_blank" rel="noopener noreferrer" class="how-cta">{camp.probestundeVereinbaren ?? 'Probestunde vereinbaren'}</a>
+      <a
+        href={conversionUrl}
+        target={conversionUrl.startsWith('http') ? '_blank' : undefined}
+        rel={conversionUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
+        class="how-cta"
+      >{isNeussPage ? 'Zum Angebot in Düsseldorf' : (camp.probestundeVereinbaren ?? 'Probestunde vereinbaren')}</a>
     </div>
   </section>
 
-  <Pricing showHeader={true} headingLevel="h2" />
+  <Pricing
+    showHeader={true}
+    headingLevel="h2"
+    buttonLink={isNeussPage ? duesseldorfInstrumentUrl : undefined}
+    buttonText={isNeussPage ? 'In Düsseldorf ansehen' : undefined}
+  />
 
   {faqItems.length > 0 && (
     <section class="campaign-faq" aria-labelledby="faq-heading">
@@ -234,17 +273,17 @@ const ldFAQ = faqItems.length > 0 ? {
     </section>
   )}
 
-  <section class="campaign-contact-section" aria-label="Probestunde buchen">
+  <section class="campaign-contact-section" aria-label={isNeussPage ? 'Musikunterricht in Düsseldorf' : 'Probestunde buchen'}>
     <div class="campaign-cta-link-wrap">
-      <h2>Probestunde vereinbaren</h2>
-      <p>{camp.kostenlosUnverbindlich ?? 'Kostenlos und unverbindlich - direkt online buchen.'}</p>
+      <h2>{isNeussPage ? 'Unterricht in Düsseldorf' : 'Probestunde vereinbaren'}</h2>
+      <p>{isNeussPage ? `${displayName} bleibt an unserem Standort in Düsseldorf verfügbar.` : (camp.kostenlosUnverbindlich ?? 'Kostenlos und unverbindlich - direkt online buchen.')}</p>
       <a
-        href={probestundeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={conversionUrl}
+        target={conversionUrl.startsWith('http') ? '_blank' : undefined}
+        rel={conversionUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
         class="campaign-cta-link"
       >
-        {(camp.kostenloseProbestundeBuchen ?? ui?.unterricht?.jetztProbestundeBuchen ?? 'Kostenlose Probestunde buchen')} →
+        {isNeussPage ? 'Zum Angebot in Düsseldorf' : (camp.kostenloseProbestundeBuchen ?? ui?.unterricht?.jetztProbestundeBuchen ?? 'Kostenlose Probestunde buchen')} →
       </a>
     </div>
   </section>

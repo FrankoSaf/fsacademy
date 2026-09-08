@@ -34,6 +34,17 @@ collections:
           - { label: "Twitter @handle", name: twitterHandle, widget: string, required: false }
           - { label: "WhatsApp-URL (floating Button)", name: whatsappUrl, widget: string, required: false, hint: "z.B. https://wa.me/4917677154511" }
           - { label: "Probestunde / Buchungs-URL", name: probestundeUrl, widget: string, required: false, hint: "Link zur Axinio-Buchung oder Kontaktformular." }
+          - label: "Hinweis Standortschließung"
+            name: locationClosureNotice
+            widget: object
+            required: false
+            fields:
+              - { label: Aktiv, name: enabled, widget: boolean, default: true }
+              - { label: Kennzeichnung, name: label, widget: string, default: "Standortinformation" }
+              - { label: Überschrift, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+              - { label: Link-Text, name: linkText, widget: string }
+              - { label: Link-Ziel, name: linkUrl, widget: string, default: "/duesseldorf/" }
           - { label: "Google Ads ID (nur Zahl)", name: googleAdsId, widget: string, required: false, hint: "z.B. 123456789 aus AW-123456789" }
           - { label: "Google Ads Conversion ID (Label)", name: googleAdsConversionId, widget: string, required: false, hint: "Conversion-Aktion-Label aus Google Ads" }
           - { label: "Conversion-Wert (optional, EUR)", name: conversionValue, widget: string, required: false, hint: "z.B. 50 für Lead-Wert" }
@@ -564,6 +575,7 @@ collections:
             fields:
               - { label: Bild, name: image, widget: image }
               - { label: Button-Text, name: buttonText, widget: string, default: "Zur Schule Neuss" }
+              - { label: Status-Hinweis, name: status, widget: string, required: false, hint: "Wird als Hinweis auf der Standortkarte angezeigt." }
           - label: CTA-Bereich (Standort Neuss)
             name: cta
             widget: object

@@ -4,9 +4,11 @@ import pricingRaw from '../../content/pricing.json';
 interface Props {
   showHeader?: boolean;
   headingLevel?: 'h1' | 'h2';
+  buttonLink?: string;
+  buttonText?: string;
 }
 
-const { showHeader = true, headingLevel = 'h2' } = Astro.props;
+const { showHeader = true, headingLevel = 'h2', buttonLink, buttonText } = Astro.props;
 const HeadingTag = headingLevel;
 
 // Use content/pricing.json (Preise-Seite in CMS) so CMS edits affect all pages
@@ -61,13 +63,13 @@ const pricingData = {
               ))}
             </ul>
             <a
-              href={plan.buttonLink}
+              href={buttonLink ?? plan.buttonLink}
               class="pricing-button"
-              aria-label={`${plan.buttonText} – ${plan.name}`}
-              target={plan.buttonLink.startsWith('http') ? '_blank' : undefined}
-              rel={plan.buttonLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+              aria-label={`${buttonText ?? plan.buttonText} – ${plan.name}`}
+              target={(buttonLink ?? plan.buttonLink).startsWith('http') ? '_blank' : undefined}
+              rel={(buttonLink ?? plan.buttonLink).startsWith('http') ? 'noopener noreferrer' : undefined}
             >
-              {plan.buttonText}
+              {buttonText ?? plan.buttonText}
             </a>
           </article>
         ))

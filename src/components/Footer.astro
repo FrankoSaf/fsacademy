@@ -32,6 +32,8 @@ interface Content {
 const content = contentRaw as Content;
 const socials = (content?.navigation?.socialMedia ?? []).filter((s) => socialIcon(s.icon));
 const year = new Date().getFullYear();
+const isNeussPage = Astro.url.pathname.startsWith('/neuss/');
+const footerCtaUrl = isNeussPage ? '/duesseldorf/' : content.footer.cta.url;
 ---
 
 <footer class="footer">
@@ -48,8 +50,8 @@ const year = new Date().getFullYear();
           class="footer-logo"
         />
       </a>
-      <a href={href(content.footer.cta.url)} class="footer-cta" {...linkAttrs(content.footer.cta.url)}>
-        {content.footer.cta.text}
+      <a href={href(footerCtaUrl)} class="footer-cta" {...linkAttrs(footerCtaUrl)}>
+        {isNeussPage ? 'UNTERRICHT IN DÜSSELDORF' : content.footer.cta.text}
       </a>
     </div>
 

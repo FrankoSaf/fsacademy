@@ -53,6 +53,7 @@ interface CityPageData {
 const slug = Astro.params.location as keyof typeof CITY_CONTENT;
 const loc = getLocation(slug);
 if (!loc) throw new Error(`No location entry in src/lib/site.ts for "${slug}"`);
+const isClosingLocation = slug === 'neuss';
 
 const data = ((await CITY_CONTENT[slug]()).default ?? {}) as CityPageData;
 
@@ -79,13 +80,19 @@ const instrumentItems = (Array.isArray(data.instruments?.items) ? data.instrumen
 );
 
 const SITE = 'https://finesoundacademy.com/';
-const metaTitle = `Musikschule ${loc.name} | Klavier, Gitarre, Gesang | Fine Sound Academy`;
-const metaDescription = `Musikschule in ${loc.areaPhrase} auf der ${loc.street}: Klavier-, Gitarren- und Gesangsunterricht sowie Bass und Schlagzeug. Kostenlose Probestunde buchen.`;
+const metaTitle = isClosingLocation
+  ? 'Musikschule Neuss schließt zum 30.11.2026 | Fine Sound Academy'
+  : `Musikschule ${loc.name} | Klavier, Gitarre, Gesang | Fine Sound Academy`;
+const metaDescription = isClosingLocation
+  ? 'Der Standort der Fine Sound Academy in Neuss schließt zum 30. November 2026 und nimmt keine Neuanmeldungen mehr an. Musikunterricht geht in Düsseldorf weiter.'
+  : `Musikschule in ${loc.areaPhrase} auf der ${loc.street}: Klavier-, Gitarren- und Gesangsunterricht sowie Bass und Schlagzeug. Kostenlose Probestunde buchen.`;
 
 const ldLocal = {
   '@context': 'https://schema.org',
   ...schoolSchema(loc, SITE, {
-    description: `Musikschule in ${loc.areaPhrase}: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug.`,
+    description: isClosingLocation
+      ? 'Der Standort Neuss schließt zum 30. November 2026 und nimmt keine Neuanmeldungen mehr an.'
+      : `Musikschule in ${loc.areaPhrase}: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug.`,
   }),
 };
 
@@ -207,14 +214,26 @@ const headingId = `${slug}-heading`;
     </section>
   )}
 
-  <Pricing showHeader={true} headingLevel="h2" />
+  <Pricing
+    showHeader={true}
+    headingLevel="h2"
+    buttonLink={isClosingLocation ? '/duesseldorf/' : undefined}
+    buttonText={isClosingLocation ? 'In Düsseldorf ansehen' : undefined}
+  />
   <LocationInfoCards cards={data.infoCards} />
 
-  <section class="location-cta-section" aria-label="Probestunde buchen">
+  <section class="location-cta-section" aria-label={isClosingLocation ? 'Musikunterricht in Düsseldorf' : 'Probestunde buchen'}>
     <div class="location-cta-inner">
-      <p class="location-cta-heading">{uiLoc.probestundeVereinbaren ?? 'Probestunde vereinbaren'}</p>
-      <a href={probestundeUrl} target="_blank" rel="noopener noreferrer" class="location-cta-button">
-        {uiLoc.kostenloseProbestundeBuchen ?? 'Kostenlose Probestunde buchen'}
+      <p class="location-cta-heading">
+        {isClosingLocation ? 'In Düsseldorf geht die Musik weiter' : (uiLoc.probestundeVereinbaren ?? 'Probestunde vereinbaren')}
+      </p>
+      <a
+        href={isClosingLocation ? '/duesseldorf/' : probestundeUrl}
+        target={isClosingLocation ? undefined : '_blank'}
+        rel={isClosingLocation ? undefined : 'noopener noreferrer'}
+        class="location-cta-button"
+      >
+        {isClosingLocation ? 'Musikunterricht in Düsseldorf' : (uiLoc.kostenloseProbestundeBuchen ?? 'Kostenlose Probestunde buchen')}
       </a>
     </div>
   </section>

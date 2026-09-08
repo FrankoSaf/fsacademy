@@ -73,11 +73,11 @@ function build(): string {
   out.push('# Fine Sound Academy');
   out.push('');
   out.push(
-    '> Musikschule in Düsseldorf und Neuss — professioneller Instrumental- und Gesangsunterricht für Kinder ab 6 Jahren, Jugendliche und Erwachsene. Kostenlose Probestunde.'
+    '> Musikschule in Düsseldorf — professioneller Instrumental- und Gesangsunterricht für Kinder ab 6 Jahren, Jugendliche und Erwachsene. Der Standort Neuss schließt zum 30. November 2026 und nimmt keine Neuanmeldungen mehr an.'
   );
   out.push('');
   out.push(
-    'Zwei Standorte in Nordrhein-Westfalen. Einzel- und Gruppenunterricht in Klavier, Gitarre, Gesang, Bass und Schlagzeug, von Anfängern bis Fortgeschrittenen. Die Lehrkräfte sind ausgebildete Musikpädagoginnen und -pädagogen sowie aktive Musikerinnen und Musiker.'
+    'Neue Schülerinnen und Schüler unterrichten wir in Düsseldorf-Pempelfort. Dort gibt es Einzel- und Gruppenunterricht in Klavier, Gitarre, Gesang, Bass und Schlagzeug, von Anfängern bis Fortgeschrittenen.'
   );
   out.push('');
 
@@ -98,13 +98,17 @@ function build(): string {
     out.push(link(`Musikschule ${loc.name}`, `/${loc.slug}`));
     out.push(`- Adresse: ${loc.street}, ${loc.postalCode} ${loc.name}`);
     out.push(`- Stadtteil/Lage: ${loc.area}`);
+    if (loc.slug === 'neuss') {
+      out.push('- Status: Schließt zum 30. November 2026; keine neuen Anfragen oder Anmeldungen.');
+      out.push(link('Weiterführender Musikunterricht in Düsseldorf', '/duesseldorf'));
+    }
     for (const l of lines(CITY_CONTENT[loc.slug]?.directionsCard?.lines).slice(2)) {
       out.push(`- ${l.replace(/\*\*/g, '')}`);
     }
     out.push('');
   }
 
-  out.push('### Öffnungszeiten (beide Standorte)');
+  out.push('### Öffnungszeiten');
   out.push('');
   out.push(...formatHours());
   out.push('- So: Geschlossen');
@@ -113,7 +117,7 @@ function build(): string {
   out.push('## Unterricht nach Instrument und Standort');
   out.push('');
   out.push(
-    'Jede Kombination aus Instrument und Standort hat eine eigene Seite mit Lehrkräften, Preisen und Antworten auf häufige Fragen.'
+    'Die Neuss-Seiten informieren über die Schließung und verweisen auf das jeweils passende Unterrichtsangebot in Düsseldorf.'
   );
   out.push('');
   for (const loc of LOCATIONS) {

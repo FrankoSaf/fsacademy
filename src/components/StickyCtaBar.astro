@@ -6,15 +6,18 @@ const probestundeUrl = (globals as { probestundeUrl?: string }).probestundeUrl ?
 const stickyCta = (ui as { stickyCta?: { text?: string; ariaLabel?: string } }).stickyCta ?? {};
 const ctaText = stickyCta.text ?? 'Probestunde';
 const ariaLabel = stickyCta.ariaLabel ?? 'Probestunde vereinbaren';
+const isNeussPage = Astro.url.pathname.startsWith('/neuss/');
+const ctaUrl = isNeussPage ? '/duesseldorf/' : probestundeUrl;
+const visibleText = isNeussPage ? 'Unterricht in Düsseldorf' : ctaText;
 ---
 <a
-  href={probestundeUrl}
-  target="_blank"
-  rel="noopener noreferrer"
+  href={ctaUrl}
+  target={ctaUrl.startsWith('http') ? '_blank' : undefined}
+  rel={ctaUrl.startsWith('http') ? 'noopener noreferrer' : undefined}
   class="sticky-cta-float"
   aria-label={ariaLabel}
 >
-  <span class="sticky-cta-text">{ctaText}</span>
+  <span class="sticky-cta-text">{visibleText}</span>
   <span class="sticky-cta-arrow" aria-hidden="true">→</span>
 </a>
 
