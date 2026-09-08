@@ -9,7 +9,7 @@ import {
   getCities,
   getTeachersForInstrumentAndCity,
 } from '../../../lib/cms';
-import { INSTRUMENTS, LOCATIONS, getLocation, schoolSchema } from '../../../lib/site';
+import { INSTRUMENTS, LOCATIONS, getLocation, schoolSchema, locationUrl } from '../../../lib/site';
 
 /** Correct German lesson noun ("Gitarre" -> "Gitarrenunterricht"), keyed by slug. */
 const lessonNoun = (slug: string, fallback: string) =>
@@ -67,10 +67,10 @@ const extraSections = (instrumentDetail?.sections ?? []).slice(1, 3);
 const site = getLocation(city);
 const cityStreet = site?.street ?? '';
 const cityArea = site?.areaPhrase ?? '';
-const cityPageUrl = `/${city}/`;
+const cityPageUrl = locationUrl(city);
 // The former /<city>/unterricht/ hub was a 279-word duplicate of the instrument
 // list already on the city page, so both of these now resolve there instead.
-const cityLessonsUrl = `/${city}/`;
+const cityLessonsUrl = locationUrl(city);
 // The generic /unterricht/<instrument>/ stub is gone; the overview hub carries
 // an anchor per instrument.
 const genericInstrumentUrl = `/unterricht/#${instrument}`;

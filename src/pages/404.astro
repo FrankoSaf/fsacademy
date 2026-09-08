@@ -6,7 +6,7 @@
  * generic branded error page.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { LOCATIONS, INSTRUMENTS } from '../lib/site';
+import { ACTIVE_LOCATIONS, INSTRUMENTS, locationUrl } from '../lib/site';
 ---
 
 <BaseLayout
@@ -28,9 +28,9 @@ import { LOCATIONS, INSTRUMENTS } from '../lib/site';
       </div>
 
       <div class="notfound-groups">
-        {LOCATIONS.map((loc) => (
+        {ACTIVE_LOCATIONS.map((loc) => (
           <div class="notfound-group">
-            <h2><a href={`/${loc.slug}/`}>{`Musikschule ${loc.name}`}</a></h2>
+            <h2><a href={locationUrl(loc.slug)}>{`Musikschule ${loc.name}`}</a></h2>
             <ul>
               {INSTRUMENTS.map((inst) => (
                 <li>

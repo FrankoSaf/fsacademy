@@ -25,14 +25,21 @@ export interface OpeningHours {
   closes: string;
 }
 
-/** Shared by both locations; override per-location if that ever diverges. */
+/**
+ * Fallback hours for a location that does not declare its own.
+ *
+ * Opening hours used to live twice: here (structured data) and as free text in
+ * content/<slug>.json. The two had drifted apart, so the page showed one set of
+ * hours and the JSON-LD claimed another - an inconsistency Google reads as an
+ * unreliable local signal. They now come from `loc.openingHours` only, and
+ * `openingHoursLines()` renders the visible list from the same array.
+ */
 export const OPENING_HOURS: OpeningHours[] = [
   {
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-    opens: '10:00',
+    opens: '11:00',
     closes: '20:00',
   },
-  { dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
 ];
 
 export interface SiteLocation {
@@ -51,6 +58,13 @@ export interface SiteLocation {
   /** Prepositional phrase for sentences: "Unser Unterricht findet in <areaPhrase> statt." */
   areaPhrase: string;
   geo: { latitude: number; longitude: number };
+  /** Per-location hours; falls back to OPENING_HOURS when omitted. */
+  openingHours?: OpeningHours[];
+  /**
+   * Set for locations that still have pages but are no longer advertised.
+   * Marketing surfaces (homepage, org schema) use ACTIVE_LOCATIONS instead.
+   */
+  retired?: boolean;
 }
 
 export const LOCATIONS: SiteLocation[] = [
@@ -64,6 +78,13 @@ export const LOCATIONS: SiteLocation[] = [
     area: 'Pempelfort',
     areaPhrase: 'Düsseldorf-Pempelfort',
     geo: { latitude: 51.23387, longitude: 6.77908 },
+    openingHours: [
+      {
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '11:00',
+        closes: '20:00',
+      },
+    ],
   },
   {
     slug: 'neuss',
@@ -75,8 +96,42 @@ export const LOCATIONS: SiteLocation[] = [
     area: 'Neusser Innenstadt',
     areaPhrase: 'der Neusser Innenstadt',
     geo: { latitude: 51.1985, longitude: 6.6929 },
+    openingHours: [
+      {
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '10:00',
+        closes: '20:00',
+      },
+      { dayOfWeek: 'Saturday', opens: '09:00', closes: '12:00' },
+    ],
+    retired: true,
   },
 ];
+
+/**
+ * Locations we actively advertise. The retired ones keep their own pages (and
+ * getLocation still resolves them), but they no longer appear on the homepage
+ * or in the organisation-level structured data.
+ */
+export const ACTIVE_LOCATIONS: SiteLocation[] = LOCATIONS.filter((l) => !l.retired);
+
+/**
+ * With one active location left, its landing page IS the homepage: /duesseldorf/
+ * 301s to / so the two stop competing for "Musikschule Duesseldorf". The
+ * instrument pages keep their /duesseldorf/unterricht/<instrument>/ URLs - a
+ * live parent page is not a requirement, and renaming them would only burn the
+ * rankings they already have.
+ */
+export const PRIMARY_LOCATION_SLUG = 'duesseldorf';
+
+/** Canonical URL of a location's landing page. */
+export function locationUrl(slug: string): string {
+  return slug === PRIMARY_LOCATION_SLUG ? '/' : `/${slug}/`;
+}
+
+/** The location whose page is the homepage. */
+export const PRIMARY_LOCATION: SiteLocation =
+  LOCATIONS.find((l) => l.slug === PRIMARY_LOCATION_SLUG) ?? LOCATIONS[0];
 
 export function getLocation(slug: string | undefined): SiteLocation | undefined {
   // Older URLs and some CMS entries use the un-umlauted spelling.
@@ -117,6 +172,58 @@ export function postalAddress(loc: SiteLocation) {
   };
 }
 
+const DAY_LABEL_DE: Record<string, string> = {
+  Monday: 'Montag',
+  Tuesday: 'Dienstag',
+  Wednesday: 'Mittwoch',
+  Thursday: 'Donnerstag',
+  Friday: 'Freitag',
+  Saturday: 'Samstag',
+  Sunday: 'Sonntag',
+};
+
+const WEEK_ORDER = [
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+  'Sunday',
+] as const;
+
+/**
+ * Human-readable opening hours, derived from the same array that feeds the
+ * JSON-LD. Consecutive days with identical hours collapse into a range
+ * ("Montag - Freitag"); closed days stay on their own line so the list reads
+ * the way the school writes it.
+ */
+export function openingHoursLines(hours: OpeningHours[] = OPENING_HOURS): string[] {
+  const CLOSED = 'Geschlossen';
+  const byDay = new Map<string, string>();
+  for (const h of hours) {
+    const days = Array.isArray(h.dayOfWeek) ? h.dayOfWeek : [h.dayOfWeek];
+    for (const day of days) byDay.set(day, `${h.opens} – ${h.closes} Uhr`);
+  }
+
+  const lines: string[] = [];
+  let i = 0;
+  while (i < WEEK_ORDER.length) {
+    const value = byDay.get(WEEK_ORDER[i]) ?? CLOSED;
+    let end = i;
+    if (value !== CLOSED) {
+      while (end + 1 < WEEK_ORDER.length && byDay.get(WEEK_ORDER[end + 1]) === value) end++;
+    }
+    const label =
+      end > i
+        ? `${DAY_LABEL_DE[WEEK_ORDER[i]]} – ${DAY_LABEL_DE[WEEK_ORDER[end]]}`
+        : DAY_LABEL_DE[WEEK_ORDER[i]];
+    lines.push(`${label}: ${value}`);
+    i = end + 1;
+  }
+  return lines;
+}
+
 /** schema.org OpeningHoursSpecification list. */
 export function openingHoursSpec(hours: OpeningHours[] = OPENING_HOURS) {
   return hours.map((h) => ({
@@ -150,7 +257,7 @@ export function schoolSchema(
       latitude: loc.geo.latitude,
       longitude: loc.geo.longitude,
     },
-    openingHoursSpecification: openingHoursSpec(),
+    openingHoursSpecification: openingHoursSpec(loc.openingHours ?? OPENING_HOURS),
     areaServed: { '@type': 'City', name: loc.name },
   };
 }

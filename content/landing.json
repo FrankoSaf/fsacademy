@@ -32,15 +32,15 @@
   },
   "homeIntro": {
     "heading": "Fine Sound Academy – Deine Musikschule in Düsseldorf",
-    "lead": "Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug in Düsseldorf. Unser Standort Neuss schließt zum 30. November 2026.",
+    "lead": "Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug in Düsseldorf – für Kinder, Jugendliche und Erwachsene.",
     "paragraphs": [
       "Die Fine Sound Academy ist deine Musikschule in Düsseldorf. Wir unterrichten Klavier, Gitarre, Gesang, Bass und Schlagzeug – für Kinder, Jugendliche und Erwachsene. Egal ob Anfänger oder Fortgeschrittener: Unsere erfahrenen Lehrkräfte unterstützen dich dort, wo du stehst.",
-      "Unser Unterricht für neue Schülerinnen und Schüler findet in Düsseldorf-Pempelfort an der Kaiserstraße 28 statt. Der Standort Neuss schließt zum 30. November 2026 und nimmt keine neuen Anmeldungen mehr an.",
+      "Unser Unterricht findet in Düsseldorf-Pempelfort an der Kaiserstraße 28 statt – zentral gelegen und gut mit Bahn, Bus und Auto erreichbar.",
       "Über 200 Schüler sind bereits dabei. Von Pop über Klassik bis Jazz und Rock – wir finden einen Einstieg, der zu dir passt. Moderner Unterricht, ein freundliches Team, eine entspannte Atmosphäre."
     ],
     "cards": [
       {
-        "title": "Düsseldorf bleibt",
+        "title": "Zentral in Düsseldorf",
         "text": "Musikunterricht und kostenlose Probestunden in Düsseldorf-Pempelfort."
       },
       {
@@ -55,8 +55,8 @@
     "ctaText": "Buche jetzt deine kostenlose Probestunde und lerne uns und unser Konzept kennen."
   },
   "locationsBlock": {
-    "heading": "Unsere Standorte",
-    "intro": "Unser Unterricht geht in Düsseldorf weiter. Der Standort Neuss schließt zum 30. November 2026 und nimmt keine neuen Anmeldungen mehr an."
+    "heading": "Unser Standort",
+    "intro": "Unsere Musikschule liegt in Düsseldorf-Pempelfort an der Kaiserstraße 28 – komm gern zu einer kostenlosen Probestunde vorbei."
   },
   "cta": {
     "title": "MUSIKSCHULE IN DÜSSELDORF",
@@ -130,7 +130,7 @@
       },
       {
         "name": "Thomas K.",
-        "text": "Endlich Gitarre spielen gelernt – genau so, wie ich es mir vorgestellt habe. Top Unterricht in Neuss!",
+        "text": "Endlich Gitarre spielen gelernt – genau so, wie ich es mir vorgestellt habe. Top Unterricht!",
         "instrument": "Gitarre"
       },
       {
@@ -145,19 +145,35 @@
     "subtext": "Über 200 Schülerinnen und Schüler vertrauen uns"
   },
   "faq": {
-    "heading": "Häufige Fragen zur Musikschule",
+    "heading": "Häufige Fragen zur Musikschule Düsseldorf",
     "items": [
       {
-        "question": "Wo findet der Musikunterricht statt?",
-        "answer": "Neue Schülerinnen und Schüler unterrichten wir in Düsseldorf an der Kaiserstraße 28 in Pempelfort. Unser Standort in Neuss schließt zum 30. November 2026 und nimmt keine neuen Anmeldungen mehr an."
+        "question": "Wo genau befindet sich die Musikschule in Düsseldorf?",
+        "answer": "Unsere Musikschule befindet sich in der Kaiserstraße 28, 40479 Düsseldorf im Stadtteil Pempelfort. Die nächste U-Bahn-Haltestelle ist Nordstraße (U78, U79), nur 3 Gehminuten entfernt."
       },
       {
-        "question": "Was kostet eine Probestunde?",
-        "answer": "Die Probestunde ist kostenlos. Du schaust dir die Räume an, lernst den Lehrer kennen – und entscheidest dann in Ruhe."
+        "question": "Welche Instrumente kann ich in Düsseldorf lernen?",
+        "answer": "In Düsseldorf bieten wir Unterricht für Klavier, Gitarre, Bass, Gesang und Schlagzeug an — für Anfänger bis Fortgeschrittene, Kinder und Erwachsene."
+      },
+      {
+        "question": "Gibt es eine kostenlose Probestunde?",
+        "answer": "Ja! Die Probestunde ist kostenlos und unverbindlich. Du schaust dir die Räume an, lernst den Lehrer kennen – und entscheidest dann in Ruhe. Kontaktiere uns einfach über unser Kontaktformular oder per Telefon."
       },
       {
         "question": "Für wen ist der Unterricht geeignet?",
         "answer": "Für alle: Kinder, Jugendliche und Erwachsene, Anfänger und Fortgeschrittene. Wir unterrichten Klavier, Gitarre, Gesang, Bass und Schlagzeug – einzeln oder in der Gruppe."
+      },
+      {
+        "question": "Ab welchem Alter kann mein Kind Unterricht nehmen?",
+        "answer": "Wir unterrichten Schüler ab ca. 6 Jahren. Für jüngere Kinder empfehlen wir ein Gespräch, um die beste Option zu finden."
+      },
+      {
+        "question": "Bietet ihr auch Gruppenunterricht an?",
+        "answer": "Ja, neben Einzelunterricht bieten wir auch Gruppenunterricht in kleinen Gruppen an. Das ist besonders für Kinder und Einsteiger eine tolle Option."
+      },
+      {
+        "question": "Gibt es Parkmöglichkeiten in der Nähe?",
+        "answer": "Es gibt Straßenparkplätze in der Kaiserstraße und den angrenzenden Seitenstraßen. 100m von unserer Musikschule befindet sich das Parkhaus B+B, was unseren Schülern und Besuchern bequemen Zugang und stressfreies Parken ermöglicht."
       },
       {
         "question": "Wie kann ich mich anmelden?",
@@ -167,7 +183,7 @@
   },
   "hero": {
     "title": "Fine Sound Academy – Musikschule Düsseldorf",
-    "subtitle": "Professioneller Musikunterricht in Düsseldorf – Neuss schließt zum 30.11.2026",
+    "subtitle": "Professioneller Musikunterricht in Düsseldorf – für Kinder, Jugendliche und Erwachsene",
     "buttonText": "Kostenlose Probestunde buchen",
     "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
     "image": "/uploads/hero-studio-2560w.jpg"
@@ -220,14 +236,14 @@
   },
   "team": {
     "title": "Unser Team",
-    "intro": "Unsere Musiklehrer sind das kreative Herz unserer Musikschule in Düsseldorf und Neuss, und wir sind stolz darauf, eine Umgebung zu schaffen, die das musikalische Potential eines jeden Schülers entfaltet. Mit wöchentlichem Unterricht von 30 oder 45 Minuten, sowohl in Gruppen- als auch im Einzelunterricht, bieten wir eine flexible Lernstruktur in unserer Musikschule an, die sich den individuellen Bedürfnissen jedes Schülers anpasst.",
+    "intro": "Unsere Musiklehrer sind das kreative Herz unserer Musikschule in Düsseldorf, und wir sind stolz darauf, eine Umgebung zu schaffen, die das musikalische Potential eines jeden Schülers entfaltet. Mit wöchentlichem Unterricht von 30 oder 45 Minuten, sowohl in Gruppen- als auch im Einzelunterricht, bieten wir eine flexible Lernstruktur in unserer Musikschule an, die sich den individuellen Bedürfnissen jedes Schülers anpasst.",
     "members": [
       {
         "id": "toni",
         "name": "Toni",
         "role": "Schulleitung, Gesang und Klavier",
         "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
-        "alt": "Schulleiter, Gesangs und Klavierlehrer Toni in Neuss und Düsseldorf",
+        "alt": "Schulleiter, Gesangs- und Klavierlehrer Toni in Düsseldorf",
         "locations": [
           "dusseldorf",
           "neuss"
@@ -238,7 +254,7 @@
         "name": "Anastasija",
         "role": "Gesang",
         "image": "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-        "alt": "Gesangslehrerin Anastasija in Neuss und Düsseldorf",
+        "alt": "Gesangslehrerin Anastasija in Düsseldorf",
         "locations": [
           "dusseldorf",
           "neuss"
@@ -259,7 +275,7 @@
         "name": "Ruben",
         "role": "Gitarre, Bass",
         "image": "/uploads/img_0811-1920w.webp",
-        "alt": "Gitarren und Basslehrer Ruben in Neuss und Düsseldorf",
+        "alt": "Gitarren- und Basslehrer Ruben in Düsseldorf",
         "locations": [
           "dusseldorf",
           "neuss"
@@ -290,7 +306,7 @@
         "name": "Ivana",
         "role": "Schulleitung, Klavier",
         "image": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
-        "alt": "Schulleiterin und Klavierlehrerin Ivana in Neuss und Düsseldorf",
+        "alt": "Schulleiterin und Klavierlehrerin Ivana in Düsseldorf",
         "locations": [
           "dusseldorf",
           "neuss"

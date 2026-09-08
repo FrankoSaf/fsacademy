@@ -18,6 +18,15 @@ export default defineConfig({
     // the session - and over HTTP/2 the extra request is cheap.
     inlineStylesheets: 'auto',
   },
+  // Dev parity for the /duesseldorf/ -> / consolidation.
+  //
+  // netlify.toml only applies on Netlify, so `astro dev` and any plain static
+  // preview 404 on /duesseldorf/. This emits a noindex meta-refresh stub there
+  // instead. The netlify.toml rule carries force = true so production still
+  // answers with a real 301 rather than serving this stub.
+  redirects: {
+    '/duesseldorf/': '/',
+  },
   integrations: [
     sitemap({
       // /kontakt/danke/ redirects away; 404 must never be advertised.

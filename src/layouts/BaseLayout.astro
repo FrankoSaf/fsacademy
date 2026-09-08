@@ -13,7 +13,16 @@ import globals from '../../content/globals.json';
 import ui from '../../content/ui.json';
 import landing from '../../content/landing.json';
 import { getNetlifyImageUrl, getPreset, type ImagePreset } from '../lib/images';
-import { CONTACT, LOCATIONS, schoolSchema, INSTRUMENTS } from '../lib/site';
+import {
+  CONTACT,
+  ACTIVE_LOCATIONS,
+  PRIMARY_LOCATION,
+  PRIMARY_LOCATION_SLUG,
+  postalAddress,
+  openingHoursSpec,
+  schoolSchema,
+  INSTRUMENTS,
+} from '../lib/site';
 // Imported so Vite emits them and hands back the fingerprinted URLs; these are
 // the only two faces needed for first paint (body copy and every h1), so they
 // start downloading alongside the HTML instead of waiting for the CSS parse.
@@ -81,7 +90,7 @@ const metaDescription = description
   ?? (globals as { defaultMetaDescription?: string }).defaultMetaDescription
   ?? 'Musikschule in Düsseldorf: Professioneller Unterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.';
 const image = ogImage ?? (globals as { ogImage?: string }).ogImage ?? '';
-const ogImageAlt = (globals as { ogImageAlt?: string }).ogImageAlt ?? 'Fine Sound Academy - Musikschule Düsseldorf & Neuss';
+const ogImageAlt = (globals as { ogImageAlt?: string }).ogImageAlt ?? 'Fine Sound Academy - Musikschule Düsseldorf';
 const twitterHandle = (globals as { twitterHandle?: string }).twitterHandle ?? '';
 
 // og:image:width/height below are declared as 1200x630, so the image has to
@@ -169,6 +178,8 @@ const identityWidgetScript = [
 // against it directly and inherit the site's `trailingSlash: 'always'` rule.
 const siteBase = site.endsWith('/') ? site : `${site}/`;
 
+const secondaryLocations = ACTIVE_LOCATIONS.filter((loc) => loc.slug !== PRIMARY_LOCATION_SLUG);
+
 const ldOrganization = {
   '@context': 'https://schema.org',
   '@type': 'School',
@@ -181,7 +192,17 @@ const ldOrganization = {
   telephone: CONTACT.phone,
   email: CONTACT.email,
   sameAs: (landing as any).navigation?.socialMedia?.map((s: any) => s.url) ?? [],
-  areaServed: LOCATIONS.map((loc) => ({ '@type': 'City', name: loc.name })),
+  areaServed: ACTIVE_LOCATIONS.map((loc) => ({ '@type': 'City', name: loc.name })),
+  // NAP des Primaerstandorts direkt am Organisationsknoten: seine Landingpage
+  // IST die Startseite, ein eigener location-Knoten wuerde auf eine 301-URL
+  // zeigen.
+  address: postalAddress(PRIMARY_LOCATION),
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: PRIMARY_LOCATION.geo.latitude,
+    longitude: PRIMARY_LOCATION.geo.longitude,
+  },
+  openingHoursSpecification: openingHoursSpec(),
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Musikunterricht',
@@ -202,9 +223,12 @@ const ldOrganization = {
       unitText: 'MONTH',
     },
   },
-  // Address, geo and hours from src/lib/site.ts, the same source the location
-  // pages use, so the two can never disagree.
-  location: LOCATIONS.map((loc) => schoolSchema(loc, siteBase)),
+  // Weitere aktive Standorte (falls es je wieder mehrere gibt) als
+  // untergeordnete School-Knoten - Adresse, Geo und Zeiten aus src/lib/site.ts,
+  // derselben Quelle wie die Standortseiten.
+  ...(secondaryLocations.length > 0 && {
+    location: secondaryLocations.map((loc) => schoolSchema(loc, siteBase)),
+  }),
 };
 
 const ldWebSite = {
@@ -246,17 +270,33 @@ const breadcrumbNames: Record<string, string> = {
   gesang: breadcrumbs.gesang ?? 'Gesang',
   schlagzeug: breadcrumbs.schlagzeug ?? 'Schlagzeug',
 };
-const ldBreadcrumb = pathSegments.length > 0
+/**
+ * Crumb-URL fuer ein Pfad-Praefix.
+ *
+ * /duesseldorf/ leitet auf / um, und /<standort>/unterricht/ ist keine Seite -
+ * beides darf nicht als Breadcrumb-Item auftauchen.
+ */
+function crumbUrl(segs: string[]): string {
+  if (segs.length === 2 && segs[1] === 'unterricht') return new URL('unterricht/', site).href;
+  return new URL(`${segs.join('/')}/`, site).href;
+}
+
+// Der Primaerstandort waere ein zweites Item mit der Startseiten-URL.
+const crumbSegments = pathSegments.filter(
+  (seg, i) => !(i === 0 && seg === PRIMARY_LOCATION_SLUG)
+);
+
+const ldBreadcrumb = crumbSegments.length > 0
   ? {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: breadcrumbs.startseite ?? 'Startseite', item: site },
-        ...pathSegments.map((seg, i) => ({
+        ...crumbSegments.map((seg, i) => ({
           '@type': 'ListItem',
           position: i + 2,
           name: breadcrumbNames[seg] ?? seg.charAt(0).toUpperCase() + seg.slice(1),
-          item: new URL(pathSegments.slice(0, i + 1).join('/') + '/', site).href,
+          item: crumbUrl(pathSegments.slice(0, pathSegments.indexOf(seg) + 1)),
         })),
       ],
     }

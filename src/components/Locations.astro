@@ -1,16 +1,15 @@
 ---
 import ResponsiveImage from './ResponsiveImage.astro';
-import { LOCATIONS } from '../lib/site';
+import { ACTIVE_LOCATIONS } from '../lib/site';
 
-const [duesseldorfData, neussData, landingData] = await Promise.all([
+const [duesseldorfData, landingData] = await Promise.all([
   import('../../content/duesseldorf.json'),
-  import('../../content/neuss.json'),
   import('../../content/landing.json'),
 ]);
 
 const locationsBlock = (landingData as { default?: { locationsBlock?: { heading?: string; intro?: string } } }).default?.locationsBlock;
-const locationsHeading = locationsBlock?.heading ?? 'Unsere Standorte';
-const locationsIntro = locationsBlock?.intro ?? 'Unser Unterricht geht in Düsseldorf weiter. Der Standort Neuss schließt zum 30. November 2026.';
+const locationsHeading = locationsBlock?.heading ?? 'Unser Standort';
+const locationsIntro = locationsBlock?.intro ?? 'Unser Unterricht findet in Düsseldorf-Pempelfort an der Kaiserstraße 28 statt.';
 
 interface LocationCard {
   image?: string;
@@ -26,12 +25,11 @@ interface LocationData {
 
 const CONTENT_BY_SLUG: Record<string, { default: LocationData }> = {
   duesseldorf: duesseldorfData as { default: LocationData },
-  neuss: neussData as { default: LocationData },
 };
 
-// Driven off LOCATIONS so adding a third location needs no change here, and so
+// Driven off ACTIVE_LOCATIONS so adding a location needs no change here, and so
 // the links carry the trailing slash the site canonicalises to.
-const locations = LOCATIONS.map((loc) => {
+const locations = ACTIVE_LOCATIONS.map((loc) => {
   const card = CONTENT_BY_SLUG[loc.slug]?.default.card ?? {};
   return {
     name: loc.name,
@@ -100,7 +98,7 @@ const locations = LOCATIONS.map((loc) => {
 
   .locations-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
     gap: var(--space-xl);
     max-width: var(--container-max-width);
     margin: 0 auto;

@@ -2,6 +2,7 @@
 import contentRaw from '../../content/landing.json';
 import uiRaw from '../../content/ui.json';
 import { href, linkAttrs } from '../lib/links';
+import { PRIMARY_LOCATION_SLUG, locationUrl } from '../lib/site';
 import { socialIcon } from '../lib/social-icons';
 
 // Type definitions
@@ -44,7 +45,7 @@ const socials = (content?.navigation?.socialMedia ?? []).filter((s) => socialIco
 const logo = content.navigation.logo;
 const isNeussPage = Astro.url.pathname.startsWith('/neuss/');
 const neussSafeUrl = (url: string) =>
-  isNeussPage && url.includes('/booking/forms/trial/') ? '/duesseldorf/' : url;
+  isNeussPage && url.includes('/booking/forms/trial/') ? locationUrl(PRIMARY_LOCATION_SLUG) : url;
 const navCtaUrl = neussSafeUrl(content.navigation.cta.url);
 // Intrinsic ratio of the logo SVG is 3162.36 / 937.24 = 3.374, so these
 // width/height pairs match what the CSS actually renders and reserve the right

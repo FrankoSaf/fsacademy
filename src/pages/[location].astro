@@ -1,6 +1,10 @@
 ---
 /**
- * Location landing page: /duesseldorf/ and /neuss/.
+ * Location landing page fuer alle Standorte, die NICHT die Startseite sind.
+ *
+ * /duesseldorf/ 301t auf / (siehe PRIMARY_LOCATION_SLUG in src/lib/site.ts),
+ * damit nicht zwei Seiten um "Musikschule Duesseldorf" konkurrieren. Diese
+ * Route baut deshalb nur noch /neuss/.
  *
  * Replaces the former duesseldorf.astro and neuss.astro, which were 626 lines
  * each and differed by roughly 50 - the other ~575 lines (including a ~310-line
@@ -21,10 +25,21 @@ import LocationReviews from '../components/LocationReviews.astro';
 import globals from '../../content/globals.json';
 import ui from '../../content/ui.json';
 import { normalizeParagraphs, normalizeLines } from '../lib/cms';
-import { LOCATIONS, LESSON_TO_SLUG, getLocation, schoolSchema, CONTACT } from '../lib/site';
+import {
+  LOCATIONS,
+  LESSON_TO_SLUG,
+  getLocation,
+  schoolSchema,
+  CONTACT,
+  PRIMARY_LOCATION_SLUG,
+  locationUrl,
+  openingHoursLines,
+} from '../lib/site';
 
 export function getStaticPaths() {
-  return LOCATIONS.map((loc) => ({ params: { location: loc.slug } }));
+  return LOCATIONS.filter((loc) => loc.slug !== PRIMARY_LOCATION_SLUG).map((loc) => ({
+    params: { location: loc.slug },
+  }));
 }
 
 /** The CMS keeps one file per location; both are fully populated. */
@@ -64,7 +79,8 @@ const uiLoc = (ui as { location?: Record<string, string> }).location ?? {};
 
 const introParagraphs = normalizeParagraphs(data.intro?.paragraphs);
 const directionsLines = normalizeLines(data.directionsCard?.lines);
-const hoursLines = normalizeLines(data.hoursCard?.lines);
+// Wie auf der Startseite: Zeiten aus site.ts, damit sie zum JSON-LD passen.
+const hoursLines = openingHoursLines(loc.openingHours);
 const faqItems = Array.isArray(data.faq?.items) ? data.faq.items : [];
 const reviews = data.reviews ?? { title: 'Was unsere Schüler sagen', items: [] };
 
@@ -217,7 +233,7 @@ const headingId = `${slug}-heading`;
   <Pricing
     showHeader={true}
     headingLevel="h2"
-    buttonLink={isClosingLocation ? '/duesseldorf/' : undefined}
+    buttonLink={isClosingLocation ? locationUrl(PRIMARY_LOCATION_SLUG) : undefined}
     buttonText={isClosingLocation ? 'In Düsseldorf ansehen' : undefined}
   />
   <LocationInfoCards cards={data.infoCards} />
@@ -228,7 +244,7 @@ const headingId = `${slug}-heading`;
         {isClosingLocation ? 'In Düsseldorf geht die Musik weiter' : (uiLoc.probestundeVereinbaren ?? 'Probestunde vereinbaren')}
       </p>
       <a
-        href={isClosingLocation ? '/duesseldorf/' : probestundeUrl}
+        href={isClosingLocation ? locationUrl(PRIMARY_LOCATION_SLUG) : probestundeUrl}
         target={isClosingLocation ? undefined : '_blank'}
         rel={isClosingLocation ? undefined : 'noopener noreferrer'}
         class="location-cta-button"

@@ -2,7 +2,7 @@
   "siteTitle": "Fine Sound Academy – Musikschule Düsseldorf",
   "defaultMetaDescription": "Fine Sound Academy – Musikschule Düsseldorf für Klavier, Gitarre, Gesang, Bass und Schlagzeug. Kostenlose Probestunde.",
   "ogImage": "/brand/og-card.jpg",
-  "ogImageAlt": "Fine Sound Academy – Musikschule Düsseldorf & Neuss",
+  "ogImageAlt": "Fine Sound Academy – Musikschule Düsseldorf",
   "twitterHandle": "",
   "whatsappUrl": "https://wa.me/4917677154511",
   "probestundeUrl": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
@@ -12,7 +12,7 @@
     "title": "Neuss schließt zum 30. November 2026",
     "text": "Neue Anfragen und Anmeldungen für Neuss können wir leider nicht mehr annehmen. In Düsseldorf geht die Musik weiter – dort freuen wir uns auf neue Schülerinnen und Schüler.",
     "linkText": "Musikunterricht in Düsseldorf",
-    "linkUrl": "/duesseldorf/"
+    "linkUrl": "/"
   },
   "googleAdsId": "",
   "googleAdsConversionId": "",

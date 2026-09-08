@@ -1,6 +1,6 @@
 ---
 import contentRaw from '../../content/landing.json';
-import { LOCATIONS } from '../lib/site';
+import { ACTIVE_LOCATIONS } from '../lib/site';
 
 interface Content {
   homeIntro?: {
@@ -28,7 +28,7 @@ function escapeHtml(copy: string): string {
 }
 
 function linkCities(copy: string): string {
-  return LOCATIONS.reduce(
+  return ACTIVE_LOCATIONS.reduce(
     (acc, loc) => acc.replace(loc.name, `<a href="/${loc.slug}/">${loc.name}</a>`),
     escapeHtml(copy)
   );
@@ -45,11 +45,11 @@ const heading = intro.heading ?? 'Fine Sound Academy – Deine Musikschule in D�
 const lead = intro.lead ?? 'Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug in Düsseldorf.';
 const paragraphs = intro.paragraphs ?? [
   'Die Fine Sound Academy ist deine Musikschule in Düsseldorf. Wir unterrichten Klavier, Gitarre, Gesang, Bass und Schlagzeug – für Kinder, Jugendliche und Erwachsene.',
-  'Unser Standort Neuss schließt zum 30. November 2026 und nimmt keine neuen Anmeldungen mehr an.',
+  'Unser Unterricht findet in Düsseldorf-Pempelfort an der Kaiserstraße 28 statt – zentral und gut erreichbar.',
   'Über 500 Schüler sind bereits dabei. Von Pop über Klassik bis Jazz und Rock – wir finden einen Einstieg, der zu dir passt. Moderner Unterricht, ein freundliches Team, eine entspannte Atmosphäre.'
 ];
 const cards = intro.cards ?? [
-  { title: 'Düsseldorf bleibt', text: 'Musikunterricht und Probestunden in Düsseldorf-Pempelfort.' },
+  { title: 'Zentral in Düsseldorf', text: 'Musikunterricht und Probestunden in Düsseldorf-Pempelfort.' },
   { title: 'Individuell', text: 'Einzel- oder Gruppenunterricht, für Anfänger und Fortgeschrittene.' },
   { title: 'Kostenlos testen', text: 'Unverbindliche Probestunde zum Kennenlernen.' },
 ];

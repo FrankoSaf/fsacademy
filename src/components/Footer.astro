@@ -2,7 +2,7 @@
 import contentRaw from '../../content/landing.json';
 import { href, linkAttrs } from '../lib/links';
 import { socialIcon } from '../lib/social-icons';
-import { LOCATIONS, CONTACT } from '../lib/site';
+import { ACTIVE_LOCATIONS, CONTACT, PRIMARY_LOCATION_SLUG, locationUrl } from '../lib/site';
 
 interface FooterLink {
   text: string;
@@ -33,7 +33,7 @@ const content = contentRaw as Content;
 const socials = (content?.navigation?.socialMedia ?? []).filter((s) => socialIcon(s.icon));
 const year = new Date().getFullYear();
 const isNeussPage = Astro.url.pathname.startsWith('/neuss/');
-const footerCtaUrl = isNeussPage ? '/duesseldorf/' : content.footer.cta.url;
+const footerCtaUrl = isNeussPage ? locationUrl(PRIMARY_LOCATION_SLUG) : content.footer.cta.url;
 ---
 
 <footer class="footer">
@@ -59,10 +59,10 @@ const footerCtaUrl = isNeussPage ? '/duesseldorf/' : content.footer.cta.url;
         this as a local-business signal, and it saves visitors a page hop to
         find an address or dial the school. */}
     <div class="footer-nap">
-      {LOCATIONS.map((loc) => (
+      {ACTIVE_LOCATIONS.map((loc) => (
         <address class="footer-nap-item">
           <p class="footer-nap-city">
-            <a href={href(`/${loc.slug}`)}>{`Musikschule ${loc.name}`}</a>
+            <a href={href(locationUrl(loc.slug))}>{`Musikschule ${loc.name}`}</a>
           </p>
           <p>{loc.street}</p>
           <p>{`${loc.postalCode} ${loc.name}`}</p>

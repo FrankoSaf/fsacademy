@@ -1,5 +1,12 @@
 import type { APIRoute } from 'astro';
-import { LOCATIONS, INSTRUMENTS, CONTACT, OPENING_HOURS } from '../lib/site';
+import {
+  LOCATIONS,
+  INSTRUMENTS,
+  CONTACT,
+  PRIMARY_LOCATION,
+  openingHoursLines,
+  locationUrl,
+} from '../lib/site';
 import globals from '../../content/globals.json';
 import duesseldorf from '../../content/duesseldorf.json';
 import neuss from '../../content/neuss.json';
@@ -28,27 +35,6 @@ const link = (label: string, path: string, note?: string) => {
     : `${SITE}${path.endsWith('/') || path.includes('.') ? path : `${path}/`}`;
   return `- [${label}](${url})${note ? `: ${note}` : ''}`;
 };
-
-const DAY_DE: Record<string, string> = {
-  Monday: 'Mo',
-  Tuesday: 'Di',
-  Wednesday: 'Mi',
-  Thursday: 'Do',
-  Friday: 'Fr',
-  Saturday: 'Sa',
-  Sunday: 'So',
-};
-
-function formatHours(): string[] {
-  return OPENING_HOURS.map((h) => {
-    const days = Array.isArray(h.dayOfWeek) ? h.dayOfWeek : [h.dayOfWeek];
-    const label =
-      days.length > 1
-        ? `${DAY_DE[days[0]] ?? days[0]}–${DAY_DE[days[days.length - 1]] ?? days[days.length - 1]}`
-        : (DAY_DE[days[0]] ?? days[0]);
-    return `- ${label}: ${h.opens}–${h.closes} Uhr`;
-  });
-}
 
 const CITY_CONTENT: Record<string, { directionsCard?: { lines?: unknown } }> = {
   duesseldorf: duesseldorf as { directionsCard?: { lines?: unknown } },
@@ -83,7 +69,7 @@ function build(): string {
 
   out.push('## Wichtige Seiten');
   out.push('');
-  out.push(link('Startseite', '/'));
+  out.push(link('Startseite', '/', 'Musikschule Düsseldorf: Adresse, Anfahrt, Öffnungszeiten'));
   out.push(link('Unterricht — Überblick aller Instrumente', '/unterricht'));
   out.push(link('Preise', '/preise', 'Tarife, Familienrabatt, häufige Fragen'));
   out.push(link('Über uns', '/about'));
@@ -95,12 +81,12 @@ function build(): string {
   for (const loc of LOCATIONS) {
     out.push(`### ${loc.name}`);
     out.push('');
-    out.push(link(`Musikschule ${loc.name}`, `/${loc.slug}`));
+    out.push(link(`Musikschule ${loc.name}`, locationUrl(loc.slug)));
     out.push(`- Adresse: ${loc.street}, ${loc.postalCode} ${loc.name}`);
     out.push(`- Stadtteil/Lage: ${loc.area}`);
     if (loc.slug === 'neuss') {
       out.push('- Status: Schließt zum 30. November 2026; keine neuen Anfragen oder Anmeldungen.');
-      out.push(link('Weiterführender Musikunterricht in Düsseldorf', '/duesseldorf'));
+      out.push(link('Weiterführender Musikunterricht in Düsseldorf', locationUrl('duesseldorf')));
     }
     for (const l of lines(CITY_CONTENT[loc.slug]?.directionsCard?.lines).slice(2)) {
       out.push(`- ${l.replace(/\*\*/g, '')}`);
@@ -110,8 +96,7 @@ function build(): string {
 
   out.push('### Öffnungszeiten');
   out.push('');
-  out.push(...formatHours());
-  out.push('- So: Geschlossen');
+  out.push(...openingHoursLines(PRIMARY_LOCATION.openingHours).map((l) => `- ${l}`));
   out.push('');
 
   out.push('## Unterricht nach Instrument und Standort');

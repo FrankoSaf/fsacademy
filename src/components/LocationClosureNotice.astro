@@ -11,8 +11,11 @@ interface Notice {
 }
 
 const notice = (globalsRaw as { locationClosureNotice?: Notice }).locationClosureNotice;
-const showNotice = notice?.enabled && (
-  Astro.url.pathname === '/' || Astro.url.pathname.startsWith('/neuss/')
+// Der Hinweis erscheint nur auf den Neuss-Seiten, nicht auf der Startseite.
+const showNotice = Boolean(
+  notice?.enabled && (
+    Astro.url.pathname === '/neuss' || Astro.url.pathname.startsWith('/neuss/')
+  )
 );
 ---
 

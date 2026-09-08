@@ -65,12 +65,39 @@
 
 [[redirects]]
   from = "/duesseldorf/unterricht"
-  to = "/duesseldorf/"
+  to = "/"
   status = 301
 [[redirects]]
   from = "/neuss/unterricht"
   to = "/neuss/"
   status = 301
+
+# ---------------------------------------------------------------------------
+# /duesseldorf/ -> / (Zusammenlegung).
+#
+# Mit nur noch einem Standort zielten Startseite und Standortseite auf dieselbe
+# Suchanfrage ("Musikschule Duesseldorf") und haben sich Links, interne
+# Verlinkung und Relevanzsignale geteilt. Die Startseite hat die meisten
+# externen Links, also wird auf sie konsolidiert - nie umgekehrt.
+#
+# Der 301 bleibt dauerhaft stehen. Die Instrumentseiten unter
+# /duesseldorf/unterricht/<instrument>/ behalten ihre URLs: eine lebende
+# Elternseite ist keine Voraussetzung, und ein Umzug wuerde nur die Rankings
+# verbrennen, die sie schon haben.
+# ---------------------------------------------------------------------------
+# force = true, weil astro.config.mjs unter /duesseldorf/ einen
+# meta-refresh-Stub fuer die lokale Entwicklung ablegt. Ohne force wuerde
+# Netlify diese Datei ausliefern (200 + meta refresh) statt echter 301.
+[[redirects]]
+  from = "/duesseldorf"
+  to = "/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/duesseldorf/"
+  to = "/"
+  status = 301
+  force = true
 
 # ---------------------------------------------------------------------------
 # Legacy URLs from the previous site -> current structure.

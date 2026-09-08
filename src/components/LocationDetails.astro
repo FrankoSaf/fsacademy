@@ -1,0 +1,184 @@
+---
+/**
+ * Standort-Block: Intro-Copy plus NAP-Karten (Anfahrt, Öffnungszeiten, Kontakt).
+ *
+ * Lebte vorher inline in [location].astro. Seit /duesseldorf/ auf / umgeleitet
+ * wird, braucht die Startseite dieselben lokalen Signale (Adresse, Anfahrt,
+ * Öffnungszeiten, Telefon) - deshalb als Komponente, damit Startseite und die
+ * verbleibenden Standortseiten sich nicht auseinanderentwickeln.
+ */
+import { CONTACT, openingHoursLines, type SiteLocation } from '../lib/site';
+import ui from '../../content/ui.json';
+
+interface Props {
+  location: SiteLocation;
+  heading?: string;
+  paragraphs?: string[];
+  directionsTitle?: string;
+  directionsLines?: string[];
+  hoursTitle?: string;
+  /** h2 auf Standortseiten, h2 auch auf der Startseite - der H1 ist der Hero. */
+  headingId?: string;
+}
+
+const {
+  location: loc,
+  heading,
+  paragraphs = [],
+  directionsTitle = 'Anfahrt & Lage',
+  directionsLines = [],
+  hoursTitle = 'Öffnungszeiten',
+  headingId = 'location-details-heading',
+} = Astro.props;
+
+const uiContact = (ui as { contact?: Record<string, string> }).contact ?? {};
+// Zeiten kommen aus site.ts - dieselbe Quelle wie das JSON-LD, damit
+// sichtbare Angabe und strukturierte Daten nicht auseinanderlaufen.
+const hoursLines = openingHoursLines(loc.openingHours);
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${loc.geo.latitude},${loc.geo.longitude}`;
+---
+
+<section class="location-details" aria-labelledby={headingId}>
+  <div class="ld-container">
+    <div class="ld-grid">
+      <div class="ld-copy">
+        <h2 id={headingId}>{heading ?? `Deine Musikschule in ${loc.areaPhrase}`}</h2>
+        {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+
+      <div class="ld-cards">
+        <div class="detail-card">
+          <h3>{directionsTitle}</h3>
+          <p class="detail-address">
+            <span class="detail-street">{loc.street}</span>
+            <span>{loc.postalCode} {loc.name}</span>
+          </p>
+          {directionsLines.map((line) => <p>{line}</p>)}
+          <p>
+            <a href={mapsUrl} target="_blank" rel="noopener noreferrer">
+              {uiContact.routePlanen ?? 'Route planen'}<span aria-hidden="true"> →</span>
+            </a>
+          </p>
+        </div>
+
+        <div class="detail-card">
+          <h3>{hoursTitle}</h3>
+          {hoursLines.map((line) => <p>{line}</p>)}
+        </div>
+
+        <div class="detail-card">
+          <h3>{uiContact.kontakt ?? 'Kontakt'}</h3>
+          <p><a href={`tel:${CONTACT.phone}`}>{CONTACT.phoneDisplay}</a></p>
+          <p><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .location-details {
+    padding: var(--space-6xl) var(--space-lg);
+    background: var(--color-bg-default);
+  }
+
+  .ld-container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  /* Copy links, NAP-Karten rechts; ab Tablet-Breite einspaltig gestapelt. */
+  .ld-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: var(--space-5xl);
+    align-items: start;
+  }
+
+  .ld-copy h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2xl);
+    font-weight: 600;
+  }
+
+  .ld-copy p {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: var(--space-lg);
+    font-size: var(--text-base);
+  }
+
+  .ld-copy p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Flex-Spalte statt margin-bottom je Karte: ein gap für alle Abstände. */
+  .ld-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .detail-card {
+    background: var(--color-bg-alt);
+    padding: var(--space-2xl);
+    border-left: 3px solid var(--color-gold);
+  }
+
+  .detail-card h3 {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+  }
+
+  .detail-card p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.8;
+    margin: 0 0 var(--space-xs);
+  }
+
+  .detail-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .detail-address {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .detail-address .detail-street {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
+  .detail-card a {
+    color: var(--color-gold-on-light);
+    text-decoration: none;
+  }
+
+  .detail-card a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1023px) {
+    .ld-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-3xl);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .location-details {
+      padding: var(--space-4xl) var(--space-md);
+    }
+
+    .detail-card {
+      padding: var(--space-xl);
+    }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import contentRaw from '../../content/landing.json';
+import { INSTRUMENTS, PRIMARY_LOCATION, PRIMARY_LOCATION_SLUG } from '../lib/site';
 
 interface Instrument {
   name: string;
@@ -26,6 +27,11 @@ const iconToSlug: Record<string, string> = {
   vocals: 'gesang',
   drums: 'schlagzeug',
 };
+
+/** Lektionsnomen je Slug ("klavier" -> "Klavierunterricht"). */
+const lessonBySlug: Record<string, string> = Object.fromEntries(
+  INSTRUMENTS.map((inst) => [inst.slug, inst.lesson])
+);
 
 const slugToIconFile: Record<string, string> = {
   klavier: 'klavier.svg',
@@ -54,11 +60,17 @@ const slugToIconFile: Record<string, string> = {
             // heading and description for screen readers. The icon is
             // decorative (alt="") since the heading already names the instrument.
             return (
-              <a href={`/unterricht/#${slug}`} class="instrument-card">
+              <a href={`/${PRIMARY_LOCATION_SLUG}/unterricht/${slug}/`} class="instrument-card">
                 <div class="instrument-icon">
                   <img src={`/instrument-icons/${iconFile}`} alt="" width="64" height="64" loading="lazy" decoding="async" />
                 </div>
                 <h3 class="instrument-name">{instrument.name}</h3>
+                {/* Traegt den keyword-starken Ankertext ("Klavierunterricht in
+                    Duesseldorf"), der vorher in einer eigenen Linkliste unten
+                    auf der Seite stand. */}
+                <p class="instrument-lesson">
+                  {lessonBySlug[slug] ?? instrument.name} in {PRIMARY_LOCATION.name}
+                </p>
                 <p>{instrument.description}</p>
               </a>
             );
@@ -151,6 +163,15 @@ const slugToIconFile: Record<string, string> = {
     color: var(--color-text-secondary);
     font-size: var(--text-sm);
     line-height: 1.8;
+  }
+
+  .instrument-card p.instrument-lesson {
+    color: var(--color-gold-on-light);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    line-height: 1.4;
+    margin-bottom: var(--space-sm);
   }
 
   @media (max-width: 768px) {

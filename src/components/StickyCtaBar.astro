@@ -1,13 +1,14 @@
 ---
 import globals from '../../content/globals.json';
 import ui from '../../content/ui.json';
+import { PRIMARY_LOCATION_SLUG, locationUrl } from '../lib/site';
 
 const probestundeUrl = (globals as { probestundeUrl?: string }).probestundeUrl ?? 'https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/';
 const stickyCta = (ui as { stickyCta?: { text?: string; ariaLabel?: string } }).stickyCta ?? {};
 const ctaText = stickyCta.text ?? 'Probestunde';
 const ariaLabel = stickyCta.ariaLabel ?? 'Probestunde vereinbaren';
 const isNeussPage = Astro.url.pathname.startsWith('/neuss/');
-const ctaUrl = isNeussPage ? '/duesseldorf/' : probestundeUrl;
+const ctaUrl = isNeussPage ? locationUrl(PRIMARY_LOCATION_SLUG) : probestundeUrl;
 const visibleText = isNeussPage ? 'Unterricht in Düsseldorf' : ctaText;
 ---
 <a

@@ -53,7 +53,7 @@
       "Entdecke unser Angebot für Klavier, Gitarre, Gesang, Bass und Schlagzeug in Düsseldorf."
     ],
     "buttonText": "Zur Musikschule Düsseldorf",
-    "buttonLink": "/duesseldorf/",
+    "buttonLink": "/",
     "image": "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae",
     "imageAlt": "Musikunterricht in der Fine Sound Academy Neuss"
   },
@@ -61,7 +61,7 @@
     "title": "IN DÜSSELDORF GEHT DIE MUSIK WEITER",
     "subtitle": "Unser Standort in Düsseldorf bleibt geöffnet und freut sich auf neue Schülerinnen und Schüler.",
     "buttonText": "Unterricht in Düsseldorf",
-    "buttonLink": "/duesseldorf/"
+    "buttonLink": "/"
   },
   "card": {
     "image": "/uploads/16116014630_0426735dd4_b.jpg",
