@@ -65,8 +65,8 @@
   },
   "card": {
     "image": "/uploads/16116014630_0426735dd4_b.jpg",
-    "buttonText": "Informationen zur Schließung",
-    "status": "Schließt am 30.11.2026",
+    "buttonText": "Standortinformation",
+    "status": "Standortinformation",
     "alt": "Stadtansicht von Neuss"
   },
   "address": "Neumarkt 18, 41460 Neuss",

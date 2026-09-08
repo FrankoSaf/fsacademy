@@ -10,7 +10,7 @@ const [duesseldorfData, neussData, landingData] = await Promise.all([
 
 const locationsBlock = (landingData as { default?: { locationsBlock?: { heading?: string; intro?: string } } }).default?.locationsBlock;
 const locationsHeading = locationsBlock?.heading ?? 'Unsere Standorte';
-const locationsIntro = locationsBlock?.intro ?? 'Unser Unterricht geht in Düsseldorf weiter. Der Standort Neuss schließt zum 30. November 2026.';
+const locationsIntro = locationsBlock?.intro ?? 'Professioneller Musikunterricht in Düsseldorf. Informationen zu unseren Standorten findest du hier.';
 
 interface LocationCard {
   image?: string;

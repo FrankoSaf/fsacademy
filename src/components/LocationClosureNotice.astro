@@ -11,9 +11,10 @@ interface Notice {
 }
 
 const notice = (globalsRaw as { locationClosureNotice?: Notice }).locationClosureNotice;
+const showNotice = notice?.enabled && Astro.url.pathname.startsWith('/neuss/');
 ---
 
-{notice?.enabled && (
+{showNotice && (
   <aside class="closure-notice" aria-labelledby="closure-notice-title">
     <div class="closure-notice-inner">
       <div class="closure-notice-copy">
