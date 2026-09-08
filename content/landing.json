@@ -32,10 +32,10 @@
   },
   "homeIntro": {
     "heading": "Fine Sound Academy – Deine Musikschule in Düsseldorf",
-    "lead": "Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug in Düsseldorf.",
+    "lead": "Professioneller Musikunterricht für Klavier, Gitarre, Gesang, Bass und Schlagzeug in Düsseldorf. Unser Standort Neuss schließt zum 30. November 2026.",
     "paragraphs": [
       "Die Fine Sound Academy ist deine Musikschule in Düsseldorf. Wir unterrichten Klavier, Gitarre, Gesang, Bass und Schlagzeug – für Kinder, Jugendliche und Erwachsene. Egal ob Anfänger oder Fortgeschrittener: Unsere erfahrenen Lehrkräfte unterstützen dich dort, wo du stehst.",
-      "Unser Unterricht findet in Düsseldorf-Pempelfort an der Kaiserstraße 28 statt. Die Musikschule ist gut mit öffentlichen Verkehrsmitteln erreichbar. Du entscheidest, ob Einzel- oder Gruppenunterricht – und Termine planen wir flexibel.",
+      "Unser Unterricht für neue Schülerinnen und Schüler findet in Düsseldorf-Pempelfort an der Kaiserstraße 28 statt. Der Standort Neuss schließt zum 30. November 2026 und nimmt keine neuen Anmeldungen mehr an.",
       "Über 200 Schüler sind bereits dabei. Von Pop über Klassik bis Jazz und Rock – wir finden einen Einstieg, der zu dir passt. Moderner Unterricht, ein freundliches Team, eine entspannte Atmosphäre."
     ],
     "cards": [
@@ -56,7 +56,7 @@
   },
   "locationsBlock": {
     "heading": "Unsere Standorte",
-    "intro": "Professioneller Musikunterricht in Düsseldorf. Informationen zu unseren Standorten findest du hier."
+    "intro": "Unser Unterricht geht in Düsseldorf weiter. Der Standort Neuss schließt zum 30. November 2026 und nimmt keine neuen Anmeldungen mehr an."
   },
   "cta": {
     "title": "MUSIKSCHULE IN DÜSSELDORF",
@@ -149,7 +149,7 @@
     "items": [
       {
         "question": "Wo findet der Musikunterricht statt?",
-        "answer": "Neue Schülerinnen und Schüler unterrichten wir in Düsseldorf an der Kaiserstraße 28 in Pempelfort. Die Musikschule ist gut mit Bus und Bahn erreichbar."
+        "answer": "Neue Schülerinnen und Schüler unterrichten wir in Düsseldorf an der Kaiserstraße 28 in Pempelfort. Unser Standort in Neuss schließt zum 30. November 2026 und nimmt keine neuen Anmeldungen mehr an."
       },
       {
         "question": "Was kostet eine Probestunde?",
@@ -167,7 +167,7 @@
   },
   "hero": {
     "title": "Fine Sound Academy – Musikschule Düsseldorf",
-    "subtitle": "Professioneller Musikunterricht in Düsseldorf",
+    "subtitle": "Professioneller Musikunterricht in Düsseldorf – Neuss schließt zum 30.11.2026",
     "buttonText": "Kostenlose Probestunde buchen",
     "buttonLink": "https://www.axinio.app/booking/forms/trial/fc60f65c-2a6f-49dd-8809-c41246cca534/",
     "image": "/uploads/hero-studio-2560w.jpg"

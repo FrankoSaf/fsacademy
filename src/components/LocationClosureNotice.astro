@@ -11,7 +11,9 @@ interface Notice {
 }
 
 const notice = (globalsRaw as { locationClosureNotice?: Notice }).locationClosureNotice;
-const showNotice = notice?.enabled && Astro.url.pathname.startsWith('/neuss/');
+const showNotice = notice?.enabled && (
+  Astro.url.pathname === '/' || Astro.url.pathname.startsWith('/neuss/')
+);
 ---
 
 {showNotice && (
