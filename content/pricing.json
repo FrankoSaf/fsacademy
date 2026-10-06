@@ -6,7 +6,7 @@
   "plans": [
     {
       "name": "Solo 45",
-      "price": "ab €132",
+      "price": "ab €138",
       "period": "Monat",
       "description": "Ideal für kontinuierlichen Fortschritt",
       "features": [
@@ -22,7 +22,7 @@
     },
     {
       "name": "Solo 30",
-      "price": "ab €89",
+      "price": "ab €95",
       "period": "Monat",
       "description": "Perfekt für Einsteiger",
       "features": [
@@ -38,7 +38,7 @@
     },
     {
       "name": "Gruppe",
-      "price": "ab €79",
+      "price": "ab €85",
       "period": "Monat",
       "description": "Gemeinsam Musik lernen",
       "features": [
